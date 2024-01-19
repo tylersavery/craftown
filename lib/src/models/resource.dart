@@ -32,6 +32,7 @@ class Resource with _$Resource {
     @Default([]) List<Resource> requiredToMine,
     @Default(0) int slots,
     @Default(0) int resourcesPerSlot,
+    @Default(0) int outputSlotSize,
   }) = _Resource;
 
   String get assetPath16 {

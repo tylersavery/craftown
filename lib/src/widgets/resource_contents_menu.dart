@@ -89,7 +89,6 @@ class ResourceContentsMenu extends ConsumerWidget {
                       final slot = inventory[index];
 
                       if (slot.resource == null) return;
-
                       final success = ref.read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier).addContents(slot.resource!);
                       if (success) {
                         ref.read(inventoryProvider.notifier).removeResource(slot.resource!, 1);
@@ -202,6 +201,10 @@ class ResourceContentsMenu extends ConsumerWidget {
                             SizedBox(
                               height: 8,
                             ),
+                            if (placedResource.sprite.resource.outputSlotSize > 0)
+                              Text(
+                                "Input:",
+                              ),
                             Wrap(
                               alignment: WrapAlignment.start,
                               spacing: 4,
@@ -268,13 +271,76 @@ class ResourceContentsMenu extends ConsumerWidget {
                                 );
                               }).toList(),
                             ),
+                            if (placedResource.sprite.resource.outputSlotSize > 0) ...[
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                "Ouput:",
+                              ),
+                              Container(
+                                width: 48,
+                                height: 48,
+                                decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: Colors.black12,
+                                  ),
+                                ),
+                                child: Builder(builder: (context) {
+                                  if (placedResource.outputSlotContents.isNotEmpty) {
+                                    final r = placedResource.outputSlotContents.first;
+                                    final count = placedResource.outputSlotContents.length;
+                                    return InkWell(
+                                      onTap: () {
+                                        final removedResources =
+                                            ref.read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier).removeFromOutputSlot();
+                                        for (final removed in removedResources) {
+                                          ref.read(inventoryProvider.notifier).addResource(removed);
+                                        }
+                                      },
+                                      child: Stack(
+                                        children: [
+                                          Center(
+                                            child: PixelArtImageAsset(
+                                              "assets/images/resources/${r.assetFileName16}",
+                                              width: 32,
+                                              height: 32,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.bottomRight,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                count.toString(),
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 10,
+                                                  height: 1,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }
+
+                                  return SizedBox();
+                                }),
+                              ),
+                            ],
                             if (placedResource.sprite.resource.canConstruct && selectedRecipe != null)
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: HoldDownButton(
                                   label: placedResource.isConstructing ? "Stop" : "Start",
                                   duration: Duration.zero,
-                                  onComplete: () {},
+                                  onComplete: () {
+                                    ref.read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier).toggleConstruction();
+                                  },
                                   completeOnClick: true,
                                   small: true,
                                 ),

@@ -11,5 +11,6 @@ class PlacedResource with _$PlacedResource {
     @Default([]) List<List<Resource>> contents,
     Resource? selectedRecipe,
     @Default(false) bool isConstructing,
+    @Default([]) List<Resource> outputSlotContents,
   }) = _PlacedResource;
 }

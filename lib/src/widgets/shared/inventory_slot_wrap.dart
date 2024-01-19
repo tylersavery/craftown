@@ -1,4 +1,5 @@
 import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +30,15 @@ class InventorySlotWrap extends ConsumerWidget {
 
         return InkWell(
           onTap: () {
-            onTap(index);
+            if (ref.read(modifierKeyProvider)) {
+              //TODO: constant for amount + check if x is avail (min func)
+
+              for (int i = 0; i < 5; i++) {
+                onTap(index);
+              }
+            } else {
+              onTap(index);
+            }
           },
           child: Container(
             width: slotSize,

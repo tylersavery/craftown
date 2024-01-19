@@ -77,7 +77,7 @@ class Resources {
         identifier: "screw",
         assetFileName16: "screw-16x16.png",
         name: "Screw",
-        secondsToCraft: 1,
+        secondsToCraft: 10,
         ingredients: [
           Ingredient(resource: Resources.iron, quantity: 3),
         ],
@@ -99,6 +99,7 @@ class Resources {
         slots: 1,
         resourcesPerSlot: 50,
         canConstruct: true,
+        outputSlotSize: 100,
       );
 
   static List<Resource> get all => [

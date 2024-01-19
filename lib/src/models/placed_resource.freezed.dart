@@ -20,6 +20,7 @@ mixin _$PlacedResource {
   List<List<Resource>> get contents => throw _privateConstructorUsedError;
   Resource? get selectedRecipe => throw _privateConstructorUsedError;
   bool get isConstructing => throw _privateConstructorUsedError;
+  List<Resource> get outputSlotContents => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PlacedResourceCopyWith<PlacedResource> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $PlacedResourceCopyWith<$Res> {
       {ResourceSprite sprite,
       List<List<Resource>> contents,
       Resource? selectedRecipe,
-      bool isConstructing});
+      bool isConstructing,
+      List<Resource> outputSlotContents});
 
   $ResourceCopyWith<$Res>? get selectedRecipe;
 }
@@ -58,6 +60,7 @@ class _$PlacedResourceCopyWithImpl<$Res, $Val extends PlacedResource>
     Object? contents = null,
     Object? selectedRecipe = freezed,
     Object? isConstructing = null,
+    Object? outputSlotContents = null,
   }) {
     return _then(_value.copyWith(
       sprite: null == sprite
@@ -76,6 +79,10 @@ class _$PlacedResourceCopyWithImpl<$Res, $Val extends PlacedResource>
           ? _value.isConstructing
           : isConstructing // ignore: cast_nullable_to_non_nullable
               as bool,
+      outputSlotContents: null == outputSlotContents
+          ? _value.outputSlotContents
+          : outputSlotContents // ignore: cast_nullable_to_non_nullable
+              as List<Resource>,
     ) as $Val);
   }
 
@@ -104,7 +111,8 @@ abstract class _$$PlacedResourceImplCopyWith<$Res>
       {ResourceSprite sprite,
       List<List<Resource>> contents,
       Resource? selectedRecipe,
-      bool isConstructing});
+      bool isConstructing,
+      List<Resource> outputSlotContents});
 
   @override
   $ResourceCopyWith<$Res>? get selectedRecipe;
@@ -125,6 +133,7 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
     Object? contents = null,
     Object? selectedRecipe = freezed,
     Object? isConstructing = null,
+    Object? outputSlotContents = null,
   }) {
     return _then(_$PlacedResourceImpl(
       sprite: null == sprite
@@ -143,6 +152,10 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
           ? _value.isConstructing
           : isConstructing // ignore: cast_nullable_to_non_nullable
               as bool,
+      outputSlotContents: null == outputSlotContents
+          ? _value._outputSlotContents
+          : outputSlotContents // ignore: cast_nullable_to_non_nullable
+              as List<Resource>,
     ));
   }
 }
@@ -154,8 +167,10 @@ class _$PlacedResourceImpl implements _PlacedResource {
       {required this.sprite,
       final List<List<Resource>> contents = const [],
       this.selectedRecipe,
-      this.isConstructing = false})
-      : _contents = contents;
+      this.isConstructing = false,
+      final List<Resource> outputSlotContents = const []})
+      : _contents = contents,
+        _outputSlotContents = outputSlotContents;
 
   @override
   final ResourceSprite sprite;
@@ -173,10 +188,19 @@ class _$PlacedResourceImpl implements _PlacedResource {
   @override
   @JsonKey()
   final bool isConstructing;
+  final List<Resource> _outputSlotContents;
+  @override
+  @JsonKey()
+  List<Resource> get outputSlotContents {
+    if (_outputSlotContents is EqualUnmodifiableListView)
+      return _outputSlotContents;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_outputSlotContents);
+  }
 
   @override
   String toString() {
-    return 'PlacedResource(sprite: $sprite, contents: $contents, selectedRecipe: $selectedRecipe, isConstructing: $isConstructing)';
+    return 'PlacedResource(sprite: $sprite, contents: $contents, selectedRecipe: $selectedRecipe, isConstructing: $isConstructing, outputSlotContents: $outputSlotContents)';
   }
 
   @override
@@ -189,7 +213,9 @@ class _$PlacedResourceImpl implements _PlacedResource {
             (identical(other.selectedRecipe, selectedRecipe) ||
                 other.selectedRecipe == selectedRecipe) &&
             (identical(other.isConstructing, isConstructing) ||
-                other.isConstructing == isConstructing));
+                other.isConstructing == isConstructing) &&
+            const DeepCollectionEquality()
+                .equals(other._outputSlotContents, _outputSlotContents));
   }
 
   @override
@@ -198,7 +224,8 @@ class _$PlacedResourceImpl implements _PlacedResource {
       sprite,
       const DeepCollectionEquality().hash(_contents),
       selectedRecipe,
-      isConstructing);
+      isConstructing,
+      const DeepCollectionEquality().hash(_outputSlotContents));
 
   @JsonKey(ignore: true)
   @override
@@ -213,7 +240,8 @@ abstract class _PlacedResource implements PlacedResource {
       {required final ResourceSprite sprite,
       final List<List<Resource>> contents,
       final Resource? selectedRecipe,
-      final bool isConstructing}) = _$PlacedResourceImpl;
+      final bool isConstructing,
+      final List<Resource> outputSlotContents}) = _$PlacedResourceImpl;
 
   @override
   ResourceSprite get sprite;
@@ -223,6 +251,8 @@ abstract class _PlacedResource implements PlacedResource {
   Resource? get selectedRecipe;
   @override
   bool get isConstructing;
+  @override
+  List<Resource> get outputSlotContents;
   @override
   @JsonKey(ignore: true)
   _$$PlacedResourceImplCopyWith<_$PlacedResourceImpl> get copyWith =>

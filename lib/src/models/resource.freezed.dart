@@ -34,6 +34,7 @@ mixin _$Resource {
   List<Resource> get requiredToMine => throw _privateConstructorUsedError;
   int get slots => throw _privateConstructorUsedError;
   int get resourcesPerSlot => throw _privateConstructorUsedError;
+  int get outputSlotSize => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ResourceCopyWith<Resource> get copyWith =>
@@ -63,7 +64,8 @@ abstract class $ResourceCopyWith<$Res> {
       double placementHeight,
       List<Resource> requiredToMine,
       int slots,
-      int resourcesPerSlot});
+      int resourcesPerSlot,
+      int outputSlotSize});
 }
 
 /// @nodoc
@@ -97,6 +99,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? requiredToMine = null,
     Object? slots = null,
     Object? resourcesPerSlot = null,
+    Object? outputSlotSize = null,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -171,6 +174,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.resourcesPerSlot
           : resourcesPerSlot // ignore: cast_nullable_to_non_nullable
               as int,
+      outputSlotSize: null == outputSlotSize
+          ? _value.outputSlotSize
+          : outputSlotSize // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -201,7 +208,8 @@ abstract class _$$ResourceImplCopyWith<$Res>
       double placementHeight,
       List<Resource> requiredToMine,
       int slots,
-      int resourcesPerSlot});
+      int resourcesPerSlot,
+      int outputSlotSize});
 }
 
 /// @nodoc
@@ -233,6 +241,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? requiredToMine = null,
     Object? slots = null,
     Object? resourcesPerSlot = null,
+    Object? outputSlotSize = null,
   }) {
     return _then(_$ResourceImpl(
       identifier: null == identifier
@@ -307,6 +316,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.resourcesPerSlot
           : resourcesPerSlot // ignore: cast_nullable_to_non_nullable
               as int,
+      outputSlotSize: null == outputSlotSize
+          ? _value.outputSlotSize
+          : outputSlotSize // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -332,7 +345,8 @@ class _$ResourceImpl extends _Resource {
       this.placementHeight = TILE_SIZE,
       final List<Resource> requiredToMine = const [],
       this.slots = 0,
-      this.resourcesPerSlot = 0})
+      this.resourcesPerSlot = 0,
+      this.outputSlotSize = 0})
       : _ingredients = ingredients,
         _requiredToMine = requiredToMine,
         super._();
@@ -397,10 +411,13 @@ class _$ResourceImpl extends _Resource {
   @override
   @JsonKey()
   final int resourcesPerSlot;
+  @override
+  @JsonKey()
+  final int outputSlotSize;
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, amountPerSlot: $amountPerSlot, ingredients: $ingredients, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, canConsume: $canConsume, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, resourcesPerSlot: $resourcesPerSlot)';
+    return 'Resource(identifier: $identifier, name: $name, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, amountPerSlot: $amountPerSlot, ingredients: $ingredients, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, canConsume: $canConsume, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize)';
   }
 
   @override
@@ -441,30 +458,34 @@ class _$ResourceImpl extends _Resource {
                 .equals(other._requiredToMine, _requiredToMine) &&
             (identical(other.slots, slots) || other.slots == slots) &&
             (identical(other.resourcesPerSlot, resourcesPerSlot) ||
-                other.resourcesPerSlot == resourcesPerSlot));
+                other.resourcesPerSlot == resourcesPerSlot) &&
+            (identical(other.outputSlotSize, outputSlotSize) ||
+                other.outputSlotSize == outputSlotSize));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      identifier,
-      name,
-      assetFileName16,
-      description,
-      assetFileNameLarge,
-      amountPerSlot,
-      const DeepCollectionEquality().hash(_ingredients),
-      secondsToCraft,
-      secondsToMine,
-      canConsume,
-      canPlace,
-      canPickUp,
-      canConstruct,
-      placementWidth,
-      placementHeight,
-      const DeepCollectionEquality().hash(_requiredToMine),
-      slots,
-      resourcesPerSlot);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        identifier,
+        name,
+        assetFileName16,
+        description,
+        assetFileNameLarge,
+        amountPerSlot,
+        const DeepCollectionEquality().hash(_ingredients),
+        secondsToCraft,
+        secondsToMine,
+        canConsume,
+        canPlace,
+        canPickUp,
+        canConstruct,
+        placementWidth,
+        placementHeight,
+        const DeepCollectionEquality().hash(_requiredToMine),
+        slots,
+        resourcesPerSlot,
+        outputSlotSize
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -492,7 +513,8 @@ abstract class _Resource extends Resource {
       final double placementHeight,
       final List<Resource> requiredToMine,
       final int slots,
-      final int resourcesPerSlot}) = _$ResourceImpl;
+      final int resourcesPerSlot,
+      final int outputSlotSize}) = _$ResourceImpl;
   const _Resource._() : super._();
 
   @override
@@ -531,6 +553,8 @@ abstract class _Resource extends Resource {
   int get slots;
   @override
   int get resourcesPerSlot;
+  @override
+  int get outputSlotSize;
   @override
   @JsonKey(ignore: true)
   _$$ResourceImplCopyWith<_$ResourceImpl> get copyWith =>
