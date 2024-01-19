@@ -2,7 +2,7 @@
 
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
-import 'package:craftown/src/providers/placed_resources_provider.dart';
+import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/recipes_provider.dart';
 import 'package:craftown/src/providers/resource_contents_menu_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
@@ -31,8 +31,7 @@ class ResourceContentsMenu extends ConsumerWidget {
       return SizedBox();
     }
 
-    final placedResource =
-        ref.watch(placedResourcesProvider).firstWhereOrNull((p) => p.sprite.identifier == selectedPlacedResource.sprite.identifier);
+    final placedResource = ref.watch(placedResourceDetailProvider(selectedPlacedResource.sprite.identifier));
 
     if (placedResource == null) {
       print("placedResource is null in resource content menu");
@@ -76,7 +75,7 @@ class ResourceContentsMenu extends ConsumerWidget {
                             onSelect: (index) {
                               final recipe = ref.read(recipesProvider)[index];
 
-                              ref.read(placedResourcesProvider.notifier).selectRecipe(placedResource.sprite.identifier, recipe);
+                              ref.read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier).selectRecipe(recipe);
                             },
                           ),
                         )
@@ -91,7 +90,7 @@ class ResourceContentsMenu extends ConsumerWidget {
 
                       if (slot.resource == null) return;
 
-                      final success = ref.read(placedResourcesProvider.notifier).addContents(placedResource.sprite.identifier, slot.resource!);
+                      final success = ref.read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier).addContents(slot.resource!);
                       if (success) {
                         ref.read(inventoryProvider.notifier).removeResource(slot.resource!, 1);
                       }
@@ -150,7 +149,7 @@ class ResourceContentsMenu extends ConsumerWidget {
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        ref.read(placedResourcesProvider.notifier).selectRecipe(placedResource.sprite.identifier, null);
+                                        ref.read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier).selectRecipe(null);
                                       },
                                       icon: Icon(Icons.close),
                                     ),
@@ -227,10 +226,13 @@ class ResourceContentsMenu extends ConsumerWidget {
 
                                       return InkWell(
                                         onTap: () {
-                                          final r =
-                                              ref.read(placedResourcesProvider.notifier).removeContents(placedResource.sprite.identifier, index);
-                                          if (r != null) {
-                                            ref.read(inventoryProvider.notifier).addResource(r);
+                                          final removedResources = ref
+                                              .read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier)
+                                              .removeContents(index, 1);
+                                          if (removedResources != null) {
+                                            for (final r in removedResources) {
+                                              ref.read(inventoryProvider.notifier).addResource(r);
+                                            }
                                           }
                                         },
                                         child: Stack(

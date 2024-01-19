@@ -8,6 +8,7 @@ import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/models/resource.dart';
+import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:flame/components.dart';

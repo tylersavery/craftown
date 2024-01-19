@@ -2,6 +2,7 @@
 
 import 'package:craftown/src/components/resource_sprite.dart';
 import 'package:craftown/src/models/resource_contents_menu_state.dart';
+import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:collection/collection.dart';
