@@ -1,14 +1,13 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
 import 'package:craftown/src/constants.dart';
-import 'package:craftown/src/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
 import 'package:craftown/src/providers/recipes_provider.dart';
 import 'package:craftown/src/providers/resource_contents_menu_provider.dart';
-import 'package:craftown/src/providers/toast_messages_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/recipes_selector_list.dart';
+import 'package:craftown/src/widgets/shared/hold_down_button.dart';
 import 'package:craftown/src/widgets/shared/inventory_slot_wrap.dart';
 import 'package:craftown/src/widgets/shared/menu_container.dart';
 import 'package:flutter/material.dart';
@@ -267,6 +266,17 @@ class ResourceContentsMenu extends ConsumerWidget {
                                 );
                               }).toList(),
                             ),
+                            if (placedResource.sprite.resource.canConstruct && selectedRecipe != null)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: HoldDownButton(
+                                  label: placedResource.isConstructing ? "Stop" : "Start",
+                                  duration: Duration.zero,
+                                  onComplete: () {},
+                                  completeOnClick: true,
+                                  small: true,
+                                ),
+                              ),
                           ],
                         );
                       }),

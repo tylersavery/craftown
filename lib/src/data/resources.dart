@@ -73,6 +73,16 @@ class Resources {
         canConsume: true,
       );
 
+  static Resource get screw => Resource(
+        identifier: "screw",
+        assetFileName16: "screw-16x16.png",
+        name: "Screw",
+        secondsToCraft: 1,
+        ingredients: [
+          Ingredient(resource: Resources.iron, quantity: 3),
+        ],
+      );
+
   static Resource get constructorA => Resource(
         identifier: "constructor_a",
         assetFileName16: "constructor-a-16x16.png",
@@ -96,6 +106,7 @@ class Resources {
         Resources.copper,
         Resources.wood,
         Resources.straw,
+        Resources.screw,
         Resources.woodenBucket,
         Resources.soup,
         Resources.constructorA,

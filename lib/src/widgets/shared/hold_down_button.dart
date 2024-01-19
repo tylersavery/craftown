@@ -7,8 +7,16 @@ class HoldDownButton extends StatefulWidget {
   final Function() onComplete;
   final String? disabledMessage;
   final bool completeOnClick;
-  const HoldDownButton(
-      {super.key, required this.label, required this.duration, required this.onComplete, this.disabledMessage, this.completeOnClick = false});
+  final bool small;
+  const HoldDownButton({
+    super.key,
+    required this.label,
+    required this.duration,
+    required this.onComplete,
+    this.disabledMessage,
+    this.completeOnClick = false,
+    this.small = false,
+  });
 
   @override
   State<HoldDownButton> createState() => _HoldDownButtonState();
@@ -87,7 +95,7 @@ class _HoldDownButtonState extends State<HoldDownButton> {
                 color: Colors.black12,
               ),
               width: double.infinity,
-              height: 80,
+              height: widget.small ? 32 : 80,
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
@@ -96,7 +104,7 @@ class _HoldDownButtonState extends State<HoldDownButton> {
                     children: [
                       Text(
                         widget.label,
-                        style: TextStyle(fontSize: 24, height: 1),
+                        style: TextStyle(fontSize: widget.small ? 16 : 24, height: 1),
                       ),
                       if (widget.disabledMessage != null)
                         Text(

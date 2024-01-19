@@ -10,5 +10,6 @@ class PlacedResource with _$PlacedResource {
     required ResourceSprite sprite,
     @Default([]) List<List<Resource>> contents,
     Resource? selectedRecipe,
+    @Default(false) bool isConstructing,
   }) = _PlacedResource;
 }
