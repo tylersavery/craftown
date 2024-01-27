@@ -1,12 +1,11 @@
 import 'package:craftown/src/components/collision_box.dart';
-import 'package:craftown/src/components/resource_sprite.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/saved_game.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
-import 'package:craftown/src/providers/player_position_provider.dart';
 import 'package:craftown/src/providers/selected_character_provider.dart';
+import 'package:craftown/src/providers/stats_provider.dart';
 import 'package:craftown/src/providers/toast_messages_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';
 import 'package:craftown/src/singletons.dart';
@@ -17,7 +16,7 @@ import 'package:sembast/sembast.dart';
 class SavedGameProvider extends StateNotifier<List<SavedGame>> {
   final Ref ref;
   final Database db;
-  final StoreRef<int, Map<String, Object?>> store = intMapStoreFactory.store("savedGamesv6");
+  final StoreRef<int, Map<String, Object?>> store = intMapStoreFactory.store("savedGamesv7");
 
   SavedGameProvider(this.ref, this.db) : super([]);
 
@@ -31,6 +30,7 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
   void loadGame(SavedGame save) {
     ref.read(selectedCharacterProvider.notifier).set(save.character);
     ref.read(inventoryProvider.notifier).set(save.inventory);
+    ref.read(statsProvider.notifier).set(save.stats);
 
     final placedResources = save.placedResources;
     ref.read(placedResourcesProvider.notifier).set(placedResources);
@@ -42,7 +42,13 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
         gameWidgetKey.currentState!.currentGame.level.add(pr.sprite);
         final block = CollisionBlock(position: pr.sprite.position, size: pr.sprite.size);
         gameWidgetKey.currentState!.currentGame.level.collisionBlocks.add(block);
-        ref.read(placedResourceDetailProvider(pr.sprite.identifier).notifier).setContents(pr.contents);
+        final detailProvider = ref.read(placedResourceDetailProvider(pr.sprite.identifier).notifier);
+        detailProvider.setContents(pr.contents);
+        detailProvider.setOutput(pr.outputSlotContents);
+        detailProvider.selectRecipe(pr.selectedRecipe);
+        if (pr.isConstructing) {
+          detailProvider.startConstruction();
+        }
       }
     });
   }
@@ -52,10 +58,23 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
 
     final placedResources = ref.read(placedResourcesProvider);
 
-    final List<PlacedResource> updatedPlacedResource = [];
+    final List<PlacedResource> updatedPlacedResources = [];
     for (final pr in placedResources) {
-      final contents = ref.read(placedResourceDetailProvider(pr.sprite.identifier))?.contents ?? [];
-      updatedPlacedResource.add(pr.copyWith(contents: contents));
+      final detailState = ref.read(placedResourceDetailProvider(pr.sprite.identifier));
+
+      if (detailState != null) {
+        final updatedPr = pr.copyWith(
+          contents: detailState.contents,
+          outputSlotContents: detailState.outputSlotContents,
+          isConstructing: detailState.isConstructing,
+          selectedRecipe: detailState.selectedRecipe,
+        );
+
+        updatedPlacedResources.add(updatedPr);
+      } else {
+        print("POSSIBLE ISSUE!");
+        updatedPlacedResources.add(pr);
+      }
     }
 
     final game = SavedGame(
@@ -64,7 +83,8 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
       inventory: ref.read(inventoryProvider),
       playerPositionX: playerState.x,
       playerPositionY: playerState.y,
-      placedResources: updatedPlacedResource,
+      placedResources: updatedPlacedResources,
+      stats: ref.read(statsProvider),
     );
 
     final data = game.toJson();

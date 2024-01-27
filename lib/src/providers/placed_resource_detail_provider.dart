@@ -38,11 +38,11 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
     if (state!.isConstructing) {
       stopConstruction();
     } else {
-      startConsturction();
+      startConstruction();
     }
   }
 
-  bool startConsturction({bool automaticStop = false}) {
+  bool startConstruction({bool automaticStop = false}) {
     if (state == null) {
       print("PlacedResources state is null");
       return false;
@@ -173,6 +173,14 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
       return;
     }
     state = state!.copyWith(contents: items);
+  }
+
+  setOutput(List<Resource> items) {
+    if (state == null) {
+      print("PlacedResources state is null");
+      return;
+    }
+    state = state!.copyWith(outputSlotContents: items);
   }
 
   bool addContents(Resource resource) {

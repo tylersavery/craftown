@@ -1,6 +1,7 @@
 import 'package:craftown/src/models/character.dart';
 import 'package:craftown/src/models/inventory_slot.dart';
 import 'package:craftown/src/models/placed_resource.dart';
+import 'package:craftown/src/models/stats.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 
@@ -18,6 +19,7 @@ class SavedGame with _$SavedGame {
     required double playerPositionX,
     required double playerPositionY,
     @Default([]) List<PlacedResource> placedResources,
+    required Stats stats,
   }) = _SavedGame;
 
   factory SavedGame.fromJson(Map<String, dynamic> json) => _$SavedGameFromJson(json);

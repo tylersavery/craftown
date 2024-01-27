@@ -14,11 +14,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Stats _$StatsFromJson(Map<String, dynamic> json) {
+  return _Stats.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Stats {
   double get sustainability => throw _privateConstructorUsedError;
   double get energy => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $StatsCopyWith<Stats> get copyWith => throw _privateConstructorUsedError;
 }
@@ -98,9 +103,12 @@ class __$$StatsImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$StatsImpl implements _Stats {
   const _$StatsImpl({required this.sustainability, required this.energy});
+
+  factory _$StatsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$StatsImplFromJson(json);
 
   @override
   final double sustainability;
@@ -122,6 +130,7 @@ class _$StatsImpl implements _Stats {
             (identical(other.energy, energy) || other.energy == energy));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, sustainability, energy);
 
@@ -130,12 +139,21 @@ class _$StatsImpl implements _Stats {
   @pragma('vm:prefer-inline')
   _$$StatsImplCopyWith<_$StatsImpl> get copyWith =>
       __$$StatsImplCopyWithImpl<_$StatsImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$StatsImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Stats implements Stats {
   const factory _Stats(
       {required final double sustainability,
       required final double energy}) = _$StatsImpl;
+
+  factory _Stats.fromJson(Map<String, dynamic> json) = _$StatsImpl.fromJson;
 
   @override
   double get sustainability;

@@ -7,6 +7,10 @@ class StatsProvider extends StateNotifier<Stats> {
   final Ref ref;
   StatsProvider(this.ref, Stats initialState) : super(initialState);
 
+  set(Stats value) {
+    state = value;
+  }
+
   setEnergy(double value) {
     state = state.copyWith(energy: value);
   }

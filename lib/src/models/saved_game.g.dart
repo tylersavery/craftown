@@ -20,6 +20,7 @@ _$SavedGameImpl _$$SavedGameImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => PlacedResource.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      stats: Stats.fromJson(json['stats'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
@@ -31,4 +32,5 @@ Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
       'playerPositionY': instance.playerPositionY,
       'placedResources':
           instance.placedResources.map((e) => e.toJson()).toList(),
+      'stats': instance.stats.toJson(),
     };
