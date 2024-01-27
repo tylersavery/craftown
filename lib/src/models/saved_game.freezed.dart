@@ -28,6 +28,7 @@ mixin _$SavedGame {
   List<PlacedResource> get placedResources =>
       throw _privateConstructorUsedError;
   Stats get stats => throw _privateConstructorUsedError;
+  Resource? get inHand => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,10 +48,12 @@ abstract class $SavedGameCopyWith<$Res> {
       double playerPositionX,
       double playerPositionY,
       List<PlacedResource> placedResources,
-      Stats stats});
+      Stats stats,
+      Resource? inHand});
 
   $CharacterCopyWith<$Res> get character;
   $StatsCopyWith<$Res> get stats;
+  $ResourceCopyWith<$Res>? get inHand;
 }
 
 /// @nodoc
@@ -73,6 +76,7 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
     Object? playerPositionY = null,
     Object? placedResources = null,
     Object? stats = null,
+    Object? inHand = freezed,
   }) {
     return _then(_value.copyWith(
       character: null == character
@@ -103,6 +107,10 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
           ? _value.stats
           : stats // ignore: cast_nullable_to_non_nullable
               as Stats,
+      inHand: freezed == inHand
+          ? _value.inHand
+          : inHand // ignore: cast_nullable_to_non_nullable
+              as Resource?,
     ) as $Val);
   }
 
@@ -119,6 +127,18 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
   $StatsCopyWith<$Res> get stats {
     return $StatsCopyWith<$Res>(_value.stats, (value) {
       return _then(_value.copyWith(stats: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ResourceCopyWith<$Res>? get inHand {
+    if (_value.inHand == null) {
+      return null;
+    }
+
+    return $ResourceCopyWith<$Res>(_value.inHand!, (value) {
+      return _then(_value.copyWith(inHand: value) as $Val);
     });
   }
 }
@@ -138,12 +158,15 @@ abstract class _$$SavedGameImplCopyWith<$Res>
       double playerPositionX,
       double playerPositionY,
       List<PlacedResource> placedResources,
-      Stats stats});
+      Stats stats,
+      Resource? inHand});
 
   @override
   $CharacterCopyWith<$Res> get character;
   @override
   $StatsCopyWith<$Res> get stats;
+  @override
+  $ResourceCopyWith<$Res>? get inHand;
 }
 
 /// @nodoc
@@ -164,6 +187,7 @@ class __$$SavedGameImplCopyWithImpl<$Res>
     Object? playerPositionY = null,
     Object? placedResources = null,
     Object? stats = null,
+    Object? inHand = freezed,
   }) {
     return _then(_$SavedGameImpl(
       character: null == character
@@ -194,6 +218,10 @@ class __$$SavedGameImplCopyWithImpl<$Res>
           ? _value.stats
           : stats // ignore: cast_nullable_to_non_nullable
               as Stats,
+      inHand: freezed == inHand
+          ? _value.inHand
+          : inHand // ignore: cast_nullable_to_non_nullable
+              as Resource?,
     ));
   }
 }
@@ -208,7 +236,8 @@ class _$SavedGameImpl extends _SavedGame {
       required this.playerPositionX,
       required this.playerPositionY,
       final List<PlacedResource> placedResources = const [],
-      required this.stats})
+      required this.stats,
+      this.inHand})
       : _inventory = inventory,
         _placedResources = placedResources,
         super._();
@@ -244,10 +273,12 @@ class _$SavedGameImpl extends _SavedGame {
 
   @override
   final Stats stats;
+  @override
+  final Resource? inHand;
 
   @override
   String toString() {
-    return 'SavedGame(character: $character, savedAt: $savedAt, inventory: $inventory, playerPositionX: $playerPositionX, playerPositionY: $playerPositionY, placedResources: $placedResources, stats: $stats)';
+    return 'SavedGame(character: $character, savedAt: $savedAt, inventory: $inventory, playerPositionX: $playerPositionX, playerPositionY: $playerPositionY, placedResources: $placedResources, stats: $stats, inHand: $inHand)';
   }
 
   @override
@@ -266,7 +297,8 @@ class _$SavedGameImpl extends _SavedGame {
                 other.playerPositionY == playerPositionY) &&
             const DeepCollectionEquality()
                 .equals(other._placedResources, _placedResources) &&
-            (identical(other.stats, stats) || other.stats == stats));
+            (identical(other.stats, stats) || other.stats == stats) &&
+            (identical(other.inHand, inHand) || other.inHand == inHand));
   }
 
   @JsonKey(ignore: true)
@@ -279,7 +311,8 @@ class _$SavedGameImpl extends _SavedGame {
       playerPositionX,
       playerPositionY,
       const DeepCollectionEquality().hash(_placedResources),
-      stats);
+      stats,
+      inHand);
 
   @JsonKey(ignore: true)
   @override
@@ -303,7 +336,8 @@ abstract class _SavedGame extends SavedGame {
       required final double playerPositionX,
       required final double playerPositionY,
       final List<PlacedResource> placedResources,
-      required final Stats stats}) = _$SavedGameImpl;
+      required final Stats stats,
+      final Resource? inHand}) = _$SavedGameImpl;
   const _SavedGame._() : super._();
 
   factory _SavedGame.fromJson(Map<String, dynamic> json) =
@@ -323,6 +357,8 @@ abstract class _SavedGame extends SavedGame {
   List<PlacedResource> get placedResources;
   @override
   Stats get stats;
+  @override
+  Resource? get inHand;
   @override
   @JsonKey(ignore: true)
   _$$SavedGameImplCopyWith<_$SavedGameImpl> get copyWith =>

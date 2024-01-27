@@ -4,6 +4,7 @@ import 'package:craftown/src/models/saved_game.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
+import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/providers/selected_character_provider.dart';
 import 'package:craftown/src/providers/stats_provider.dart';
 import 'package:craftown/src/providers/toast_messages_provider.dart';
@@ -16,7 +17,7 @@ import 'package:sembast/sembast.dart';
 class SavedGameProvider extends StateNotifier<List<SavedGame>> {
   final Ref ref;
   final Database db;
-  final StoreRef<int, Map<String, Object?>> store = intMapStoreFactory.store("savedGamesv7");
+  final StoreRef<int, Map<String, Object?>> store = intMapStoreFactory.store("savedGamesv8");
 
   SavedGameProvider(this.ref, this.db) : super([]);
 
@@ -31,6 +32,7 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
     ref.read(selectedCharacterProvider.notifier).set(save.character);
     ref.read(inventoryProvider.notifier).set(save.inventory);
     ref.read(statsProvider.notifier).set(save.stats);
+    ref.read(resourceInHandProvider.notifier).set(save.inHand);
 
     final placedResources = save.placedResources;
     ref.read(placedResourcesProvider.notifier).set(placedResources);
@@ -85,6 +87,7 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
       playerPositionY: playerState.y,
       placedResources: updatedPlacedResources,
       stats: ref.read(statsProvider),
+      inHand: ref.read(resourceInHandProvider),
     );
 
     final data = game.toJson();

@@ -125,6 +125,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
     if (collisionsLayer != null) {
       for (final collision in collisionsLayer.objects) {
         final block = CollisionBlock(
+          // identifier: "map_${collision.id}",
           position: Vector2(collision.x, collision.y),
           size: Vector2(collision.width, collision.height),
         );
@@ -184,7 +185,10 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
       add(newResource);
       ref.read(placedResourcesProvider.notifier).add(newResource);
-      final block = CollisionBlock(position: newResource.position, size: newResource.size);
+      final block = CollisionBlock(
+        position: newResource.position,
+        size: newResource.size,
+      );
       add(block);
       collisionBlocks.add(block);
     }

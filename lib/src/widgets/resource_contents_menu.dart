@@ -4,9 +4,11 @@ import 'dart:math';
 
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/models/resource.dart';
+import 'package:craftown/src/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
+import 'package:craftown/src/providers/placed_resources_provider.dart';
 import 'package:craftown/src/providers/recipes_provider.dart';
 import 'package:craftown/src/providers/resource_contents_menu_provider.dart';
 import 'package:craftown/src/providers/toast_messages_provider.dart';
@@ -376,6 +378,21 @@ class ResourceContentsMenu extends ConsumerWidget {
                                   duration: Duration.zero,
                                   onComplete: () {
                                     ref.read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier).toggleConstruction();
+                                  },
+                                  completeOnClick: true,
+                                  small: true,
+                                ),
+                              ),
+                            if (placedResource.sprite.resource.canPlace && !placedResource.isConstructing)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: HoldDownButton(
+                                  label: "Pick Up",
+                                  duration: Duration.zero,
+                                  onComplete: () {
+                                    ref.read(placedResourcesProvider.notifier).pickup(placedResource);
+                                    ref.read(resourceContentsMenuProvider.notifier).close();
+                                    ref.read(inventoryMenuProvider.notifier).open();
                                   },
                                   completeOnClick: true,
                                   small: true,
