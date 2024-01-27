@@ -183,6 +183,9 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
       add(newResource);
       ref.read(placedResourcesProvider.notifier).add(newResource);
+      final block = CollisionBlock(position: newResource.position, size: newResource.size);
+      add(block);
+      collisionBlocks.add(block);
     }
   }
 }

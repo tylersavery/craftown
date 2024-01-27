@@ -140,10 +140,11 @@ final inventoryProvider = StateNotifierProvider<InventoryProvider, List<Inventor
 
   initialState[0] = InventorySlot(resource: Resources.wood, count: 50);
   initialState[1] = InventorySlot(resource: Resources.iron, count: 50);
-  initialState[2] = InventorySlot(resource: Resources.copper, count: 50);
-  initialState[3] = InventorySlot(resource: Resources.water, count: 5);
-  initialState[4] = InventorySlot(resource: Resources.woodenBucket, count: 1);
-  initialState[5] = InventorySlot(resource: Resources.constructorA, count: 2);
+  initialState[2] = InventorySlot(resource: Resources.water, count: 5);
+  initialState[3] = InventorySlot(resource: Resources.woodenBucket, count: 1);
+  initialState[4] = InventorySlot(resource: Resources.barrel, count: 2);
+  initialState[5] = InventorySlot(resource: Resources.chest, count: 2);
+  initialState[6] = InventorySlot(resource: Resources.constructorA, count: 2);
 
   return InventoryProvider(ref, initialState);
 });

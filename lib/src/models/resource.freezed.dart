@@ -21,6 +21,8 @@ mixin _$Resource {
   String get assetFileName16 => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String? get assetFileNameLarge => throw _privateConstructorUsedError;
+  String? get assetFileNameWhenFull => throw _privateConstructorUsedError;
+  bool get isLiquid => throw _privateConstructorUsedError;
   int get amountPerSlot => throw _privateConstructorUsedError;
   List<Ingredient> get ingredients => throw _privateConstructorUsedError;
   double? get secondsToCraft => throw _privateConstructorUsedError;
@@ -33,6 +35,7 @@ mixin _$Resource {
   double get placementHeight => throw _privateConstructorUsedError;
   List<Resource> get requiredToMine => throw _privateConstructorUsedError;
   int get slots => throw _privateConstructorUsedError;
+  StorageType get storageType => throw _privateConstructorUsedError;
   int get resourcesPerSlot => throw _privateConstructorUsedError;
   int get outputSlotSize => throw _privateConstructorUsedError;
 
@@ -52,6 +55,8 @@ abstract class $ResourceCopyWith<$Res> {
       String assetFileName16,
       String description,
       String? assetFileNameLarge,
+      String? assetFileNameWhenFull,
+      bool isLiquid,
       int amountPerSlot,
       List<Ingredient> ingredients,
       double? secondsToCraft,
@@ -64,6 +69,7 @@ abstract class $ResourceCopyWith<$Res> {
       double placementHeight,
       List<Resource> requiredToMine,
       int slots,
+      StorageType storageType,
       int resourcesPerSlot,
       int outputSlotSize});
 }
@@ -86,6 +92,8 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? assetFileName16 = null,
     Object? description = null,
     Object? assetFileNameLarge = freezed,
+    Object? assetFileNameWhenFull = freezed,
+    Object? isLiquid = null,
     Object? amountPerSlot = null,
     Object? ingredients = null,
     Object? secondsToCraft = freezed,
@@ -98,6 +106,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? placementHeight = null,
     Object? requiredToMine = null,
     Object? slots = null,
+    Object? storageType = null,
     Object? resourcesPerSlot = null,
     Object? outputSlotSize = null,
   }) {
@@ -122,6 +131,14 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.assetFileNameLarge
           : assetFileNameLarge // ignore: cast_nullable_to_non_nullable
               as String?,
+      assetFileNameWhenFull: freezed == assetFileNameWhenFull
+          ? _value.assetFileNameWhenFull
+          : assetFileNameWhenFull // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isLiquid: null == isLiquid
+          ? _value.isLiquid
+          : isLiquid // ignore: cast_nullable_to_non_nullable
+              as bool,
       amountPerSlot: null == amountPerSlot
           ? _value.amountPerSlot
           : amountPerSlot // ignore: cast_nullable_to_non_nullable
@@ -170,6 +187,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.slots
           : slots // ignore: cast_nullable_to_non_nullable
               as int,
+      storageType: null == storageType
+          ? _value.storageType
+          : storageType // ignore: cast_nullable_to_non_nullable
+              as StorageType,
       resourcesPerSlot: null == resourcesPerSlot
           ? _value.resourcesPerSlot
           : resourcesPerSlot // ignore: cast_nullable_to_non_nullable
@@ -196,6 +217,8 @@ abstract class _$$ResourceImplCopyWith<$Res>
       String assetFileName16,
       String description,
       String? assetFileNameLarge,
+      String? assetFileNameWhenFull,
+      bool isLiquid,
       int amountPerSlot,
       List<Ingredient> ingredients,
       double? secondsToCraft,
@@ -208,6 +231,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
       double placementHeight,
       List<Resource> requiredToMine,
       int slots,
+      StorageType storageType,
       int resourcesPerSlot,
       int outputSlotSize});
 }
@@ -228,6 +252,8 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? assetFileName16 = null,
     Object? description = null,
     Object? assetFileNameLarge = freezed,
+    Object? assetFileNameWhenFull = freezed,
+    Object? isLiquid = null,
     Object? amountPerSlot = null,
     Object? ingredients = null,
     Object? secondsToCraft = freezed,
@@ -240,6 +266,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? placementHeight = null,
     Object? requiredToMine = null,
     Object? slots = null,
+    Object? storageType = null,
     Object? resourcesPerSlot = null,
     Object? outputSlotSize = null,
   }) {
@@ -264,6 +291,14 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.assetFileNameLarge
           : assetFileNameLarge // ignore: cast_nullable_to_non_nullable
               as String?,
+      assetFileNameWhenFull: freezed == assetFileNameWhenFull
+          ? _value.assetFileNameWhenFull
+          : assetFileNameWhenFull // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isLiquid: null == isLiquid
+          ? _value.isLiquid
+          : isLiquid // ignore: cast_nullable_to_non_nullable
+              as bool,
       amountPerSlot: null == amountPerSlot
           ? _value.amountPerSlot
           : amountPerSlot // ignore: cast_nullable_to_non_nullable
@@ -312,6 +347,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.slots
           : slots // ignore: cast_nullable_to_non_nullable
               as int,
+      storageType: null == storageType
+          ? _value.storageType
+          : storageType // ignore: cast_nullable_to_non_nullable
+              as StorageType,
       resourcesPerSlot: null == resourcesPerSlot
           ? _value.resourcesPerSlot
           : resourcesPerSlot // ignore: cast_nullable_to_non_nullable
@@ -333,6 +372,8 @@ class _$ResourceImpl extends _Resource {
       required this.assetFileName16,
       this.description = defaultDescription,
       this.assetFileNameLarge,
+      this.assetFileNameWhenFull,
+      this.isLiquid = false,
       this.amountPerSlot = 25,
       final List<Ingredient> ingredients = const [],
       this.secondsToCraft,
@@ -345,6 +386,7 @@ class _$ResourceImpl extends _Resource {
       this.placementHeight = TILE_SIZE,
       final List<Resource> requiredToMine = const [],
       this.slots = 0,
+      this.storageType = StorageType.none,
       this.resourcesPerSlot = 0,
       this.outputSlotSize = 0})
       : _ingredients = ingredients,
@@ -362,6 +404,11 @@ class _$ResourceImpl extends _Resource {
   final String description;
   @override
   final String? assetFileNameLarge;
+  @override
+  final String? assetFileNameWhenFull;
+  @override
+  @JsonKey()
+  final bool isLiquid;
   @override
   @JsonKey()
   final int amountPerSlot;
@@ -410,6 +457,9 @@ class _$ResourceImpl extends _Resource {
   final int slots;
   @override
   @JsonKey()
+  final StorageType storageType;
+  @override
+  @JsonKey()
   final int resourcesPerSlot;
   @override
   @JsonKey()
@@ -417,7 +467,7 @@ class _$ResourceImpl extends _Resource {
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, amountPerSlot: $amountPerSlot, ingredients: $ingredients, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, canConsume: $canConsume, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize)';
+    return 'Resource(identifier: $identifier, name: $name, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, canConsume: $canConsume, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize)';
   }
 
   @override
@@ -434,6 +484,10 @@ class _$ResourceImpl extends _Resource {
                 other.description == description) &&
             (identical(other.assetFileNameLarge, assetFileNameLarge) ||
                 other.assetFileNameLarge == assetFileNameLarge) &&
+            (identical(other.assetFileNameWhenFull, assetFileNameWhenFull) ||
+                other.assetFileNameWhenFull == assetFileNameWhenFull) &&
+            (identical(other.isLiquid, isLiquid) ||
+                other.isLiquid == isLiquid) &&
             (identical(other.amountPerSlot, amountPerSlot) ||
                 other.amountPerSlot == amountPerSlot) &&
             const DeepCollectionEquality()
@@ -457,6 +511,8 @@ class _$ResourceImpl extends _Resource {
             const DeepCollectionEquality()
                 .equals(other._requiredToMine, _requiredToMine) &&
             (identical(other.slots, slots) || other.slots == slots) &&
+            (identical(other.storageType, storageType) ||
+                other.storageType == storageType) &&
             (identical(other.resourcesPerSlot, resourcesPerSlot) ||
                 other.resourcesPerSlot == resourcesPerSlot) &&
             (identical(other.outputSlotSize, outputSlotSize) ||
@@ -471,6 +527,8 @@ class _$ResourceImpl extends _Resource {
         assetFileName16,
         description,
         assetFileNameLarge,
+        assetFileNameWhenFull,
+        isLiquid,
         amountPerSlot,
         const DeepCollectionEquality().hash(_ingredients),
         secondsToCraft,
@@ -483,6 +541,7 @@ class _$ResourceImpl extends _Resource {
         placementHeight,
         const DeepCollectionEquality().hash(_requiredToMine),
         slots,
+        storageType,
         resourcesPerSlot,
         outputSlotSize
       ]);
@@ -501,6 +560,8 @@ abstract class _Resource extends Resource {
       required final String assetFileName16,
       final String description,
       final String? assetFileNameLarge,
+      final String? assetFileNameWhenFull,
+      final bool isLiquid,
       final int amountPerSlot,
       final List<Ingredient> ingredients,
       final double? secondsToCraft,
@@ -513,6 +574,7 @@ abstract class _Resource extends Resource {
       final double placementHeight,
       final List<Resource> requiredToMine,
       final int slots,
+      final StorageType storageType,
       final int resourcesPerSlot,
       final int outputSlotSize}) = _$ResourceImpl;
   const _Resource._() : super._();
@@ -527,6 +589,10 @@ abstract class _Resource extends Resource {
   String get description;
   @override
   String? get assetFileNameLarge;
+  @override
+  String? get assetFileNameWhenFull;
+  @override
+  bool get isLiquid;
   @override
   int get amountPerSlot;
   @override
@@ -551,6 +617,8 @@ abstract class _Resource extends Resource {
   List<Resource> get requiredToMine;
   @override
   int get slots;
+  @override
+  StorageType get storageType;
   @override
   int get resourcesPerSlot;
   @override

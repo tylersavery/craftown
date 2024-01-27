@@ -6,6 +6,8 @@ part 'placed_resource.freezed.dart';
 
 @freezed
 class PlacedResource with _$PlacedResource {
+  const PlacedResource._();
+
   const factory PlacedResource({
     required ResourceSprite sprite,
     @Default([]) List<List<Resource>> contents,
@@ -13,4 +15,8 @@ class PlacedResource with _$PlacedResource {
     @Default(false) bool isConstructing,
     @Default([]) List<Resource> outputSlotContents,
   }) = _PlacedResource;
+
+  bool get isEmpty {
+    return contents.every((element) => element.isEmpty);
+  }
 }

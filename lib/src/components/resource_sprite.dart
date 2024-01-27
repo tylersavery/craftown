@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:craftown/src/components/custom_hitbox.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/toast_message.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
+import 'package:craftown/src/providers/placed_resources_provider.dart';
 import 'package:craftown/src/providers/resource_contents_menu_provider.dart';
 import 'package:craftown/src/providers/toast_messages_provider.dart';
 import 'package:craftown/src/utils/collisions.dart';
@@ -17,12 +20,22 @@ import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class ResourceSprite extends SpriteComponent with HasGameRef<Craftown>, TapCallbacks, RiverpodComponentMixin, HoverCallbacks {
+enum SpriteState {
+  empty,
+  full,
+}
+
+class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, TapCallbacks, RiverpodComponentMixin, HoverCallbacks {
   late final String identifier;
   final Resource resource;
   late Vector2 initialPosition;
   final bool visible;
   final double interactionRadius;
+
+  late final Sprite emptySprite;
+  late final Sprite fullSprite;
+
+  late final CustomHitbox hitbox;
 
   ResourceSprite({
     required this.resource,
@@ -45,13 +58,28 @@ class ResourceSprite extends SpriteComponent with HasGameRef<Craftown>, TapCallb
 
   @override
   FutureOr<void> onLoad() {
-    String assetPath = 'resources/${resource.assetFileNameLargeWithFallback}';
-
-    sprite = Sprite(
-      game.images.fromCache(assetPath),
+    emptySprite = Sprite(
+      game.images.fromCache('resources/${resource.assetFileNameLargeWithFallback}'),
     );
 
+    fullSprite = resource.assetFileNameWhenFull != null
+        ? Sprite(
+            game.images.fromCache('resources/${resource.assetFileNameWhenFull}'),
+          )
+        : emptySprite;
+
+    sprites = {SpriteState.empty: emptySprite, SpriteState.full: fullSprite};
+
     opacity = visible ? 1 : 0;
+
+    current = SpriteState.empty;
+
+    hitbox = CustomHitbox(
+      offsetX: 0,
+      offsetY: 0,
+      width: width,
+      height: height,
+    );
 
     return super.onLoad();
   }
@@ -63,6 +91,16 @@ class ResourceSprite extends SpriteComponent with HasGameRef<Craftown>, TapCallb
     while (accumulatedTime >= fixedDeltaTime) {
       _handleMining();
       accumulatedTime -= fixedDeltaTime;
+    }
+
+    final placedInstance = ref.read(placedResourceDetailProvider(identifier));
+
+    if (placedInstance != null) {
+      if (placedInstance.isEmpty && current != SpriteState.empty) {
+        current = SpriteState.empty;
+      } else if (!placedInstance.isEmpty && current != SpriteState.full) {
+        current = SpriteState.full;
+      }
     }
 
     super.update(dt);

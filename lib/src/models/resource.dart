@@ -9,6 +9,13 @@ part 'resource.freezed.dart';
 
 const defaultDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.";
 
+enum StorageType {
+  none,
+  all,
+  liquid,
+  solid,
+}
+
 @freezed
 class Resource with _$Resource {
   const Resource._();
@@ -19,6 +26,8 @@ class Resource with _$Resource {
     required String assetFileName16,
     @Default(defaultDescription) String description,
     String? assetFileNameLarge,
+    String? assetFileNameWhenFull,
+    @Default(false) bool isLiquid,
     @Default(25) int amountPerSlot,
     @Default([]) List<Ingredient> ingredients,
     double? secondsToCraft,
@@ -31,6 +40,7 @@ class Resource with _$Resource {
     @Default(TILE_SIZE) double placementHeight,
     @Default([]) List<Resource> requiredToMine,
     @Default(0) int slots,
+    @Default(StorageType.none) StorageType storageType,
     @Default(0) int resourcesPerSlot,
     @Default(0) int outputSlotSize,
   }) = _Resource;

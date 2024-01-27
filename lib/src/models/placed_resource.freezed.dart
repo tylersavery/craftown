@@ -162,7 +162,7 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$PlacedResourceImpl implements _PlacedResource {
+class _$PlacedResourceImpl extends _PlacedResource {
   const _$PlacedResourceImpl(
       {required this.sprite,
       final List<List<Resource>> contents = const [],
@@ -170,7 +170,8 @@ class _$PlacedResourceImpl implements _PlacedResource {
       this.isConstructing = false,
       final List<Resource> outputSlotContents = const []})
       : _contents = contents,
-        _outputSlotContents = outputSlotContents;
+        _outputSlotContents = outputSlotContents,
+        super._();
 
   @override
   final ResourceSprite sprite;
@@ -235,13 +236,14 @@ class _$PlacedResourceImpl implements _PlacedResource {
           this, _$identity);
 }
 
-abstract class _PlacedResource implements PlacedResource {
+abstract class _PlacedResource extends PlacedResource {
   const factory _PlacedResource(
       {required final ResourceSprite sprite,
       final List<List<Resource>> contents,
       final Resource? selectedRecipe,
       final bool isConstructing,
       final List<Resource> outputSlotContents}) = _$PlacedResourceImpl;
+  const _PlacedResource._() : super._();
 
   @override
   ResourceSprite get sprite;

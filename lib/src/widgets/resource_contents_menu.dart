@@ -1,10 +1,15 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
+import 'dart:math';
+
 import 'package:craftown/src/constants.dart';
+import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/recipes_provider.dart';
 import 'package:craftown/src/providers/resource_contents_menu_provider.dart';
+import 'package:craftown/src/providers/toast_messages_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/recipes_selector_list.dart';
 import 'package:craftown/src/widgets/shared/hold_down_button.dart';
@@ -89,9 +94,25 @@ class ResourceContentsMenu extends ConsumerWidget {
                       final slot = inventory[index];
 
                       if (slot.resource == null) return;
-                      final success = ref.read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier).addContents(slot.resource!);
+
+                      final resource = slot.resource!;
+                      final placedResourceSprite = placedResource.sprite;
+
+                      final storageType = placedResource.sprite.resource.storageType;
+                      if (storageType == StorageType.liquid && !resource.isLiquid) {
+                        ref.read(toastMessagesProvider.notifier).add("Only liquids can be stored in ${placedResourceSprite.resource.name}");
+                        return;
+                      }
+
+                      if (storageType == StorageType.solid && resource.isLiquid) {
+                        ref.read(toastMessagesProvider.notifier).add("Liquids can't be stored in ${placedResourceSprite.resource.name}");
+
+                        return;
+                      }
+
+                      final success = ref.read(placedResourceDetailProvider(placedResourceSprite.identifier).notifier).addContents(resource);
                       if (success) {
-                        ref.read(inventoryProvider.notifier).removeResource(slot.resource!, 1);
+                        ref.read(inventoryProvider.notifier).removeResource(resource, 1);
                       }
                     },
                   );
@@ -229,9 +250,17 @@ class ResourceContentsMenu extends ConsumerWidget {
 
                                       return InkWell(
                                         onTap: () {
+                                          int amountToRemove = 1;
+
+                                          final totalInSlot = placedResource.contents[index].length;
+
+                                          if (ref.read(modifierKeyProvider).shiftPressed) {
+                                            amountToRemove = min(INVENTORY_MOVE_WHEN_SHIFT_PRESSED, totalInSlot);
+                                          }
+
                                           final removedResources = ref
                                               .read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier)
-                                              .removeContents(index, 1);
+                                              .removeContents(index, amountToRemove);
                                           if (removedResources != null) {
                                             for (final r in removedResources) {
                                               ref.read(inventoryProvider.notifier).addResource(r);
@@ -294,8 +323,15 @@ class ResourceContentsMenu extends ConsumerWidget {
                                     final count = placedResource.outputSlotContents.length;
                                     return InkWell(
                                       onTap: () {
-                                        final removedResources =
-                                            ref.read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier).removeFromOutputSlot();
+                                        int amountToRemove = 1;
+
+                                        if (ref.read(modifierKeyProvider).shiftPressed) {
+                                          amountToRemove = min(INVENTORY_MOVE_WHEN_SHIFT_PRESSED, placedResource.outputSlotContents.length);
+                                        }
+
+                                        final removedResources = ref
+                                            .read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier)
+                                            .removeFromOutputSlot(amountToRemove);
                                         for (final removed in removedResources) {
                                           ref.read(inventoryProvider.notifier).addResource(removed);
                                         }

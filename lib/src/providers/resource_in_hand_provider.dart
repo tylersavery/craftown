@@ -1,5 +1,3 @@
-import 'package:craftown/src/data/resources.dart';
-import 'package:craftown/src/models/craft_menu_state.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,7 +15,5 @@ class ResourceInHandProvider extends StateNotifier<Resource?> {
 }
 
 final resourceInHandProvider = StateNotifierProvider<ResourceInHandProvider, Resource?>((ref) {
-  final initialState = Resources.soup;
-
-  return ResourceInHandProvider(ref, initialState);
+  return ResourceInHandProvider(ref, null);
 });

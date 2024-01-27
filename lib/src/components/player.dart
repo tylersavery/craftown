@@ -69,9 +69,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ke
 
   CustomHitbox hitbox = CustomHitbox(
     offsetX: 9,
-    offsetY: 6,
+    offsetY: 20,
     width: 14,
-    height: 18,
+    height: 4,
   );
 
   double horizontalMovement = 0.0;

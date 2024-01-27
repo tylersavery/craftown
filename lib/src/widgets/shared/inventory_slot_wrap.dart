@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
@@ -30,10 +33,10 @@ class InventorySlotWrap extends ConsumerWidget {
 
         return InkWell(
           onTap: () {
-            if (ref.read(modifierKeyProvider)) {
-              //TODO: constant for amount + check if x is avail (min func)
+            if (ref.read(modifierKeyProvider).shiftPressed) {
+              final amountToMove = min(INVENTORY_MOVE_WHEN_SHIFT_PRESSED, slot.count);
 
-              for (int i = 0; i < 5; i++) {
+              for (int i = 0; i < amountToMove; i++) {
                 onTap(index);
               }
             } else {

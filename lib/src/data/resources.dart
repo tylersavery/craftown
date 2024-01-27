@@ -35,6 +35,7 @@ class Resources {
         name: "Water",
         assetFileName16: "water-16x16.png",
         secondsToMine: 0.5,
+        isLiquid: true,
         requiredToMine: [Resources.woodenBucket],
       );
 
@@ -71,6 +72,7 @@ class Resources {
           Ingredient(resource: Resources.straw, quantity: 3),
         ],
         canConsume: true,
+        isLiquid: true,
       );
 
   static Resource get screw => Resource(
@@ -80,6 +82,41 @@ class Resources {
         secondsToCraft: 10,
         ingredients: [
           Ingredient(resource: Resources.iron, quantity: 3),
+        ],
+      );
+
+  static Resource get chest => Resource(
+        identifier: "chest",
+        assetFileName16: "chest-16x16.png",
+        assetFileNameLarge: "chest-30x22.png",
+        name: "Chest",
+        secondsToCraft: 3,
+        canPlace: true,
+        placementWidth: 30,
+        placementHeight: 22,
+        slots: 4,
+        storageType: StorageType.solid,
+        resourcesPerSlot: 50,
+        ingredients: [
+          Ingredient(resource: Resources.wood, quantity: 10),
+        ],
+      );
+
+  static Resource get barrel => Resource(
+        identifier: "barrel",
+        assetFileName16: "barrel-16x16.png",
+        assetFileNameLarge: "barrel-16x25.png",
+        assetFileNameWhenFull: "barrel-full-16x25.png",
+        name: "Barrel",
+        secondsToCraft: 3,
+        canPlace: true,
+        placementWidth: 16,
+        placementHeight: 25,
+        slots: 1,
+        resourcesPerSlot: 50,
+        storageType: StorageType.liquid,
+        ingredients: [
+          Ingredient(resource: Resources.wood, quantity: 10),
         ],
       );
 
@@ -95,6 +132,7 @@ class Resources {
           Ingredient(resource: Resources.iron, quantity: 20),
           Ingredient(resource: Resources.copper, quantity: 10),
         ],
+        storageType: StorageType.all,
         canPlace: true,
         slots: 1,
         resourcesPerSlot: 50,
@@ -110,6 +148,7 @@ class Resources {
         Resources.screw,
         Resources.woodenBucket,
         Resources.soup,
+        Resources.chest,
         Resources.constructorA,
       ];
 
