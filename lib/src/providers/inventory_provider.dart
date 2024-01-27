@@ -11,6 +11,10 @@ class InventoryProvider extends StateNotifier<List<InventorySlot>> {
   final Ref ref;
   InventoryProvider(this.ref, List<InventorySlot> initialState) : super(initialState);
 
+  void set(List<InventorySlot> inventory) {
+    state = inventory;
+  }
+
   int totalResourcesWithIdentifier(String identifier) {
     return state.fold(0, (previousValue, slot) {
       if (slot.resource?.identifier == identifier) {

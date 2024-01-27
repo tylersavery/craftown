@@ -47,6 +47,27 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
     initialPosition = Vector2(position.x, position.y);
     identifier = randomString();
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'resource': resource.toJson(),
+      'position': [position.x, position.y],
+      'size': [size.x, size.y],
+      'visible': visible,
+      'interactionRadius': interactionRadius,
+    };
+  }
+
+  factory ResourceSprite.fromJson(Map<String, dynamic> data) {
+    return ResourceSprite(
+      resource: Resource.fromJson(data['resource']),
+      position: Vector2(data['position'][0], data['position'][1]),
+      size: Vector2(data['size'][0], data['size'][1]),
+      visible: data['visible'],
+      interactionRadius: data['interactionRadius'],
+    );
+  }
+
   final rng = Random();
 
   bool isMining = false;

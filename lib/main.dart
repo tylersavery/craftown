@@ -1,4 +1,5 @@
-import 'package:craftown/src/layout/game_layout.dart';
+import 'package:craftown/src/singletons.dart';
+import 'package:craftown/src/widgets/app.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,17 +9,16 @@ void main() async {
   await Flame.device.fullScreen();
   await Flame.device.setLandscape();
 
+  await Singletons.initialize();
+
   runApp(
     ProviderScope(
-      child: Focus(
-        onKey: (node, event) => KeyEventResult.handled,
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            fontFamily: 'PixelifySans',
-          ),
-          home: GameLayout(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'PixelifySans',
         ),
+        home: App(),
       ),
     ),
   );

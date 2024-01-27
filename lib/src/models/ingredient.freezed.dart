@@ -14,11 +14,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Ingredient _$IngredientFromJson(Map<String, dynamic> json) {
+  return _Ingredient.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Ingredient {
   Resource get resource => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $IngredientCopyWith<Ingredient> get copyWith =>
       throw _privateConstructorUsedError;
@@ -114,9 +119,13 @@ class __$$IngredientImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
+@JsonSerializable()
+class _$IngredientImpl extends _Ingredient {
+  const _$IngredientImpl({required this.resource, this.quantity = 1})
+      : super._();
 
-class _$IngredientImpl implements _Ingredient {
-  const _$IngredientImpl({required this.resource, this.quantity = 1});
+  factory _$IngredientImpl.fromJson(Map<String, dynamic> json) =>
+      _$$IngredientImplFromJson(json);
 
   @override
   final Resource resource;
@@ -140,6 +149,7 @@ class _$IngredientImpl implements _Ingredient {
                 other.quantity == quantity));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, resource, quantity);
 
@@ -148,12 +158,23 @@ class _$IngredientImpl implements _Ingredient {
   @pragma('vm:prefer-inline')
   _$$IngredientImplCopyWith<_$IngredientImpl> get copyWith =>
       __$$IngredientImplCopyWithImpl<_$IngredientImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$IngredientImplToJson(
+      this,
+    );
+  }
 }
 
-abstract class _Ingredient implements Ingredient {
+abstract class _Ingredient extends Ingredient {
   const factory _Ingredient(
       {required final Resource resource,
       final int quantity}) = _$IngredientImpl;
+  const _Ingredient._() : super._();
+
+  factory _Ingredient.fromJson(Map<String, dynamic> json) =
+      _$IngredientImpl.fromJson;
 
   @override
   Resource get resource;

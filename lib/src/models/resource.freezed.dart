@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Resource _$ResourceFromJson(Map<String, dynamic> json) {
+  return _Resource.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Resource {
   String get identifier => throw _privateConstructorUsedError;
@@ -35,10 +39,12 @@ mixin _$Resource {
   double get placementHeight => throw _privateConstructorUsedError;
   List<Resource> get requiredToMine => throw _privateConstructorUsedError;
   int get slots => throw _privateConstructorUsedError;
+  @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
   StorageType get storageType => throw _privateConstructorUsedError;
   int get resourcesPerSlot => throw _privateConstructorUsedError;
   int get outputSlotSize => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ResourceCopyWith<Resource> get copyWith =>
       throw _privateConstructorUsedError;
@@ -69,6 +75,7 @@ abstract class $ResourceCopyWith<$Res> {
       double placementHeight,
       List<Resource> requiredToMine,
       int slots,
+      @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
       StorageType storageType,
       int resourcesPerSlot,
       int outputSlotSize});
@@ -231,6 +238,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
       double placementHeight,
       List<Resource> requiredToMine,
       int slots,
+      @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
       StorageType storageType,
       int resourcesPerSlot,
       int outputSlotSize});
@@ -364,7 +372,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$ResourceImpl extends _Resource {
   const _$ResourceImpl(
       {required this.identifier,
@@ -386,12 +394,16 @@ class _$ResourceImpl extends _Resource {
       this.placementHeight = TILE_SIZE,
       final List<Resource> requiredToMine = const [],
       this.slots = 0,
+      @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
       this.storageType = StorageType.none,
       this.resourcesPerSlot = 0,
       this.outputSlotSize = 0})
       : _ingredients = ingredients,
         _requiredToMine = requiredToMine,
         super._();
+
+  factory _$ResourceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ResourceImplFromJson(json);
 
   @override
   final String identifier;
@@ -456,7 +468,7 @@ class _$ResourceImpl extends _Resource {
   @JsonKey()
   final int slots;
   @override
-  @JsonKey()
+  @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
   final StorageType storageType;
   @override
   @JsonKey()
@@ -519,6 +531,7 @@ class _$ResourceImpl extends _Resource {
                 other.outputSlotSize == outputSlotSize));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -551,6 +564,13 @@ class _$ResourceImpl extends _Resource {
   @pragma('vm:prefer-inline')
   _$$ResourceImplCopyWith<_$ResourceImpl> get copyWith =>
       __$$ResourceImplCopyWithImpl<_$ResourceImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ResourceImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Resource extends Resource {
@@ -574,10 +594,14 @@ abstract class _Resource extends Resource {
       final double placementHeight,
       final List<Resource> requiredToMine,
       final int slots,
+      @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
       final StorageType storageType,
       final int resourcesPerSlot,
       final int outputSlotSize}) = _$ResourceImpl;
   const _Resource._() : super._();
+
+  factory _Resource.fromJson(Map<String, dynamic> json) =
+      _$ResourceImpl.fromJson;
 
   @override
   String get identifier;
@@ -618,6 +642,7 @@ abstract class _Resource extends Resource {
   @override
   int get slots;
   @override
+  @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
   StorageType get storageType;
   @override
   int get resourcesPerSlot;

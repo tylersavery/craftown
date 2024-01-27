@@ -1,19 +1,30 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/models/ingredient.dart';
 import 'package:craftown/src/models/inventory_slot.dart';
-import 'package:craftown/src/models/recipe.dart';
-import 'package:flame/components.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'resource.freezed.dart';
+part 'resource.g.dart';
 
 const defaultDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.";
 
 enum StorageType {
-  none,
-  all,
-  liquid,
-  solid,
+  none("none"),
+  all("all"),
+  liquid("liquid"),
+  solid("solid"),
+  ;
+
+  final String id;
+  const StorageType(this.id);
+}
+
+String storageTypeToJson(StorageType value) {
+  return value.id;
+}
+
+StorageType storageTypeFromJson(String value) {
+  return StorageType.values.firstWhere((element) => element.id == value);
 }
 
 @freezed
@@ -40,10 +51,12 @@ class Resource with _$Resource {
     @Default(TILE_SIZE) double placementHeight,
     @Default([]) List<Resource> requiredToMine,
     @Default(0) int slots,
-    @Default(StorageType.none) StorageType storageType,
+    @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson) @Default(StorageType.none) StorageType storageType,
     @Default(0) int resourcesPerSlot,
     @Default(0) int outputSlotSize,
   }) = _Resource;
+
+  factory Resource.fromJson(Map<String, dynamic> json) => _$ResourceFromJson(json);
 
   String get assetPath16 {
     return "assets/images/resources/$assetFileName16";

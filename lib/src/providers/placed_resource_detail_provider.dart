@@ -167,6 +167,14 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
     return removedResources;
   }
 
+  setContents(List<List<Resource>> items) {
+    if (state == null) {
+      print("PlacedResources state is null");
+      return;
+    }
+    state = state!.copyWith(contents: items);
+  }
+
   bool addContents(Resource resource) {
     if (state == null) {
       print("PlacedResources state is null");

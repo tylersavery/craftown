@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports
+
 import 'dart:async';
 
 import 'package:craftown/src/components/collision_box.dart';
@@ -9,13 +11,12 @@ import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
-import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
+import 'package:craftown/src/providers/player_position_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:flame/components.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:flutter/src/services/keyboard_key.g.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
 
 class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, KeyboardHandler {

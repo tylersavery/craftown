@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+PlacedResource _$PlacedResourceFromJson(Map<String, dynamic> json) {
+  return _PlacedResource.fromJson(json);
+}
+
 /// @nodoc
 mixin _$PlacedResource {
   ResourceSprite get sprite => throw _privateConstructorUsedError;
@@ -22,6 +26,7 @@ mixin _$PlacedResource {
   bool get isConstructing => throw _privateConstructorUsedError;
   List<Resource> get outputSlotContents => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PlacedResourceCopyWith<PlacedResource> get copyWith =>
       throw _privateConstructorUsedError;
@@ -161,7 +166,7 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$PlacedResourceImpl extends _PlacedResource {
   const _$PlacedResourceImpl(
       {required this.sprite,
@@ -172,6 +177,9 @@ class _$PlacedResourceImpl extends _PlacedResource {
       : _contents = contents,
         _outputSlotContents = outputSlotContents,
         super._();
+
+  factory _$PlacedResourceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlacedResourceImplFromJson(json);
 
   @override
   final ResourceSprite sprite;
@@ -219,6 +227,7 @@ class _$PlacedResourceImpl extends _PlacedResource {
                 .equals(other._outputSlotContents, _outputSlotContents));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -234,6 +243,13 @@ class _$PlacedResourceImpl extends _PlacedResource {
   _$$PlacedResourceImplCopyWith<_$PlacedResourceImpl> get copyWith =>
       __$$PlacedResourceImplCopyWithImpl<_$PlacedResourceImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PlacedResourceImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _PlacedResource extends PlacedResource {
@@ -244,6 +260,9 @@ abstract class _PlacedResource extends PlacedResource {
       final bool isConstructing,
       final List<Resource> outputSlotContents}) = _$PlacedResourceImpl;
   const _PlacedResource._() : super._();
+
+  factory _PlacedResource.fromJson(Map<String, dynamic> json) =
+      _$PlacedResourceImpl.fromJson;
 
   @override
   ResourceSprite get sprite;

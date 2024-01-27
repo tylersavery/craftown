@@ -14,11 +14,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+InventorySlot _$InventorySlotFromJson(Map<String, dynamic> json) {
+  return _InventorySlot.fromJson(json);
+}
+
 /// @nodoc
 mixin _$InventorySlot {
   Resource? get resource => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $InventorySlotCopyWith<InventorySlot> get copyWith =>
       throw _privateConstructorUsedError;
@@ -118,9 +123,12 @@ class __$$InventorySlotImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$InventorySlotImpl implements _InventorySlot {
   const _$InventorySlotImpl({this.resource, this.count = 0});
+
+  factory _$InventorySlotImpl.fromJson(Map<String, dynamic> json) =>
+      _$$InventorySlotImplFromJson(json);
 
   @override
   final Resource? resource;
@@ -143,6 +151,7 @@ class _$InventorySlotImpl implements _InventorySlot {
             (identical(other.count, count) || other.count == count));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, resource, count);
 
@@ -151,11 +160,21 @@ class _$InventorySlotImpl implements _InventorySlot {
   @pragma('vm:prefer-inline')
   _$$InventorySlotImplCopyWith<_$InventorySlotImpl> get copyWith =>
       __$$InventorySlotImplCopyWithImpl<_$InventorySlotImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$InventorySlotImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _InventorySlot implements InventorySlot {
   const factory _InventorySlot({final Resource? resource, final int count}) =
       _$InventorySlotImpl;
+
+  factory _InventorySlot.fromJson(Map<String, dynamic> json) =
+      _$InventorySlotImpl.fromJson;
 
   @override
   Resource? get resource;

@@ -1,13 +1,15 @@
+// ignore_for_file: implementation_imports
+
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:craftown/src/components/collision_box.dart';
 import 'package:craftown/src/components/custom_hitbox.dart';
 import 'package:craftown/src/craftown.dart';
+import 'package:craftown/src/models/character.dart';
 import 'package:craftown/src/utils/collisions.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/src/services/keyboard_key.g.dart';
+import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
 
 enum PlayerState {
@@ -26,15 +28,6 @@ enum PlayerState {
   const PlayerState(this.assetName, this.frameCount);
 }
 
-enum Character {
-  character10("Character10"),
-  ;
-
-  final String assetNameSpace;
-
-  const Character(this.assetNameSpace);
-}
-
 enum WalkDirection {
   up,
   down,
@@ -43,10 +36,10 @@ enum WalkDirection {
   ;
 }
 
-class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, KeyboardHandler, CollisionCallbacks {
+class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, RiverpodComponentMixin, KeyboardHandler, CollisionCallbacks {
   final Character character;
 
-  Player({this.character = Character.character10, super.position});
+  Player({required this.character, super.position});
 
   // animations
   late final SpriteAnimation idleUpAnimation;
@@ -82,6 +75,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ke
   WalkDirection lastWalkDirection = WalkDirection.down;
   List<CollisionBlock> collisionBlocks = [];
 
+  bool loading = false;
+
   @override
   FutureOr<void> onLoad() {
     priority = 5;
@@ -94,6 +89,12 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ke
     ));
 
     super.onLoad();
+  }
+
+  setPosition(Vector2 p) async {
+    position.x = p.x;
+    position.y = p.y;
+    loading = true;
   }
 
   @override
@@ -165,7 +166,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ke
 
   SpriteAnimation _spriteAnimation(PlayerState playerState) {
     return SpriteAnimation.fromFrameData(
-      game.images.fromCache("characters/${character.assetNameSpace}/${character.assetNameSpace}_${playerState.assetName}.png"),
+      game.images.fromCache("characters/${character.skin.assetNameSpace}/${character.skin.assetNameSpace}_${playerState.assetName}.png"),
       SpriteAnimationData.sequenced(
         amount: playerState.frameCount,
         stepTime: stepTime,

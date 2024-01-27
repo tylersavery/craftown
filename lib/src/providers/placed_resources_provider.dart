@@ -6,6 +6,10 @@ class PlacedResourcesProvider extends StateNotifier<List<PlacedResource>> {
   final Ref ref;
   PlacedResourcesProvider(this.ref) : super([]);
 
+  set(List<PlacedResource> items) {
+    state = items;
+  }
+
   add(ResourceSprite sprite) {
     state = [
       ...state,
