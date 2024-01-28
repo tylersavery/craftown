@@ -41,6 +41,7 @@ class Resource with _$Resource {
     @Default(false) bool isLiquid,
     @Default(25) int amountPerSlot,
     @Default([]) List<Ingredient> ingredients,
+    @Default(32.0) double interactionRadius,
     double? secondsToCraft,
     double? secondsToMine,
     @Default(false) bool canConsume,

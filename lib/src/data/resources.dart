@@ -96,6 +96,7 @@ class Resources {
         amountPerSlot: 1,
         storageType: StorageType.solid,
         resourcesPerSlot: 50,
+        interactionRadius: 48,
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 10),
         ],
@@ -115,6 +116,7 @@ class Resources {
         slots: 1,
         resourcesPerSlot: 50,
         storageType: StorageType.liquid,
+        interactionRadius: 48,
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 10),
         ],
@@ -139,6 +141,7 @@ class Resources {
         resourcesPerSlot: 50,
         canConstruct: true,
         outputSlotSize: 100,
+        interactionRadius: 48,
       );
 
   static List<Resource> get all => [

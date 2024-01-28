@@ -21,6 +21,10 @@ enum PlayerState {
   walkDown("Walk_Down", 4),
   walkRight("Walk_Right", 4),
   walkLeft("Walk_Left", 4),
+  miningUp("Pickaxe_Up", 4),
+  miningDown("Pickaxe_Down", 4),
+  miningRight("Axe_Right", 4),
+  miningLeft("Pickaxe_Left", 4),
   ;
 
   final String assetName;
@@ -52,6 +56,11 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
   late final SpriteAnimation walkRightAnimation;
   late final SpriteAnimation walkLeftAnimation;
 
+  late final SpriteAnimation miningUpAnimation;
+  late final SpriteAnimation miningDownAnimation;
+  late final SpriteAnimation miningRightAnimation;
+  late final SpriteAnimation miningLeftAnimation;
+
   //  constants
   static const stepTime = 0.1;
 
@@ -59,6 +68,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
   Vector2 velocity = Vector2.zero();
   double moveSpeed = 100.0;
   Vector2 startingPosition = Vector2.zero();
+
+  bool isMining = false;
+  WalkDirection miningDirection = WalkDirection.down;
 
   CustomHitbox hitbox = CustomHitbox(
     offsetX: 9,
@@ -150,6 +162,11 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
     walkRightAnimation = _spriteAnimation(PlayerState.walkRight);
     walkLeftAnimation = _spriteAnimation(PlayerState.walkLeft);
 
+    miningUpAnimation = _spriteAnimation(PlayerState.miningUp);
+    miningDownAnimation = _spriteAnimation(PlayerState.miningDown);
+    miningRightAnimation = _spriteAnimation(PlayerState.miningRight);
+    miningLeftAnimation = _spriteAnimation(PlayerState.miningLeft);
+
     animations = {
       PlayerState.idleUp: idleUpAnimation,
       PlayerState.idleDown: idleDownAnimation,
@@ -159,6 +176,10 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
       PlayerState.walkDown: walkDownAnimation,
       PlayerState.walkRight: walkRightAnimation,
       PlayerState.walkLeft: walkLeftAnimation,
+      PlayerState.miningUp: miningUpAnimation,
+      PlayerState.miningDown: miningDownAnimation,
+      PlayerState.miningRight: miningRightAnimation,
+      PlayerState.miningLeft: miningLeftAnimation,
     };
 
     current = PlayerState.idleDown;
@@ -176,6 +197,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
   }
 
   void _updateMovement(double dt) {
+    if (isMining) return;
     velocity.x = horizontalMovement * moveSpeed;
     position.x += velocity.x * dt;
 
@@ -184,6 +206,18 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
   }
 
   void _updatePlayerState() {
+    if (isMining) {
+      current = switch (miningDirection) {
+        WalkDirection.down => PlayerState.miningDown,
+        WalkDirection.up => PlayerState.miningUp,
+        WalkDirection.left => PlayerState.miningLeft,
+        WalkDirection.right => PlayerState.miningRight,
+      };
+
+      lastWalkDirection = miningDirection;
+
+      return;
+    }
     PlayerState playerState = switch (lastWalkDirection) {
       WalkDirection.down => PlayerState.idleDown,
       WalkDirection.up => PlayerState.idleUp,

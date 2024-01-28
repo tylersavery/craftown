@@ -20,6 +20,8 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      interactionRadius:
+          (json['interactionRadius'] as num?)?.toDouble() ?? 32.0,
       secondsToCraft: (json['secondsToCraft'] as num?)?.toDouble(),
       secondsToMine: (json['secondsToMine'] as num?)?.toDouble(),
       canConsume: json['canConsume'] as bool? ?? false,
@@ -52,6 +54,7 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'isLiquid': instance.isLiquid,
       'amountPerSlot': instance.amountPerSlot,
       'ingredients': instance.ingredients.map((e) => e.toJson()).toList(),
+      'interactionRadius': instance.interactionRadius,
       'secondsToCraft': instance.secondsToCraft,
       'secondsToMine': instance.secondsToMine,
       'canConsume': instance.canConsume,

@@ -29,6 +29,7 @@ mixin _$Resource {
   bool get isLiquid => throw _privateConstructorUsedError;
   int get amountPerSlot => throw _privateConstructorUsedError;
   List<Ingredient> get ingredients => throw _privateConstructorUsedError;
+  double get interactionRadius => throw _privateConstructorUsedError;
   double? get secondsToCraft => throw _privateConstructorUsedError;
   double? get secondsToMine => throw _privateConstructorUsedError;
   bool get canConsume => throw _privateConstructorUsedError;
@@ -65,6 +66,7 @@ abstract class $ResourceCopyWith<$Res> {
       bool isLiquid,
       int amountPerSlot,
       List<Ingredient> ingredients,
+      double interactionRadius,
       double? secondsToCraft,
       double? secondsToMine,
       bool canConsume,
@@ -103,6 +105,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? isLiquid = null,
     Object? amountPerSlot = null,
     Object? ingredients = null,
+    Object? interactionRadius = null,
     Object? secondsToCraft = freezed,
     Object? secondsToMine = freezed,
     Object? canConsume = null,
@@ -154,6 +157,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.ingredients
           : ingredients // ignore: cast_nullable_to_non_nullable
               as List<Ingredient>,
+      interactionRadius: null == interactionRadius
+          ? _value.interactionRadius
+          : interactionRadius // ignore: cast_nullable_to_non_nullable
+              as double,
       secondsToCraft: freezed == secondsToCraft
           ? _value.secondsToCraft
           : secondsToCraft // ignore: cast_nullable_to_non_nullable
@@ -228,6 +235,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
       bool isLiquid,
       int amountPerSlot,
       List<Ingredient> ingredients,
+      double interactionRadius,
       double? secondsToCraft,
       double? secondsToMine,
       bool canConsume,
@@ -264,6 +272,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? isLiquid = null,
     Object? amountPerSlot = null,
     Object? ingredients = null,
+    Object? interactionRadius = null,
     Object? secondsToCraft = freezed,
     Object? secondsToMine = freezed,
     Object? canConsume = null,
@@ -315,6 +324,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value._ingredients
           : ingredients // ignore: cast_nullable_to_non_nullable
               as List<Ingredient>,
+      interactionRadius: null == interactionRadius
+          ? _value.interactionRadius
+          : interactionRadius // ignore: cast_nullable_to_non_nullable
+              as double,
       secondsToCraft: freezed == secondsToCraft
           ? _value.secondsToCraft
           : secondsToCraft // ignore: cast_nullable_to_non_nullable
@@ -384,6 +397,7 @@ class _$ResourceImpl extends _Resource {
       this.isLiquid = false,
       this.amountPerSlot = 25,
       final List<Ingredient> ingredients = const [],
+      this.interactionRadius = 32.0,
       this.secondsToCraft,
       this.secondsToMine,
       this.canConsume = false,
@@ -434,6 +448,9 @@ class _$ResourceImpl extends _Resource {
   }
 
   @override
+  @JsonKey()
+  final double interactionRadius;
+  @override
   final double? secondsToCraft;
   @override
   final double? secondsToMine;
@@ -479,7 +496,7 @@ class _$ResourceImpl extends _Resource {
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, canConsume: $canConsume, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize)';
+    return 'Resource(identifier: $identifier, name: $name, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, canConsume: $canConsume, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize)';
   }
 
   @override
@@ -504,6 +521,8 @@ class _$ResourceImpl extends _Resource {
                 other.amountPerSlot == amountPerSlot) &&
             const DeepCollectionEquality()
                 .equals(other._ingredients, _ingredients) &&
+            (identical(other.interactionRadius, interactionRadius) ||
+                other.interactionRadius == interactionRadius) &&
             (identical(other.secondsToCraft, secondsToCraft) ||
                 other.secondsToCraft == secondsToCraft) &&
             (identical(other.secondsToMine, secondsToMine) ||
@@ -544,6 +563,7 @@ class _$ResourceImpl extends _Resource {
         isLiquid,
         amountPerSlot,
         const DeepCollectionEquality().hash(_ingredients),
+        interactionRadius,
         secondsToCraft,
         secondsToMine,
         canConsume,
@@ -584,6 +604,7 @@ abstract class _Resource extends Resource {
       final bool isLiquid,
       final int amountPerSlot,
       final List<Ingredient> ingredients,
+      final double interactionRadius,
       final double? secondsToCraft,
       final double? secondsToMine,
       final bool canConsume,
@@ -621,6 +642,8 @@ abstract class _Resource extends Resource {
   int get amountPerSlot;
   @override
   List<Ingredient> get ingredients;
+  @override
+  double get interactionRadius;
   @override
   double? get secondsToCraft;
   @override

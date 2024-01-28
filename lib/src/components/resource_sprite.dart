@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:craftown/src/components/custom_hitbox.dart';
+import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/models/resource.dart';
@@ -30,7 +31,6 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   final Resource resource;
   late Vector2 initialPosition;
   final bool visible;
-  final double interactionRadius;
 
   late final Sprite emptySprite;
   late final Sprite fullSprite;
@@ -43,7 +43,6 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
     super.position,
     super.size,
     this.visible = false,
-    this.interactionRadius = 48,
     this.placementUniqueIdentifier,
   }) {
     initialPosition = Vector2(position.x, position.y);
@@ -56,7 +55,6 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       'position': [position.x, position.y],
       'size': [size.x, size.y],
       'visible': visible,
-      'interactionRadius': interactionRadius,
     };
   }
 
@@ -66,7 +64,6 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       position: Vector2(data['position'][0], data['position'][1]),
       size: Vector2(data['size'][0], data['size'][1]),
       visible: data['visible'],
-      interactionRadius: data['interactionRadius'],
     );
   }
 
@@ -132,7 +129,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   }
 
   bool validateInteractivity() {
-    if (!isWithinRadius(game.player.position, position, interactionRadius)) {
+    if (!isWithinRadius(game.player.position, position, resource.interactionRadius)) {
       ref.read(toastMessagesProvider.notifier).add(
             "Move closer to interact",
             type: ToastMessageType.info,
@@ -177,6 +174,23 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
     if (resource.minePerSecond != null && validateMining()) {
       miningTimeCounter = 0;
       isMining = true;
+
+      game.player.isMining = true;
+
+      final playerCenter = Vector2(game.player.position.x + (game.player.size.x / 2), game.player.position.y + (game.player.size.y / 2));
+      final resourceCenter = Vector2(position.x + (size.x / 2), position.y + (size.y / 2));
+
+      final deltaX = playerCenter.x - resourceCenter.x;
+      final deltaY = playerCenter.y - resourceCenter.y;
+      if (deltaX > 0 && deltaX > deltaY) {
+        game.player.miningDirection = WalkDirection.left;
+      } else if (deltaX < 0 && deltaX < deltaY) {
+        game.player.miningDirection = WalkDirection.right;
+      } else if (deltaY > 0) {
+        game.player.miningDirection = WalkDirection.up;
+      } else {
+        game.player.miningDirection = WalkDirection.down;
+      }
     }
     super.onTapDown(event);
   }
@@ -185,6 +199,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   void onTapUp(TapUpEvent event) {
     if (resource.minePerSecond != null) {
       isMining = false;
+      game.player.isMining = false;
       accumulatedTime = 0;
     }
     super.onTapUp(event);
@@ -194,6 +209,8 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   void onTapCancel(TapCancelEvent event) {
     if (resource.minePerSecond != null) {
       isMining = false;
+      game.player.isMining = false;
+
       accumulatedTime = 0;
     }
     super.onTapCancel(event);
