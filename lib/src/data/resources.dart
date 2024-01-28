@@ -10,7 +10,6 @@ class Resources {
         assetFileName16: "iron-16x16.png",
         assetFileNameLarge: "iron-32x32.png",
         secondsToMine: 2,
-        amountPerSlot: 3,
       );
 
   static Resource get copper => Resource(
@@ -19,7 +18,6 @@ class Resources {
         assetFileName16: "copper-16x16.png",
         assetFileNameLarge: "copper-32x32.png",
         secondsToMine: 3,
-        amountPerSlot: 25,
       );
 
   static Resource get wood => Resource(
@@ -27,7 +25,6 @@ class Resources {
         name: "Wood",
         assetFileName16: "wood-16x16.png",
         secondsToMine: 1,
-        amountPerSlot: 3,
       );
 
   static Resource get water => Resource(
@@ -67,6 +64,7 @@ class Resources {
         assetFileName16: "soup-16x16.png",
         name: "Soup",
         secondsToCraft: 1,
+        amountPerSlot: 10,
         ingredients: [
           Ingredient(resource: Resources.water, quantity: 2),
           Ingredient(resource: Resources.straw, quantity: 3),
@@ -95,6 +93,7 @@ class Resources {
         placementWidth: 30,
         placementHeight: 22,
         slots: 4,
+        amountPerSlot: 1,
         storageType: StorageType.solid,
         resourcesPerSlot: 50,
         ingredients: [
@@ -112,6 +111,7 @@ class Resources {
         canPlace: true,
         placementWidth: 16,
         placementHeight: 25,
+        amountPerSlot: 1,
         slots: 1,
         resourcesPerSlot: 50,
         storageType: StorageType.liquid,
@@ -126,6 +126,7 @@ class Resources {
         assetFileNameLarge: "constructor-a-26x38.png",
         placementWidth: 26,
         placementHeight: 38,
+        amountPerSlot: 1,
         name: "Constructor Mk 1",
         secondsToCraft: 10,
         ingredients: [

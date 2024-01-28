@@ -7,6 +7,7 @@ import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/providers/toast_messages_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';
+import 'package:craftown/src/utils/randomization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PlacedResourcesProvider extends StateNotifier<List<PlacedResource>> {
@@ -17,17 +18,29 @@ class PlacedResourcesProvider extends StateNotifier<List<PlacedResource>> {
     state = items;
   }
 
-  add(ResourceSprite sprite) {
+  add(String uniquePlacementIdentifier, ResourceSprite sprite) {
+    sprite.placementUniqueIdentifier = uniquePlacementIdentifier;
+
     state = [
       ...state,
-      PlacedResource(sprite: sprite, contents: List.generate(sprite.resource.slots, (_) => [])),
+      PlacedResource(
+        sprite: sprite,
+        uniqueIdentifier: uniquePlacementIdentifier,
+        contents: List.generate(
+          sprite.resource.slots,
+          (_) => [],
+        ),
+      ),
     ];
   }
 
   bool pickup(PlacedResource item) {
+    print(item.uniqueIdentifier);
+
     final inputs = item.contents.expand((item) => item).toList();
     final outputs = item.outputSlotContents;
 
+    // grab all inputs, outputs, and the resource itself
     for (final r in [...inputs, ...outputs, item.sprite.resource]) {
       final success = ref.read(inventoryProvider.notifier).addResource(r);
 
@@ -48,7 +61,7 @@ class PlacedResourcesProvider extends StateNotifier<List<PlacedResource>> {
 
     final gameComponent = gameWidgetKey.currentState!.currentGame.level.children.firstWhere((element) {
       if (element is ResourceSprite) {
-        if (element.identifier == item.sprite.identifier) {
+        if (element.placementUniqueIdentifier == item.uniqueIdentifier) {
           return true;
         }
       }
@@ -56,8 +69,8 @@ class PlacedResourcesProvider extends StateNotifier<List<PlacedResource>> {
     });
 
     gameWidgetKey.currentState!.currentGame.level.remove(gameComponent);
-    //TODO: remove collision box!
 
+    // TODO: Perhaps a better way to do this (tie the two together)
     final collisionBlockIndex = gameWidgetKey.currentState!.currentGame.level.collisionBlocks.indexWhere(
       (element) => element.x == item.sprite.x && element.y == item.sprite.y,
     );
@@ -67,7 +80,7 @@ class PlacedResourcesProvider extends StateNotifier<List<PlacedResource>> {
     }
 
     // ref.invalidate(placedResourceDetailProvider(item.sprite.identifier));
-    state = [...state]..removeWhere((element) => element.sprite.identifier == item.sprite.identifier);
+    // state = [...state]..removeWhere((element) => element.uniqueIdentifier == item.uniqueIdentifier);
 
     return true;
   }

@@ -10,6 +10,7 @@ class PlacedResource with _$PlacedResource {
   const PlacedResource._();
 
   const factory PlacedResource({
+    required String uniqueIdentifier,
     required ResourceSprite sprite,
     @Default([]) List<List<Resource>> contents,
     Resource? selectedRecipe,

@@ -20,6 +20,7 @@ PlacedResource _$PlacedResourceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PlacedResource {
+  String get uniqueIdentifier => throw _privateConstructorUsedError;
   ResourceSprite get sprite => throw _privateConstructorUsedError;
   List<List<Resource>> get contents => throw _privateConstructorUsedError;
   Resource? get selectedRecipe => throw _privateConstructorUsedError;
@@ -39,7 +40,8 @@ abstract class $PlacedResourceCopyWith<$Res> {
       _$PlacedResourceCopyWithImpl<$Res, PlacedResource>;
   @useResult
   $Res call(
-      {ResourceSprite sprite,
+      {String uniqueIdentifier,
+      ResourceSprite sprite,
       List<List<Resource>> contents,
       Resource? selectedRecipe,
       bool isConstructing,
@@ -61,6 +63,7 @@ class _$PlacedResourceCopyWithImpl<$Res, $Val extends PlacedResource>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uniqueIdentifier = null,
     Object? sprite = null,
     Object? contents = null,
     Object? selectedRecipe = freezed,
@@ -68,6 +71,10 @@ class _$PlacedResourceCopyWithImpl<$Res, $Val extends PlacedResource>
     Object? outputSlotContents = null,
   }) {
     return _then(_value.copyWith(
+      uniqueIdentifier: null == uniqueIdentifier
+          ? _value.uniqueIdentifier
+          : uniqueIdentifier // ignore: cast_nullable_to_non_nullable
+              as String,
       sprite: null == sprite
           ? _value.sprite
           : sprite // ignore: cast_nullable_to_non_nullable
@@ -113,7 +120,8 @@ abstract class _$$PlacedResourceImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ResourceSprite sprite,
+      {String uniqueIdentifier,
+      ResourceSprite sprite,
       List<List<Resource>> contents,
       Resource? selectedRecipe,
       bool isConstructing,
@@ -134,6 +142,7 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uniqueIdentifier = null,
     Object? sprite = null,
     Object? contents = null,
     Object? selectedRecipe = freezed,
@@ -141,6 +150,10 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
     Object? outputSlotContents = null,
   }) {
     return _then(_$PlacedResourceImpl(
+      uniqueIdentifier: null == uniqueIdentifier
+          ? _value.uniqueIdentifier
+          : uniqueIdentifier // ignore: cast_nullable_to_non_nullable
+              as String,
       sprite: null == sprite
           ? _value.sprite
           : sprite // ignore: cast_nullable_to_non_nullable
@@ -169,7 +182,8 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PlacedResourceImpl extends _PlacedResource {
   const _$PlacedResourceImpl(
-      {required this.sprite,
+      {required this.uniqueIdentifier,
+      required this.sprite,
       final List<List<Resource>> contents = const [],
       this.selectedRecipe,
       this.isConstructing = false,
@@ -181,6 +195,8 @@ class _$PlacedResourceImpl extends _PlacedResource {
   factory _$PlacedResourceImpl.fromJson(Map<String, dynamic> json) =>
       _$$PlacedResourceImplFromJson(json);
 
+  @override
+  final String uniqueIdentifier;
   @override
   final ResourceSprite sprite;
   final List<List<Resource>> _contents;
@@ -209,7 +225,7 @@ class _$PlacedResourceImpl extends _PlacedResource {
 
   @override
   String toString() {
-    return 'PlacedResource(sprite: $sprite, contents: $contents, selectedRecipe: $selectedRecipe, isConstructing: $isConstructing, outputSlotContents: $outputSlotContents)';
+    return 'PlacedResource(uniqueIdentifier: $uniqueIdentifier, sprite: $sprite, contents: $contents, selectedRecipe: $selectedRecipe, isConstructing: $isConstructing, outputSlotContents: $outputSlotContents)';
   }
 
   @override
@@ -217,6 +233,8 @@ class _$PlacedResourceImpl extends _PlacedResource {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PlacedResourceImpl &&
+            (identical(other.uniqueIdentifier, uniqueIdentifier) ||
+                other.uniqueIdentifier == uniqueIdentifier) &&
             (identical(other.sprite, sprite) || other.sprite == sprite) &&
             const DeepCollectionEquality().equals(other._contents, _contents) &&
             (identical(other.selectedRecipe, selectedRecipe) ||
@@ -231,6 +249,7 @@ class _$PlacedResourceImpl extends _PlacedResource {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      uniqueIdentifier,
       sprite,
       const DeepCollectionEquality().hash(_contents),
       selectedRecipe,
@@ -254,7 +273,8 @@ class _$PlacedResourceImpl extends _PlacedResource {
 
 abstract class _PlacedResource extends PlacedResource {
   const factory _PlacedResource(
-      {required final ResourceSprite sprite,
+      {required final String uniqueIdentifier,
+      required final ResourceSprite sprite,
       final List<List<Resource>> contents,
       final Resource? selectedRecipe,
       final bool isConstructing,
@@ -264,6 +284,8 @@ abstract class _PlacedResource extends PlacedResource {
   factory _PlacedResource.fromJson(Map<String, dynamic> json) =
       _$PlacedResourceImpl.fromJson;
 
+  @override
+  String get uniqueIdentifier;
   @override
   ResourceSprite get sprite;
   @override

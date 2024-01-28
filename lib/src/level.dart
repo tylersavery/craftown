@@ -14,6 +14,7 @@ import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
 import 'package:craftown/src/providers/player_position_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
+import 'package:craftown/src/utils/randomization.dart';
 import 'package:flame/components.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flame_tiled/flame_tiled.dart';
@@ -176,15 +177,20 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
       ref.read(resourceInHandProvider.notifier).clear();
 
+      final uniqueIdentifier = randomString();
+
+      print("UNIQUE, $uniqueIdentifier");
+
       final newResource = ResourceSprite(
         resource: resource,
+        placementUniqueIdentifier: uniqueIdentifier,
         position: Vector2(x, y),
         size: Vector2(resource.placementWidth, resource.placementHeight),
         visible: true,
       );
 
       add(newResource);
-      ref.read(placedResourcesProvider.notifier).add(newResource);
+      ref.read(placedResourcesProvider.notifier).add(uniqueIdentifier, newResource);
       final block = CollisionBlock(
         position: newResource.position,
         size: newResource.size,

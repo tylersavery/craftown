@@ -44,7 +44,7 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
         gameWidgetKey.currentState!.currentGame.level.add(pr.sprite);
         final block = CollisionBlock(position: pr.sprite.position, size: pr.sprite.size);
         gameWidgetKey.currentState!.currentGame.level.collisionBlocks.add(block);
-        final detailProvider = ref.read(placedResourceDetailProvider(pr.sprite.identifier).notifier);
+        final detailProvider = ref.read(placedResourceDetailProvider(pr.uniqueIdentifier).notifier);
         detailProvider.setContents(pr.contents);
         detailProvider.setOutput(pr.outputSlotContents);
         detailProvider.selectRecipe(pr.selectedRecipe);
@@ -62,20 +62,22 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
 
     final List<PlacedResource> updatedPlacedResources = [];
     for (final pr in placedResources) {
-      final detailState = ref.read(placedResourceDetailProvider(pr.sprite.identifier));
+      if (pr.sprite.placementUniqueIdentifier != null) {
+        final detailState = ref.read(placedResourceDetailProvider(pr.sprite.placementUniqueIdentifier!));
 
-      if (detailState != null) {
-        final updatedPr = pr.copyWith(
-          contents: detailState.contents,
-          outputSlotContents: detailState.outputSlotContents,
-          isConstructing: detailState.isConstructing,
-          selectedRecipe: detailState.selectedRecipe,
-        );
+        if (detailState != null) {
+          final updatedPr = pr.copyWith(
+            contents: detailState.contents,
+            outputSlotContents: detailState.outputSlotContents,
+            isConstructing: detailState.isConstructing,
+            selectedRecipe: detailState.selectedRecipe,
+          );
 
-        updatedPlacedResources.add(updatedPr);
-      } else {
-        print("POSSIBLE ISSUE!");
-        updatedPlacedResources.add(pr);
+          updatedPlacedResources.add(updatedPr);
+        } else {
+          print("POSSIBLE ISSUE!");
+          updatedPlacedResources.add(pr);
+        }
       }
     }
 

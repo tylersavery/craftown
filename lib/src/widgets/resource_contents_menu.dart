@@ -38,7 +38,9 @@ class ResourceContentsMenu extends ConsumerWidget {
       return SizedBox();
     }
 
-    final placedResource = ref.watch(placedResourceDetailProvider(selectedPlacedResource.sprite.identifier));
+    print("id: ${selectedPlacedResource.uniqueIdentifier}");
+
+    final placedResource = ref.watch(placedResourceDetailProvider(selectedPlacedResource.uniqueIdentifier));
 
     if (placedResource == null) {
       print("placedResource is null in resource content menu");
@@ -82,7 +84,7 @@ class ResourceContentsMenu extends ConsumerWidget {
                             onSelect: (index) {
                               final recipe = ref.read(recipesProvider)[index];
 
-                              ref.read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier).selectRecipe(recipe);
+                              ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).selectRecipe(recipe);
                             },
                           ),
                         )
@@ -112,7 +114,7 @@ class ResourceContentsMenu extends ConsumerWidget {
                         return;
                       }
 
-                      final success = ref.read(placedResourceDetailProvider(placedResourceSprite.identifier).notifier).addContents(resource);
+                      final success = ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier!).notifier).addContents(resource);
                       if (success) {
                         ref.read(inventoryProvider.notifier).removeResource(resource, 1);
                       }
@@ -171,7 +173,7 @@ class ResourceContentsMenu extends ConsumerWidget {
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        ref.read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier).selectRecipe(null);
+                                        ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).selectRecipe(null);
                                       },
                                       icon: Icon(Icons.close),
                                     ),
@@ -261,7 +263,7 @@ class ResourceContentsMenu extends ConsumerWidget {
                                           }
 
                                           final removedResources = ref
-                                              .read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier)
+                                              .read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier)
                                               .removeContents(index, amountToRemove);
                                           if (removedResources != null) {
                                             for (final r in removedResources) {
@@ -332,7 +334,7 @@ class ResourceContentsMenu extends ConsumerWidget {
                                         }
 
                                         final removedResources = ref
-                                            .read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier)
+                                            .read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier)
                                             .removeFromOutputSlot(amountToRemove);
                                         for (final removed in removedResources) {
                                           ref.read(inventoryProvider.notifier).addResource(removed);
@@ -377,7 +379,7 @@ class ResourceContentsMenu extends ConsumerWidget {
                                   label: placedResource.isConstructing ? "Stop" : "Start",
                                   duration: Duration.zero,
                                   onComplete: () {
-                                    ref.read(placedResourceDetailProvider(placedResource.sprite.identifier).notifier).toggleConstruction();
+                                    ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).toggleConstruction();
                                   },
                                   completeOnClick: true,
                                   small: true,

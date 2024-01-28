@@ -12,7 +12,8 @@ class ResourceContentsMenuProvider extends StateNotifier<ResourceContentsMenuSta
   ResourceContentsMenuProvider(this.ref, ResourceContentsMenuState initialState) : super(initialState);
 
   void openWith(ResourceSprite sprite) {
-    final placedResource = ref.read(placedResourcesProvider).firstWhereOrNull((p) => p.sprite.identifier == sprite.identifier);
+    final placedResource = ref.read(placedResourcesProvider).firstWhereOrNull((p) => p.uniqueIdentifier == sprite.placementUniqueIdentifier);
+
     if (placedResource == null) {
       print("placed resource null");
       return;

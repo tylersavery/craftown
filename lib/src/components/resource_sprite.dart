@@ -36,6 +36,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   late final Sprite fullSprite;
 
   late final CustomHitbox hitbox;
+  String? placementUniqueIdentifier;
 
   ResourceSprite({
     required this.resource,
@@ -43,6 +44,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
     super.size,
     this.visible = false,
     this.interactionRadius = 48,
+    this.placementUniqueIdentifier,
   }) {
     initialPosition = Vector2(position.x, position.y);
     identifier = randomString();
@@ -114,13 +116,15 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       accumulatedTime -= fixedDeltaTime;
     }
 
-    final placedInstance = ref.read(placedResourceDetailProvider(identifier));
+    if (placementUniqueIdentifier != null) {
+      final placedInstance = ref.read(placedResourceDetailProvider(placementUniqueIdentifier!));
 
-    if (placedInstance != null) {
-      if (placedInstance.isEmpty && current != SpriteState.empty) {
-        current = SpriteState.empty;
-      } else if (!placedInstance.isEmpty && current != SpriteState.full) {
-        current = SpriteState.full;
+      if (placedInstance != null) {
+        if (placedInstance.isEmpty && current != SpriteState.empty) {
+          current = SpriteState.empty;
+        } else if (!placedInstance.isEmpty && current != SpriteState.full) {
+          current = SpriteState.full;
+        }
       }
     }
 

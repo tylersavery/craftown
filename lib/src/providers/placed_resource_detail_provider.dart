@@ -283,8 +283,8 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
   }
 }
 
-final placedResourceDetailProvider = StateNotifierProvider.family<PlacedResourceDetailedProvider, PlacedResource?, String>((ref, identifier) {
-  final placedResource = ref.watch(placedResourcesProvider).firstWhereOrNull((p) => p.sprite.identifier == identifier);
+final placedResourceDetailProvider = StateNotifierProvider.family<PlacedResourceDetailedProvider, PlacedResource?, String>((ref, uniqueIdentifier) {
+  final placedResource = ref.watch(placedResourcesProvider).firstWhereOrNull((p) => p.uniqueIdentifier == uniqueIdentifier);
 
   return PlacedResourceDetailedProvider(
     ref,
