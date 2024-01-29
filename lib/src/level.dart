@@ -9,11 +9,14 @@ import 'package:craftown/src/components/resource_sprite.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/data/resources.dart';
+import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/models/resource.dart';
+import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
 import 'package:craftown/src/providers/player_position_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
+import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/utils/randomization.dart';
 import 'package:flame/components.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
@@ -178,8 +181,6 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       ref.read(resourceInHandProvider.notifier).clear();
 
       final uniqueIdentifier = randomString();
-
-      print("UNIQUE, $uniqueIdentifier");
 
       final newResource = ResourceSprite(
         resource: resource,

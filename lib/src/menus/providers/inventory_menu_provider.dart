@@ -1,4 +1,4 @@
-import 'package:craftown/src/models/inventory_menu_state.dart';
+import 'package:craftown/src/menus/models/inventory_menu_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class InventoryMenuProvider extends StateNotifier<InventoryMenuState> {

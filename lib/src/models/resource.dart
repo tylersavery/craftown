@@ -1,6 +1,7 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/models/ingredient.dart';
 import 'package:craftown/src/models/inventory_slot.dart';
+import 'package:craftown/src/models/tool.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'resource.freezed.dart';
@@ -44,6 +45,7 @@ class Resource with _$Resource {
     @Default(32.0) double interactionRadius,
     double? secondsToCraft,
     double? secondsToMine,
+    String? miningToolRequiredIdentifier,
     @Default(false) bool canConsume,
     @Default(false) bool canPlace,
     @Default(false) bool canPickUp,

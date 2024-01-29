@@ -1,9 +1,5 @@
-import 'dart:async';
-
 import 'package:craftown/src/constants.dart';
-import 'package:craftown/src/models/craft_menu_state.dart';
-import 'package:craftown/src/models/resource.dart';
-import 'package:craftown/src/providers/craft_menu_provider.dart';
+import 'package:craftown/src/menus/providers/craft_menu_provider.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/recipes_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';

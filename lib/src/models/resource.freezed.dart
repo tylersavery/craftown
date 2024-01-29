@@ -32,6 +32,8 @@ mixin _$Resource {
   double get interactionRadius => throw _privateConstructorUsedError;
   double? get secondsToCraft => throw _privateConstructorUsedError;
   double? get secondsToMine => throw _privateConstructorUsedError;
+  String? get miningToolRequiredIdentifier =>
+      throw _privateConstructorUsedError;
   bool get canConsume => throw _privateConstructorUsedError;
   bool get canPlace => throw _privateConstructorUsedError;
   bool get canPickUp => throw _privateConstructorUsedError;
@@ -69,6 +71,7 @@ abstract class $ResourceCopyWith<$Res> {
       double interactionRadius,
       double? secondsToCraft,
       double? secondsToMine,
+      String? miningToolRequiredIdentifier,
       bool canConsume,
       bool canPlace,
       bool canPickUp,
@@ -108,6 +111,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? interactionRadius = null,
     Object? secondsToCraft = freezed,
     Object? secondsToMine = freezed,
+    Object? miningToolRequiredIdentifier = freezed,
     Object? canConsume = null,
     Object? canPlace = null,
     Object? canPickUp = null,
@@ -169,6 +173,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.secondsToMine
           : secondsToMine // ignore: cast_nullable_to_non_nullable
               as double?,
+      miningToolRequiredIdentifier: freezed == miningToolRequiredIdentifier
+          ? _value.miningToolRequiredIdentifier
+          : miningToolRequiredIdentifier // ignore: cast_nullable_to_non_nullable
+              as String?,
       canConsume: null == canConsume
           ? _value.canConsume
           : canConsume // ignore: cast_nullable_to_non_nullable
@@ -238,6 +246,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
       double interactionRadius,
       double? secondsToCraft,
       double? secondsToMine,
+      String? miningToolRequiredIdentifier,
       bool canConsume,
       bool canPlace,
       bool canPickUp,
@@ -275,6 +284,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? interactionRadius = null,
     Object? secondsToCraft = freezed,
     Object? secondsToMine = freezed,
+    Object? miningToolRequiredIdentifier = freezed,
     Object? canConsume = null,
     Object? canPlace = null,
     Object? canPickUp = null,
@@ -336,6 +346,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.secondsToMine
           : secondsToMine // ignore: cast_nullable_to_non_nullable
               as double?,
+      miningToolRequiredIdentifier: freezed == miningToolRequiredIdentifier
+          ? _value.miningToolRequiredIdentifier
+          : miningToolRequiredIdentifier // ignore: cast_nullable_to_non_nullable
+              as String?,
       canConsume: null == canConsume
           ? _value.canConsume
           : canConsume // ignore: cast_nullable_to_non_nullable
@@ -400,6 +414,7 @@ class _$ResourceImpl extends _Resource {
       this.interactionRadius = 32.0,
       this.secondsToCraft,
       this.secondsToMine,
+      this.miningToolRequiredIdentifier,
       this.canConsume = false,
       this.canPlace = false,
       this.canPickUp = false,
@@ -455,6 +470,8 @@ class _$ResourceImpl extends _Resource {
   @override
   final double? secondsToMine;
   @override
+  final String? miningToolRequiredIdentifier;
+  @override
   @JsonKey()
   final bool canConsume;
   @override
@@ -496,7 +513,7 @@ class _$ResourceImpl extends _Resource {
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, canConsume: $canConsume, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize)';
+    return 'Resource(identifier: $identifier, name: $name, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, canConsume: $canConsume, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize)';
   }
 
   @override
@@ -527,6 +544,10 @@ class _$ResourceImpl extends _Resource {
                 other.secondsToCraft == secondsToCraft) &&
             (identical(other.secondsToMine, secondsToMine) ||
                 other.secondsToMine == secondsToMine) &&
+            (identical(other.miningToolRequiredIdentifier,
+                    miningToolRequiredIdentifier) ||
+                other.miningToolRequiredIdentifier ==
+                    miningToolRequiredIdentifier) &&
             (identical(other.canConsume, canConsume) ||
                 other.canConsume == canConsume) &&
             (identical(other.canPlace, canPlace) ||
@@ -566,6 +587,7 @@ class _$ResourceImpl extends _Resource {
         interactionRadius,
         secondsToCraft,
         secondsToMine,
+        miningToolRequiredIdentifier,
         canConsume,
         canPlace,
         canPickUp,
@@ -607,6 +629,7 @@ abstract class _Resource extends Resource {
       final double interactionRadius,
       final double? secondsToCraft,
       final double? secondsToMine,
+      final String? miningToolRequiredIdentifier,
       final bool canConsume,
       final bool canPlace,
       final bool canPickUp,
@@ -648,6 +671,8 @@ abstract class _Resource extends Resource {
   double? get secondsToCraft;
   @override
   double? get secondsToMine;
+  @override
+  String? get miningToolRequiredIdentifier;
   @override
   bool get canConsume;
   @override

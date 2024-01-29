@@ -24,6 +24,8 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
           (json['interactionRadius'] as num?)?.toDouble() ?? 32.0,
       secondsToCraft: (json['secondsToCraft'] as num?)?.toDouble(),
       secondsToMine: (json['secondsToMine'] as num?)?.toDouble(),
+      miningToolRequiredIdentifier:
+          json['miningToolRequiredIdentifier'] as String?,
       canConsume: json['canConsume'] as bool? ?? false,
       canPlace: json['canPlace'] as bool? ?? false,
       canPickUp: json['canPickUp'] as bool? ?? false,
@@ -57,6 +59,7 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'interactionRadius': instance.interactionRadius,
       'secondsToCraft': instance.secondsToCraft,
       'secondsToMine': instance.secondsToMine,
+      'miningToolRequiredIdentifier': instance.miningToolRequiredIdentifier,
       'canConsume': instance.canConsume,
       'canPlace': instance.canPlace,
       'canPickUp': instance.canPickUp,

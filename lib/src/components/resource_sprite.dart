@@ -5,12 +5,14 @@ import 'package:craftown/src/components/custom_hitbox.dart';
 import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
+import 'package:craftown/src/data/tools.dart';
+import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/toast_message.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
-import 'package:craftown/src/providers/resource_contents_menu_provider.dart';
+import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/providers/toast_messages_provider.dart';
 import 'package:craftown/src/utils/collisions.dart';
 import 'package:craftown/src/utils/randomization.dart';
@@ -140,6 +142,14 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   }
 
   bool validateMining() {
+    if (resource.miningToolRequiredIdentifier != null) {
+      if (ref.read(selectedToolProvider) == null || ref.read(selectedToolProvider)!.identifier != resource.miningToolRequiredIdentifier) {
+        final tool = Tools.allTools.firstWhere((element) => element.identifier == resource.miningToolRequiredIdentifier);
+        ref.read(toastMessagesProvider.notifier).add("Use a ${tool.name} to mine ${resource.name}.");
+        return false;
+      }
+    }
+
     if (resource.requiredToMine.isNotEmpty) {
       for (final resource in resource.requiredToMine) {
         if (ref.read(inventoryProvider.notifier).totalResourcesWithIdentifier(resource.identifier) < 1) {

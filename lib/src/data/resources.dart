@@ -1,6 +1,8 @@
+import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/models/ingredient.dart';
 import 'package:craftown/src/models/recipe.dart';
 import 'package:craftown/src/models/resource.dart';
+import 'package:craftown/src/models/tool.dart';
 
 class Resources {
   // PRIMARY
@@ -10,6 +12,7 @@ class Resources {
         assetFileName16: "iron-16x16.png",
         assetFileNameLarge: "iron-32x32.png",
         secondsToMine: 2,
+        miningToolRequiredIdentifier: "pick",
       );
 
   static Resource get copper => Resource(
@@ -18,6 +21,7 @@ class Resources {
         assetFileName16: "copper-16x16.png",
         assetFileNameLarge: "copper-32x32.png",
         secondsToMine: 3,
+        miningToolRequiredIdentifier: "pick",
       );
 
   static Resource get wood => Resource(
@@ -25,6 +29,7 @@ class Resources {
         name: "Wood",
         assetFileName16: "wood-16x16.png",
         secondsToMine: 1,
+        miningToolRequiredIdentifier: "axe",
       );
 
   static Resource get water => Resource(
@@ -34,6 +39,7 @@ class Resources {
         secondsToMine: 0.5,
         isLiquid: true,
         requiredToMine: [Resources.woodenBucket],
+        miningToolRequiredIdentifier: "water_bucket",
       );
 
   static Resource get straw => Resource(
@@ -41,6 +47,7 @@ class Resources {
         assetFileName16: "straw-16x16.png",
         name: "Straw",
         secondsToMine: 1,
+        miningToolRequiredIdentifier: "sythe",
       );
 
 // Secondary

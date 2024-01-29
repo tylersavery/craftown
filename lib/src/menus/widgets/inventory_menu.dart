@@ -1,7 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
 import 'package:craftown/src/constants.dart';
-import 'package:craftown/src/providers/inventory_menu_provider.dart';
+import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
@@ -113,8 +113,8 @@ class InventoryMenu extends ConsumerWidget {
                                 completeOnClick: true,
                                 label: "Place",
                                 onComplete: () {
-                                  ref.read(resourceInHandProvider.notifier).set(resource);
                                   _inventoryProvider.removeResource(resource, 1);
+                                  ref.read(resourceInHandProvider.notifier).set(resource);
                                   menuProvider.close();
                                 },
                               ),

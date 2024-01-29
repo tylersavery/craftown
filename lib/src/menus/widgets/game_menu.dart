@@ -1,6 +1,6 @@
 import 'package:craftown/src/constants.dart';
-import 'package:craftown/src/models/game_menu_state.dart';
-import 'package:craftown/src/providers/game_menu_provider.dart';
+import 'package:craftown/src/menus/providers/game_menu_provider.dart';
+import 'package:craftown/src/menus/models/game_menu_state.dart';
 import 'package:craftown/src/providers/saved_games_provider.dart';
 import 'package:craftown/src/widgets/shared/menu_container.dart';
 import 'package:flutter/material.dart';

@@ -1,21 +1,24 @@
 import 'package:craftown/src/craftown.dart';
-import 'package:craftown/src/providers/craft_menu_provider.dart';
-import 'package:craftown/src/providers/game_menu_provider.dart';
-import 'package:craftown/src/providers/inventory_menu_provider.dart';
+import 'package:craftown/src/menus/providers/craft_menu_provider.dart';
+import 'package:craftown/src/menus/providers/game_menu_provider.dart';
+import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
+import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
+import 'package:craftown/src/menus/providers/tool_menu_provider.dart';
+import 'package:craftown/src/menus/widgets/craft_menu.dart';
+import 'package:craftown/src/menus/widgets/game_menu.dart';
+import 'package:craftown/src/menus/widgets/inventory_menu.dart';
+import 'package:craftown/src/menus/widgets/resource_contents_menu.dart';
+import 'package:craftown/src/menus/widgets/tool_menu.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
-import 'package:craftown/src/providers/resource_contents_menu_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/providers/selected_character_provider.dart';
 import 'package:craftown/src/providers/toast_messages_provider.dart';
-import 'package:craftown/src/widgets/craft_button_widget.dart';
-import 'package:craftown/src/widgets/craft_menu.dart';
-import 'package:craftown/src/widgets/game_menu.dart';
+import 'package:craftown/src/widgets/craft_button.dart';
 import 'package:craftown/src/widgets/game_menu_button.dart';
 import 'package:craftown/src/widgets/inventory_bar.dart';
-import 'package:craftown/src/widgets/inventory_menu.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
-import 'package:craftown/src/widgets/resource_contents_menu.dart';
 import 'package:craftown/src/widgets/stats_gui.dart';
+import 'package:craftown/src/widgets/tool_button.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -60,7 +63,14 @@ class GameScreen extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: CraftButtonWidget(),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ToolButton(),
+                    SizedBox(width: 4),
+                    CraftButton(),
+                  ],
+                ),
               ),
             ),
             Align(
@@ -197,6 +207,18 @@ class GameScreen extends StatelessWidget {
                   return const Align(
                     alignment: Alignment.center,
                     child: ResourceContentsMenu(),
+                  );
+                }
+
+                return const SizedBox.shrink();
+              },
+            ),
+            Consumer(
+              builder: (context, ref, _) {
+                if (ref.watch(toolMenuProvider).isOpen) {
+                  return const Align(
+                    alignment: Alignment.center,
+                    child: ToolMenu(),
                   );
                 }
 

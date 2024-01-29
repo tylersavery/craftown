@@ -23,7 +23,7 @@ enum PlayerState {
   walkLeft("Walk_Left", 4),
   miningUp("Pickaxe_Up", 4),
   miningDown("Pickaxe_Down", 4),
-  miningRight("Axe_Right", 4),
+  miningRight("Pickaxe_Right", 4),
   miningLeft("Pickaxe_Left", 4),
   ;
 

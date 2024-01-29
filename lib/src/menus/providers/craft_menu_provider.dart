@@ -1,4 +1,4 @@
-import 'package:craftown/src/models/craft_menu_state.dart';
+import 'package:craftown/src/menus/models/craft_menu_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CraftMenuProvider extends StateNotifier<CraftMenuState> {

@@ -1,4 +1,4 @@
-import 'package:craftown/src/models/game_menu_state.dart';
+import 'package:craftown/src/menus/models/game_menu_state.dart';
 import 'package:craftown/src/models/saved_game.dart';
 import 'package:craftown/src/providers/saved_games_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
