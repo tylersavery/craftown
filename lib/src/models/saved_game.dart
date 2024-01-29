@@ -1,4 +1,5 @@
 import 'package:craftown/src/models/character.dart';
+import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/inventory_slot.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/resource.dart';
@@ -24,6 +25,7 @@ class SavedGame with _$SavedGame {
     @Default([]) List<PlacedResource> placedResources,
     required Stats stats,
     Resource? inHand,
+    @Default([]) List<Farmland> farmlands,
   }) = _SavedGame;
 
   factory SavedGame.fromJson(Map<String, dynamic> json) => _$SavedGameFromJson(json);

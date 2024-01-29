@@ -13,9 +13,11 @@ import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/data/tools.dart';
+import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/tile_info.dart';
 import 'package:craftown/src/models/tool.dart';
+import 'package:craftown/src/providers/farmland_provider.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
@@ -218,18 +220,30 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
         final cols = (obj.width / TILE_SIZE).round();
         final rows = (obj.height / TILE_SIZE).round();
 
+        final List<String> identifiers = [];
+
         for (int row = 0; row < rows; row++) {
           for (int col = 0; col < cols; col++) {
+            final identifier = randomString();
             final posX = x + (col * TILE_SIZE);
             final posY = y + (row * TILE_SIZE);
-            final dirt = FarmlandSprite(
+            final farmlandSprite = FarmlandSprite(
+              identifier: identifier,
               position: Vector2(posX, posY),
               size: Vector2.all(TILE_SIZE),
             );
 
-            add(dirt);
+            identifiers.add(identifier);
+
+            add(farmlandSprite);
           }
         }
+
+        Future.delayed(Duration(milliseconds: 10), () {
+          for (final identifier in identifiers) {
+            ref.read(farmlandProvider.notifier).add(Farmland(identifier: identifier));
+          }
+        });
       }
     }
   }

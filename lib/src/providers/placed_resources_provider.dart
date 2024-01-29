@@ -1,13 +1,8 @@
-import 'package:collection/collection.dart';
 import 'package:craftown/src/components/resource_sprite.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
-import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
-import 'package:craftown/src/providers/resource_in_hand_provider.dart';
-import 'package:craftown/src/providers/toast_messages_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';
-import 'package:craftown/src/utils/randomization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PlacedResourcesProvider extends StateNotifier<List<PlacedResource>> {
@@ -35,8 +30,6 @@ class PlacedResourcesProvider extends StateNotifier<List<PlacedResource>> {
   }
 
   bool pickup(PlacedResource item) {
-    print(item.uniqueIdentifier);
-
     final inputs = item.contents.expand((item) => item).toList();
     final outputs = item.outputSlotContents;
 

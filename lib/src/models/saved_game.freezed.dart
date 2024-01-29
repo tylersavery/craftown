@@ -31,6 +31,7 @@ mixin _$SavedGame {
       throw _privateConstructorUsedError;
   Stats get stats => throw _privateConstructorUsedError;
   Resource? get inHand => throw _privateConstructorUsedError;
+  List<Farmland> get farmlands => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +54,8 @@ abstract class $SavedGameCopyWith<$Res> {
       double playerPositionY,
       List<PlacedResource> placedResources,
       Stats stats,
-      Resource? inHand});
+      Resource? inHand,
+      List<Farmland> farmlands});
 
   $CharacterCopyWith<$Res> get character;
   $StatsCopyWith<$Res> get stats;
@@ -83,6 +85,7 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
     Object? placedResources = null,
     Object? stats = null,
     Object? inHand = freezed,
+    Object? farmlands = null,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -125,6 +128,10 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
           ? _value.inHand
           : inHand // ignore: cast_nullable_to_non_nullable
               as Resource?,
+      farmlands: null == farmlands
+          ? _value.farmlands
+          : farmlands // ignore: cast_nullable_to_non_nullable
+              as List<Farmland>,
     ) as $Val);
   }
 
@@ -175,7 +182,8 @@ abstract class _$$SavedGameImplCopyWith<$Res>
       double playerPositionY,
       List<PlacedResource> placedResources,
       Stats stats,
-      Resource? inHand});
+      Resource? inHand,
+      List<Farmland> farmlands});
 
   @override
   $CharacterCopyWith<$Res> get character;
@@ -206,6 +214,7 @@ class __$$SavedGameImplCopyWithImpl<$Res>
     Object? placedResources = null,
     Object? stats = null,
     Object? inHand = freezed,
+    Object? farmlands = null,
   }) {
     return _then(_$SavedGameImpl(
       identifier: null == identifier
@@ -248,6 +257,10 @@ class __$$SavedGameImplCopyWithImpl<$Res>
           ? _value.inHand
           : inHand // ignore: cast_nullable_to_non_nullable
               as Resource?,
+      farmlands: null == farmlands
+          ? _value._farmlands
+          : farmlands // ignore: cast_nullable_to_non_nullable
+              as List<Farmland>,
     ));
   }
 }
@@ -265,9 +278,11 @@ class _$SavedGameImpl extends _SavedGame {
       required this.playerPositionY,
       final List<PlacedResource> placedResources = const [],
       required this.stats,
-      this.inHand})
+      this.inHand,
+      final List<Farmland> farmlands = const []})
       : _inventory = inventory,
         _placedResources = placedResources,
+        _farmlands = farmlands,
         super._();
 
   factory _$SavedGameImpl.fromJson(Map<String, dynamic> json) =>
@@ -307,10 +322,18 @@ class _$SavedGameImpl extends _SavedGame {
   final Stats stats;
   @override
   final Resource? inHand;
+  final List<Farmland> _farmlands;
+  @override
+  @JsonKey()
+  List<Farmland> get farmlands {
+    if (_farmlands is EqualUnmodifiableListView) return _farmlands;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_farmlands);
+  }
 
   @override
   String toString() {
-    return 'SavedGame(identifier: $identifier, fileName: $fileName, character: $character, savedAt: $savedAt, inventory: $inventory, playerPositionX: $playerPositionX, playerPositionY: $playerPositionY, placedResources: $placedResources, stats: $stats, inHand: $inHand)';
+    return 'SavedGame(identifier: $identifier, fileName: $fileName, character: $character, savedAt: $savedAt, inventory: $inventory, playerPositionX: $playerPositionX, playerPositionY: $playerPositionY, placedResources: $placedResources, stats: $stats, inHand: $inHand, farmlands: $farmlands)';
   }
 
   @override
@@ -334,7 +357,9 @@ class _$SavedGameImpl extends _SavedGame {
             const DeepCollectionEquality()
                 .equals(other._placedResources, _placedResources) &&
             (identical(other.stats, stats) || other.stats == stats) &&
-            (identical(other.inHand, inHand) || other.inHand == inHand));
+            (identical(other.inHand, inHand) || other.inHand == inHand) &&
+            const DeepCollectionEquality()
+                .equals(other._farmlands, _farmlands));
   }
 
   @JsonKey(ignore: true)
@@ -350,7 +375,8 @@ class _$SavedGameImpl extends _SavedGame {
       playerPositionY,
       const DeepCollectionEquality().hash(_placedResources),
       stats,
-      inHand);
+      inHand,
+      const DeepCollectionEquality().hash(_farmlands));
 
   @JsonKey(ignore: true)
   @override
@@ -377,7 +403,8 @@ abstract class _SavedGame extends SavedGame {
       required final double playerPositionY,
       final List<PlacedResource> placedResources,
       required final Stats stats,
-      final Resource? inHand}) = _$SavedGameImpl;
+      final Resource? inHand,
+      final List<Farmland> farmlands}) = _$SavedGameImpl;
   const _SavedGame._() : super._();
 
   factory _SavedGame.fromJson(Map<String, dynamic> json) =
@@ -403,6 +430,8 @@ abstract class _SavedGame extends SavedGame {
   Stats get stats;
   @override
   Resource? get inHand;
+  @override
+  List<Farmland> get farmlands;
   @override
   @JsonKey(ignore: true)
   _$$SavedGameImplCopyWith<_$SavedGameImpl> get copyWith =>

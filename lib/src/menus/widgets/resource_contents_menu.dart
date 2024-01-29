@@ -38,8 +38,6 @@ class ResourceContentsMenu extends ConsumerWidget {
       return SizedBox();
     }
 
-    print("id: ${selectedPlacedResource.uniqueIdentifier}");
-
     final placedResource = ref.watch(placedResourceDetailProvider(selectedPlacedResource.uniqueIdentifier));
 
     if (placedResource == null) {

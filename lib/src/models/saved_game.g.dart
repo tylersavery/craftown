@@ -26,6 +26,10 @@ _$SavedGameImpl _$$SavedGameImplFromJson(Map<String, dynamic> json) =>
       inHand: json['inHand'] == null
           ? null
           : Resource.fromJson(json['inHand'] as Map<String, dynamic>),
+      farmlands: (json['farmlands'] as List<dynamic>?)
+              ?.map((e) => Farmland.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
@@ -41,4 +45,5 @@ Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
           instance.placedResources.map((e) => e.toJson()).toList(),
       'stats': instance.stats.toJson(),
       'inHand': instance.inHand?.toJson(),
+      'farmlands': instance.farmlands.map((e) => e.toJson()).toList(),
     };

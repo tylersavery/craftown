@@ -21,7 +21,6 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
   Timer? sellingTimer;
 
   PlacedResourceDetailedProvider(this.ref, this.uniqueIdentifier) : super(null) {
-    print("init $uniqueIdentifier");
     state = ref.read(placedResourcesProvider).firstWhereOrNull((p) => p.uniqueIdentifier == uniqueIdentifier);
   }
 

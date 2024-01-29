@@ -1,6 +1,10 @@
 import 'package:craftown/src/components/collision_box.dart';
+import 'package:craftown/src/components/farmland_sprite.dart';
+import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/saved_game.dart';
+import 'package:craftown/src/providers/farmland_detail_provider.dart';
+import 'package:craftown/src/providers/farmland_provider.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
@@ -18,7 +22,7 @@ import 'package:sembast/sembast.dart';
 class SavedGameProvider extends StateNotifier<List<SavedGame>> {
   final Ref ref;
   final Database db;
-  final StoreRef<int, Map<String, Object?>> store = intMapStoreFactory.store("savedGamesv11");
+  final StoreRef<int, Map<String, Object?>> store = intMapStoreFactory.store("savedGamesv13");
 
   SavedGameProvider(this.ref, this.db) : super([]);
 
@@ -35,6 +39,7 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
     ref.read(statsProvider.notifier).set(save.stats);
     ref.read(resourceInHandProvider.notifier).set(save.inHand);
 
+    // Placed Resources
     final placedResources = save.placedResources;
     final placedResourcesWithUpdatedSprite = placedResources
         .map(
@@ -43,6 +48,8 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
         .toList();
 
     ref.read(placedResourcesProvider.notifier).set(placedResourcesWithUpdatedSprite);
+
+    // Farming
 
     Future.delayed(Duration(milliseconds: 10), () {
       gameWidgetKey.currentState!.currentGame.player.setPosition(Vector2(save.playerPositionX, save.playerPositionY));
@@ -63,6 +70,23 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
           detailProvider.startSelling();
         }
       }
+
+      final farmlands = save.farmlands;
+
+      final sprites = gameWidgetKey.currentState!.currentGame.level.children;
+      int i = 0;
+      for (final sprite in sprites) {
+        if (sprite is FarmlandSprite) {
+          final fl = farmlands[i];
+          sprite.identifier = fl.identifier;
+          sprite.seed = fl.seed;
+          sprite.completeAt = fl.completeAt;
+          sprite.current = fl.state;
+          i++;
+        }
+      }
+
+      ref.read(farmlandProvider.notifier).set(farmlands);
     });
   }
 
@@ -93,6 +117,17 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
       }
     }
 
+    final farmlands = ref.read(farmlandProvider);
+
+    final List<Farmland> updatedFarmlands = [];
+
+    for (final f in farmlands) {
+      final farmland = ref.read(farmlandDetailProvider(f.identifier));
+      if (farmland != null) {
+        updatedFarmlands.add(farmland);
+      }
+    }
+
     final game = SavedGame(
       identifier: overwrite?.identifier ?? randomString(),
       fileName: filename.isNotEmpty ? filename : ref.read(selectedCharacterProvider).name,
@@ -104,6 +139,7 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
       placedResources: updatedPlacedResources,
       stats: ref.read(statsProvider),
       inHand: ref.read(resourceInHandProvider),
+      farmlands: updatedFarmlands,
     );
 
     final data = game.toJson();

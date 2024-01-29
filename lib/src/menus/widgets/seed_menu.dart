@@ -4,6 +4,7 @@ import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/menus/providers/seed_menu_provider.dart';
 import 'package:craftown/src/menus/providers/tool_menu_provider.dart';
 import 'package:craftown/src/models/resource.dart';
+import 'package:craftown/src/providers/farmland_detail_provider.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
@@ -59,9 +60,14 @@ class SeedMenu extends ConsumerWidget {
                     return InkWell(
                       onTap: () {
                         if (menuState.farmlandSprite != null) {
+                          final completeAt = DateTime.now().add(Duration(seconds: resource.first.secondsToGrow));
+                          final seed = resource.first;
                           ref.read(inventoryProvider.notifier).removeResource(resource.first, 1);
-                          menuState.farmlandSprite!.seed = resource.first;
-                          menuState.farmlandSprite!.completeAt = DateTime.now().add(Duration(seconds: resource.first.secondsToGrow));
+                          menuState.farmlandSprite!.seed = seed;
+                          menuState.farmlandSprite!.completeAt = completeAt;
+
+                          ref.read(farmlandDetailProvider(menuState.farmlandSprite!.identifier).notifier).setCompleteAt(completeAt);
+                          ref.read(farmlandDetailProvider(menuState.farmlandSprite!.identifier).notifier).setSeed(seed);
                         }
 
                         menuProvider.close();
