@@ -8,6 +8,8 @@ part of 'saved_game.dart';
 
 _$SavedGameImpl _$$SavedGameImplFromJson(Map<String, dynamic> json) =>
     _$SavedGameImpl(
+      identifier: json['identifier'] as String,
+      fileName: json['fileName'] as String,
       character: Character.fromJson(json['character'] as Map<String, dynamic>),
       savedAt: DateTime.parse(json['savedAt'] as String),
       inventory: (json['inventory'] as List<dynamic>?)
@@ -28,6 +30,8 @@ _$SavedGameImpl _$$SavedGameImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
     <String, dynamic>{
+      'identifier': instance.identifier,
+      'fileName': instance.fileName,
       'character': instance.character.toJson(),
       'savedAt': instance.savedAt.toIso8601String(),
       'inventory': instance.inventory.map((e) => e.toJson()).toList(),

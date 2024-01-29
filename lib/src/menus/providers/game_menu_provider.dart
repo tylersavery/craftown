@@ -20,6 +20,11 @@ class GameMenuProvider extends StateNotifier<GameMenuState> {
     state = state.copyWith(subMenuVisible: SubMenu.loadGame);
   }
 
+  Future<void> showSaveGameSubmenu() async {
+    await ref.read(savedGameProvider.notifier).loadList();
+    state = state.copyWith(subMenuVisible: SubMenu.saveGame);
+  }
+
   void loadGame(SavedGame save) {
     ref.read(savedGameProvider.notifier).loadGame(save);
     close();

@@ -16,10 +16,14 @@ import 'package:collection/collection.dart';
 
 class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
   final Ref ref;
+  final String uniqueIdentifier;
   Timer? constructorTimer;
   Timer? sellingTimer;
 
-  PlacedResourceDetailedProvider(this.ref, PlacedResource? placedResource) : super(placedResource);
+  PlacedResourceDetailedProvider(this.ref, this.uniqueIdentifier) : super(null) {
+    print("init $uniqueIdentifier");
+    state = ref.read(placedResourcesProvider).firstWhereOrNull((p) => p.uniqueIdentifier == uniqueIdentifier);
+  }
 
   selectRecipe(Resource? recipe) {
     if (state == null) {
@@ -70,9 +74,6 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
     state = state!.copyWith(isConstructing: true);
 
     constructorTimer = Timer.periodic(Duration(seconds: state!.selectedRecipe!.secondsToCraft!.round()), (timer) {
-      print("============");
-      print(state!.uniqueIdentifier);
-      print("============");
       final recipe = state!.selectedRecipe!;
 
       final resources = state!.contents.expand((element) => element).toList();
@@ -349,11 +350,8 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
 }
 
 final placedResourceDetailProvider = StateNotifierProvider.family<PlacedResourceDetailedProvider, PlacedResource?, String>((ref, uniqueIdentifier) {
-  print("*****$uniqueIdentifier");
-  final placedResource = ref.watch(placedResourcesProvider).firstWhereOrNull((p) => p.uniqueIdentifier == uniqueIdentifier);
-
   return PlacedResourceDetailedProvider(
     ref,
-    placedResource!.copyWith(),
+    uniqueIdentifier,
   );
 });

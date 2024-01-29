@@ -20,6 +20,8 @@ SavedGame _$SavedGameFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SavedGame {
+  String get identifier => throw _privateConstructorUsedError;
+  String get fileName => throw _privateConstructorUsedError;
   Character get character => throw _privateConstructorUsedError;
   DateTime get savedAt => throw _privateConstructorUsedError;
   List<InventorySlot> get inventory => throw _privateConstructorUsedError;
@@ -42,7 +44,9 @@ abstract class $SavedGameCopyWith<$Res> {
       _$SavedGameCopyWithImpl<$Res, SavedGame>;
   @useResult
   $Res call(
-      {Character character,
+      {String identifier,
+      String fileName,
+      Character character,
       DateTime savedAt,
       List<InventorySlot> inventory,
       double playerPositionX,
@@ -69,6 +73,8 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? identifier = null,
+    Object? fileName = null,
     Object? character = null,
     Object? savedAt = null,
     Object? inventory = null,
@@ -79,6 +85,14 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
     Object? inHand = freezed,
   }) {
     return _then(_value.copyWith(
+      identifier: null == identifier
+          ? _value.identifier
+          : identifier // ignore: cast_nullable_to_non_nullable
+              as String,
+      fileName: null == fileName
+          ? _value.fileName
+          : fileName // ignore: cast_nullable_to_non_nullable
+              as String,
       character: null == character
           ? _value.character
           : character // ignore: cast_nullable_to_non_nullable
@@ -152,7 +166,9 @@ abstract class _$$SavedGameImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Character character,
+      {String identifier,
+      String fileName,
+      Character character,
       DateTime savedAt,
       List<InventorySlot> inventory,
       double playerPositionX,
@@ -180,6 +196,8 @@ class __$$SavedGameImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? identifier = null,
+    Object? fileName = null,
     Object? character = null,
     Object? savedAt = null,
     Object? inventory = null,
@@ -190,6 +208,14 @@ class __$$SavedGameImplCopyWithImpl<$Res>
     Object? inHand = freezed,
   }) {
     return _then(_$SavedGameImpl(
+      identifier: null == identifier
+          ? _value.identifier
+          : identifier // ignore: cast_nullable_to_non_nullable
+              as String,
+      fileName: null == fileName
+          ? _value.fileName
+          : fileName // ignore: cast_nullable_to_non_nullable
+              as String,
       character: null == character
           ? _value.character
           : character // ignore: cast_nullable_to_non_nullable
@@ -230,7 +256,9 @@ class __$$SavedGameImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SavedGameImpl extends _SavedGame {
   const _$SavedGameImpl(
-      {required this.character,
+      {required this.identifier,
+      required this.fileName,
+      required this.character,
       required this.savedAt,
       final List<InventorySlot> inventory = const [],
       required this.playerPositionX,
@@ -245,6 +273,10 @@ class _$SavedGameImpl extends _SavedGame {
   factory _$SavedGameImpl.fromJson(Map<String, dynamic> json) =>
       _$$SavedGameImplFromJson(json);
 
+  @override
+  final String identifier;
+  @override
+  final String fileName;
   @override
   final Character character;
   @override
@@ -278,7 +310,7 @@ class _$SavedGameImpl extends _SavedGame {
 
   @override
   String toString() {
-    return 'SavedGame(character: $character, savedAt: $savedAt, inventory: $inventory, playerPositionX: $playerPositionX, playerPositionY: $playerPositionY, placedResources: $placedResources, stats: $stats, inHand: $inHand)';
+    return 'SavedGame(identifier: $identifier, fileName: $fileName, character: $character, savedAt: $savedAt, inventory: $inventory, playerPositionX: $playerPositionX, playerPositionY: $playerPositionY, placedResources: $placedResources, stats: $stats, inHand: $inHand)';
   }
 
   @override
@@ -286,6 +318,10 @@ class _$SavedGameImpl extends _SavedGame {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SavedGameImpl &&
+            (identical(other.identifier, identifier) ||
+                other.identifier == identifier) &&
+            (identical(other.fileName, fileName) ||
+                other.fileName == fileName) &&
             (identical(other.character, character) ||
                 other.character == character) &&
             (identical(other.savedAt, savedAt) || other.savedAt == savedAt) &&
@@ -305,6 +341,8 @@ class _$SavedGameImpl extends _SavedGame {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      identifier,
+      fileName,
       character,
       savedAt,
       const DeepCollectionEquality().hash(_inventory),
@@ -330,7 +368,9 @@ class _$SavedGameImpl extends _SavedGame {
 
 abstract class _SavedGame extends SavedGame {
   const factory _SavedGame(
-      {required final Character character,
+      {required final String identifier,
+      required final String fileName,
+      required final Character character,
       required final DateTime savedAt,
       final List<InventorySlot> inventory,
       required final double playerPositionX,
@@ -343,6 +383,10 @@ abstract class _SavedGame extends SavedGame {
   factory _SavedGame.fromJson(Map<String, dynamic> json) =
       _$SavedGameImpl.fromJson;
 
+  @override
+  String get identifier;
+  @override
+  String get fileName;
   @override
   Character get character;
   @override

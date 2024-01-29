@@ -10,6 +10,7 @@ import 'package:craftown/src/providers/stats_provider.dart';
 import 'package:craftown/src/providers/toast_messages_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';
 import 'package:craftown/src/singletons.dart';
+import 'package:craftown/src/utils/randomization.dart';
 import 'package:flame/components.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sembast/sembast.dart';
@@ -17,7 +18,7 @@ import 'package:sembast/sembast.dart';
 class SavedGameProvider extends StateNotifier<List<SavedGame>> {
   final Ref ref;
   final Database db;
-  final StoreRef<int, Map<String, Object?>> store = intMapStoreFactory.store("savedGamesv9");
+  final StoreRef<int, Map<String, Object?>> store = intMapStoreFactory.store("savedGamesv11");
 
   SavedGameProvider(this.ref, this.db) : super([]);
 
@@ -35,7 +36,13 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
     ref.read(resourceInHandProvider.notifier).set(save.inHand);
 
     final placedResources = save.placedResources;
-    ref.read(placedResourcesProvider.notifier).set(placedResources);
+    final placedResourcesWithUpdatedSprite = placedResources
+        .map(
+          (pr) => pr.copyWith(sprite: pr.sprite..placementUniqueIdentifier = pr.uniqueIdentifier),
+        )
+        .toList();
+
+    ref.read(placedResourcesProvider.notifier).set(placedResourcesWithUpdatedSprite);
 
     Future.delayed(Duration(milliseconds: 10), () {
       gameWidgetKey.currentState!.currentGame.player.setPosition(Vector2(save.playerPositionX, save.playerPositionY));
@@ -59,7 +66,7 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
     });
   }
 
-  Future<void> saveGame() async {
+  Future<void> saveGame(String filename, {SavedGame? overwrite}) async {
     final playerState = gameWidgetKey.currentState!.currentGame.player;
 
     final placedResources = ref.read(placedResourcesProvider);
@@ -87,6 +94,8 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
     }
 
     final game = SavedGame(
+      identifier: overwrite?.identifier ?? randomString(),
+      fileName: filename.isNotEmpty ? filename : ref.read(selectedCharacterProvider).name,
       character: ref.read(selectedCharacterProvider),
       savedAt: DateTime.now(),
       inventory: ref.read(inventoryProvider),
@@ -99,7 +108,12 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
 
     final data = game.toJson();
 
-    store.add(db, data);
+    if (overwrite != null) {
+      final id = overwrite.identifier;
+      store.update(db, data, finder: Finder(filter: Filter.equals('identifier', id)));
+    } else {
+      store.add(db, data);
+    }
 
     ref.read(toastMessagesProvider.notifier).add("Game Saved");
   }

@@ -14,6 +14,8 @@ class SavedGame with _$SavedGame {
   const SavedGame._();
 
   const factory SavedGame({
+    required String identifier,
+    required String fileName,
     required Character character,
     required DateTime savedAt,
     @Default([]) List<InventorySlot> inventory,
@@ -31,6 +33,6 @@ class SavedGame with _$SavedGame {
   }
 
   String get label {
-    return "${character.name} - $savedAtLabel";
+    return "$fileName - $savedAtLabel";
   }
 }

@@ -25,6 +25,8 @@ class GameMenu extends ConsumerWidget {
           switch (subMenu) {
             case null:
               return _RootMenu();
+            case SubMenu.saveGame:
+              return _SaveGameMenu();
             case SubMenu.loadGame:
               return _LoadGameMenu();
           }
@@ -46,7 +48,9 @@ class _RootMenu extends ConsumerWidget {
         _MenuItem(
           label: "Save Game",
           onPressed: () {
-            ref.read(savedGameProvider.notifier).saveGame();
+            ref.read(gameMenuProvider.notifier).showSaveGameSubmenu();
+
+            // ref.read(savedGameProvider.notifier).saveGame();
           },
         ),
         _MenuItem(
@@ -78,6 +82,91 @@ class _RootMenu extends ConsumerWidget {
           onPressed: () {},
         ),
       ],
+    );
+  }
+}
+
+class _SaveGameMenu extends ConsumerWidget {
+  const _SaveGameMenu({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final saves = ref.watch(savedGameProvider);
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: 300,
+        maxWidth: GAME_MENU_WIDTH - 32,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _MenuItem(
+            label: "New Save",
+            onPressed: () async {
+              final String? filename = await showDialog(
+                context: context,
+                builder: (context) {
+                  final controller = TextEditingController();
+                  return AlertDialog(
+                    title: Text("New Save"),
+                    content: TextFormField(
+                      controller: controller,
+                      decoration: InputDecoration(hintText: "Filename"),
+                      autofocus: true,
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(null);
+                        },
+                        child: Text("Cancel"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(controller.text);
+                        },
+                        child: Text("Save"),
+                      )
+                    ],
+                  );
+                },
+              );
+
+              if (filename == null) {
+                return;
+              }
+              ref.read(savedGameProvider.notifier).saveGame(filename);
+              ref.read(gameMenuProvider.notifier).backToRoot();
+            },
+          ),
+          _MenuItem(
+            label: "Cancel",
+            onPressed: () {
+              ref.read(gameMenuProvider.notifier).backToRoot();
+            },
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: saves.length,
+              itemBuilder: (context, index) {
+                final save = saves[index];
+
+                return _MenuItem(
+                  label: save.label,
+                  onPressed: () {
+                    ref.read(savedGameProvider.notifier).saveGame(save.fileName, overwrite: save);
+                    ref.read(gameMenuProvider.notifier).backToRoot();
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
