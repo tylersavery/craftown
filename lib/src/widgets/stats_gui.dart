@@ -1,4 +1,5 @@
 import 'package:craftown/src/providers/stats_provider.dart';
+import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,6 +19,26 @@ class StatsGui extends StatelessWidget {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    PixelArtImageAsset(
+                      "assets/images/coins-16x16.png",
+                      width: 16,
+                      height: 16,
+                    ),
+                    Text(
+                      "${state.dollars}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
+                    )
+                  ],
+                ),
+              ),
               _StatRow(label: "Sustainability", value: state.sustainability),
               _StatRow(label: "Energy", value: state.energy),
             ],

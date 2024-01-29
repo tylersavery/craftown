@@ -4,6 +4,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'tool.freezed.dart';
 part 'tool.g.dart';
 
+enum ToolType {
+  pick,
+  axe,
+  shovel,
+  sythe,
+  waterBucket,
+}
+
 @freezed
 class Tool with _$Tool {
   const Tool._();
@@ -12,6 +20,7 @@ class Tool with _$Tool {
     required String identifier,
     required String name,
     required String assetName,
+    required ToolType type,
     @Default([]) List<Resource> resourcesRequired,
   }) = _Tool;
 

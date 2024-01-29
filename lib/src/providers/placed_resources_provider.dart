@@ -79,9 +79,6 @@ class PlacedResourcesProvider extends StateNotifier<List<PlacedResource>> {
       gameWidgetKey.currentState!.currentGame.level.collisionBlocks.removeAt(collisionBlockIndex);
     }
 
-    // ref.invalidate(placedResourceDetailProvider(item.sprite.identifier));
-    // state = [...state]..removeWhere((element) => element.uniqueIdentifier == item.uniqueIdentifier);
-
     return true;
   }
 }

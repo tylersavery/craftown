@@ -1,8 +1,11 @@
 // ignore_for_file: implementation_imports
 
 import 'dart:async';
+import 'dart:ui';
+import 'dart:math' as math;
 
 import 'package:craftown/src/components/collision_box.dart';
+import 'package:craftown/src/components/farmland_sprite.dart';
 import 'package:craftown/src/components/grid_overlay.dart';
 import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/components/resource_sprite.dart';
@@ -11,6 +14,8 @@ import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/models/resource.dart';
+import 'package:craftown/src/models/tile_info.dart';
+import 'package:craftown/src/models/tool.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
@@ -19,11 +24,12 @@ import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/utils/randomization.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
 
-class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, KeyboardHandler {
+class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, KeyboardHandler, TapCallbacks {
   final String levelName;
   final Player player;
 
@@ -54,6 +60,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
     _updateForground();
     _spawnResources();
     _spawnPlayer();
+    _spawnFarmland();
     _addCollisions();
     return super.onLoad();
   }
@@ -200,4 +207,54 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       collisionBlocks.add(block);
     }
   }
+
+  void _spawnFarmland() {
+    final farmableLayer = backgroundMap.tileMap.getLayer<ObjectGroup>("Farmable");
+    if (farmableLayer != null) {
+      for (final obj in farmableLayer.objects) {
+        final x = obj.x;
+        final y = obj.y;
+
+        final cols = (obj.width / TILE_SIZE).round();
+        final rows = (obj.height / TILE_SIZE).round();
+
+        for (int row = 0; row < rows; row++) {
+          for (int col = 0; col < cols; col++) {
+            final posX = x + (col * TILE_SIZE);
+            final posY = y + (row * TILE_SIZE);
+            final dirt = FarmlandSprite(
+              position: Vector2(posX, posY),
+              size: Vector2.all(TILE_SIZE),
+            );
+
+            add(dirt);
+          }
+        }
+      }
+    }
+  }
+
+  // @override
+  // void onTapUp(TapUpEvent event) {
+  //   final tool = ref.read(selectedToolProvider);
+
+  //   // final tile = _getTappedCell(event.localPosition);
+
+  //   // final layer = backgroundMap.tileMap.getLayer<Layer>("Ground");
+
+  //   final tile = backgroundMap.componentsAtPoint(event.localPosition).first;
+  //   print(tile.children);
+  //   // final x = event.canvasPosition.x;
+  //   // final y = event.canvasPosition.y;
+
+  //   if (tool == null) return;
+  //   switch (tool.type) {
+  //     case ToolType.shovel:
+  //       // print(event);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   super.onTapUp(event);
+  // }
 }

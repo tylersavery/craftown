@@ -10,6 +10,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
     _$ResourceImpl(
       identifier: json['identifier'] as String,
       name: json['name'] as String,
+      namePlural: json['namePlural'] as String,
       assetFileName16: json['assetFileName16'] as String,
       description: json['description'] as String? ?? defaultDescription,
       assetFileNameLarge: json['assetFileNameLarge'] as String?,
@@ -26,7 +27,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       secondsToMine: (json['secondsToMine'] as num?)?.toDouble(),
       miningToolRequiredIdentifier:
           json['miningToolRequiredIdentifier'] as String?,
-      canConsume: json['canConsume'] as bool? ?? false,
+      energyWhenConsumed: (json['energyWhenConsumed'] as num?)?.toDouble() ?? 0,
       canPlace: json['canPlace'] as bool? ?? false,
       canPickUp: json['canPickUp'] as bool? ?? false,
       canConstruct: json['canConstruct'] as bool? ?? false,
@@ -43,12 +44,22 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
           : storageTypeFromJson(json['storageType'] as String),
       resourcesPerSlot: json['resourcesPerSlot'] as int? ?? 0,
       outputSlotSize: json['outputSlotSize'] as int? ?? 0,
+      isSeed: json['isSeed'] as bool? ?? false,
+      secondsToGrow: json['secondsToGrow'] as int? ?? 5,
+      growsInto: json['growsInto'] == null
+          ? null
+          : Resource.fromJson(json['growsInto'] as Map<String, dynamic>),
+      farmYieldMin: json['farmYieldMin'] as int? ?? 1,
+      farmYieldMax: json['farmYieldMax'] as int? ?? 1,
+      contentsWillSell: json['contentsWillSell'] as bool? ?? false,
+      saleValue: json['saleValue'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
     <String, dynamic>{
       'identifier': instance.identifier,
       'name': instance.name,
+      'namePlural': instance.namePlural,
       'assetFileName16': instance.assetFileName16,
       'description': instance.description,
       'assetFileNameLarge': instance.assetFileNameLarge,
@@ -60,7 +71,7 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'secondsToCraft': instance.secondsToCraft,
       'secondsToMine': instance.secondsToMine,
       'miningToolRequiredIdentifier': instance.miningToolRequiredIdentifier,
-      'canConsume': instance.canConsume,
+      'energyWhenConsumed': instance.energyWhenConsumed,
       'canPlace': instance.canPlace,
       'canPickUp': instance.canPickUp,
       'canConstruct': instance.canConstruct,
@@ -71,4 +82,11 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'storageType': storageTypeToJson(instance.storageType),
       'resourcesPerSlot': instance.resourcesPerSlot,
       'outputSlotSize': instance.outputSlotSize,
+      'isSeed': instance.isSeed,
+      'secondsToGrow': instance.secondsToGrow,
+      'growsInto': instance.growsInto?.toJson(),
+      'farmYieldMin': instance.farmYieldMin,
+      'farmYieldMax': instance.farmYieldMax,
+      'contentsWillSell': instance.contentsWillSell,
+      'saleValue': instance.saleValue,
     };

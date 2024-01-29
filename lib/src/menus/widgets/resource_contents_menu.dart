@@ -110,11 +110,10 @@ class ResourceContentsMenu extends ConsumerWidget {
 
                       if (storageType == StorageType.solid && resource.isLiquid) {
                         ref.read(toastMessagesProvider.notifier).add("Liquids can't be stored in ${placedResourceSprite.resource.name}");
-
                         return;
                       }
 
-                      final success = ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier!).notifier).addContents(resource);
+                      final success = ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).addContents(resource);
                       if (success) {
                         ref.read(inventoryProvider.notifier).removeResource(resource, 1);
                       }
@@ -380,6 +379,19 @@ class ResourceContentsMenu extends ConsumerWidget {
                                   duration: Duration.zero,
                                   onComplete: () {
                                     ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).toggleConstruction();
+                                  },
+                                  completeOnClick: true,
+                                  small: true,
+                                ),
+                              ),
+                            if (placedResource.sprite.resource.contentsWillSell)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: HoldDownButton(
+                                  label: placedResource.isSelling ? "Stop Selling" : "Start Selling",
+                                  duration: Duration.zero,
+                                  onComplete: () {
+                                    ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).toggleSelling();
                                   },
                                   completeOnClick: true,
                                   small: true,

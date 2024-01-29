@@ -6,6 +6,7 @@ part 'stats.g.dart';
 @freezed
 class Stats with _$Stats {
   const factory Stats({
+    required int dollars,
     required double sustainability,
     required double energy,
   }) = _Stats;

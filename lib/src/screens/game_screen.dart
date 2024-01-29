@@ -3,11 +3,13 @@ import 'package:craftown/src/menus/providers/craft_menu_provider.dart';
 import 'package:craftown/src/menus/providers/game_menu_provider.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
+import 'package:craftown/src/menus/providers/seed_menu_provider.dart';
 import 'package:craftown/src/menus/providers/tool_menu_provider.dart';
 import 'package:craftown/src/menus/widgets/craft_menu.dart';
 import 'package:craftown/src/menus/widgets/game_menu.dart';
 import 'package:craftown/src/menus/widgets/inventory_menu.dart';
 import 'package:craftown/src/menus/widgets/resource_contents_menu.dart';
+import 'package:craftown/src/menus/widgets/seed_menu.dart';
 import 'package:craftown/src/menus/widgets/tool_menu.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
@@ -219,6 +221,18 @@ class GameScreen extends StatelessWidget {
                   return const Align(
                     alignment: Alignment.center,
                     child: ToolMenu(),
+                  );
+                }
+
+                return const SizedBox.shrink();
+              },
+            ),
+            Consumer(
+              builder: (context, ref, _) {
+                if (ref.watch(seedMenuProvider).isOpen) {
+                  return const Align(
+                    alignment: Alignment.center,
+                    child: SeedMenu(),
                   );
                 }
 

@@ -22,6 +22,7 @@ Resource _$ResourceFromJson(Map<String, dynamic> json) {
 mixin _$Resource {
   String get identifier => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get namePlural => throw _privateConstructorUsedError;
   String get assetFileName16 => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String? get assetFileNameLarge => throw _privateConstructorUsedError;
@@ -34,7 +35,7 @@ mixin _$Resource {
   double? get secondsToMine => throw _privateConstructorUsedError;
   String? get miningToolRequiredIdentifier =>
       throw _privateConstructorUsedError;
-  bool get canConsume => throw _privateConstructorUsedError;
+  double get energyWhenConsumed => throw _privateConstructorUsedError;
   bool get canPlace => throw _privateConstructorUsedError;
   bool get canPickUp => throw _privateConstructorUsedError;
   bool get canConstruct => throw _privateConstructorUsedError;
@@ -46,6 +47,13 @@ mixin _$Resource {
   StorageType get storageType => throw _privateConstructorUsedError;
   int get resourcesPerSlot => throw _privateConstructorUsedError;
   int get outputSlotSize => throw _privateConstructorUsedError;
+  bool get isSeed => throw _privateConstructorUsedError;
+  int get secondsToGrow => throw _privateConstructorUsedError;
+  Resource? get growsInto => throw _privateConstructorUsedError;
+  int get farmYieldMin => throw _privateConstructorUsedError;
+  int get farmYieldMax => throw _privateConstructorUsedError;
+  bool get contentsWillSell => throw _privateConstructorUsedError;
+  int get saleValue => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -61,6 +69,7 @@ abstract class $ResourceCopyWith<$Res> {
   $Res call(
       {String identifier,
       String name,
+      String namePlural,
       String assetFileName16,
       String description,
       String? assetFileNameLarge,
@@ -72,7 +81,7 @@ abstract class $ResourceCopyWith<$Res> {
       double? secondsToCraft,
       double? secondsToMine,
       String? miningToolRequiredIdentifier,
-      bool canConsume,
+      double energyWhenConsumed,
       bool canPlace,
       bool canPickUp,
       bool canConstruct,
@@ -83,7 +92,16 @@ abstract class $ResourceCopyWith<$Res> {
       @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
       StorageType storageType,
       int resourcesPerSlot,
-      int outputSlotSize});
+      int outputSlotSize,
+      bool isSeed,
+      int secondsToGrow,
+      Resource? growsInto,
+      int farmYieldMin,
+      int farmYieldMax,
+      bool contentsWillSell,
+      int saleValue});
+
+  $ResourceCopyWith<$Res>? get growsInto;
 }
 
 /// @nodoc
@@ -101,6 +119,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
   $Res call({
     Object? identifier = null,
     Object? name = null,
+    Object? namePlural = null,
     Object? assetFileName16 = null,
     Object? description = null,
     Object? assetFileNameLarge = freezed,
@@ -112,7 +131,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? secondsToCraft = freezed,
     Object? secondsToMine = freezed,
     Object? miningToolRequiredIdentifier = freezed,
-    Object? canConsume = null,
+    Object? energyWhenConsumed = null,
     Object? canPlace = null,
     Object? canPickUp = null,
     Object? canConstruct = null,
@@ -123,6 +142,13 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? storageType = null,
     Object? resourcesPerSlot = null,
     Object? outputSlotSize = null,
+    Object? isSeed = null,
+    Object? secondsToGrow = null,
+    Object? growsInto = freezed,
+    Object? farmYieldMin = null,
+    Object? farmYieldMax = null,
+    Object? contentsWillSell = null,
+    Object? saleValue = null,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -132,6 +158,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      namePlural: null == namePlural
+          ? _value.namePlural
+          : namePlural // ignore: cast_nullable_to_non_nullable
               as String,
       assetFileName16: null == assetFileName16
           ? _value.assetFileName16
@@ -177,10 +207,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.miningToolRequiredIdentifier
           : miningToolRequiredIdentifier // ignore: cast_nullable_to_non_nullable
               as String?,
-      canConsume: null == canConsume
-          ? _value.canConsume
-          : canConsume // ignore: cast_nullable_to_non_nullable
-              as bool,
+      energyWhenConsumed: null == energyWhenConsumed
+          ? _value.energyWhenConsumed
+          : energyWhenConsumed // ignore: cast_nullable_to_non_nullable
+              as double,
       canPlace: null == canPlace
           ? _value.canPlace
           : canPlace // ignore: cast_nullable_to_non_nullable
@@ -221,7 +251,47 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.outputSlotSize
           : outputSlotSize // ignore: cast_nullable_to_non_nullable
               as int,
+      isSeed: null == isSeed
+          ? _value.isSeed
+          : isSeed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      secondsToGrow: null == secondsToGrow
+          ? _value.secondsToGrow
+          : secondsToGrow // ignore: cast_nullable_to_non_nullable
+              as int,
+      growsInto: freezed == growsInto
+          ? _value.growsInto
+          : growsInto // ignore: cast_nullable_to_non_nullable
+              as Resource?,
+      farmYieldMin: null == farmYieldMin
+          ? _value.farmYieldMin
+          : farmYieldMin // ignore: cast_nullable_to_non_nullable
+              as int,
+      farmYieldMax: null == farmYieldMax
+          ? _value.farmYieldMax
+          : farmYieldMax // ignore: cast_nullable_to_non_nullable
+              as int,
+      contentsWillSell: null == contentsWillSell
+          ? _value.contentsWillSell
+          : contentsWillSell // ignore: cast_nullable_to_non_nullable
+              as bool,
+      saleValue: null == saleValue
+          ? _value.saleValue
+          : saleValue // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ResourceCopyWith<$Res>? get growsInto {
+    if (_value.growsInto == null) {
+      return null;
+    }
+
+    return $ResourceCopyWith<$Res>(_value.growsInto!, (value) {
+      return _then(_value.copyWith(growsInto: value) as $Val);
+    });
   }
 }
 
@@ -236,6 +306,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
   $Res call(
       {String identifier,
       String name,
+      String namePlural,
       String assetFileName16,
       String description,
       String? assetFileNameLarge,
@@ -247,7 +318,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
       double? secondsToCraft,
       double? secondsToMine,
       String? miningToolRequiredIdentifier,
-      bool canConsume,
+      double energyWhenConsumed,
       bool canPlace,
       bool canPickUp,
       bool canConstruct,
@@ -258,7 +329,17 @@ abstract class _$$ResourceImplCopyWith<$Res>
       @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
       StorageType storageType,
       int resourcesPerSlot,
-      int outputSlotSize});
+      int outputSlotSize,
+      bool isSeed,
+      int secondsToGrow,
+      Resource? growsInto,
+      int farmYieldMin,
+      int farmYieldMax,
+      bool contentsWillSell,
+      int saleValue});
+
+  @override
+  $ResourceCopyWith<$Res>? get growsInto;
 }
 
 /// @nodoc
@@ -274,6 +355,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
   $Res call({
     Object? identifier = null,
     Object? name = null,
+    Object? namePlural = null,
     Object? assetFileName16 = null,
     Object? description = null,
     Object? assetFileNameLarge = freezed,
@@ -285,7 +367,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? secondsToCraft = freezed,
     Object? secondsToMine = freezed,
     Object? miningToolRequiredIdentifier = freezed,
-    Object? canConsume = null,
+    Object? energyWhenConsumed = null,
     Object? canPlace = null,
     Object? canPickUp = null,
     Object? canConstruct = null,
@@ -296,6 +378,13 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? storageType = null,
     Object? resourcesPerSlot = null,
     Object? outputSlotSize = null,
+    Object? isSeed = null,
+    Object? secondsToGrow = null,
+    Object? growsInto = freezed,
+    Object? farmYieldMin = null,
+    Object? farmYieldMax = null,
+    Object? contentsWillSell = null,
+    Object? saleValue = null,
   }) {
     return _then(_$ResourceImpl(
       identifier: null == identifier
@@ -305,6 +394,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      namePlural: null == namePlural
+          ? _value.namePlural
+          : namePlural // ignore: cast_nullable_to_non_nullable
               as String,
       assetFileName16: null == assetFileName16
           ? _value.assetFileName16
@@ -350,10 +443,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.miningToolRequiredIdentifier
           : miningToolRequiredIdentifier // ignore: cast_nullable_to_non_nullable
               as String?,
-      canConsume: null == canConsume
-          ? _value.canConsume
-          : canConsume // ignore: cast_nullable_to_non_nullable
-              as bool,
+      energyWhenConsumed: null == energyWhenConsumed
+          ? _value.energyWhenConsumed
+          : energyWhenConsumed // ignore: cast_nullable_to_non_nullable
+              as double,
       canPlace: null == canPlace
           ? _value.canPlace
           : canPlace // ignore: cast_nullable_to_non_nullable
@@ -394,6 +487,34 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.outputSlotSize
           : outputSlotSize // ignore: cast_nullable_to_non_nullable
               as int,
+      isSeed: null == isSeed
+          ? _value.isSeed
+          : isSeed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      secondsToGrow: null == secondsToGrow
+          ? _value.secondsToGrow
+          : secondsToGrow // ignore: cast_nullable_to_non_nullable
+              as int,
+      growsInto: freezed == growsInto
+          ? _value.growsInto
+          : growsInto // ignore: cast_nullable_to_non_nullable
+              as Resource?,
+      farmYieldMin: null == farmYieldMin
+          ? _value.farmYieldMin
+          : farmYieldMin // ignore: cast_nullable_to_non_nullable
+              as int,
+      farmYieldMax: null == farmYieldMax
+          ? _value.farmYieldMax
+          : farmYieldMax // ignore: cast_nullable_to_non_nullable
+              as int,
+      contentsWillSell: null == contentsWillSell
+          ? _value.contentsWillSell
+          : contentsWillSell // ignore: cast_nullable_to_non_nullable
+              as bool,
+      saleValue: null == saleValue
+          ? _value.saleValue
+          : saleValue // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -404,6 +525,7 @@ class _$ResourceImpl extends _Resource {
   const _$ResourceImpl(
       {required this.identifier,
       required this.name,
+      required this.namePlural,
       required this.assetFileName16,
       this.description = defaultDescription,
       this.assetFileNameLarge,
@@ -415,7 +537,7 @@ class _$ResourceImpl extends _Resource {
       this.secondsToCraft,
       this.secondsToMine,
       this.miningToolRequiredIdentifier,
-      this.canConsume = false,
+      this.energyWhenConsumed = 0,
       this.canPlace = false,
       this.canPickUp = false,
       this.canConstruct = false,
@@ -426,7 +548,14 @@ class _$ResourceImpl extends _Resource {
       @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
       this.storageType = StorageType.none,
       this.resourcesPerSlot = 0,
-      this.outputSlotSize = 0})
+      this.outputSlotSize = 0,
+      this.isSeed = false,
+      this.secondsToGrow = 5,
+      this.growsInto,
+      this.farmYieldMin = 1,
+      this.farmYieldMax = 1,
+      this.contentsWillSell = false,
+      this.saleValue = 0})
       : _ingredients = ingredients,
         _requiredToMine = requiredToMine,
         super._();
@@ -438,6 +567,8 @@ class _$ResourceImpl extends _Resource {
   final String identifier;
   @override
   final String name;
+  @override
+  final String namePlural;
   @override
   final String assetFileName16;
   @override
@@ -473,7 +604,7 @@ class _$ResourceImpl extends _Resource {
   final String? miningToolRequiredIdentifier;
   @override
   @JsonKey()
-  final bool canConsume;
+  final double energyWhenConsumed;
   @override
   @JsonKey()
   final bool canPlace;
@@ -510,10 +641,30 @@ class _$ResourceImpl extends _Resource {
   @override
   @JsonKey()
   final int outputSlotSize;
+  @override
+  @JsonKey()
+  final bool isSeed;
+  @override
+  @JsonKey()
+  final int secondsToGrow;
+  @override
+  final Resource? growsInto;
+  @override
+  @JsonKey()
+  final int farmYieldMin;
+  @override
+  @JsonKey()
+  final int farmYieldMax;
+  @override
+  @JsonKey()
+  final bool contentsWillSell;
+  @override
+  @JsonKey()
+  final int saleValue;
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, canConsume: $canConsume, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize)';
+    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, energyWhenConsumed: $energyWhenConsumed, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue)';
   }
 
   @override
@@ -524,6 +675,8 @@ class _$ResourceImpl extends _Resource {
             (identical(other.identifier, identifier) ||
                 other.identifier == identifier) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.namePlural, namePlural) ||
+                other.namePlural == namePlural) &&
             (identical(other.assetFileName16, assetFileName16) ||
                 other.assetFileName16 == assetFileName16) &&
             (identical(other.description, description) ||
@@ -548,8 +701,8 @@ class _$ResourceImpl extends _Resource {
                     miningToolRequiredIdentifier) ||
                 other.miningToolRequiredIdentifier ==
                     miningToolRequiredIdentifier) &&
-            (identical(other.canConsume, canConsume) ||
-                other.canConsume == canConsume) &&
+            (identical(other.energyWhenConsumed, energyWhenConsumed) ||
+                other.energyWhenConsumed == energyWhenConsumed) &&
             (identical(other.canPlace, canPlace) ||
                 other.canPlace == canPlace) &&
             (identical(other.canPickUp, canPickUp) ||
@@ -568,7 +721,20 @@ class _$ResourceImpl extends _Resource {
             (identical(other.resourcesPerSlot, resourcesPerSlot) ||
                 other.resourcesPerSlot == resourcesPerSlot) &&
             (identical(other.outputSlotSize, outputSlotSize) ||
-                other.outputSlotSize == outputSlotSize));
+                other.outputSlotSize == outputSlotSize) &&
+            (identical(other.isSeed, isSeed) || other.isSeed == isSeed) &&
+            (identical(other.secondsToGrow, secondsToGrow) ||
+                other.secondsToGrow == secondsToGrow) &&
+            (identical(other.growsInto, growsInto) ||
+                other.growsInto == growsInto) &&
+            (identical(other.farmYieldMin, farmYieldMin) ||
+                other.farmYieldMin == farmYieldMin) &&
+            (identical(other.farmYieldMax, farmYieldMax) ||
+                other.farmYieldMax == farmYieldMax) &&
+            (identical(other.contentsWillSell, contentsWillSell) ||
+                other.contentsWillSell == contentsWillSell) &&
+            (identical(other.saleValue, saleValue) ||
+                other.saleValue == saleValue));
   }
 
   @JsonKey(ignore: true)
@@ -577,6 +743,7 @@ class _$ResourceImpl extends _Resource {
         runtimeType,
         identifier,
         name,
+        namePlural,
         assetFileName16,
         description,
         assetFileNameLarge,
@@ -588,7 +755,7 @@ class _$ResourceImpl extends _Resource {
         secondsToCraft,
         secondsToMine,
         miningToolRequiredIdentifier,
-        canConsume,
+        energyWhenConsumed,
         canPlace,
         canPickUp,
         canConstruct,
@@ -598,7 +765,14 @@ class _$ResourceImpl extends _Resource {
         slots,
         storageType,
         resourcesPerSlot,
-        outputSlotSize
+        outputSlotSize,
+        isSeed,
+        secondsToGrow,
+        growsInto,
+        farmYieldMin,
+        farmYieldMax,
+        contentsWillSell,
+        saleValue
       ]);
 
   @JsonKey(ignore: true)
@@ -619,6 +793,7 @@ abstract class _Resource extends Resource {
   const factory _Resource(
       {required final String identifier,
       required final String name,
+      required final String namePlural,
       required final String assetFileName16,
       final String description,
       final String? assetFileNameLarge,
@@ -630,7 +805,7 @@ abstract class _Resource extends Resource {
       final double? secondsToCraft,
       final double? secondsToMine,
       final String? miningToolRequiredIdentifier,
-      final bool canConsume,
+      final double energyWhenConsumed,
       final bool canPlace,
       final bool canPickUp,
       final bool canConstruct,
@@ -641,7 +816,14 @@ abstract class _Resource extends Resource {
       @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
       final StorageType storageType,
       final int resourcesPerSlot,
-      final int outputSlotSize}) = _$ResourceImpl;
+      final int outputSlotSize,
+      final bool isSeed,
+      final int secondsToGrow,
+      final Resource? growsInto,
+      final int farmYieldMin,
+      final int farmYieldMax,
+      final bool contentsWillSell,
+      final int saleValue}) = _$ResourceImpl;
   const _Resource._() : super._();
 
   factory _Resource.fromJson(Map<String, dynamic> json) =
@@ -651,6 +833,8 @@ abstract class _Resource extends Resource {
   String get identifier;
   @override
   String get name;
+  @override
+  String get namePlural;
   @override
   String get assetFileName16;
   @override
@@ -674,7 +858,7 @@ abstract class _Resource extends Resource {
   @override
   String? get miningToolRequiredIdentifier;
   @override
-  bool get canConsume;
+  double get energyWhenConsumed;
   @override
   bool get canPlace;
   @override
@@ -696,6 +880,20 @@ abstract class _Resource extends Resource {
   int get resourcesPerSlot;
   @override
   int get outputSlotSize;
+  @override
+  bool get isSeed;
+  @override
+  int get secondsToGrow;
+  @override
+  Resource? get growsInto;
+  @override
+  int get farmYieldMin;
+  @override
+  int get farmYieldMax;
+  @override
+  bool get contentsWillSell;
+  @override
+  int get saleValue;
   @override
   @JsonKey(ignore: true)
   _$$ResourceImplCopyWith<_$ResourceImpl> get copyWith =>

@@ -20,6 +20,7 @@ Stats _$StatsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Stats {
+  int get dollars => throw _privateConstructorUsedError;
   double get sustainability => throw _privateConstructorUsedError;
   double get energy => throw _privateConstructorUsedError;
 
@@ -33,7 +34,7 @@ abstract class $StatsCopyWith<$Res> {
   factory $StatsCopyWith(Stats value, $Res Function(Stats) then) =
       _$StatsCopyWithImpl<$Res, Stats>;
   @useResult
-  $Res call({double sustainability, double energy});
+  $Res call({int dollars, double sustainability, double energy});
 }
 
 /// @nodoc
@@ -49,10 +50,15 @@ class _$StatsCopyWithImpl<$Res, $Val extends Stats>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? dollars = null,
     Object? sustainability = null,
     Object? energy = null,
   }) {
     return _then(_value.copyWith(
+      dollars: null == dollars
+          ? _value.dollars
+          : dollars // ignore: cast_nullable_to_non_nullable
+              as int,
       sustainability: null == sustainability
           ? _value.sustainability
           : sustainability // ignore: cast_nullable_to_non_nullable
@@ -72,7 +78,7 @@ abstract class _$$StatsImplCopyWith<$Res> implements $StatsCopyWith<$Res> {
       __$$StatsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({double sustainability, double energy});
+  $Res call({int dollars, double sustainability, double energy});
 }
 
 /// @nodoc
@@ -86,10 +92,15 @@ class __$$StatsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? dollars = null,
     Object? sustainability = null,
     Object? energy = null,
   }) {
     return _then(_$StatsImpl(
+      dollars: null == dollars
+          ? _value.dollars
+          : dollars // ignore: cast_nullable_to_non_nullable
+              as int,
       sustainability: null == sustainability
           ? _value.sustainability
           : sustainability // ignore: cast_nullable_to_non_nullable
@@ -105,11 +116,16 @@ class __$$StatsImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$StatsImpl implements _Stats {
-  const _$StatsImpl({required this.sustainability, required this.energy});
+  const _$StatsImpl(
+      {required this.dollars,
+      required this.sustainability,
+      required this.energy});
 
   factory _$StatsImpl.fromJson(Map<String, dynamic> json) =>
       _$$StatsImplFromJson(json);
 
+  @override
+  final int dollars;
   @override
   final double sustainability;
   @override
@@ -117,7 +133,7 @@ class _$StatsImpl implements _Stats {
 
   @override
   String toString() {
-    return 'Stats(sustainability: $sustainability, energy: $energy)';
+    return 'Stats(dollars: $dollars, sustainability: $sustainability, energy: $energy)';
   }
 
   @override
@@ -125,6 +141,7 @@ class _$StatsImpl implements _Stats {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$StatsImpl &&
+            (identical(other.dollars, dollars) || other.dollars == dollars) &&
             (identical(other.sustainability, sustainability) ||
                 other.sustainability == sustainability) &&
             (identical(other.energy, energy) || other.energy == energy));
@@ -132,7 +149,7 @@ class _$StatsImpl implements _Stats {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, sustainability, energy);
+  int get hashCode => Object.hash(runtimeType, dollars, sustainability, energy);
 
   @JsonKey(ignore: true)
   @override
@@ -150,11 +167,14 @@ class _$StatsImpl implements _Stats {
 
 abstract class _Stats implements Stats {
   const factory _Stats(
-      {required final double sustainability,
+      {required final int dollars,
+      required final double sustainability,
       required final double energy}) = _$StatsImpl;
 
   factory _Stats.fromJson(Map<String, dynamic> json) = _$StatsImpl.fromJson;
 
+  @override
+  int get dollars;
   @override
   double get sustainability;
   @override

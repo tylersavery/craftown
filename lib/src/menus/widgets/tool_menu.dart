@@ -1,9 +1,6 @@
 import 'package:craftown/src/constants.dart';
-import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/menus/providers/tool_menu_provider.dart';
-import 'package:craftown/src/models/tool.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/shared/menu_container.dart';
@@ -35,9 +32,6 @@ class ToolMenu extends ConsumerWidget {
 
                   return InkWell(
                     onTap: () {
-                      // if (tool == Tool.wateringCan) {
-                      //   if (ref.read(inventoryProvider.notifier).totalResourcesWithIdentifier(Resources.water.identifier) < 1) {}
-                      // }
                       menuProvider.setSelected(tool, true);
                     },
                     child: Container(

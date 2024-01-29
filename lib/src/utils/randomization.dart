@@ -14,3 +14,13 @@ String randomString([int length = 16]) => String.fromCharCodes(
         (_) => _chars.codeUnitAt(rnd.nextInt(_chars.length)),
       ),
     );
+
+int randomInt(int min, int max) {
+  return rnd.nextInt(max - min + 1) + min;
+}
+
+T randomItemInList<T>(List<T> list) {
+  final random = Random();
+  int index = random.nextInt(list.length);
+  return list[index];
+}

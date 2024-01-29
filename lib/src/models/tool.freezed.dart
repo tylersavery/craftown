@@ -23,6 +23,7 @@ mixin _$Tool {
   String get identifier => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get assetName => throw _privateConstructorUsedError;
+  ToolType get type => throw _privateConstructorUsedError;
   List<Resource> get resourcesRequired => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,6 +40,7 @@ abstract class $ToolCopyWith<$Res> {
       {String identifier,
       String name,
       String assetName,
+      ToolType type,
       List<Resource> resourcesRequired});
 }
 
@@ -58,6 +60,7 @@ class _$ToolCopyWithImpl<$Res, $Val extends Tool>
     Object? identifier = null,
     Object? name = null,
     Object? assetName = null,
+    Object? type = null,
     Object? resourcesRequired = null,
   }) {
     return _then(_value.copyWith(
@@ -73,6 +76,10 @@ class _$ToolCopyWithImpl<$Res, $Val extends Tool>
           ? _value.assetName
           : assetName // ignore: cast_nullable_to_non_nullable
               as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as ToolType,
       resourcesRequired: null == resourcesRequired
           ? _value.resourcesRequired
           : resourcesRequired // ignore: cast_nullable_to_non_nullable
@@ -92,6 +99,7 @@ abstract class _$$ToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       {String identifier,
       String name,
       String assetName,
+      ToolType type,
       List<Resource> resourcesRequired});
 }
 
@@ -108,6 +116,7 @@ class __$$ToolImplCopyWithImpl<$Res>
     Object? identifier = null,
     Object? name = null,
     Object? assetName = null,
+    Object? type = null,
     Object? resourcesRequired = null,
   }) {
     return _then(_$ToolImpl(
@@ -123,6 +132,10 @@ class __$$ToolImplCopyWithImpl<$Res>
           ? _value.assetName
           : assetName // ignore: cast_nullable_to_non_nullable
               as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as ToolType,
       resourcesRequired: null == resourcesRequired
           ? _value._resourcesRequired
           : resourcesRequired // ignore: cast_nullable_to_non_nullable
@@ -138,6 +151,7 @@ class _$ToolImpl extends _Tool {
       {required this.identifier,
       required this.name,
       required this.assetName,
+      required this.type,
       final List<Resource> resourcesRequired = const []})
       : _resourcesRequired = resourcesRequired,
         super._();
@@ -151,6 +165,8 @@ class _$ToolImpl extends _Tool {
   final String name;
   @override
   final String assetName;
+  @override
+  final ToolType type;
   final List<Resource> _resourcesRequired;
   @override
   @JsonKey()
@@ -163,7 +179,7 @@ class _$ToolImpl extends _Tool {
 
   @override
   String toString() {
-    return 'Tool(identifier: $identifier, name: $name, assetName: $assetName, resourcesRequired: $resourcesRequired)';
+    return 'Tool(identifier: $identifier, name: $name, assetName: $assetName, type: $type, resourcesRequired: $resourcesRequired)';
   }
 
   @override
@@ -176,6 +192,7 @@ class _$ToolImpl extends _Tool {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.assetName, assetName) ||
                 other.assetName == assetName) &&
+            (identical(other.type, type) || other.type == type) &&
             const DeepCollectionEquality()
                 .equals(other._resourcesRequired, _resourcesRequired));
   }
@@ -183,7 +200,7 @@ class _$ToolImpl extends _Tool {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, identifier, name, assetName,
-      const DeepCollectionEquality().hash(_resourcesRequired));
+      type, const DeepCollectionEquality().hash(_resourcesRequired));
 
   @JsonKey(ignore: true)
   @override
@@ -204,6 +221,7 @@ abstract class _Tool extends Tool {
       {required final String identifier,
       required final String name,
       required final String assetName,
+      required final ToolType type,
       final List<Resource> resourcesRequired}) = _$ToolImpl;
   const _Tool._() : super._();
 
@@ -215,6 +233,8 @@ abstract class _Tool extends Tool {
   String get name;
   @override
   String get assetName;
+  @override
+  ToolType get type;
   @override
   List<Resource> get resourcesRequired;
   @override

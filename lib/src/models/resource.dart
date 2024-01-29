@@ -35,6 +35,7 @@ class Resource with _$Resource {
   const factory Resource({
     required String identifier,
     required String name,
+    required String namePlural,
     required String assetFileName16,
     @Default(defaultDescription) String description,
     String? assetFileNameLarge,
@@ -46,7 +47,7 @@ class Resource with _$Resource {
     double? secondsToCraft,
     double? secondsToMine,
     String? miningToolRequiredIdentifier,
-    @Default(false) bool canConsume,
+    @Default(0) double energyWhenConsumed,
     @Default(false) bool canPlace,
     @Default(false) bool canPickUp,
     @Default(false) bool canConstruct,
@@ -57,6 +58,13 @@ class Resource with _$Resource {
     @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson) @Default(StorageType.none) StorageType storageType,
     @Default(0) int resourcesPerSlot,
     @Default(0) int outputSlotSize,
+    @Default(false) bool isSeed,
+    @Default(5) int secondsToGrow,
+    Resource? growsInto,
+    @Default(1) int farmYieldMin,
+    @Default(1) int farmYieldMax,
+    @Default(false) bool contentsWillSell,
+    @Default(0) int saleValue,
   }) = _Resource;
 
   factory Resource.fromJson(Map<String, dynamic> json) => _$ResourceFromJson(json);
@@ -83,6 +91,10 @@ class Resource with _$Resource {
 
   bool get canHoldResources {
     return slots > 0 && resourcesPerSlot > 0;
+  }
+
+  bool get canConsume {
+    return energyWhenConsumed > 0;
   }
 
   bool canCraft(List<InventorySlot> slots) {

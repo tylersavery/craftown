@@ -78,6 +78,7 @@ flutter:
     - assets/images/
     - assets/images/resources/
     - assets/images/tools/
+    - assets/images/seeds/
     - assets/tiles/
     - assets/fonts/
     - assets/images/characters/Character10/

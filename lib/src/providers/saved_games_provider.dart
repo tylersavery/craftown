@@ -17,7 +17,7 @@ import 'package:sembast/sembast.dart';
 class SavedGameProvider extends StateNotifier<List<SavedGame>> {
   final Ref ref;
   final Database db;
-  final StoreRef<int, Map<String, Object?>> store = intMapStoreFactory.store("savedGamesv8");
+  final StoreRef<int, Map<String, Object?>> store = intMapStoreFactory.store("savedGamesv9");
 
   SavedGameProvider(this.ref, this.db) : super([]);
 
@@ -51,6 +51,10 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
         if (pr.isConstructing) {
           detailProvider.startConstruction();
         }
+
+        if (pr.isSelling) {
+          detailProvider.startSelling();
+        }
       }
     });
   }
@@ -71,6 +75,7 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
             outputSlotContents: detailState.outputSlotContents,
             isConstructing: detailState.isConstructing,
             selectedRecipe: detailState.selectedRecipe,
+            isSelling: detailState.isSelling,
           );
 
           updatedPlacedResources.add(updatedPr);

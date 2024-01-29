@@ -8,13 +8,17 @@ import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/toast_message.dart';
 import 'package:craftown/src/providers/inventory_provider.dart';
 import 'package:craftown/src/providers/placed_resources_provider.dart';
+import 'package:craftown/src/providers/stats_provider.dart';
 import 'package:craftown/src/providers/toast_messages_provider.dart';
+import 'package:craftown/src/utils/randomization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:collection/collection.dart';
 
 class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
   final Ref ref;
   Timer? constructorTimer;
+  Timer? sellingTimer;
+
   PlacedResourceDetailedProvider(this.ref, PlacedResource? placedResource) : super(placedResource);
 
   selectRecipe(Resource? recipe) {
@@ -66,6 +70,9 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
     state = state!.copyWith(isConstructing: true);
 
     constructorTimer = Timer.periodic(Duration(seconds: state!.selectedRecipe!.secondsToCraft!.round()), (timer) {
+      print("============");
+      print(state!.uniqueIdentifier);
+      print("============");
       final recipe = state!.selectedRecipe!;
 
       final resources = state!.contents.expand((element) => element).toList();
@@ -99,6 +106,78 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
     });
 
     return true;
+  }
+
+  void stopConstruction() {
+    if (constructorTimer != null) {
+      constructorTimer!.cancel();
+      constructorTimer = null;
+    }
+
+    if (state == null) {
+      print("PlacedResources state is null");
+      return;
+    }
+
+    state = state!.copyWith(isConstructing: false);
+  }
+
+  void toggleSelling() {
+    if (state == null) {
+      print("PlacedResources state is null");
+      return;
+    }
+
+    if (state!.isSelling) {
+      stopSelling();
+    } else {
+      startSelling();
+    }
+  }
+
+  bool startSelling({bool automaticStop = false}) {
+    if (state == null) {
+      print("PlacedResources state is null");
+      return false;
+    }
+    if (!state!.sprite.resource.contentsWillSell) {
+      print("Can't sell contents");
+      return false;
+    }
+
+    state = state!.copyWith(isSelling: true);
+
+    sellingTimer = Timer.periodic(Duration(seconds: 10), (timer) {
+      final resources = state!.contents.expand((element) => element).toList().where((element) => element.saleValue > 0).toList();
+
+      if (resources.isEmpty) {
+        if (automaticStop) {
+          stopSelling();
+        }
+        return;
+      }
+
+      final r = randomItemInList(resources);
+      final removed = removeFromAnySlot(r);
+      if (removed != null && removed.isNotEmpty) {
+        ref.read(statsProvider.notifier).increaseDollars(r.saleValue);
+      }
+    });
+    return true;
+  }
+
+  void stopSelling() {
+    if (sellingTimer != null) {
+      sellingTimer!.cancel();
+      sellingTimer = null;
+    }
+
+    if (state != null) {
+      print("PlacedResources state is null");
+      return;
+    }
+
+    state = state!.copyWith(isSelling: false);
   }
 
   List<Resource>? removeFromAnySlot(
@@ -267,27 +346,14 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
     state = state!.copyWith(outputSlotContents: updatedContents);
     return resourcesRemoved;
   }
-
-  void stopConstruction() {
-    if (constructorTimer != null) {
-      constructorTimer!.cancel();
-      constructorTimer = null;
-    }
-
-    if (state == null) {
-      print("PlacedResources state is null");
-      return;
-    }
-
-    state = state!.copyWith(isConstructing: false);
-  }
 }
 
 final placedResourceDetailProvider = StateNotifierProvider.family<PlacedResourceDetailedProvider, PlacedResource?, String>((ref, uniqueIdentifier) {
+  print("*****$uniqueIdentifier");
   final placedResource = ref.watch(placedResourcesProvider).firstWhereOrNull((p) => p.uniqueIdentifier == uniqueIdentifier);
 
   return PlacedResourceDetailedProvider(
     ref,
-    placedResource,
+    placedResource!.copyWith(),
   );
 });

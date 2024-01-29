@@ -22,12 +22,25 @@ class StatsProvider extends StateNotifier<Stats> {
   decreaseEnergy(double amount) {
     state = state.copyWith(energy: max(0, state.energy - amount));
   }
+
+  setDollars(int value) {
+    state = state.copyWith(dollars: value);
+  }
+
+  increaseDollars(int amount) {
+    state = state.copyWith(dollars: state.dollars + amount);
+  }
+
+  decreaseDollars(int amount) {
+    state = state.copyWith(dollars: max(0, state.dollars - amount));
+  }
 }
 
 final statsProvider = StateNotifierProvider<StatsProvider, Stats>((ref) {
   final initialState = Stats(
     sustainability: 1,
     energy: 0.5,
+    dollars: 10,
   );
   return StatsProvider(ref, initialState);
 });

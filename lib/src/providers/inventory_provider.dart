@@ -128,11 +128,7 @@ class InventoryProvider extends StateNotifier<List<InventorySlot>> {
 
     removeResource(resource, count);
 
-    switch (resource.identifier) {
-      case "soup":
-        ref.read(statsProvider.notifier).increaseEnergy(0.15);
-        break;
-    }
+    ref.read(statsProvider.notifier).increaseEnergy(resource.energyWhenConsumed);
   }
 }
 
@@ -147,8 +143,10 @@ final inventoryProvider = StateNotifierProvider<InventoryProvider, List<Inventor
   initialState[2] = InventorySlot(resource: Resources.water, count: 5);
   initialState[3] = InventorySlot(resource: Resources.woodenBucket, count: 1);
   initialState[4] = InventorySlot(resource: Resources.barrel, count: 2);
-  initialState[5] = InventorySlot(resource: Resources.chest, count: 2);
+  initialState[5] = InventorySlot(resource: Resources.communityChest, count: 2);
   initialState[6] = InventorySlot(resource: Resources.constructorA, count: 2);
+  initialState[7] = InventorySlot(resource: Resources.potatoSeed, count: 16);
+  initialState[8] = InventorySlot(resource: Resources.potato, count: 8);
 
   return InventoryProvider(ref, initialState);
 });
