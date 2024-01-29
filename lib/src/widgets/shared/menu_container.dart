@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class MenuContainer extends StatelessWidget {
@@ -5,16 +7,21 @@ class MenuContainer extends StatelessWidget {
   final String title;
   final double width;
   final Widget child;
+  final double? maxContentHeightOverride;
   const MenuContainer({
     super.key,
     required this.title,
     required this.handleClose,
     required this.width,
     required this.child,
+    this.maxContentHeightOverride,
   });
 
   @override
   Widget build(BuildContext context) {
+    final maxContentHeight = MediaQuery.of(context).size.height - 32 - 64;
+    final _maxContentHeight = maxContentHeightOverride != null ? min(maxContentHeightOverride!, maxContentHeight) : maxContentHeight;
+
     return Stack(
       children: [
         GestureDetector(
@@ -72,7 +79,10 @@ class MenuContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                child,
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: _maxContentHeight),
+                  child: child,
+                ),
               ],
             ),
           ),

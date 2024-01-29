@@ -20,7 +20,7 @@ class GameMenu extends ConsumerWidget {
       },
       width: GAME_MENU_WIDTH,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(0),
         child: Builder(builder: (context) {
           switch (subMenu) {
             case null:
@@ -43,45 +43,49 @@ class _RootMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      children: [
-        _MenuItem(
-          label: "Save Game",
-          onPressed: () {
-            ref.read(gameMenuProvider.notifier).showSaveGameSubmenu();
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(height: 8),
+          _MenuItem(
+            label: "Save Game",
+            onPressed: () {
+              ref.read(gameMenuProvider.notifier).showSaveGameSubmenu();
 
-            // ref.read(savedGameProvider.notifier).saveGame();
-          },
-        ),
-        _MenuItem(
-          label: "Load Game",
-          onPressed: () async {
-            await ref.read(gameMenuProvider.notifier).showLoadGameSubmenu();
-          },
-        ),
-        _MenuItem(
-          label: "Settings",
-          onPressed: () {},
-        ),
-        _MenuItem(
-          label: "Help",
-          onPressed: () {},
-        ),
-        _MenuItem(
-          label: "Back to Game",
-          onPressed: () {
-            ref.read(gameMenuProvider.notifier).close();
-          },
-        ),
-        _MenuItem(
-          label: "Quit to Menu",
-          onPressed: () {},
-        ),
-        _MenuItem(
-          label: "Quit to Desktop",
-          onPressed: () {},
-        ),
-      ],
+              // ref.read(savedGameProvider.notifier).saveGame();
+            },
+          ),
+          _MenuItem(
+            label: "Load Game",
+            onPressed: () async {
+              await ref.read(gameMenuProvider.notifier).showLoadGameSubmenu();
+            },
+          ),
+          _MenuItem(
+            label: "Settings",
+            onPressed: () {},
+          ),
+          _MenuItem(
+            label: "Help",
+            onPressed: () {},
+          ),
+          _MenuItem(
+            label: "Back to Game",
+            onPressed: () {
+              ref.read(gameMenuProvider.notifier).close();
+            },
+          ),
+          _MenuItem(
+            label: "Quit to Menu",
+            onPressed: () {},
+          ),
+          _MenuItem(
+            label: "Quit to Desktop",
+            onPressed: () {},
+          ),
+          SizedBox(height: 8),
+        ],
+      ),
     );
   }
 }
@@ -98,7 +102,7 @@ class _SaveGameMenu extends ConsumerWidget {
     return ConstrainedBox(
       constraints: BoxConstraints(
         maxHeight: 300,
-        maxWidth: GAME_MENU_WIDTH - 32,
+        maxWidth: GAME_MENU_WIDTH,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -112,11 +116,47 @@ class _SaveGameMenu extends ConsumerWidget {
                 builder: (context) {
                   final controller = TextEditingController();
                   return AlertDialog(
-                    title: Text("New Save"),
-                    content: TextFormField(
-                      controller: controller,
-                      decoration: InputDecoration(hintText: "Filename"),
-                      autofocus: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                    contentPadding: EdgeInsets.zero,
+                    insetPadding: EdgeInsets.zero,
+                    buttonPadding: EdgeInsets.zero,
+                    titlePadding: EdgeInsets.zero,
+                    actionsPadding: EdgeInsets.zero,
+                    iconPadding: EdgeInsets.zero,
+                    backgroundColor: Colors.white,
+                    title: Padding(
+                      padding: const EdgeInsets.only(left: 8, top: 4, right: 8),
+                      child: Text(
+                        "Save Game",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    content: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 3),
+                      child: Container(
+                        color: Colors.black12,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: TextFormField(
+                            controller: controller,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              hintText: "Filename",
+                              contentPadding: EdgeInsets.zero,
+                              counterText: null,
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                            ),
+                            autofocus: true,
+                            autocorrect: false,
+                          ),
+                        ),
+                      ),
                     ),
                     actions: [
                       TextButton(
@@ -149,21 +189,20 @@ class _SaveGameMenu extends ConsumerWidget {
               ref.read(gameMenuProvider.notifier).backToRoot();
             },
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: saves.length,
-              itemBuilder: (context, index) {
-                final save = saves[index];
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: saves.length,
+            itemBuilder: (context, index) {
+              final save = saves[index];
 
-                return _MenuItem(
-                  label: save.label,
-                  onPressed: () {
-                    ref.read(savedGameProvider.notifier).saveGame(save.fileName, overwrite: save);
-                    ref.read(gameMenuProvider.notifier).backToRoot();
-                  },
-                );
-              },
-            ),
+              return _MenuItem(
+                label: save.label,
+                onPressed: () {
+                  ref.read(savedGameProvider.notifier).saveGame(save.fileName, overwrite: save);
+                  ref.read(gameMenuProvider.notifier).backToRoot();
+                },
+              );
+            },
           ),
         ],
       ),
@@ -183,20 +222,21 @@ class _LoadGameMenu extends ConsumerWidget {
     return ConstrainedBox(
       constraints: BoxConstraints(
         maxHeight: 300,
-        maxWidth: GAME_MENU_WIDTH - 32,
+        maxWidth: GAME_MENU_WIDTH,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _MenuItem(
-            label: "Cancel",
-            onPressed: () {
-              ref.read(gameMenuProvider.notifier).backToRoot();
-            },
-          ),
-          Expanded(
-            child: ListView.builder(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _MenuItem(
+              label: "Cancel",
+              onPressed: () {
+                ref.read(gameMenuProvider.notifier).backToRoot();
+              },
+            ),
+            ListView.builder(
+              shrinkWrap: true,
               itemCount: saves.length,
               itemBuilder: (context, index) {
                 final save = saves[index];
@@ -208,8 +248,8 @@ class _LoadGameMenu extends ConsumerWidget {
                     });
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -227,20 +267,21 @@ class _MenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       child: InkWell(
         onTap: onPressed,
         child: Container(
           color: Colors.black12,
           width: GAME_MENU_WIDTH - 32,
-          height: 32,
+          height: 28,
           child: Center(
-              child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 20,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 18,
+              ),
             ),
-          )),
+          ),
         ),
       ),
     );

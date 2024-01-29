@@ -134,7 +134,7 @@ class InventoryProvider extends StateNotifier<List<InventorySlot>> {
 
 final inventoryProvider = StateNotifierProvider<InventoryProvider, List<InventorySlot>>((ref) {
   final initialState = List.generate(
-    32,
+    16,
     (index) => InventorySlot(resource: null, count: 0),
   );
 

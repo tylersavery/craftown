@@ -32,6 +32,12 @@ class InventorySlotWrap extends ConsumerWidget {
         final slot = entry.value;
 
         return InkWell(
+          onDoubleTap: () {
+            final amountToMove = min(INVENTORY_MOVE_WHEN_SHIFT_PRESSED, slot.count);
+            for (int i = 0; i < amountToMove; i++) {
+              onTap(index);
+            }
+          },
           onTap: () {
             if (ref.read(modifierKeyProvider).shiftPressed) {
               final amountToMove = min(INVENTORY_MOVE_WHEN_SHIFT_PRESSED, slot.count);

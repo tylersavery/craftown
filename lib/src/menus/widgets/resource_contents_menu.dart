@@ -58,7 +58,6 @@ class ResourceContentsMenu extends ConsumerWidget {
           children: [
             Container(
               width: CRAFT_MENU_WIDTH / 2,
-              height: CRAFT_MENU_HEIGHT,
               decoration: BoxDecoration(
                 border: Border(
                   right: BorderSide(
@@ -122,7 +121,7 @@ class ResourceContentsMenu extends ConsumerWidget {
             ),
             SizedBox(
               width: INVENTORY_MENU_WIDTH / 2,
-              height: INVENTORY_MENU_HEIGHT,
+              // height: INVENTORY_MENU_HEIGHT,
               child: Builder(
                 builder: (context) {
                   return SingleChildScrollView(
@@ -136,7 +135,17 @@ class ResourceContentsMenu extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (placedResource.sprite.resource.canConstruct && selectedRecipe != null) ...[
-                              Text("Active Recipe: "),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text("Active Recipe: "),
+                                  InkWell(
+                                      onTap: () {
+                                        ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).selectRecipe(null);
+                                      },
+                                      child: Text("[Clear]")),
+                                ],
+                              ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 4),
                                 child: Row(
@@ -164,15 +173,6 @@ class ResourceContentsMenu extends ConsumerWidget {
                                           "Craft Time: ${selectedRecipe.secondsToCraft} ${selectedRecipe.secondsToCraft == 1 ? 'second' : 'seconds'}",
                                         ),
                                       ],
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).selectRecipe(null);
-                                      },
-                                      icon: Icon(Icons.close),
                                     ),
                                   ],
                                 ),

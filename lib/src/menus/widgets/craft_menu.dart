@@ -43,80 +43,81 @@ class CraftMenu extends ConsumerWidget {
             ),
             clipBehavior: Clip.antiAlias,
             child: RecipeSelectorList(
-                selectedIndex: menuState.selectedIndex,
-                onSelect: (index) {
-                  menuProvider.setSelected(index);
-                }),
+              selectedIndex: menuState.selectedIndex,
+              onSelect: (index) {
+                menuProvider.setSelected(index);
+              },
+            ),
           ),
           SizedBox(
             width: CRAFT_MENU_WIDTH / 2,
-            height: CRAFT_MENU_HEIGHT,
+            // height: CRAFT_MENU_HEIGHT,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: ListView(
+                shrinkWrap: true,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisSize: MainAxisSize.min,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        selectedResource.name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
+                  Text(
+                    selectedResource.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: PixelArtImageAsset(
+                      "assets/images/resources/${selectedResource.assetFileNameLargeWithFallback}",
+                      width: selectedResource.assetFileNameLarge != null ? selectedResource.placementWidth : 32,
+                      height: selectedResource.assetFileNameLarge != null ? selectedResource.placementHeight : 32,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    "Recipe:",
+                  ),
+                  Wrap(
+                    spacing: 4,
+                    runSpacing: 2,
+                    children: selectedResource.ingredients.map((ingredient) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(4.0),
                         ),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      PixelArtImageAsset(
-                        "assets/images/resources/${selectedResource.assetFileNameLargeWithFallback}",
-                        width: selectedResource.assetFileNameLarge != null ? selectedResource.placementWidth * 2 : 64,
-                        height: selectedResource.assetFileNameLarge != null ? selectedResource.placementHeight * 2 : 64,
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        "Recipe:",
-                      ),
-                      Wrap(
-                        spacing: 4,
-                        runSpacing: 2,
-                        children: selectedResource.ingredients.map((ingredient) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black12,
-                              borderRadius: BorderRadius.circular(4.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  PixelArtImageAsset(
-                                    "assets/images/resources/${ingredient.resource.assetFileName16}",
-                                    width: 16,
-                                    height: 16,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                                    child: Text(ingredient.resource.name),
-                                  ),
-                                  Text("x ${ingredient.quantity}"),
-                                ],
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              PixelArtImageAsset(
+                                "assets/images/resources/${ingredient.resource.assetFileName16}",
+                                width: 16,
+                                height: 16,
                               ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        "Craft Time: ${selectedResource.secondsToCraft} ${selectedResource.secondsToCraft == 1 ? 'second' : 'seconds'}",
-                      ),
-                    ],
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4),
+                                child: Text(ingredient.resource.name),
+                              ),
+                              Text("x ${ingredient.quantity}"),
+                            ],
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    "Craft Time: ${selectedResource.secondsToCraft} ${selectedResource.secondsToCraft == 1 ? 'second' : 'seconds'}",
                   ),
                   if (selectedResource.secondsToCraft != null)
                     HoldDownButton(

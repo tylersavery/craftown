@@ -17,31 +17,46 @@ class RecipeSelectorList extends ConsumerWidget {
     final recipes = ref.read(recipesProvider);
 
     return ListView.builder(
+      shrinkWrap: true,
       itemCount: recipes.length,
       itemBuilder: (context, index) {
         final resource = recipes[index];
         final isSelected = selectedIndex != null && selectedIndex == index;
 
-        return Container(
-          decoration: BoxDecoration(
-            color: isSelected ? Colors.pink.withOpacity(0.1) : Colors.white,
-            border: Border(
-              bottom: BorderSide(
-                width: 1,
-                color: Colors.black12,
+        return InkWell(
+          onTap: () {
+            onSelect(index);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: isSelected ? Colors.pink.withOpacity(0.1) : Colors.white,
+              border: Border(
+                bottom: BorderSide(
+                  width: 1,
+                  color: Colors.black12,
+                ),
               ),
             ),
-          ),
-          child: ListTile(
-            title: Text(resource.name),
-            leading: PixelArtImageAsset(
-              resource.assetPath16,
-              width: 16,
-              height: 16,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: PixelArtImageAsset(
+                      resource.assetPath16,
+                      width: 16,
+                      height: 16,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(resource.name),
+                ],
+              ),
             ),
-            onTap: () {
-              onSelect(index);
-            },
           ),
         );
       },

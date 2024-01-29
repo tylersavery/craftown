@@ -20,6 +20,7 @@ class ToolMenu extends ConsumerWidget {
         ref.read(toolMenuProvider.notifier).close();
       },
       width: TOOL_MENU_WIDTH,
+      maxContentHeightOverride: 88,
       child: SizedBox(
         width: TOOL_MENU_WIDTH,
         child: Padding(

@@ -49,37 +49,45 @@ class GameScreen extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: GameMenuButton(),
+              child: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: GameMenuButton(),
+                ),
               ),
             ),
-            const Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: InventoryBar(),
+            SafeArea(
+              child: const Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: InventoryBar(),
+                ),
               ),
             ),
             const Align(
               alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ToolButton(),
-                    SizedBox(width: 4),
-                    CraftButton(),
-                  ],
+              child: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ToolButton(),
+                      SizedBox(width: 4),
+                      CraftButton(),
+                    ],
+                  ),
                 ),
               ),
             ),
             Align(
               alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: StatsGui(),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: StatsGui(),
+                ),
               ),
             ),
             Consumer(
@@ -139,40 +147,42 @@ class GameScreen extends StatelessWidget {
                 final resourceInHand = ref.watch(resourceInHandProvider);
 
                 if (resourceInHand != null) {
-                  return Stack(
-                    clipBehavior: Clip.antiAlias,
-                    children: [
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              ref.read(inventoryProvider.notifier).addResource(resourceInHand);
-                              ref.read(resourceInHandProvider.notifier).clear();
-                            },
-                            child: Container(
-                              width: 32,
-                              height: 32,
-                              decoration: BoxDecoration(
-                                color: Colors.black45,
-                                border: Border.all(
-                                  color: Colors.white38,
-                                  width: 1,
+                  return SafeArea(
+                    child: Stack(
+                      clipBehavior: Clip.antiAlias,
+                      children: [
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () {
+                                ref.read(inventoryProvider.notifier).addResource(resourceInHand);
+                                ref.read(resourceInHandProvider.notifier).clear();
+                              },
+                              child: Container(
+                                width: 32,
+                                height: 32,
+                                decoration: BoxDecoration(
+                                  color: Colors.black45,
+                                  border: Border.all(
+                                    color: Colors.white38,
+                                    width: 1,
+                                  ),
                                 ),
-                              ),
-                              child: Center(
-                                child: PixelArtImageAsset(
-                                  resourceInHand.assetPath16,
-                                  width: 16,
-                                  height: 16,
+                                child: Center(
+                                  child: PixelArtImageAsset(
+                                    resourceInHand.assetPath16,
+                                    width: 16,
+                                    height: 16,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 }
 

@@ -29,10 +29,11 @@ class InventoryMenu extends ConsumerWidget {
         width: INVENTORY_MENU_WIDTH,
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: CRAFT_MENU_WIDTH / 2,
-              height: CRAFT_MENU_HEIGHT,
+              // height: CRAFT_MENU_HEIGHT,
               decoration: BoxDecoration(
                 border: Border(
                   right: BorderSide(
@@ -42,19 +43,21 @@ class InventoryMenu extends ConsumerWidget {
                 ),
               ),
               clipBehavior: Clip.antiAlias,
-              child: InventorySlotWrap(
-                selectedIndex: menuState.selectedIndex,
-                onTap: (int index) {
-                  final slot = inventory[index];
-                  if (slot.resource != null) {
-                    menuProvider.setSelected(index);
-                  }
-                },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InventorySlotWrap(
+                  selectedIndex: menuState.selectedIndex,
+                  onTap: (int index) {
+                    final slot = inventory[index];
+                    if (slot.resource != null) {
+                      menuProvider.setSelected(index);
+                    }
+                  },
+                ),
               ),
             ),
             SizedBox(
               width: INVENTORY_MENU_WIDTH / 2,
-              height: INVENTORY_MENU_HEIGHT,
               child: Builder(
                 builder: (context) {
                   if (selectedSlot.resource == null) {
@@ -68,6 +71,7 @@ class InventoryMenu extends ConsumerWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Column(
                           mainAxisSize: MainAxisSize.min,
@@ -119,14 +123,17 @@ class InventoryMenu extends ConsumerWidget {
                                 },
                               ),
                             if (resource.canConsume)
-                              HoldDownButton(
-                                duration: Duration(
-                                  seconds: 1,
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: HoldDownButton(
+                                  duration: Duration(
+                                    seconds: 1,
+                                  ),
+                                  label: "Consume",
+                                  onComplete: () {
+                                    _inventoryProvider.consume(resource, 1);
+                                  },
                                 ),
-                                label: "Consume",
-                                onComplete: () {
-                                  _inventoryProvider.consume(resource, 1);
-                                },
                               ),
                           ],
                         )
