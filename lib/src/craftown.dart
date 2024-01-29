@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:craftown/src/components/player.dart';
+import 'package:craftown/src/components/shift_button.dart';
 import 'package:craftown/src/models/character.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
@@ -10,14 +11,16 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:flutter/material.dart';
 
-class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks, RiverpodGameMixin {
+class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks, DragCallbacks, RiverpodGameMixin {
   final Character character;
   late CameraComponent cam;
   late SpriteSheet cropsSpriteSheet;
 
   late final Player player;
   late final Level level;
+  late JoystickComponent joystick;
 
   Craftown({required this.character}) {
     player = Player(character: character);
@@ -38,6 +41,14 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
     _loadLevel();
 
     return super.onLoad();
+  }
+
+  @override
+  void update(double dt) {
+    if (JOYSTICK_ENABLED) {
+      _updateJoystick();
+    }
+    super.update(dt);
   }
 
   void _loadLevel() {
@@ -64,5 +75,63 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
     cam.follow(player);
 
     addAll([cam, level]);
+    if (JOYSTICK_ENABLED) {
+      _addJoystick();
+      cam.viewport.add(joystick);
+      cam.viewport.add(ShiftButton());
+    }
+  }
+
+  void _addJoystick() {
+    joystick = JoystickComponent(
+      priority: 25,
+      knob: SpriteComponent(
+        sprite: Sprite(
+          images.fromCache("controller/Knob.png"),
+        ),
+      ),
+      background: SpriteComponent(
+        sprite: Sprite(
+          images.fromCache("controller/Joystick.png"),
+        ),
+      ),
+      margin: const EdgeInsets.only(
+        bottom: 32,
+        left: 32,
+      ),
+    );
+
+    // add(joystick);
+  }
+
+  void _updateJoystick() {
+    switch (joystick.direction) {
+      case JoystickDirection.left:
+      case JoystickDirection.upLeft:
+      case JoystickDirection.downLeft:
+        player.horizontalMovement = -1;
+        player.verticalMovement = 0;
+
+        break;
+      case JoystickDirection.right:
+      case JoystickDirection.upRight:
+      case JoystickDirection.downRight:
+        player.horizontalMovement = 1;
+        player.verticalMovement = 0;
+
+        break;
+      case JoystickDirection.up:
+        player.verticalMovement = -1;
+        player.horizontalMovement = 0;
+
+      case JoystickDirection.down:
+        player.verticalMovement = 1;
+        player.horizontalMovement = 0;
+
+      default:
+        player.horizontalMovement = 0;
+        player.verticalMovement = 0;
+        break;
+    }
   }
 }
