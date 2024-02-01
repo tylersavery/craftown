@@ -7,8 +7,8 @@ import 'package:craftown/src/widgets/shared/menu_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ToolMenu extends ConsumerWidget {
-  const ToolMenu({super.key});
+class ToolMenuWidget extends ConsumerWidget {
+  const ToolMenuWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

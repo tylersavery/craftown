@@ -21,8 +21,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:collection/collection.dart';
 
-class ResourceContentsMenu extends ConsumerWidget {
-  const ResourceContentsMenu({super.key});
+class ResourceContentsMenuWidget extends ConsumerWidget {
+  const ResourceContentsMenuWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

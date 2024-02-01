@@ -1,11 +1,16 @@
 import 'package:craftown/src/menus/models/tool_menu_state.dart';
 import 'package:craftown/src/models/tool.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class ToolMenuProvider extends StateNotifier<ToolMenuState> {
-  final Ref ref;
-  ToolMenuProvider(this.ref, ToolMenuState initialState) : super(initialState);
+part 'tool_menu_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class ToolMenu extends _$ToolMenu {
+  @override
+  ToolMenuState build() {
+    return ToolMenuState();
+  }
 
   void open() {
     state = state.copyWith(isOpen: true);
@@ -22,8 +27,3 @@ class ToolMenuProvider extends StateNotifier<ToolMenuState> {
     }
   }
 }
-
-final toolMenuProvider = StateNotifierProvider<ToolMenuProvider, ToolMenuState>((ref) {
-  final initialState = ToolMenuState();
-  return ToolMenuProvider(ref, initialState);
-});

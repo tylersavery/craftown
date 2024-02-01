@@ -11,8 +11,8 @@ import 'package:craftown/src/widgets/shared/menu_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class InventoryMenu extends ConsumerWidget {
-  const InventoryMenu({super.key});
+class InventoryMenuWidget extends ConsumerWidget {
+  const InventoryMenuWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

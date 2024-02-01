@@ -9,8 +9,8 @@ import 'package:craftown/src/widgets/shared/menu_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CraftMenu extends ConsumerWidget {
-  const CraftMenu({super.key});
+class CraftMenuWidget extends ConsumerWidget {
+  const CraftMenuWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

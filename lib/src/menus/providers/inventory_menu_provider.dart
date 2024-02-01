@@ -1,9 +1,14 @@
 import 'package:craftown/src/menus/models/inventory_menu_state.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class InventoryMenuProvider extends StateNotifier<InventoryMenuState> {
-  final Ref ref;
-  InventoryMenuProvider(this.ref, InventoryMenuState initialState) : super(initialState);
+part 'inventory_menu_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class InventoryMenu extends _$InventoryMenu {
+  @override
+  InventoryMenuState build() {
+    return InventoryMenuState();
+  }
 
   void resetAndOpen() {
     state = state.copyWith(isOpen: true, selectedIndex: 0);
@@ -25,8 +30,3 @@ class InventoryMenuProvider extends StateNotifier<InventoryMenuState> {
     state = state.copyWith(selectedIndex: index);
   }
 }
-
-final inventoryMenuProvider = StateNotifierProvider<InventoryMenuProvider, InventoryMenuState>((ref) {
-  final initialState = InventoryMenuState();
-  return InventoryMenuProvider(ref, initialState);
-});

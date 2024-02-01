@@ -1,9 +1,14 @@
 import 'package:craftown/src/menus/models/craft_menu_state.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class CraftMenuProvider extends StateNotifier<CraftMenuState> {
-  final Ref ref;
-  CraftMenuProvider(this.ref, CraftMenuState initialState) : super(initialState);
+part 'craft_menu_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class CraftMenu extends _$CraftMenu {
+  @override
+  CraftMenuState build() {
+    return CraftMenuState();
+  }
 
   void open() {
     state = state.copyWith(isOpen: true);
@@ -17,8 +22,3 @@ class CraftMenuProvider extends StateNotifier<CraftMenuState> {
     state = state.copyWith(selectedIndex: index);
   }
 }
-
-final craftMenuProvider = StateNotifierProvider<CraftMenuProvider, CraftMenuState>((ref) {
-  final initialState = CraftMenuState();
-  return CraftMenuProvider(ref, initialState);
-});

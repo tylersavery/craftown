@@ -1,10 +1,15 @@
 import 'package:craftown/src/components/farmland_sprite.dart';
 import 'package:craftown/src/menus/models/seed_menu_state.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class SeedMenuProvider extends StateNotifier<SeedMenuState> {
-  final Ref ref;
-  SeedMenuProvider(this.ref, SeedMenuState initialState) : super(initialState);
+part 'seed_menu_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class SeedMenu extends _$SeedMenu {
+  @override
+  SeedMenuState build() {
+    return SeedMenuState();
+  }
 
   void open() {
     state = state.copyWith(isOpen: true);
@@ -17,16 +22,4 @@ class SeedMenuProvider extends StateNotifier<SeedMenuState> {
   void close() {
     state = state.copyWith(isOpen: false);
   }
-
-  // void setSelected(Tool tool, [bool andClose = false]) {
-  //   final success = ref.read(selectedToolProvider.notifier).set(tool);
-  //   if (success && andClose) {
-  //     close();
-  //   }
-  // }
 }
-
-final seedMenuProvider = StateNotifierProvider<SeedMenuProvider, SeedMenuState>((ref) {
-  final initialState = SeedMenuState();
-  return SeedMenuProvider(ref, initialState);
-});

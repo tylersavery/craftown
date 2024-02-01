@@ -194,7 +194,7 @@ class GameScreen extends StatelessWidget {
                 if (ref.watch(inventoryMenuProvider).isOpen) {
                   return const Align(
                     alignment: Alignment.center,
-                    child: InventoryMenu(),
+                    child: InventoryMenuWidget(),
                   );
                 }
 
@@ -206,7 +206,7 @@ class GameScreen extends StatelessWidget {
                 if (ref.watch(craftMenuProvider).isOpen) {
                   return const Align(
                     alignment: Alignment.center,
-                    child: CraftMenu(),
+                    child: CraftMenuWidget(),
                   );
                 }
 
@@ -218,7 +218,7 @@ class GameScreen extends StatelessWidget {
                 if (ref.watch(resourceContentsMenuProvider).isOpen) {
                   return const Align(
                     alignment: Alignment.center,
-                    child: ResourceContentsMenu(),
+                    child: ResourceContentsMenuWidget(),
                   );
                 }
 
@@ -230,7 +230,7 @@ class GameScreen extends StatelessWidget {
                 if (ref.watch(toolMenuProvider).isOpen) {
                   return const Align(
                     alignment: Alignment.center,
-                    child: ToolMenu(),
+                    child: ToolMenuWidget(),
                   );
                 }
 
@@ -242,7 +242,7 @@ class GameScreen extends StatelessWidget {
                 if (ref.watch(seedMenuProvider).isOpen) {
                   return const Align(
                     alignment: Alignment.center,
-                    child: SeedMenu(),
+                    child: SeedMenuWidget(),
                   );
                 }
 
@@ -254,7 +254,7 @@ class GameScreen extends StatelessWidget {
                 if (ref.watch(gameMenuProvider).isOpen) {
                   return const Align(
                     alignment: Alignment.center,
-                    child: GameMenu(),
+                    child: GameMenuWidget(),
                   );
                 }
 

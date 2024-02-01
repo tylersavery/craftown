@@ -12,8 +12,8 @@ import 'package:craftown/src/widgets/shared/menu_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SeedMenu extends ConsumerWidget {
-  const SeedMenu({super.key});
+class SeedMenuWidget extends ConsumerWidget {
+  const SeedMenuWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
