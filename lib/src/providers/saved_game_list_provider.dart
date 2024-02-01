@@ -76,6 +76,10 @@ class SavedGameList extends _$SavedGameList {
         if (pr.isSelling) {
           detailProvider.startSelling();
         }
+
+        if (pr.isMining) {
+          detailProvider.startMining();
+        }
       }
 
       final farmlands = save.farmlands;
@@ -114,6 +118,7 @@ class SavedGameList extends _$SavedGameList {
             isConstructing: detailState.isConstructing,
             selectedRecipe: detailState.selectedRecipe,
             isSelling: detailState.isSelling,
+            isMining: detailState.isMining,
           );
 
           updatedPlacedResources.add(updatedPr);

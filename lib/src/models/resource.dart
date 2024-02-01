@@ -65,6 +65,8 @@ class Resource with _$Resource {
     @Default(1) int farmYieldMax,
     @Default(false) bool contentsWillSell,
     @Default(0) int saleValue,
+    Resource? miningOutputResource,
+    @Default(null) List<Resource>? canOnlyBePlacedOn,
   }) = _Resource;
 
   factory Resource.fromJson(Map<String, dynamic> json) => _$ResourceFromJson(json);
@@ -95,6 +97,10 @@ class Resource with _$Resource {
 
   bool get canConsume {
     return energyWhenConsumed > 0;
+  }
+
+  bool get isMiner {
+    return miningOutputResource != null;
   }
 
   bool canCraft(List<InventorySlot> slots) {

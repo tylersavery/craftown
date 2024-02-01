@@ -39,6 +39,7 @@ class SeedMenuWidget extends ConsumerWidget {
 
     return MenuContainer(
       title: "Seeds",
+      maxContentHeightOverride: 200,
       handleClose: () {
         menuProvider.close();
       },

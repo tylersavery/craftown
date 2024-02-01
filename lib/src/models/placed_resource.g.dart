@@ -21,6 +21,7 @@ _$PlacedResourceImpl _$$PlacedResourceImplFromJson(Map<String, dynamic> json) =>
           : Resource.fromJson(json['selectedRecipe'] as Map<String, dynamic>),
       isConstructing: json['isConstructing'] as bool? ?? false,
       isSelling: json['isSelling'] as bool? ?? false,
+      isMining: json['isMining'] as bool? ?? false,
       outputSlotContents: (json['outputSlotContents'] as List<dynamic>?)
               ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -38,6 +39,7 @@ Map<String, dynamic> _$$PlacedResourceImplToJson(
       'selectedRecipe': instance.selectedRecipe?.toJson(),
       'isConstructing': instance.isConstructing,
       'isSelling': instance.isSelling,
+      'isMining': instance.isMining,
       'outputSlotContents':
           instance.outputSlotContents.map((e) => e.toJson()).toList(),
     };

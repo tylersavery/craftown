@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:craftown/src/components/custom_hitbox.dart';
 import 'package:craftown/src/components/player.dart';
-import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
@@ -11,14 +10,12 @@ import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/toast_message.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
-import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/utils/collisions.dart';
 import 'package:craftown/src/utils/randomization.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:flame/particles.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -170,16 +167,17 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
     if (!validateInteractivity()) {
       return;
     }
-    if (resource.canHoldResources) {
+
+    if (resource.isMiner || resource.canHoldResources || resource.canConstruct || resource.canPickUp) {
       ref.read(resourceContentsMenuProvider.notifier).openWith(this);
       return;
     }
 
-    if (resource.canPickUp) {
-      ref.read(inventoryListProvider.notifier).addResource(resource);
-      removeFromParent();
-      return;
-    }
+    // if (resource.canPickUp) {
+    //   ref.read(inventoryListProvider.notifier).addResource(resource);
+    //   removeFromParent();
+    //   return;
+    // }
 
     if (resource.minePerSecond != null && validateMining()) {
       miningTimeCounter = 0;

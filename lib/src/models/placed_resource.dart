@@ -16,6 +16,7 @@ class PlacedResource with _$PlacedResource {
     Resource? selectedRecipe,
     @Default(false) bool isConstructing,
     @Default(false) bool isSelling,
+    @Default(false) bool isMining,
     @Default([]) List<Resource> outputSlotContents,
   }) = _PlacedResource;
 

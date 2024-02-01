@@ -7,7 +7,7 @@ part of 'placed_resource_detail_provider.dart';
 // **************************************************************************
 
 String _$placedResourceDetailHash() =>
-    r'9c2e8bd7312f172cc20248ad779368ce53ed9f0b';
+    r'30a15fa635114dccfab2369a09bbacc9dcde6c06';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,7 +31,7 @@ class _SystemHash {
 }
 
 abstract class _$PlacedResourceDetail
-    extends BuildlessAutoDisposeNotifier<PlacedResource?> {
+    extends BuildlessNotifier<PlacedResource?> {
   late final String arg;
 
   PlacedResource? build(
@@ -82,8 +82,8 @@ class PlacedResourceDetailFamily extends Family<PlacedResource?> {
 }
 
 /// See also [PlacedResourceDetail].
-class PlacedResourceDetailProvider extends AutoDisposeNotifierProviderImpl<
-    PlacedResourceDetail, PlacedResource?> {
+class PlacedResourceDetailProvider
+    extends NotifierProviderImpl<PlacedResourceDetail, PlacedResource?> {
   /// See also [PlacedResourceDetail].
   PlacedResourceDetailProvider(
     String arg,
@@ -139,7 +139,7 @@ class PlacedResourceDetailProvider extends AutoDisposeNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeNotifierProviderElement<PlacedResourceDetail, PlacedResource?>
+  NotifierProviderElement<PlacedResourceDetail, PlacedResource?>
       createElement() {
     return _PlacedResourceDetailProviderElement(this);
   }
@@ -158,15 +158,14 @@ class PlacedResourceDetailProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
-mixin PlacedResourceDetailRef
-    on AutoDisposeNotifierProviderRef<PlacedResource?> {
+mixin PlacedResourceDetailRef on NotifierProviderRef<PlacedResource?> {
   /// The parameter `arg` of this provider.
   String get arg;
 }
 
 class _PlacedResourceDetailProviderElement
-    extends AutoDisposeNotifierProviderElement<PlacedResourceDetail,
-        PlacedResource?> with PlacedResourceDetailRef {
+    extends NotifierProviderElement<PlacedResourceDetail, PlacedResource?>
+    with PlacedResourceDetailRef {
   _PlacedResourceDetailProviderElement(super.provider);
 
   @override

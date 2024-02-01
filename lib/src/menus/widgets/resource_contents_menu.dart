@@ -134,6 +134,18 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            if (placedResource.sprite.resource.isMiner && placedResource.sprite.resource.miningOutputResource != null) ...[
+                              Text("Mining:"),
+                              PixelArtImageAsset(
+                                "assets/images/resources/${placedResource.sprite.resource.miningOutputResource!.assetFileNameLargeWithFallback}",
+                                width: placedResource.sprite.resource.miningOutputResource!.assetFileNameLarge != null
+                                    ? placedResource.sprite.resource.miningOutputResource!.placementWidth * 2
+                                    : 32,
+                                height: placedResource.sprite.resource.miningOutputResource!.assetFileNameLarge != null
+                                    ? placedResource.sprite.resource.miningOutputResource!.placementHeight * 2
+                                    : 32,
+                              ),
+                            ],
                             if (placedResource.sprite.resource.canConstruct && selectedRecipe != null) ...[
                               Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -223,7 +235,7 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                             SizedBox(
                               height: 8,
                             ),
-                            if (placedResource.sprite.resource.outputSlotSize > 0)
+                            if (!placedResource.sprite.resource.isMiner)
                               Text(
                                 "Input:",
                               ),
@@ -377,6 +389,19 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                                   duration: Duration.zero,
                                   onComplete: () {
                                     ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).toggleConstruction();
+                                  },
+                                  completeOnClick: true,
+                                  small: true,
+                                ),
+                              ),
+                            if (placedResource.sprite.resource.isMiner)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: HoldDownButton(
+                                  label: placedResource.isMining ? "Stop Mining" : "Start Mining",
+                                  duration: Duration.zero,
+                                  onComplete: () {
+                                    ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).toggleMining();
                                   },
                                   completeOnClick: true,
                                   small: true,

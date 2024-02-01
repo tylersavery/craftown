@@ -53,6 +53,14 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       farmYieldMax: json['farmYieldMax'] as int? ?? 1,
       contentsWillSell: json['contentsWillSell'] as bool? ?? false,
       saleValue: json['saleValue'] as int? ?? 0,
+      miningOutputResource: json['miningOutputResource'] == null
+          ? null
+          : Resource.fromJson(
+              json['miningOutputResource'] as Map<String, dynamic>),
+      canOnlyBePlacedOn: (json['canOnlyBePlacedOn'] as List<dynamic>?)
+              ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          null,
     );
 
 Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
@@ -89,4 +97,7 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'farmYieldMax': instance.farmYieldMax,
       'contentsWillSell': instance.contentsWillSell,
       'saleValue': instance.saleValue,
+      'miningOutputResource': instance.miningOutputResource?.toJson(),
+      'canOnlyBePlacedOn':
+          instance.canOnlyBePlacedOn?.map((e) => e.toJson()).toList(),
     };

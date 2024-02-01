@@ -16,6 +16,16 @@ class Resources {
         miningToolRequiredIdentifier: "pick",
       );
 
+  static Resource get stone => Resource(
+        identifier: "stone",
+        name: "Stone Ore",
+        namePlural: "Stone Ore",
+        assetFileName16: "stone-16x16.png",
+        assetFileNameLarge: "stone-32x32.png",
+        secondsToMine: 2,
+        miningToolRequiredIdentifier: "pick",
+      );
+
   static Resource get copper => Resource(
         identifier: 'copper',
         name: "Copper",
@@ -62,8 +72,8 @@ class Resources {
         assetFileName16: "potato-16x16.png",
         name: "Potato",
         namePlural: "Potatos",
-        energyWhenConsumed: 0.15,
-        saleValue: 1,
+        energyWhenConsumed: 0.2,
+        saleValue: 2,
       );
 
   static Resource get potatoSeed => Resource(
@@ -73,8 +83,50 @@ class Resources {
         namePlural: "Potato Seeds",
         isSeed: true,
         growsInto: Resources.potato,
-        farmYieldMin: 8,
-        farmYieldMax: 12,
+        farmYieldMin: 4,
+        farmYieldMax: 6,
+      );
+
+  static Resource get carrot => Resource(
+        identifier: "carrot",
+        assetFileName16: "carrot-16x16.png",
+        name: "Carrot",
+        namePlural: "Carrots",
+        energyWhenConsumed: 0.15,
+        saleValue: 1,
+      );
+
+  static Resource get carrotSeed => Resource(
+        identifier: "carrot_seed",
+        assetFileName16: "carrot-seed-16x16.png",
+        name: "Carrot Seed",
+        namePlural: "Carrot Seeds",
+        isSeed: true,
+        growsInto: Resources.carrot,
+        farmYieldMin: 14,
+        farmYieldMax: 20,
+      );
+
+  static Resource get garlic => Resource(
+        identifier: "garlic",
+        assetFileName16: "garlic-10x12.png",
+        name: "Garlic",
+        namePlural: "Garlic",
+        energyWhenConsumed: 0.03,
+        saleValue: 3,
+        placementWidth: 10,
+        placementHeight: 12,
+      );
+
+  static Resource get garlicSeed => Resource(
+        identifier: "garlic_seed",
+        assetFileName16: "garlic-seed-16x16.png",
+        name: "Garlic Seed",
+        namePlural: "Garlic Seeds",
+        isSeed: true,
+        growsInto: Resources.garlic,
+        farmYieldMin: 4,
+        farmYieldMax: 10,
       );
 
 // Secondary
@@ -206,17 +258,79 @@ class Resources {
         interactionRadius: 48,
       );
 
+  static Resource get minerA => Resource(
+      identifier: "miner_a",
+      assetFileName16: "miner-a-16x16.png",
+      assetFileNameLarge: "miner-a-12x23.png",
+      name: "Miner",
+      namePlural: "Miners",
+      secondsToCraft: 5,
+      canPlace: true,
+      placementWidth: 12,
+      placementHeight: 23,
+      interactionRadius: 48,
+      outputSlotSize: 25,
+      storageType: StorageType.solid,
+      ingredients: [
+        Ingredient(resource: Resources.iron, quantity: 10),
+        Ingredient(resource: Resources.stone, quantity: 10),
+      ],
+      miningOutputResource: Resources.iron,
+      canOnlyBePlacedOn: [
+        Resources.stone,
+        Resources.iron,
+        Resources.straw,
+        Resources.copper,
+        Resources.wood,
+      ]);
+
+  static Resource get well => Resource(
+        identifier: "well",
+        assetFileName16: "well-16x16.png",
+        assetFileNameLarge: "well-48x57.png",
+        name: "Well",
+        namePlural: "Wells",
+        secondsToCraft: 5,
+        canPlace: true,
+        placementWidth: 48,
+        placementHeight: 57,
+        interactionRadius: 54,
+        outputSlotSize: 25,
+        storageType: StorageType.liquid,
+        ingredients: [
+          Ingredient(resource: Resources.wood, quantity: 15),
+          Ingredient(resource: Resources.iron, quantity: 5),
+          Ingredient(resource: Resources.stone, quantity: 50),
+        ],
+        miningOutputResource: Resources.water,
+        canOnlyBePlacedOn: null,
+      );
+
   static List<Resource> get all => [
+        //Primary
+        Resources.stone,
         Resources.iron,
         Resources.copper,
         Resources.wood,
         Resources.straw,
+
+        //Secondary
         Resources.screw,
         Resources.woodenBucket,
         Resources.soup,
         Resources.chest,
         Resources.communityChest,
         Resources.constructorA,
+        Resources.well,
+        Resources.minerA,
+
+        // Farming
+        Resources.carrotSeed,
+        Resources.carrot,
+        Resources.potatoSeed,
+        Resources.potato,
+        Resources.garlicSeed,
+        Resources.garlic,
       ];
 
   static List<Resource> get craftable => all.where((r) => r.secondsToCraft != null).toList();

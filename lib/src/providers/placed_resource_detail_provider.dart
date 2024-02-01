@@ -15,10 +15,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'placed_resource_detail_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class PlacedResourceDetail extends _$PlacedResourceDetail {
   Timer? constructorTimer;
   Timer? sellingTimer;
+  Timer? miningTimer;
 
   @override
   PlacedResource? build(String arg) {
@@ -179,6 +180,61 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     }
 
     state = state!.copyWith(isSelling: false);
+  }
+
+  void toggleMining() {
+    if (state == null) {
+      print("PlacedResources state is null");
+      return;
+    }
+
+    if (state!.isMining) {
+      stopMining();
+    } else {
+      startMining();
+    }
+  }
+
+  bool startMining({bool automaticStop = false}) {
+    if (state == null) {
+      print("PlacedResources state is null");
+      return false;
+    }
+    if (!state!.sprite.resource.isMiner && state!.sprite.resource.miningOutputResource != null) {
+      print("Can't mine");
+      return false;
+    }
+
+    state = state!.copyWith(isMining: true);
+
+    miningTimer = Timer.periodic(Duration(seconds: 10), (timer) {
+      final outputCount = state!.outputSlotContents.length;
+
+      if (outputCount >= state!.sprite.resource.outputSlotSize) {
+        print("Output is full");
+        if (automaticStop) {
+          stopConstruction();
+        }
+        return;
+      }
+
+      addToOutputSlot(state!.sprite.resource.miningOutputResource!);
+    });
+    return true;
+  }
+
+  void stopMining() {
+    if (miningTimer != null) {
+      miningTimer!.cancel();
+      miningTimer = null;
+    }
+
+    if (state != null) {
+      print("PlacedResources state is null");
+      return;
+    }
+
+    state = state!.copyWith(isMining: false);
   }
 
   List<Resource>? removeFromAnySlot(
