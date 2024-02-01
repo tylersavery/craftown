@@ -2,7 +2,7 @@
 
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/shared/hold_down_button.dart';
@@ -18,8 +18,8 @@ class InventoryMenu extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final menuProvider = ref.read(inventoryMenuProvider.notifier);
     final menuState = ref.watch(inventoryMenuProvider);
-    final inventory = ref.watch(inventoryProvider);
-    final _inventoryProvider = ref.read(inventoryProvider.notifier);
+    final inventory = ref.watch(inventoryListProvider);
+    final _inventoryProvider = ref.read(inventoryListProvider.notifier);
 
     final selectedSlot = inventory[menuState.selectedIndex];
 

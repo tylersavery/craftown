@@ -1,7 +1,7 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/craft_menu_provider.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
-import 'package:craftown/src/providers/recipes_provider.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
+import 'package:craftown/src/providers/recipes_list_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/recipes_selector_list.dart';
 import 'package:craftown/src/widgets/shared/hold_down_button.dart';
@@ -15,13 +15,13 @@ class CraftMenu extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final menuProvider = ref.read(craftMenuProvider.notifier);
-    final invProvider = ref.read(inventoryProvider.notifier);
+    final invProvider = ref.read(inventoryListProvider.notifier);
     final menuState = ref.watch(craftMenuProvider);
-    final recipes = ref.watch(recipesProvider);
+    final recipes = ref.watch(recipesListProvider);
 
     final selectedResource = recipes[menuState.selectedIndex];
 
-    final canCraft = selectedResource.canCraft(ref.watch(inventoryProvider));
+    final canCraft = selectedResource.canCraft(ref.watch(inventoryListProvider));
 
     return MenuContainer(
       title: "Crafting Table",

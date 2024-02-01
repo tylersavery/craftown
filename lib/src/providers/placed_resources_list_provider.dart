@@ -1,13 +1,21 @@
 import 'package:craftown/src/components/resource_sprite.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/models/placed_resource.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class PlacedResourcesProvider extends StateNotifier<List<PlacedResource>> {
-  final Ref ref;
-  PlacedResourcesProvider(this.ref) : super([]);
+part 'placed_resources_list_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class PlacedResourcesList extends _$PlacedResourcesList {
+  // final Ref ref;
+  // PlacedResourcesProvider(this.ref) : super([]);
+
+  @override
+  List<PlacedResource> build() {
+    return [];
+  }
 
   set(List<PlacedResource> items) {
     state = items;
@@ -35,19 +43,19 @@ class PlacedResourcesProvider extends StateNotifier<List<PlacedResource>> {
 
     // grab all inputs, outputs, and the resource itself
     for (final r in [...inputs, ...outputs, item.sprite.resource]) {
-      final success = ref.read(inventoryProvider.notifier).addResource(r);
+      final success = ref.read(inventoryListProvider.notifier).addResource(r);
 
       //TODO: add this back in when ready to test
 
       // if (!success) {
-      //   ref.read(toastMessagesProvider.notifier).add("Not enough room to move everything");
+      //   ref.read(toastMessagesListProvider.notifier).add("Not enough room to move everything");
       //   return false;
       // }
     }
 
     //TODO: some funky stuff happening with multiple dudes - need a better identifier method perhaps
 
-    final index = ref.read(inventoryProvider).indexWhere((element) => element.resource?.identifier == item.sprite.resource.identifier);
+    final index = ref.read(inventoryListProvider).indexWhere((element) => element.resource?.identifier == item.sprite.resource.identifier);
     if (index > -1) {
       ref.read(inventoryMenuProvider.notifier).setSelected(index);
     }
@@ -75,7 +83,3 @@ class PlacedResourcesProvider extends StateNotifier<List<PlacedResource>> {
     return true;
   }
 }
-
-final placedResourcesProvider = StateNotifierProvider<PlacedResourcesProvider, List<PlacedResource>>((ref) {
-  return PlacedResourcesProvider(ref);
-});

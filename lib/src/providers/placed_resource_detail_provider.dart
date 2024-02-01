@@ -3,25 +3,26 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:collection/collection.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/toast_message.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
-import 'package:craftown/src/providers/placed_resources_provider.dart';
-import 'package:craftown/src/providers/stats_provider.dart';
-import 'package:craftown/src/providers/toast_messages_provider.dart';
+import 'package:craftown/src/providers/placed_resources_list_provider.dart';
+import 'package:craftown/src/providers/stats_detail_provider.dart';
+import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/utils/randomization.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:collection/collection.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
-  final Ref ref;
-  final String uniqueIdentifier;
+part 'placed_resource_detail_provider.g.dart';
+
+@riverpod
+class PlacedResourceDetail extends _$PlacedResourceDetail {
   Timer? constructorTimer;
   Timer? sellingTimer;
 
-  PlacedResourceDetailedProvider(this.ref, this.uniqueIdentifier) : super(null) {
-    state = ref.read(placedResourcesProvider).firstWhereOrNull((p) => p.uniqueIdentifier == uniqueIdentifier);
+  @override
+  PlacedResource? build(String arg) {
+    return ref.read(placedResourcesListProvider).firstWhereOrNull((p) => p.uniqueIdentifier == arg);
   }
 
   selectRecipe(Resource? recipe) {
@@ -160,7 +161,7 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
       final r = randomItemInList(resources);
       final removed = removeFromAnySlot(r);
       if (removed != null && removed.isNotEmpty) {
-        ref.read(statsProvider.notifier).increaseDollars(r.saleValue);
+        ref.read(statsDetailProvider.notifier).increaseDollars(r.saleValue);
       }
     });
     return true;
@@ -292,7 +293,7 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
     }
 
     if (!hasRoom) {
-      ref.read(toastMessagesProvider.notifier).add(
+      ref.read(toastMessagesListProvider.notifier).add(
             "No room to add ${resource.name}.",
             type: ToastMessageType.error,
           );
@@ -347,10 +348,3 @@ class PlacedResourceDetailedProvider extends StateNotifier<PlacedResource?> {
     return resourcesRemoved;
   }
 }
-
-final placedResourceDetailProvider = StateNotifierProvider.family<PlacedResourceDetailedProvider, PlacedResource?, String>((ref, uniqueIdentifier) {
-  return PlacedResourceDetailedProvider(
-    ref,
-    uniqueIdentifier,
-  );
-});

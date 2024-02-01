@@ -11,10 +11,10 @@ import 'package:craftown/src/menus/widgets/inventory_menu.dart';
 import 'package:craftown/src/menus/widgets/resource_contents_menu.dart';
 import 'package:craftown/src/menus/widgets/seed_menu.dart';
 import 'package:craftown/src/menus/widgets/tool_menu.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/providers/selected_character_provider.dart';
-import 'package:craftown/src/providers/toast_messages_provider.dart';
+import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/widgets/craft_button.dart';
 import 'package:craftown/src/widgets/game_menu_button.dart';
 import 'package:craftown/src/widgets/inventory_bar.dart';
@@ -92,7 +92,7 @@ class GameScreen extends StatelessWidget {
             ),
             Consumer(
               builder: (context, ref, _) {
-                final toastMessages = ref.watch(toastMessagesProvider);
+                final toastMessages = ref.watch(toastMessagesListProvider);
                 if (toastMessages.isNotEmpty) {
                   return Align(
                       alignment: Alignment.topCenter,
@@ -122,7 +122,7 @@ class GameScreen extends StatelessWidget {
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          ref.read(toastMessagesProvider.notifier).remove(t);
+                                          ref.read(toastMessagesListProvider.notifier).remove(t);
                                         },
                                         child: Icon(
                                           Icons.close,
@@ -157,7 +157,7 @@ class GameScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
                               onTap: () {
-                                ref.read(inventoryProvider.notifier).addResource(resourceInHand);
+                                ref.read(inventoryListProvider.notifier).addResource(resourceInHand);
                                 ref.read(resourceInHandProvider.notifier).clear();
                               },
                               child: Container(

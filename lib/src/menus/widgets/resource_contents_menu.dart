@@ -6,12 +6,12 @@ import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
 import 'package:craftown/src/models/resource.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
-import 'package:craftown/src/providers/placed_resources_provider.dart';
-import 'package:craftown/src/providers/recipes_provider.dart';
-import 'package:craftown/src/providers/toast_messages_provider.dart';
+import 'package:craftown/src/providers/placed_resources_list_provider.dart';
+import 'package:craftown/src/providers/recipes_list_provider.dart';
+import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/recipes_selector_list.dart';
 import 'package:craftown/src/widgets/shared/hold_down_button.dart';
@@ -29,7 +29,7 @@ class ResourceContentsMenu extends ConsumerWidget {
     final menuProvider = ref.read(resourceContentsMenuProvider.notifier);
     final menuState = ref.watch(resourceContentsMenuProvider);
 
-    final inventory = ref.watch(inventoryProvider);
+    final inventory = ref.watch(inventoryListProvider);
 
     final selectedPlacedResource = menuState.placedResource;
 
@@ -79,7 +79,7 @@ class ResourceContentsMenu extends ConsumerWidget {
                         Expanded(
                           child: RecipeSelectorList(
                             onSelect: (index) {
-                              final recipe = ref.read(recipesProvider)[index];
+                              final recipe = ref.read(recipesListProvider)[index];
 
                               ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).selectRecipe(recipe);
                             },
@@ -101,18 +101,18 @@ class ResourceContentsMenu extends ConsumerWidget {
 
                       final storageType = placedResource.sprite.resource.storageType;
                       if (storageType == StorageType.liquid && !resource.isLiquid) {
-                        ref.read(toastMessagesProvider.notifier).add("Only liquids can be stored in ${placedResourceSprite.resource.name}");
+                        ref.read(toastMessagesListProvider.notifier).add("Only liquids can be stored in ${placedResourceSprite.resource.name}");
                         return;
                       }
 
                       if (storageType == StorageType.solid && resource.isLiquid) {
-                        ref.read(toastMessagesProvider.notifier).add("Liquids can't be stored in ${placedResourceSprite.resource.name}");
+                        ref.read(toastMessagesListProvider.notifier).add("Liquids can't be stored in ${placedResourceSprite.resource.name}");
                         return;
                       }
 
                       final success = ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).addContents(resource);
                       if (success) {
-                        ref.read(inventoryProvider.notifier).removeResource(resource, 1);
+                        ref.read(inventoryListProvider.notifier).removeResource(resource, 1);
                       }
                     },
                   );
@@ -264,7 +264,7 @@ class ResourceContentsMenu extends ConsumerWidget {
                                               .removeContents(index, amountToRemove);
                                           if (removedResources != null) {
                                             for (final r in removedResources) {
-                                              ref.read(inventoryProvider.notifier).addResource(r);
+                                              ref.read(inventoryListProvider.notifier).addResource(r);
                                             }
                                           }
                                         },
@@ -334,7 +334,7 @@ class ResourceContentsMenu extends ConsumerWidget {
                                             .read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier)
                                             .removeFromOutputSlot(amountToRemove);
                                         for (final removed in removedResources) {
-                                          ref.read(inventoryProvider.notifier).addResource(removed);
+                                          ref.read(inventoryListProvider.notifier).addResource(removed);
                                         }
                                       },
                                       child: Stack(
@@ -402,7 +402,7 @@ class ResourceContentsMenu extends ConsumerWidget {
                                   label: "Pick Up",
                                   duration: Duration.zero,
                                   onComplete: () {
-                                    ref.read(placedResourcesProvider.notifier).pickup(placedResource);
+                                    ref.read(placedResourcesListProvider.notifier).pickup(placedResource);
                                     ref.read(resourceContentsMenuProvider.notifier).close();
                                     ref.read(inventoryMenuProvider.notifier).open();
                                   },

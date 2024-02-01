@@ -2,14 +2,16 @@ import 'package:collection/collection.dart';
 import 'package:craftown/src/components/farmland_sprite.dart';
 import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/resource.dart';
-import 'package:craftown/src/providers/farmland_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:craftown/src/providers/farmland_list_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class FarmlandDetailProvider extends StateNotifier<Farmland?> {
-  final Ref ref;
-  final String identifier;
-  FarmlandDetailProvider(this.ref, this.identifier) : super(null) {
-    state = ref.read(farmlandProvider).firstWhereOrNull((element) => element.identifier == identifier);
+part 'farmland_detail_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class FarmlandDetail extends _$FarmlandDetail {
+  @override
+  Farmland? build(String arg) {
+    return ref.read(farmlandListProvider).firstWhereOrNull((element) => element.identifier == arg);
   }
 
   void setState(FarmlandState s) {
@@ -34,7 +36,3 @@ class FarmlandDetailProvider extends StateNotifier<Farmland?> {
     state = state!.copyWith(completeAt: dateTime);
   }
 }
-
-final farmlandDetailProvider = StateNotifierProvider.family<FarmlandDetailProvider, Farmland?, String>((ref, identifier) {
-  return FarmlandDetailProvider(ref, identifier);
-});

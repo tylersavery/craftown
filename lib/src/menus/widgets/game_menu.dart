@@ -1,7 +1,7 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/game_menu_provider.dart';
 import 'package:craftown/src/menus/models/game_menu_state.dart';
-import 'package:craftown/src/providers/saved_games_provider.dart';
+import 'package:craftown/src/providers/saved_game_list_provider.dart';
 import 'package:craftown/src/widgets/shared/menu_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -97,7 +97,7 @@ class _SaveGameMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final saves = ref.watch(savedGameProvider);
+    final saves = ref.watch(savedGameListProvider);
 
     return ConstrainedBox(
       constraints: BoxConstraints(
@@ -179,7 +179,7 @@ class _SaveGameMenu extends ConsumerWidget {
               if (filename == null) {
                 return;
               }
-              ref.read(savedGameProvider.notifier).saveGame(filename);
+              ref.read(savedGameListProvider.notifier).saveGame(filename);
               ref.read(gameMenuProvider.notifier).backToRoot();
             },
           ),
@@ -198,7 +198,7 @@ class _SaveGameMenu extends ConsumerWidget {
               return _MenuItem(
                 label: save.label,
                 onPressed: () {
-                  ref.read(savedGameProvider.notifier).saveGame(save.fileName, overwrite: save);
+                  ref.read(savedGameListProvider.notifier).saveGame(save.fileName, overwrite: save);
                   ref.read(gameMenuProvider.notifier).backToRoot();
                 },
               );
@@ -217,7 +217,7 @@ class _LoadGameMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final saves = ref.watch(savedGameProvider);
+    final saves = ref.watch(savedGameListProvider);
 
     return ConstrainedBox(
       constraints: BoxConstraints(

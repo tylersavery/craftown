@@ -2,7 +2,7 @@
 
 const TILE_SIZE = 16.0;
 const CAMERA_ZOOM = 2.0;
-const JOYSTICK_ENABLED = true;
+const JOYSTICK_ENABLED = false;
 const CRAFT_MENU_WIDTH = 600.0;
 const CRAFT_MENU_HEIGHT = 400.0;
 const GAME_MENU_WIDTH = 400.0;

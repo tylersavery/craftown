@@ -1,4 +1,3 @@
-import 'package:craftown/src/models/saved_game.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'character.freezed.dart';

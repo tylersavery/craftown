@@ -1,14 +1,16 @@
 import 'package:craftown/src/models/modifier_key_state.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class ModifierKeyProvider extends StateNotifier<ModifierKeyState> {
-  ModifierKeyProvider() : super(ModifierKeyState());
+part 'modifier_key_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class ModifierKey extends _$ModifierKey {
+  @override
+  ModifierKeyState build() {
+    return ModifierKeyState();
+  }
 
   setShift(bool value) {
     state = state.copyWith(shiftPressed: value);
   }
 }
-
-final modifierKeyProvider = StateNotifierProvider<ModifierKeyProvider, ModifierKeyState>((ref) {
-  return ModifierKeyProvider();
-});

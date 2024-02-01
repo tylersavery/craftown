@@ -3,11 +3,18 @@ import 'dart:math';
 import 'package:craftown/src/models/stats.dart';
 import 'package:craftown/src/models/toast_message.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class ToastMessagesProvider extends StateNotifier<List<ToastMessage>> {
-  final Ref ref;
+part 'toast_messages_list_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class ToastMessagesList extends _$ToastMessagesList {
   final rng = Random();
-  ToastMessagesProvider(this.ref) : super([]);
+
+  @override
+  List<ToastMessage> build() {
+    return [];
+  }
 
   add(
     String message, {
@@ -28,7 +35,3 @@ class ToastMessagesProvider extends StateNotifier<List<ToastMessage>> {
     state = [...state]..removeWhere((t) => t.identifier == toastMessage.identifier);
   }
 }
-
-final toastMessagesProvider = StateNotifierProvider<ToastMessagesProvider, List<ToastMessage>>((ref) {
-  return ToastMessagesProvider(ref);
-});

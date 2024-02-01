@@ -4,27 +4,34 @@ import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/saved_game.dart';
 import 'package:craftown/src/providers/farmland_detail_provider.dart';
-import 'package:craftown/src/providers/farmland_provider.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/farmland_list_provider.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
-import 'package:craftown/src/providers/placed_resources_provider.dart';
+import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/providers/selected_character_provider.dart';
-import 'package:craftown/src/providers/stats_provider.dart';
-import 'package:craftown/src/providers/toast_messages_provider.dart';
+import 'package:craftown/src/providers/stats_detail_provider.dart';
+import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';
 import 'package:craftown/src/singletons.dart';
 import 'package:craftown/src/utils/randomization.dart';
-import 'package:flame/components.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flame/components.dart' hide Notifier;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sembast/sembast.dart';
 
-class SavedGameProvider extends StateNotifier<List<SavedGame>> {
-  final Ref ref;
-  final Database db;
-  final StoreRef<int, Map<String, Object?>> store = intMapStoreFactory.store("savedGamesv13");
+part 'saved_game_list_provider.g.dart';
 
-  SavedGameProvider(this.ref, this.db) : super([]);
+@Riverpod(keepAlive: true)
+class SavedGameList extends _$SavedGameList {
+  late Database db;
+  late StoreRef<int, Map<String, Object?>> store;
+
+  @override
+  List<SavedGame> build() {
+    db = Singletons.instance<Database>();
+    store = intMapStoreFactory.store("savedGamesv13");
+    return [];
+  }
 
   Future<void> loadList() async {
     final snapshots = await store.find(db);
@@ -35,8 +42,8 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
 
   void loadGame(SavedGame save) {
     ref.read(selectedCharacterProvider.notifier).set(save.character);
-    ref.read(inventoryProvider.notifier).set(save.inventory);
-    ref.read(statsProvider.notifier).set(save.stats);
+    ref.read(inventoryListProvider.notifier).set(save.inventory);
+    ref.read(statsDetailProvider.notifier).set(save.stats);
     ref.read(resourceInHandProvider.notifier).set(save.inHand);
 
     // Placed Resources
@@ -47,7 +54,7 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
         )
         .toList();
 
-    ref.read(placedResourcesProvider.notifier).set(placedResourcesWithUpdatedSprite);
+    ref.read(placedResourcesListProvider.notifier).set(placedResourcesWithUpdatedSprite);
 
     // Farming
 
@@ -86,14 +93,14 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
         }
       }
 
-      ref.read(farmlandProvider.notifier).set(farmlands);
+      ref.read(farmlandListProvider.notifier).set(farmlands);
     });
   }
 
   Future<void> saveGame(String filename, {SavedGame? overwrite}) async {
     final playerState = gameWidgetKey.currentState!.currentGame.player;
 
-    final placedResources = ref.read(placedResourcesProvider);
+    final placedResources = ref.read(placedResourcesListProvider);
 
     final List<PlacedResource> updatedPlacedResources = [];
     for (final pr in placedResources) {
@@ -117,7 +124,7 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
       }
     }
 
-    final farmlands = ref.read(farmlandProvider);
+    final farmlands = ref.read(farmlandListProvider);
 
     final List<Farmland> updatedFarmlands = [];
 
@@ -133,11 +140,11 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
       fileName: filename.isNotEmpty ? filename : ref.read(selectedCharacterProvider).name,
       character: ref.read(selectedCharacterProvider),
       savedAt: DateTime.now(),
-      inventory: ref.read(inventoryProvider),
+      inventory: ref.read(inventoryListProvider),
       playerPositionX: playerState.x,
       playerPositionY: playerState.y,
       placedResources: updatedPlacedResources,
-      stats: ref.read(statsProvider),
+      stats: ref.read(statsDetailProvider),
       inHand: ref.read(resourceInHandProvider),
       farmlands: updatedFarmlands,
     );
@@ -151,10 +158,6 @@ class SavedGameProvider extends StateNotifier<List<SavedGame>> {
       store.add(db, data);
     }
 
-    ref.read(toastMessagesProvider.notifier).add("Game Saved");
+    ref.read(toastMessagesListProvider.notifier).add("Game Saved");
   }
 }
-
-final savedGameProvider = StateNotifierProvider<SavedGameProvider, List<SavedGame>>((ref) {
-  return SavedGameProvider(ref, Singletons.instance<Database>());
-});

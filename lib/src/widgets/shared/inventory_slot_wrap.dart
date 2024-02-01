@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:craftown/src/constants.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class InventorySlotWrap extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final inventory = ref.watch(inventoryProvider);
+    final inventory = ref.watch(inventoryListProvider);
 
     return Wrap(
       alignment: WrapAlignment.start,

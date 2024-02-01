@@ -5,7 +5,7 @@ import 'package:craftown/src/menus/providers/seed_menu_provider.dart';
 import 'package:craftown/src/menus/providers/tool_menu_provider.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/farmland_detail_provider.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/shared/menu_container.dart';
@@ -21,7 +21,7 @@ class SeedMenu extends ConsumerWidget {
     final menuState = ref.watch(seedMenuProvider);
 
     final allSeeds = ref
-        .watch(inventoryProvider)
+        .watch(inventoryListProvider)
         .where((slot) => slot.resource?.isSeed == true) // Filter out slots with null types
         .expand((slot) => List<Resource>.filled(slot.count, slot.resource!)) // Create a list of types based on count
         .toList();
@@ -62,7 +62,7 @@ class SeedMenu extends ConsumerWidget {
                         if (menuState.farmlandSprite != null) {
                           final completeAt = DateTime.now().add(Duration(seconds: resource.first.secondsToGrow));
                           final seed = resource.first;
-                          ref.read(inventoryProvider.notifier).removeResource(resource.first, 1);
+                          ref.read(inventoryListProvider.notifier).removeResource(resource.first, 1);
                           menuState.farmlandSprite!.seed = seed;
                           menuState.farmlandSprite!.completeAt = completeAt;
 

@@ -2,10 +2,20 @@ import 'dart:math';
 
 import 'package:craftown/src/models/stats.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class StatsProvider extends StateNotifier<Stats> {
-  final Ref ref;
-  StatsProvider(this.ref, Stats initialState) : super(initialState);
+part 'stats_detail_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class StatsDetail extends _$StatsDetail {
+  @override
+  Stats build() {
+    return Stats(
+      sustainability: 1,
+      energy: 0.5,
+      dollars: 10,
+    );
+  }
 
   set(Stats value) {
     state = value;
@@ -35,12 +45,3 @@ class StatsProvider extends StateNotifier<Stats> {
     state = state.copyWith(dollars: max(0, state.dollars - amount));
   }
 }
-
-final statsProvider = StateNotifierProvider<StatsProvider, Stats>((ref) {
-  final initialState = Stats(
-    sustainability: 1,
-    energy: 0.5,
-    dollars: 10,
-  );
-  return StatsProvider(ref, initialState);
-});

@@ -1,4 +1,4 @@
-import 'package:craftown/src/providers/recipes_provider.dart';
+import 'package:craftown/src/providers/recipes_list_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +14,7 @@ class RecipeSelectorList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final recipes = ref.read(recipesProvider);
+    final recipes = ref.read(recipesListProvider);
 
     return ListView.builder(
       shrinkWrap: true,

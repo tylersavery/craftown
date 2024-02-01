@@ -1,4 +1,4 @@
-import 'package:craftown/src/providers/stats_provider.dart';
+import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +14,7 @@ class StatsGui extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Consumer(builder: (context, ref, _) {
-          final state = ref.watch(statsProvider);
+          final state = ref.watch(statsDetailProvider);
 
           return Column(
             mainAxisSize: MainAxisSize.min,

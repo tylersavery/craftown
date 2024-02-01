@@ -1,15 +1,20 @@
 import 'package:craftown/src/models/character.dart';
-import 'package:craftown/src/providers/app_state_provider.dart';
+import 'package:craftown/src/providers/app_provider.dart';
 import 'package:craftown/src/providers/selected_character_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class CharacterSelectorFormProvider extends StateNotifier<Character> {
-  final Ref ref;
+part 'character_selector_form_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class CharacterSelectorForm extends _$CharacterSelectorForm {
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
 
-  CharacterSelectorFormProvider(this.ref, Character initialState) : super(initialState);
+  @override
+  Character build() {
+    return Character(skin: CharacterSkin.values.first, name: "");
+  }
 
   void setSkin(CharacterSkin skin) {
     state = state.copyWith(skin: skin);
@@ -28,11 +33,8 @@ class CharacterSelectorFormProvider extends StateNotifier<Character> {
     }
     final character = state.copyWith(name: nameController.text);
     ref.read(selectedCharacterProvider.notifier).set(character);
-    ref.read(appStateProvider.notifier).set(AppState.inGame);
+    ref.read(appProvider.notifier).set(AppState.inGame);
   }
 }
 
-final characterSelectorFormProvider = StateNotifierProvider<CharacterSelectorFormProvider, Character>((ref) {
-  final initialState = Character(skin: CharacterSkin.values.first, name: "");
-  return CharacterSelectorFormProvider(ref, initialState);
-});
+// final characterSelectorFormProvider = NotifierProvider<CharacterSelectorFormProvider, Character>(CharacterSelectorFormProvider.new);

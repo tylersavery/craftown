@@ -5,9 +5,9 @@ import 'package:craftown/src/menus/providers/seed_menu_provider.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/tool.dart';
 import 'package:craftown/src/providers/farmland_detail_provider.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
-import 'package:craftown/src/providers/toast_messages_provider.dart';
+import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/utils/collisions.dart';
 import 'package:craftown/src/utils/randomization.dart';
 import 'package:flame/components.dart';
@@ -93,7 +93,7 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
           current = FarmlandState.dug;
           provider.setState(FarmlandState.dug);
         } else {
-          ref.read(toastMessagesProvider.notifier).add("Use a shovel to dig here.");
+          ref.read(toastMessagesListProvider.notifier).add("Use a shovel to dig here.");
         }
         break;
       case FarmlandState.dug:
@@ -101,7 +101,7 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
         break;
       case FarmlandState.growing:
         if (seed != null && seed!.growsInto != null) {
-          ref.read(toastMessagesProvider.notifier).add("Growing ${seed!.growsInto!.namePlural} here.");
+          ref.read(toastMessagesListProvider.notifier).add("Growing ${seed!.growsInto!.namePlural} here.");
         }
       case FarmlandState.grown:
         if (seed == null) {
@@ -112,9 +112,11 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
             int amount = seed!.farmYieldMin == seed!.farmYieldMax ? seed!.farmYieldMin : randomInt(seed!.farmYieldMin, seed!.farmYieldMax);
 
             for (int i = 0; i < amount; i++) {
-              ref.read(inventoryProvider.notifier).addResource(seed!.growsInto!);
+              ref.read(inventoryListProvider.notifier).addResource(seed!.growsInto!);
             }
-            ref.read(toastMessagesProvider.notifier).add("Harvested $amount ${amount == 1 ? seed!.growsInto!.name : seed!.growsInto!.namePlural}.");
+            ref
+                .read(toastMessagesListProvider.notifier)
+                .add("Harvested $amount ${amount == 1 ? seed!.growsInto!.name : seed!.growsInto!.namePlural}.");
           }
 
           completeAt = null;
@@ -125,7 +127,7 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
           provider.setSeed(null);
         } else {
           if (seed != null && seed!.growsInto != null) {
-            ref.read(toastMessagesProvider.notifier).add("Use a sythe to harvest the ${seed!.growsInto!.namePlural}.");
+            ref.read(toastMessagesListProvider.notifier).add("Use a sythe to harvest the ${seed!.growsInto!.namePlural}.");
           }
         }
 

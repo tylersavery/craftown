@@ -1,6 +1,5 @@
-import 'package:craftown/src/providers/player_position_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';
-import 'package:craftown/src/providers/app_state_provider.dart';
+import 'package:craftown/src/providers/app_provider.dart';
 import 'package:craftown/src/screens/character_selector_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +9,7 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(appStateProvider);
+    final state = ref.watch(appProvider);
 
     return Builder(builder: (context) {
       switch (state) {

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,7 +12,7 @@ class InventoryBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final menuProvider = ref.read(inventoryMenuProvider.notifier);
-    final inventory = ref.watch(inventoryProvider);
+    final inventory = ref.watch(inventoryListProvider);
 
     final truncatedInventory = inventory.sublist(0, INVENTORY_ITEM_BAR_COUNT);
 

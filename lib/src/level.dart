@@ -17,10 +17,10 @@ import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/tile_info.dart';
 import 'package:craftown/src/models/tool.dart';
-import 'package:craftown/src/providers/farmland_provider.dart';
-import 'package:craftown/src/providers/inventory_provider.dart';
+import 'package:craftown/src/providers/farmland_list_provider.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
-import 'package:craftown/src/providers/placed_resources_provider.dart';
+import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:craftown/src/providers/player_position_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
@@ -200,7 +200,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       );
 
       add(newResource);
-      ref.read(placedResourcesProvider.notifier).add(uniqueIdentifier, newResource);
+      ref.read(placedResourcesListProvider.notifier).add(uniqueIdentifier, newResource);
       final block = CollisionBlock(
         position: newResource.position,
         size: newResource.size,
@@ -241,7 +241,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
         Future.delayed(Duration(milliseconds: 10), () {
           for (final identifier in identifiers) {
-            ref.read(farmlandProvider.notifier).add(Farmland(identifier: identifier));
+            ref.read(farmlandListProvider.notifier).add(Farmland(identifier: identifier));
           }
         });
       }
