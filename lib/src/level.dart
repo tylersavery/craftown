@@ -234,11 +234,6 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
         }
       }
 
-      // if (resource.isMiner && resourceAtCoords == null) {
-      //   ref.read(toastMessagesListProvider.notifier).add("${resource.name} must be placed on a minable resource.");
-      //   return;
-      // }
-
       if (resource.isMiner && resourceAtCoords != null) {
         updatedResource = resource.copyWith(miningOutputResource: resourceAtCoords.sprite.resource);
       }

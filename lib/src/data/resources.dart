@@ -262,8 +262,31 @@ class Resources {
       identifier: "miner_a",
       assetFileName16: "miner-a-16x16.png",
       assetFileNameLarge: "miner-a-12x23.png",
-      name: "Miner",
-      namePlural: "Miners",
+      name: "Light Miner",
+      namePlural: "Light Miners",
+      secondsToCraft: 5,
+      canPlace: true,
+      placementWidth: 12,
+      placementHeight: 23,
+      interactionRadius: 48,
+      outputSlotSize: 25,
+      storageType: StorageType.solid,
+      ingredients: [
+        Ingredient(resource: Resources.iron, quantity: 10),
+        Ingredient(resource: Resources.stone, quantity: 10),
+      ],
+      miningOutputResource: Resources.iron,
+      canOnlyBePlacedOn: [
+        Resources.straw,
+        Resources.wood,
+      ]);
+
+  static Resource get mineralMiner => Resource(
+      identifier: "mineral_miner",
+      assetFileName16: "mineral-miner-16x16.png",
+      assetFileNameLarge: "mineral-miner-12x23.png",
+      name: "Mineral Miner",
+      namePlural: "Mineral Miners",
       secondsToCraft: 5,
       canPlace: true,
       placementWidth: 12,
@@ -279,9 +302,7 @@ class Resources {
       canOnlyBePlacedOn: [
         Resources.stone,
         Resources.iron,
-        Resources.straw,
         Resources.copper,
-        Resources.wood,
       ]);
 
   static Resource get well => Resource(
@@ -323,6 +344,7 @@ class Resources {
         Resources.constructorA,
         Resources.well,
         Resources.minerA,
+        Resources.mineralMiner,
 
         // Farming
         Resources.carrotSeed,

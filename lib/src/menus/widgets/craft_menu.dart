@@ -1,6 +1,7 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/craft_menu_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
+import 'package:craftown/src/providers/inventory_map_provider.dart';
 import 'package:craftown/src/providers/recipes_list_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/recipes_selector_list.dart';
@@ -87,9 +88,13 @@ class CraftMenuWidget extends ConsumerWidget {
                     spacing: 4,
                     runSpacing: 2,
                     children: selectedResource.ingredients.map((ingredient) {
+                      final inventoryCount = ref.watch(inventoryMapProvider)[ingredient.resource.identifier] ?? 0;
+
+                      final hasEnough = inventoryCount >= ingredient.quantity;
+
                       return Container(
                         decoration: BoxDecoration(
-                          color: Colors.black12,
+                          color: hasEnough ? Colors.black12 : Colors.red.shade100,
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         child: Padding(
@@ -106,7 +111,7 @@ class CraftMenuWidget extends ConsumerWidget {
                                 padding: const EdgeInsets.symmetric(horizontal: 4),
                                 child: Text(ingredient.resource.name),
                               ),
-                              Text("x ${ingredient.quantity}"),
+                              Text(hasEnough ? "x ${ingredient.quantity}" : "$inventoryCount/${ingredient.quantity}"),
                             ],
                           ),
                         ),

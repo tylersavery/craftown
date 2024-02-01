@@ -28,6 +28,7 @@ class InventoryList extends _$InventoryList {
     initialState[7] = InventorySlot(resource: Resources.carrotSeed, count: 16);
     initialState[8] = InventorySlot(resource: Resources.well, count: 3);
     initialState[9] = InventorySlot(resource: Resources.minerA, count: 2);
+    initialState[10] = InventorySlot(resource: Resources.mineralMiner, count: 3);
 
     return initialState;
   }
