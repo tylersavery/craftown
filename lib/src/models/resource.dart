@@ -47,6 +47,7 @@ class Resource with _$Resource {
     double? secondsToSmelt,
     double? secondsToCraft,
     double? secondsToMine,
+    @Default(0.01) energyToMine,
     String? miningToolRequiredIdentifier,
     @Default(0) double hungerDecreaseOnConsumption,
     @Default(0) double thirstDecreaseOnConsumption,

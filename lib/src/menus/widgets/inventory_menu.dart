@@ -61,8 +61,12 @@ class InventoryMenuWidget extends ConsumerWidget {
               child: Builder(
                 builder: (context) {
                   if (selectedSlot.resource == null) {
-                    return Center(
-                      child: Text("Select Item"),
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Select Item",
+                        textAlign: TextAlign.center,
+                      ),
                     );
                   }
                   final resource = selectedSlot.resource!;

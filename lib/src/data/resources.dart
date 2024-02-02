@@ -30,6 +30,7 @@ class Resources {
         spawnedResourceHitboxHeight: 25,
         spawnedResourceHitboxOffsetX: 2,
         spawnedResourceHitboxOffsetY: 3,
+        smeltsInto: "stone",
       );
 
   static Resource get clay => Resource(
@@ -42,6 +43,7 @@ class Resources {
         placementHeight: 20,
         secondsToMine: 3,
         miningToolRequiredIdentifier: "pick",
+        smeltsInto: "brick",
       );
 
   static Resource get copper => Resource(
@@ -56,6 +58,7 @@ class Resources {
         spawnedResourceHitboxHeight: 25,
         spawnedResourceHitboxOffsetX: 2,
         spawnedResourceHitboxOffsetY: 3,
+        // smeltsInto: "wire",
       );
 
   static Resource get wood => Resource(
@@ -159,7 +162,137 @@ class Resources {
         storeCost: 5,
       );
 
-// Secondary
+// Smeltables
+
+  static Resource get ironPlate => Resource(
+        identifier: "iron_plate",
+        assetFileName16: "iron-plate-16x16.png",
+        assetFileNameLarge: "iron-plate-28x24.png",
+        name: "Iron Plate",
+        namePlural: "Iron Plates",
+        secondsToSmelt: 10,
+        ingredients: [
+          Ingredient(resource: Resources.iron, quantity: 3),
+        ],
+      );
+
+  static Resource get copperPlate => Resource(
+        identifier: "copper_plate",
+        assetFileName16: "copper-plate-16x16.png",
+        assetFileNameLarge: "copper-plate-28x24.png",
+        name: "Copper Plate",
+        namePlural: "Copper Plates",
+        secondsToSmelt: 10,
+        ingredients: [
+          Ingredient(resource: Resources.copper, quantity: 3),
+        ],
+      );
+
+  static Resource get brick => Resource(
+        identifier: "brick",
+        assetFileName16: "brick-16x16.png",
+        assetFileNameLarge: "brick-17x17.png",
+        name: "Brick",
+        namePlural: "Bricks",
+        secondsToSmelt: 10,
+        ingredients: [
+          Ingredient(resource: Resources.clay, quantity: 3),
+        ],
+      );
+
+  static Resource get cement => Resource(
+        identifier: "cement",
+        assetFileName16: "cement-16x16.png",
+        assetFileNameLarge: "cement-28x24.png",
+        name: "Cement",
+        namePlural: "Cement",
+        secondsToSmelt: 10,
+        ingredients: [
+          Ingredient(resource: Resources.stone, quantity: 3),
+        ],
+      );
+
+// Constructables (1 ingredient)
+
+  static Resource get screw => Resource(
+        identifier: "screw",
+        assetFileName16: "screw-16x16.png",
+        name: "Screw",
+        namePlural: "Screws",
+        secondsToCraft: 10,
+        ingredients: [
+          Ingredient(resource: Resources.ironPlate, quantity: 3),
+        ],
+      );
+
+  static Resource get lumber => Resource(
+        identifier: "lumber",
+        assetFileName16: "lumber-16x16.png",
+        assetFileNameLarge: "lumber-15x25.png",
+        name: "Lumber",
+        namePlural: "Lumber",
+        secondsToCraft: 10,
+        ingredients: [
+          Ingredient(resource: Resources.wood, quantity: 1),
+        ],
+      );
+
+  static Resource get rope => Resource(
+        identifier: "rope",
+        assetFileName16: "rope-16x16.png",
+        assetFileNameLarge: "rope-28x32.png",
+        placementWidth: 28,
+        placementHeight: 32,
+        name: "Rope",
+        namePlural: "Rope",
+        secondsToCraft: 10,
+        ingredients: [
+          Ingredient(resource: Resources.straw, quantity: 5),
+        ],
+      );
+
+  static Resource get barrel => Resource(
+        identifier: "barrel",
+        assetFileName16: "barrel-16x16.png",
+        assetFileNameLarge: "barrel-16x25.png",
+        assetFileNameWhenFull: "barrel-full-16x25.png",
+        name: "Barrel",
+        namePlural: "Barrels",
+        secondsToCraft: 3,
+        canPlace: true,
+        placementWidth: 16,
+        placementHeight: 25,
+        amountPerSlot: 1,
+        slots: 1,
+        resourcesPerSlot: 50,
+        storageType: StorageType.liquid,
+        interactionRadius: 48,
+        ingredients: [
+          Ingredient(resource: Resources.wood, quantity: 10),
+        ],
+      );
+
+  static Resource get chest => Resource(
+        identifier: "chest",
+        assetFileName16: "chest-16x16.png",
+        assetFileNameLarge: "chest-30x22.png",
+        name: "Chest",
+        namePlural: "Chests",
+        secondsToCraft: 3,
+        canPlace: true,
+        placementWidth: 30,
+        placementHeight: 22,
+        slots: 4,
+        amountPerSlot: 1,
+        storageType: StorageType.solid,
+        resourcesPerSlot: 50,
+        interactionRadius: 48,
+        ingredients: [
+          Ingredient(resource: Resources.wood, quantity: 10),
+        ],
+      );
+
+  // Assemblables (2+ ingredients)
 
   static Resource get woodenBucket => Resource(
         identifier: "wooden_bucket",
@@ -193,77 +326,6 @@ class Resources {
         isLiquid: true,
       );
 
-  static Resource get ironPlate => Resource(
-        identifier: "iron_plate",
-        assetFileName16: "iron-plate-16x16.png",
-        assetFileNameLarge: "iron-plate-28x24.png",
-        name: "Iron Plate",
-        namePlural: "Iron Plates",
-        secondsToSmelt: 10,
-        ingredients: [
-          Ingredient(resource: Resources.iron, quantity: 3),
-        ],
-      );
-
-  static Resource get copperPlate => Resource(
-        identifier: "copper_plate",
-        assetFileName16: "copper-plate-16x16.png",
-        assetFileNameLarge: "copper-plate-28x24.png",
-        name: "Copper Plate",
-        namePlural: "Copper Plates",
-        secondsToSmelt: 10,
-        ingredients: [
-          Ingredient(resource: Resources.copper, quantity: 3),
-        ],
-      );
-
-  static Resource get screw => Resource(
-        identifier: "screw",
-        assetFileName16: "screw-16x16.png",
-        name: "Screw",
-        namePlural: "Screws",
-        secondsToCraft: 10,
-        ingredients: [
-          Ingredient(resource: Resources.ironPlate, quantity: 3),
-        ],
-      );
-
-  static Resource get lumber => Resource(
-        identifier: "lumber",
-        assetFileName16: "lumber-16x16.png",
-        assetFileNameLarge: "lumber-15x25.png",
-        name: "Lumber",
-        namePlural: "Lumber",
-        secondsToCraft: 10,
-        ingredients: [
-          Ingredient(resource: Resources.wood, quantity: 1),
-        ],
-      );
-
-  static Resource get brick => Resource(
-        identifier: "brick",
-        assetFileName16: "brick-16x16.png",
-        assetFileNameLarge: "brick-17x17.png",
-        name: "Brick",
-        namePlural: "Bricks",
-        secondsToSmelt: 10,
-        ingredients: [
-          Ingredient(resource: Resources.clay, quantity: 3),
-        ],
-      );
-
-  static Resource get cement => Resource(
-        identifier: "cement",
-        assetFileName16: "cement-16x16.png",
-        assetFileNameLarge: "cement-28x24.png",
-        name: "Cement",
-        namePlural: "Cement",
-        secondsToSmelt: 10,
-        ingredients: [
-          Ingredient(resource: Resources.stone, quantity: 3),
-        ],
-      );
-
   static Resource get tent => Resource(
         identifier: "tent",
         assetFileName16: "tent-16x16.png",
@@ -280,26 +342,6 @@ class Resources {
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 10),
           Ingredient(resource: Resources.straw, quantity: 20),
-        ],
-      );
-
-  static Resource get chest => Resource(
-        identifier: "chest",
-        assetFileName16: "chest-16x16.png",
-        assetFileNameLarge: "chest-30x22.png",
-        name: "Chest",
-        namePlural: "Chests",
-        secondsToCraft: 3,
-        canPlace: true,
-        placementWidth: 30,
-        placementHeight: 22,
-        slots: 4,
-        amountPerSlot: 1,
-        storageType: StorageType.solid,
-        resourcesPerSlot: 50,
-        interactionRadius: 48,
-        ingredients: [
-          Ingredient(resource: Resources.wood, quantity: 10),
         ],
       );
 
@@ -325,26 +367,7 @@ class Resources {
         ],
       );
 
-  static Resource get barrel => Resource(
-        identifier: "barrel",
-        assetFileName16: "barrel-16x16.png",
-        assetFileNameLarge: "barrel-16x25.png",
-        assetFileNameWhenFull: "barrel-full-16x25.png",
-        name: "Barrel",
-        namePlural: "Barrels",
-        secondsToCraft: 3,
-        canPlace: true,
-        placementWidth: 16,
-        placementHeight: 25,
-        amountPerSlot: 1,
-        slots: 1,
-        resourcesPerSlot: 50,
-        storageType: StorageType.liquid,
-        interactionRadius: 48,
-        ingredients: [
-          Ingredient(resource: Resources.wood, quantity: 10),
-        ],
-      );
+  // Special
 
   static Resource get smelterA => Resource(
         identifier: "smelter_a",
@@ -393,8 +416,8 @@ class Resources {
         interactionRadius: 48,
       );
 
-  static Resource get minerA => Resource(
-      identifier: "miner_a",
+  static Resource get lightMiner => Resource(
+      identifier: "light-miner",
       assetFileName16: "miner-a-16x16.png",
       assetFileNameLarge: "miner-a-12x23.png",
       name: "Light Miner",
@@ -414,14 +437,15 @@ class Resources {
       canOnlyBePlacedOn: [
         Resources.straw,
         Resources.wood,
+        Resources.clay,
       ]);
 
-  static Resource get mineralMiner => Resource(
-      identifier: "mineral_miner",
+  static Resource get heavyMiner => Resource(
+      identifier: "heavy_miner",
       assetFileName16: "mineral-miner-16x16.png",
       assetFileNameLarge: "mineral-miner-12x23.png",
-      name: "Mineral Miner",
-      namePlural: "Mineral Miners",
+      name: "Heavy Miner",
+      namePlural: "Heavy Miners",
       secondsToCraft: 5,
       canPlace: true,
       placementWidth: 12,
@@ -435,6 +459,9 @@ class Resources {
       ],
       miningOutputResource: Resources.iron,
       canOnlyBePlacedOn: [
+        Resources.straw,
+        Resources.wood,
+        Resources.clay,
         Resources.stone,
         Resources.iron,
         Resources.copper,
@@ -454,6 +481,7 @@ class Resources {
         outputSlotSize: 25,
         storageType: StorageType.liquid,
         ingredients: [
+          Ingredient(resource: Resources.rope, quantity: 5),
           Ingredient(resource: Resources.wood, quantity: 15),
           Ingredient(resource: Resources.iron, quantity: 5),
           Ingredient(resource: Resources.stone, quantity: 50),
@@ -461,6 +489,8 @@ class Resources {
         miningOutputResource: Resources.water,
         canOnlyBePlacedOn: null,
       );
+
+  // Houses
 
   static Resource get woodHouse => Resource(
           identifier: 'wood_house',
@@ -493,44 +523,58 @@ class Resources {
 
   static List<Resource> get all => [
         //Primary
-        Resources.stone,
         Resources.iron,
-        Resources.copper,
+        Resources.stone,
         Resources.clay,
+        Resources.copper,
         Resources.wood,
+        Resources.water,
         Resources.straw,
 
-        //Secondary
+        // Farming
+        Resources.potato,
+        Resources.potatoSeed,
+        Resources.carrot,
+        Resources.carrotSeed,
+        Resources.garlic,
+        Resources.garlicSeed,
+
+        //Smeltables
         Resources.ironPlate,
         Resources.copperPlate,
+        Resources.brick,
         Resources.cement,
-        Resources.brick,
+
+        // Constructables
         Resources.screw,
-        Resources.brick,
+        Resources.lumber,
+        Resources.rope,
+        Resources.barrel,
+        Resources.chest,
+
+        // Assembleables
         Resources.woodenBucket,
         Resources.soup,
         Resources.tent,
-        Resources.chest,
         Resources.communityChest,
         Resources.constructorA,
+
+        //Special
         Resources.smelterA,
         Resources.well,
-        Resources.minerA,
-        Resources.mineralMiner,
+        Resources.lightMiner,
+        Resources.heavyMiner,
+
+        //Housing
         Resources.woodHouse,
         Resources.brickHouse,
-
-        // Farming
-        Resources.carrotSeed,
-        Resources.carrot,
-        Resources.potatoSeed,
-        Resources.potato,
-        Resources.garlicSeed,
-        Resources.garlic,
       ];
 
   static List<Resource> get craftable => all.where((r) => r.secondsToCraft != null).toList();
   static List<Resource> get constructable => craftable.where((r) => r.ingredients.length == 1).toList();
   static List<Resource> get mineable => all.where((r) => r.secondsToMine != null).toList();
   static List<Resource> get availableInStore => all.where((r) => r.availableInStore).toList();
+  static List<Resource> get consumables => all.where((r) => r.canConsume).toList();
+  static List<Resource> get hungerConsumables => consumables.where((r) => r.hungerDecreaseOnConsumption > 0).toList();
+  static List<Resource> get thirstConsumables => consumables.where((r) => r.thirstDecreaseOnConsumption > 0).toList();
 }

@@ -7,7 +7,7 @@ part of 'placed_resource_detail_provider.dart';
 // **************************************************************************
 
 String _$placedResourceDetailHash() =>
-    r'f2adc5eaa2238428e30f699b9e2332be1d051aee';
+    r'59ac1aef281772b64f11698d0c1db40c3a37eee9';
 
 /// Copied from Dart SDK
 class _SystemHash {

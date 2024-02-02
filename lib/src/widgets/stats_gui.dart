@@ -91,12 +91,12 @@ class _StatRow extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 110,
+          width: 90,
           child: Text(
             "${type.label}:",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 12,
+              fontSize: 10,
             ),
           ),
         ),
@@ -105,6 +105,22 @@ class _StatRow extends StatelessWidget {
             backgroundColor: Colors.grey,
             color: color,
             value: value,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 4.0),
+          child: SizedBox(
+            width: 24,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                "${(value * 100).round()}%",
+                style: TextStyle(
+                  fontSize: 8,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
         ),
       ],

@@ -87,7 +87,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
           if (automaticStop) {
             stopConstruction();
           }
-          // print("Not enough ${ingredient.resource.name} to produce ${recipe.name}");
+          print("Not enough ${ingredient.resource.name} to produce ${recipe.name}");
           return;
         }
       }
@@ -150,8 +150,6 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
       return false;
     }
 
-    //TODO: figure out what this smelts into
-
     final resources = state!.contents.expand((element) => element).toList();
     if (resources.isEmpty) {
       ref.read(toastMessagesListProvider.notifier).add("No resources to smelt.");
@@ -178,7 +176,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
           if (automaticStop) {
             stopConstruction();
           }
-          // print("Not enough ${ingredient.resource.name} to produce ${recipe.name}");
+          print("Not enough ${ingredient.resource.name} to produce ${outputResource.name}");
           return;
         }
       }

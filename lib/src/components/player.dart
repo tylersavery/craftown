@@ -5,7 +5,13 @@ import 'dart:async';
 import 'package:craftown/src/components/collision_box.dart';
 import 'package:craftown/src/components/custom_hitbox.dart';
 import 'package:craftown/src/craftown.dart';
+import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/models/character.dart';
+import 'package:craftown/src/models/resource.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
+import 'package:craftown/src/providers/inventory_map_provider.dart';
+import 'package:craftown/src/providers/stats_detail_provider.dart';
+import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/utils/collisions.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -25,6 +31,7 @@ enum PlayerState {
   miningDown("Pickaxe_Down", 4),
   miningRight("Pickaxe_Right", 4),
   miningLeft("Pickaxe_Left", 4),
+  dead("Dead", 4),
   ;
 
   final String assetName;
@@ -38,6 +45,16 @@ enum WalkDirection {
   left,
   right,
   ;
+}
+
+enum CauseOfDeath {
+  energy("You were too tired passed out!"),
+  hunger("You were too hungry and passed out!"),
+  thirst("You were too thirsty and passed out!"),
+  ;
+
+  final String message;
+  const CauseOfDeath(this.message);
 }
 
 class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, RiverpodComponentMixin, KeyboardHandler, CollisionCallbacks {
@@ -61,6 +78,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
   late final SpriteAnimation miningRightAnimation;
   late final SpriteAnimation miningLeftAnimation;
 
+  late final SpriteAnimation deadAnimation;
+
   //  constants
   static const stepTime = 0.1;
 
@@ -69,6 +88,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
   double moveSpeed = 100.0;
   Vector2 startingPosition = Vector2.zero();
 
+  bool isDead = false;
   bool isMining = false;
   WalkDirection miningDirection = WalkDirection.down;
 
@@ -111,10 +131,34 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
 
   @override
   void update(double dt) {
-    _updatePlayerState();
-    _updateMovement(dt);
-    _checkHorizontalCollisions();
-    _checkVerticalCollisions();
+    if (!isDead) {
+      if (ref.read(statsDetailProvider).energy <= 0) {
+        _handleDeath(CauseOfDeath.energy);
+
+        super.update(dt);
+        return;
+      }
+      if (ref.read(statsDetailProvider).hunger >= 1) {
+        _handleDeath(CauseOfDeath.hunger);
+
+        super.update(dt);
+        return;
+      }
+      if (ref.read(statsDetailProvider).thirst >= 1) {
+        _handleDeath(CauseOfDeath.thirst);
+
+        super.update(dt);
+        return;
+      }
+    }
+
+    if (!isDead) {
+      _updatePlayerState();
+      _updateMovement(dt);
+      _checkHorizontalCollisions();
+      _checkVerticalCollisions();
+    }
+
     super.update(dt);
   }
 
@@ -167,6 +211,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
     miningRightAnimation = _spriteAnimation(PlayerState.miningRight);
     miningLeftAnimation = _spriteAnimation(PlayerState.miningLeft);
 
+    deadAnimation = _spriteAnimation(PlayerState.dead);
+
     animations = {
       PlayerState.idleUp: idleUpAnimation,
       PlayerState.idleDown: idleDownAnimation,
@@ -180,6 +226,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
       PlayerState.miningDown: miningDownAnimation,
       PlayerState.miningRight: miningRightAnimation,
       PlayerState.miningLeft: miningLeftAnimation,
+      PlayerState.dead: deadAnimation,
     };
 
     current = PlayerState.idleDown;
@@ -274,5 +321,78 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
         }
       }
     }
+  }
+
+  void _handleDeath(CauseOfDeath causeOfDeath) async {
+    isDead = true;
+    current = PlayerState.dead;
+    ref.read(toastMessagesListProvider.notifier).add(causeOfDeath.message);
+
+    await Future.delayed(Duration(seconds: 5));
+
+    final provider = ref.read(statsDetailProvider.notifier);
+
+    switch (causeOfDeath) {
+      case CauseOfDeath.energy:
+        provider.setEnergy(0.25);
+        provider.increaseHunger(0.25, maximum: 0.9);
+        provider.increaseThirst(0.3, maximum: 0.9);
+        break;
+      case CauseOfDeath.hunger:
+        provider.setHunger(0.8);
+        provider.increaseThirst(0.3, maximum: 0.9);
+        provider.increaseEnergy(0.25);
+
+        bool resourceTaken = false;
+
+        for (final r in Resources.hungerConsumables) {
+          if (ref.read(inventoryMapProvider).containsKey(r.identifier)) {
+            ref.read(inventoryListProvider.notifier).removeResource(r);
+            resourceTaken = true;
+            ref.read(toastMessagesListProvider.notifier).add("Luckily you had ${r.namePlural.toLowerCase()} on you.");
+            break;
+          }
+        }
+        if (!resourceTaken) {
+          ref.read(toastMessagesListProvider.notifier).add("The hospital charged you 5 coins");
+          provider.decreaseSustainability(0.1);
+          provider.decreaseDollars(5);
+        }
+
+        break;
+      case CauseOfDeath.thirst:
+        provider.setThirst(0.8);
+        provider.increaseHunger(0.3, maximum: 0.9);
+        provider.increaseEnergy(0.25);
+
+        bool resourceTaken = false;
+
+        for (final r in Resources.thirstConsumables) {
+          if (ref.read(inventoryMapProvider).containsKey(r.identifier)) {
+            ref.read(inventoryListProvider.notifier).removeResource(r);
+            resourceTaken = true;
+            ref.read(toastMessagesListProvider.notifier).add("Luckily you had ${r.namePlural.toLowerCase()} on you.");
+
+            break;
+          }
+        }
+
+        if (!resourceTaken) {
+          ref.read(toastMessagesListProvider.notifier).add("The hospital charged you 5 coins");
+
+          provider.decreaseDollars(5);
+          provider.decreaseSustainability(0.1);
+        }
+
+        break;
+    }
+
+    isDead = false;
+    current = switch (lastWalkDirection) {
+      WalkDirection.down => PlayerState.idleDown,
+      WalkDirection.up => PlayerState.idleUp,
+      WalkDirection.left => PlayerState.idleLeft,
+      WalkDirection.right => PlayerState.idleRight,
+    };
   }
 }

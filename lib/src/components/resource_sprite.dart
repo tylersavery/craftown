@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:craftown/src/components/custom_hitbox.dart';
+import 'package:craftown/src/components/output_indicator_sprite.dart';
 import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/data/tools.dart';
@@ -11,6 +12,7 @@ import 'package:craftown/src/models/toast_message.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
+import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/utils/collisions.dart';
 import 'package:craftown/src/utils/randomization.dart';
@@ -36,6 +38,8 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   late final CustomHitbox hitbox;
   String? placementUniqueIdentifier;
+
+  late OutputIndicatorSprite outputIndicatorSprite;
 
   ResourceSprite({
     required this.resource,
@@ -100,6 +104,22 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       height: height,
     );
 
+    // final outputIndicatorSize = size.x >= 32 && size.y >= 32 ? Vector2(16, 16) : Vector2(8, 8);
+    final outputIndicatorSize = Vector2(16, 16);
+    final outputIndicatorPosition = Vector2(
+      (size.x - outputIndicatorSize.x) / 2,
+      (size.y - outputIndicatorSize.y) / 2,
+    );
+
+    outputIndicatorSprite = OutputIndicatorSprite(
+      size: outputIndicatorSize,
+      position: outputIndicatorPosition,
+    );
+
+    outputIndicatorSprite.opacity = 0;
+
+    add(outputIndicatorSprite);
+
     return super.onLoad();
   }
 
@@ -120,6 +140,20 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
           current = SpriteState.empty;
         } else if (!placedInstance.isEmpty && current != SpriteState.full) {
           current = SpriteState.full;
+        }
+
+        if ((placedInstance.isSmelting || placedInstance.isConstructing) && placedInstance.outputSlotContents.isNotEmpty) {
+          if (!outputIndicatorSprite.isVisible) {
+            final output = placedInstance.outputSlotContents.first;
+            outputIndicatorSprite.isVisible = true;
+            outputIndicatorSprite.opacity = 0.75;
+            outputIndicatorSprite.sprite = Sprite(game.images.fromCache("resources/${output.assetFileName16}"));
+          }
+        } else {
+          if (outputIndicatorSprite.isVisible) {
+            outputIndicatorSprite.isVisible = false;
+            outputIndicatorSprite.opacity = 0;
+          }
         }
       }
     }
@@ -245,10 +279,18 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       // position.x = initialPosition.x - rng.nextDouble();
       // position.y = initialPosition.y - rng.nextDouble();
 
+      if (ref.read(statsDetailProvider).energy < resource.energyToMine) {
+        isMining = false;
+        game.player.isMining = false;
+        ref.read(toastMessagesListProvider.notifier).add("Your too tired to mine ${resource.name}!");
+        return;
+      }
+
       miningTimeCounter += accumulatedTime;
       if (miningTimeCounter >= resource.secondsToMine!) {
         miningTimeCounter = 0;
         ref.read(inventoryListProvider.notifier).addResource(resource);
+        ref.read(statsDetailProvider.notifier).decreaseEnergy(resource.energyToMine);
         await Future.delayed(Duration(milliseconds: 100));
       }
     } else {

@@ -26,6 +26,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       secondsToSmelt: (json['secondsToSmelt'] as num?)?.toDouble(),
       secondsToCraft: (json['secondsToCraft'] as num?)?.toDouble(),
       secondsToMine: (json['secondsToMine'] as num?)?.toDouble(),
+      energyToMine: json['energyToMine'] ?? 0.01,
       miningToolRequiredIdentifier:
           json['miningToolRequiredIdentifier'] as String?,
       hungerDecreaseOnConsumption:
@@ -95,6 +96,7 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'secondsToSmelt': instance.secondsToSmelt,
       'secondsToCraft': instance.secondsToCraft,
       'secondsToMine': instance.secondsToMine,
+      'energyToMine': instance.energyToMine,
       'miningToolRequiredIdentifier': instance.miningToolRequiredIdentifier,
       'hungerDecreaseOnConsumption': instance.hungerDecreaseOnConsumption,
       'thirstDecreaseOnConsumption': instance.thirstDecreaseOnConsumption,
