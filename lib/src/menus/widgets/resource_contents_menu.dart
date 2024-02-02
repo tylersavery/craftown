@@ -79,8 +79,9 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                         ),
                         Expanded(
                           child: RecipeSelectorList(
+                            listType: RecipeListType.constructable,
                             onSelect: (index) {
-                              final recipe = ref.read(recipesListProvider)[index];
+                              final recipe = ref.read(recipesListProvider(RecipeListType.constructable))[index];
 
                               ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).selectRecipe(recipe);
                             },
@@ -388,10 +389,23 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: HoldDownButton(
-                                  label: placedResource.isConstructing ? "Stop" : "Start",
+                                  label: placedResource.isConstructing ? "Stop Constructing" : "Start Constructing",
                                   duration: Duration.zero,
                                   onComplete: () {
                                     ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).toggleConstruction();
+                                  },
+                                  completeOnClick: true,
+                                  small: true,
+                                ),
+                              ),
+                            if (placedResource.sprite.resource.canSmelt)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: HoldDownButton(
+                                  label: placedResource.isSmelting ? "Stop Smelting" : "Start Smelting",
+                                  duration: Duration.zero,
+                                  onComplete: () {
+                                    ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).toggleSmelting();
                                   },
                                   completeOnClick: true,
                                   small: true,

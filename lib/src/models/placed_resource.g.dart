@@ -22,6 +22,7 @@ _$PlacedResourceImpl _$$PlacedResourceImplFromJson(Map<String, dynamic> json) =>
       isConstructing: json['isConstructing'] as bool? ?? false,
       isSelling: json['isSelling'] as bool? ?? false,
       isMining: json['isMining'] as bool? ?? false,
+      isSmelting: json['isSmelting'] as bool? ?? false,
       outputSlotContents: (json['outputSlotContents'] as List<dynamic>?)
               ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -40,6 +41,7 @@ Map<String, dynamic> _$$PlacedResourceImplToJson(
       'isConstructing': instance.isConstructing,
       'isSelling': instance.isSelling,
       'isMining': instance.isMining,
+      'isSmelting': instance.isSmelting,
       'outputSlotContents':
           instance.outputSlotContents.map((e) => e.toJson()).toList(),
     };

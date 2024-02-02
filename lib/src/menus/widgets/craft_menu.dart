@@ -18,7 +18,7 @@ class CraftMenuWidget extends ConsumerWidget {
     final menuProvider = ref.read(craftMenuProvider.notifier);
     final invProvider = ref.read(inventoryListProvider.notifier);
     final menuState = ref.watch(craftMenuProvider);
-    final recipes = ref.watch(recipesListProvider);
+    final recipes = ref.watch(recipesListProvider(RecipeListType.craftable));
 
     final selectedResource = recipes[menuState.selectedIndex];
 
@@ -44,6 +44,7 @@ class CraftMenuWidget extends ConsumerWidget {
             ),
             clipBehavior: Clip.antiAlias,
             child: RecipeSelectorList(
+              listType: RecipeListType.craftable,
               selectedIndex: menuState.selectedIndex,
               onSelect: (index) {
                 menuProvider.setSelected(index);

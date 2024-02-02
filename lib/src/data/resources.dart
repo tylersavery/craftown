@@ -11,6 +11,11 @@ class Resources {
         assetFileNameLarge: "iron-32x32.png",
         secondsToMine: 2,
         miningToolRequiredIdentifier: "pick",
+        spawnedResourceHitboxWidth: 27,
+        spawnedResourceHitboxHeight: 25,
+        spawnedResourceHitboxOffsetX: 2,
+        spawnedResourceHitboxOffsetY: 3,
+        smeltsInto: "iron_plate",
       );
 
   static Resource get stone => Resource(
@@ -20,6 +25,22 @@ class Resources {
         assetFileName16: "stone-16x16.png",
         assetFileNameLarge: "stone-32x32.png",
         secondsToMine: 2,
+        miningToolRequiredIdentifier: "pick",
+        spawnedResourceHitboxWidth: 27,
+        spawnedResourceHitboxHeight: 25,
+        spawnedResourceHitboxOffsetX: 2,
+        spawnedResourceHitboxOffsetY: 3,
+      );
+
+  static Resource get clay => Resource(
+        identifier: 'clay',
+        name: "Clay",
+        namePlural: "Clay Ore",
+        assetFileName16: "clay-16x16.png",
+        assetFileNameLarge: "clay-24x20.png",
+        placementWidth: 24,
+        placementHeight: 20,
+        secondsToMine: 3,
         miningToolRequiredIdentifier: "pick",
       );
 
@@ -31,6 +52,10 @@ class Resources {
         assetFileNameLarge: "copper-32x32.png",
         secondsToMine: 3,
         miningToolRequiredIdentifier: "pick",
+        spawnedResourceHitboxWidth: 27,
+        spawnedResourceHitboxHeight: 25,
+        spawnedResourceHitboxOffsetX: 2,
+        spawnedResourceHitboxOffsetY: 3,
       );
 
   static Resource get wood => Resource(
@@ -40,6 +65,10 @@ class Resources {
         assetFileName16: "wood-16x16.png",
         secondsToMine: 1,
         miningToolRequiredIdentifier: "axe",
+        spawnedResourceHitboxWidth: 16,
+        spawnedResourceHitboxHeight: 16,
+        spawnedResourceHitboxOffsetX: 0,
+        spawnedResourceHitboxOffsetY: 0,
       );
 
   static Resource get water => Resource(
@@ -164,6 +193,30 @@ class Resources {
         isLiquid: true,
       );
 
+  static Resource get ironPlate => Resource(
+        identifier: "iron_plate",
+        assetFileName16: "iron-plate-16x16.png",
+        assetFileNameLarge: "iron-plate-28x24.png",
+        name: "Iron Plate",
+        namePlural: "Iron Plates",
+        secondsToSmelt: 10,
+        ingredients: [
+          Ingredient(resource: Resources.iron, quantity: 3),
+        ],
+      );
+
+  static Resource get copperPlate => Resource(
+        identifier: "copper_plate",
+        assetFileName16: "copper-plate-16x16.png",
+        assetFileNameLarge: "copper-plate-28x24.png",
+        name: "Copper Plate",
+        namePlural: "Copper Plates",
+        secondsToSmelt: 10,
+        ingredients: [
+          Ingredient(resource: Resources.copper, quantity: 3),
+        ],
+      );
+
   static Resource get screw => Resource(
         identifier: "screw",
         assetFileName16: "screw-16x16.png",
@@ -171,7 +224,43 @@ class Resources {
         namePlural: "Screws",
         secondsToCraft: 10,
         ingredients: [
-          Ingredient(resource: Resources.iron, quantity: 3),
+          Ingredient(resource: Resources.ironPlate, quantity: 3),
+        ],
+      );
+
+  static Resource get lumber => Resource(
+        identifier: "lumber",
+        assetFileName16: "lumber-16x16.png",
+        assetFileNameLarge: "lumber-15x25.png",
+        name: "Lumber",
+        namePlural: "Lumber",
+        secondsToCraft: 10,
+        ingredients: [
+          Ingredient(resource: Resources.wood, quantity: 1),
+        ],
+      );
+
+  static Resource get brick => Resource(
+        identifier: "brick",
+        assetFileName16: "brick-16x16.png",
+        assetFileNameLarge: "brick-17x17.png",
+        name: "Brick",
+        namePlural: "Bricks",
+        secondsToSmelt: 10,
+        ingredients: [
+          Ingredient(resource: Resources.clay, quantity: 3),
+        ],
+      );
+
+  static Resource get cement => Resource(
+        identifier: "cement",
+        assetFileName16: "cement-16x16.png",
+        assetFileNameLarge: "cement-28x24.png",
+        name: "Cement",
+        namePlural: "Cement",
+        secondsToSmelt: 10,
+        ingredients: [
+          Ingredient(resource: Resources.stone, quantity: 3),
         ],
       );
 
@@ -255,6 +344,30 @@ class Resources {
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 10),
         ],
+      );
+
+  static Resource get smelterA => Resource(
+        identifier: "smelter_a",
+        assetFileName16: "smelter-a-16x16.png",
+        assetFileNameLarge: "smelter-a-32x26.png",
+        placementWidth: 32,
+        placementHeight: 26,
+        amountPerSlot: 1,
+        name: "Smelter",
+        namePlural: "Smelter",
+        secondsToCraft: 10,
+        ingredients: [
+          Ingredient(resource: Resources.iron, quantity: 20),
+          Ingredient(resource: Resources.copper, quantity: 10),
+          Ingredient(resource: Resources.stone, quantity: 10),
+        ],
+        storageType: StorageType.all,
+        canPlace: true,
+        slots: 1,
+        resourcesPerSlot: 50,
+        canSmelt: true,
+        outputSlotSize: 100,
+        interactionRadius: 48,
       );
 
   static Resource get constructorA => Resource(
@@ -349,25 +462,63 @@ class Resources {
         canOnlyBePlacedOn: null,
       );
 
+  static Resource get woodHouse => Resource(
+          identifier: 'wood_house',
+          name: "Wood House",
+          namePlural: "Wood Houses",
+          assetFileName16: "wood-house-16x16.png",
+          assetFileNameLarge: "wood-house-96x112.png",
+          placementWidth: 96,
+          placementHeight: 112,
+          secondsToCraft: 30,
+          ingredients: [
+            Ingredient(resource: Resources.wood, quantity: 500),
+            Ingredient(resource: Resources.stone, quantity: 200),
+          ]);
+
+  static Resource get brickHouse => Resource(
+          identifier: 'brick_house',
+          name: "Brick House",
+          namePlural: "Brick Houses",
+          assetFileName16: "brick-house-16x16.png",
+          assetFileNameLarge: "brick-house-96x112.png",
+          placementWidth: 96,
+          placementHeight: 112,
+          secondsToCraft: 30,
+          ingredients: [
+            Ingredient(resource: Resources.brick, quantity: 500),
+            Ingredient(resource: Resources.stone, quantity: 200),
+            Ingredient(resource: Resources.wood, quantity: 100),
+          ]);
+
   static List<Resource> get all => [
         //Primary
         Resources.stone,
         Resources.iron,
         Resources.copper,
+        Resources.clay,
         Resources.wood,
         Resources.straw,
 
         //Secondary
+        Resources.ironPlate,
+        Resources.copperPlate,
+        Resources.cement,
+        Resources.brick,
         Resources.screw,
+        Resources.brick,
         Resources.woodenBucket,
         Resources.soup,
         Resources.tent,
         Resources.chest,
         Resources.communityChest,
         Resources.constructorA,
+        Resources.smelterA,
         Resources.well,
         Resources.minerA,
         Resources.mineralMiner,
+        Resources.woodHouse,
+        Resources.brickHouse,
 
         // Farming
         Resources.carrotSeed,
@@ -379,6 +530,7 @@ class Resources {
       ];
 
   static List<Resource> get craftable => all.where((r) => r.secondsToCraft != null).toList();
+  static List<Resource> get constructable => craftable.where((r) => r.ingredients.length == 1).toList();
   static List<Resource> get mineable => all.where((r) => r.secondsToMine != null).toList();
   static List<Resource> get availableInStore => all.where((r) => r.availableInStore).toList();
 }

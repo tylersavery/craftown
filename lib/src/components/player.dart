@@ -73,9 +73,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
   WalkDirection miningDirection = WalkDirection.down;
 
   CustomHitbox hitbox = CustomHitbox(
-    offsetX: 9,
-    offsetY: 20,
-    width: 14,
+    offsetX: 12,
+    offsetY: 18,
+    width: 8,
     height: 4,
   );
 

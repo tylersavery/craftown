@@ -5,16 +5,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RecipeSelectorList extends ConsumerWidget {
   final int? selectedIndex;
+  final RecipeListType listType;
   final Function(int index) onSelect;
+
   const RecipeSelectorList({
     super.key,
+    required this.listType,
     required this.onSelect,
     this.selectedIndex,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final recipes = ref.read(recipesListProvider);
+    final recipes = ref.read(recipesListProvider(listType));
 
     return ListView.builder(
       shrinkWrap: true,

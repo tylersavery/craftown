@@ -44,6 +44,7 @@ class Resource with _$Resource {
     @Default(25) int amountPerSlot,
     @Default([]) List<Ingredient> ingredients,
     @Default(32.0) double interactionRadius,
+    double? secondsToSmelt,
     double? secondsToCraft,
     double? secondsToMine,
     String? miningToolRequiredIdentifier,
@@ -52,6 +53,7 @@ class Resource with _$Resource {
     @Default(false) bool canPlace,
     @Default(false) bool canPickUp,
     @Default(false) bool canConstruct,
+    @Default(false) bool canSmelt,
     @Default(TILE_SIZE) double placementWidth,
     @Default(TILE_SIZE) double placementHeight,
     @Default([]) List<Resource> requiredToMine,
@@ -70,6 +72,11 @@ class Resource with _$Resource {
     @Default(null) List<Resource>? canOnlyBePlacedOn,
     double? restValue,
     int? storeCost,
+    double? spawnedResourceHitboxWidth,
+    double? spawnedResourceHitboxHeight,
+    @Default(0.0) double spawnedResourceHitboxOffsetX,
+    @Default(0.0) double spawnedResourceHitboxOffsetY,
+    String? smeltsInto,
   }) = _Resource;
 
   factory Resource.fromJson(Map<String, dynamic> json) => _$ResourceFromJson(json);
@@ -80,6 +87,12 @@ class Resource with _$Resource {
 
   String get assetFileNameLargeWithFallback {
     return assetFileNameLarge ?? assetFileName16;
+  }
+
+  double? get smeltPerSecond {
+    if (secondsToSmelt == null) return null;
+
+    return 1 / secondsToSmelt!;
   }
 
   double? get craftPerSecond {
@@ -112,6 +125,10 @@ class Resource with _$Resource {
 
   bool get canRest {
     return restValue != null;
+  }
+
+  bool get spawnedResourceHasHitbox {
+    return spawnedResourceHitboxWidth != null && spawnedResourceHitboxHeight != null;
   }
 
   bool canCraft(List<InventorySlot> slots) {

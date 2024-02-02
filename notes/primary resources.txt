@@ -1,0 +1,32 @@
+
+
+
+RESOURCES
+
+- iron ore √
+  - iron plate (smelt) √
+    - screw (construct) √
+    - .. (construct)
+
+
+- wood √
+  - lumber (constructor) √
+
+
+- clay √
+  - brick (smelt) √
+    - house etc.
+
+- copper ore √
+  - copper plate (smelt)
+    - wire (construct)
+
+
+- straw √
+  - rope (construct)
+  - soup (construct) √
+
+
+- stone √
+ - cement (smelt)
+    - house

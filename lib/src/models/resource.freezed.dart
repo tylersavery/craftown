@@ -31,6 +31,7 @@ mixin _$Resource {
   int get amountPerSlot => throw _privateConstructorUsedError;
   List<Ingredient> get ingredients => throw _privateConstructorUsedError;
   double get interactionRadius => throw _privateConstructorUsedError;
+  double? get secondsToSmelt => throw _privateConstructorUsedError;
   double? get secondsToCraft => throw _privateConstructorUsedError;
   double? get secondsToMine => throw _privateConstructorUsedError;
   String? get miningToolRequiredIdentifier =>
@@ -40,6 +41,7 @@ mixin _$Resource {
   bool get canPlace => throw _privateConstructorUsedError;
   bool get canPickUp => throw _privateConstructorUsedError;
   bool get canConstruct => throw _privateConstructorUsedError;
+  bool get canSmelt => throw _privateConstructorUsedError;
   double get placementWidth => throw _privateConstructorUsedError;
   double get placementHeight => throw _privateConstructorUsedError;
   List<Resource> get requiredToMine => throw _privateConstructorUsedError;
@@ -59,6 +61,11 @@ mixin _$Resource {
   List<Resource>? get canOnlyBePlacedOn => throw _privateConstructorUsedError;
   double? get restValue => throw _privateConstructorUsedError;
   int? get storeCost => throw _privateConstructorUsedError;
+  double? get spawnedResourceHitboxWidth => throw _privateConstructorUsedError;
+  double? get spawnedResourceHitboxHeight => throw _privateConstructorUsedError;
+  double get spawnedResourceHitboxOffsetX => throw _privateConstructorUsedError;
+  double get spawnedResourceHitboxOffsetY => throw _privateConstructorUsedError;
+  String? get smeltsInto => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -83,6 +90,7 @@ abstract class $ResourceCopyWith<$Res> {
       int amountPerSlot,
       List<Ingredient> ingredients,
       double interactionRadius,
+      double? secondsToSmelt,
       double? secondsToCraft,
       double? secondsToMine,
       String? miningToolRequiredIdentifier,
@@ -91,6 +99,7 @@ abstract class $ResourceCopyWith<$Res> {
       bool canPlace,
       bool canPickUp,
       bool canConstruct,
+      bool canSmelt,
       double placementWidth,
       double placementHeight,
       List<Resource> requiredToMine,
@@ -109,7 +118,12 @@ abstract class $ResourceCopyWith<$Res> {
       Resource? miningOutputResource,
       List<Resource>? canOnlyBePlacedOn,
       double? restValue,
-      int? storeCost});
+      int? storeCost,
+      double? spawnedResourceHitboxWidth,
+      double? spawnedResourceHitboxHeight,
+      double spawnedResourceHitboxOffsetX,
+      double spawnedResourceHitboxOffsetY,
+      String? smeltsInto});
 
   $ResourceCopyWith<$Res>? get growsInto;
   $ResourceCopyWith<$Res>? get miningOutputResource;
@@ -139,6 +153,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? amountPerSlot = null,
     Object? ingredients = null,
     Object? interactionRadius = null,
+    Object? secondsToSmelt = freezed,
     Object? secondsToCraft = freezed,
     Object? secondsToMine = freezed,
     Object? miningToolRequiredIdentifier = freezed,
@@ -147,6 +162,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? canPlace = null,
     Object? canPickUp = null,
     Object? canConstruct = null,
+    Object? canSmelt = null,
     Object? placementWidth = null,
     Object? placementHeight = null,
     Object? requiredToMine = null,
@@ -165,6 +181,11 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? canOnlyBePlacedOn = freezed,
     Object? restValue = freezed,
     Object? storeCost = freezed,
+    Object? spawnedResourceHitboxWidth = freezed,
+    Object? spawnedResourceHitboxHeight = freezed,
+    Object? spawnedResourceHitboxOffsetX = null,
+    Object? spawnedResourceHitboxOffsetY = null,
+    Object? smeltsInto = freezed,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -211,6 +232,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.interactionRadius
           : interactionRadius // ignore: cast_nullable_to_non_nullable
               as double,
+      secondsToSmelt: freezed == secondsToSmelt
+          ? _value.secondsToSmelt
+          : secondsToSmelt // ignore: cast_nullable_to_non_nullable
+              as double?,
       secondsToCraft: freezed == secondsToCraft
           ? _value.secondsToCraft
           : secondsToCraft // ignore: cast_nullable_to_non_nullable
@@ -242,6 +267,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
       canConstruct: null == canConstruct
           ? _value.canConstruct
           : canConstruct // ignore: cast_nullable_to_non_nullable
+              as bool,
+      canSmelt: null == canSmelt
+          ? _value.canSmelt
+          : canSmelt // ignore: cast_nullable_to_non_nullable
               as bool,
       placementWidth: null == placementWidth
           ? _value.placementWidth
@@ -315,6 +344,26 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.storeCost
           : storeCost // ignore: cast_nullable_to_non_nullable
               as int?,
+      spawnedResourceHitboxWidth: freezed == spawnedResourceHitboxWidth
+          ? _value.spawnedResourceHitboxWidth
+          : spawnedResourceHitboxWidth // ignore: cast_nullable_to_non_nullable
+              as double?,
+      spawnedResourceHitboxHeight: freezed == spawnedResourceHitboxHeight
+          ? _value.spawnedResourceHitboxHeight
+          : spawnedResourceHitboxHeight // ignore: cast_nullable_to_non_nullable
+              as double?,
+      spawnedResourceHitboxOffsetX: null == spawnedResourceHitboxOffsetX
+          ? _value.spawnedResourceHitboxOffsetX
+          : spawnedResourceHitboxOffsetX // ignore: cast_nullable_to_non_nullable
+              as double,
+      spawnedResourceHitboxOffsetY: null == spawnedResourceHitboxOffsetY
+          ? _value.spawnedResourceHitboxOffsetY
+          : spawnedResourceHitboxOffsetY // ignore: cast_nullable_to_non_nullable
+              as double,
+      smeltsInto: freezed == smeltsInto
+          ? _value.smeltsInto
+          : smeltsInto // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -363,6 +412,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
       int amountPerSlot,
       List<Ingredient> ingredients,
       double interactionRadius,
+      double? secondsToSmelt,
       double? secondsToCraft,
       double? secondsToMine,
       String? miningToolRequiredIdentifier,
@@ -371,6 +421,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
       bool canPlace,
       bool canPickUp,
       bool canConstruct,
+      bool canSmelt,
       double placementWidth,
       double placementHeight,
       List<Resource> requiredToMine,
@@ -389,7 +440,12 @@ abstract class _$$ResourceImplCopyWith<$Res>
       Resource? miningOutputResource,
       List<Resource>? canOnlyBePlacedOn,
       double? restValue,
-      int? storeCost});
+      int? storeCost,
+      double? spawnedResourceHitboxWidth,
+      double? spawnedResourceHitboxHeight,
+      double spawnedResourceHitboxOffsetX,
+      double spawnedResourceHitboxOffsetY,
+      String? smeltsInto});
 
   @override
   $ResourceCopyWith<$Res>? get growsInto;
@@ -419,6 +475,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? amountPerSlot = null,
     Object? ingredients = null,
     Object? interactionRadius = null,
+    Object? secondsToSmelt = freezed,
     Object? secondsToCraft = freezed,
     Object? secondsToMine = freezed,
     Object? miningToolRequiredIdentifier = freezed,
@@ -427,6 +484,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? canPlace = null,
     Object? canPickUp = null,
     Object? canConstruct = null,
+    Object? canSmelt = null,
     Object? placementWidth = null,
     Object? placementHeight = null,
     Object? requiredToMine = null,
@@ -445,6 +503,11 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? canOnlyBePlacedOn = freezed,
     Object? restValue = freezed,
     Object? storeCost = freezed,
+    Object? spawnedResourceHitboxWidth = freezed,
+    Object? spawnedResourceHitboxHeight = freezed,
+    Object? spawnedResourceHitboxOffsetX = null,
+    Object? spawnedResourceHitboxOffsetY = null,
+    Object? smeltsInto = freezed,
   }) {
     return _then(_$ResourceImpl(
       identifier: null == identifier
@@ -491,6 +554,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.interactionRadius
           : interactionRadius // ignore: cast_nullable_to_non_nullable
               as double,
+      secondsToSmelt: freezed == secondsToSmelt
+          ? _value.secondsToSmelt
+          : secondsToSmelt // ignore: cast_nullable_to_non_nullable
+              as double?,
       secondsToCraft: freezed == secondsToCraft
           ? _value.secondsToCraft
           : secondsToCraft // ignore: cast_nullable_to_non_nullable
@@ -522,6 +589,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
       canConstruct: null == canConstruct
           ? _value.canConstruct
           : canConstruct // ignore: cast_nullable_to_non_nullable
+              as bool,
+      canSmelt: null == canSmelt
+          ? _value.canSmelt
+          : canSmelt // ignore: cast_nullable_to_non_nullable
               as bool,
       placementWidth: null == placementWidth
           ? _value.placementWidth
@@ -595,6 +666,26 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.storeCost
           : storeCost // ignore: cast_nullable_to_non_nullable
               as int?,
+      spawnedResourceHitboxWidth: freezed == spawnedResourceHitboxWidth
+          ? _value.spawnedResourceHitboxWidth
+          : spawnedResourceHitboxWidth // ignore: cast_nullable_to_non_nullable
+              as double?,
+      spawnedResourceHitboxHeight: freezed == spawnedResourceHitboxHeight
+          ? _value.spawnedResourceHitboxHeight
+          : spawnedResourceHitboxHeight // ignore: cast_nullable_to_non_nullable
+              as double?,
+      spawnedResourceHitboxOffsetX: null == spawnedResourceHitboxOffsetX
+          ? _value.spawnedResourceHitboxOffsetX
+          : spawnedResourceHitboxOffsetX // ignore: cast_nullable_to_non_nullable
+              as double,
+      spawnedResourceHitboxOffsetY: null == spawnedResourceHitboxOffsetY
+          ? _value.spawnedResourceHitboxOffsetY
+          : spawnedResourceHitboxOffsetY // ignore: cast_nullable_to_non_nullable
+              as double,
+      smeltsInto: freezed == smeltsInto
+          ? _value.smeltsInto
+          : smeltsInto // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -614,6 +705,7 @@ class _$ResourceImpl extends _Resource {
       this.amountPerSlot = 25,
       final List<Ingredient> ingredients = const [],
       this.interactionRadius = 32.0,
+      this.secondsToSmelt,
       this.secondsToCraft,
       this.secondsToMine,
       this.miningToolRequiredIdentifier,
@@ -622,6 +714,7 @@ class _$ResourceImpl extends _Resource {
       this.canPlace = false,
       this.canPickUp = false,
       this.canConstruct = false,
+      this.canSmelt = false,
       this.placementWidth = TILE_SIZE,
       this.placementHeight = TILE_SIZE,
       final List<Resource> requiredToMine = const [],
@@ -640,7 +733,12 @@ class _$ResourceImpl extends _Resource {
       this.miningOutputResource,
       final List<Resource>? canOnlyBePlacedOn = null,
       this.restValue,
-      this.storeCost})
+      this.storeCost,
+      this.spawnedResourceHitboxWidth,
+      this.spawnedResourceHitboxHeight,
+      this.spawnedResourceHitboxOffsetX = 0.0,
+      this.spawnedResourceHitboxOffsetY = 0.0,
+      this.smeltsInto})
       : _ingredients = ingredients,
         _requiredToMine = requiredToMine,
         _canOnlyBePlacedOn = canOnlyBePlacedOn,
@@ -683,6 +781,8 @@ class _$ResourceImpl extends _Resource {
   @JsonKey()
   final double interactionRadius;
   @override
+  final double? secondsToSmelt;
+  @override
   final double? secondsToCraft;
   @override
   final double? secondsToMine;
@@ -703,6 +803,9 @@ class _$ResourceImpl extends _Resource {
   @override
   @JsonKey()
   final bool canConstruct;
+  @override
+  @JsonKey()
+  final bool canSmelt;
   @override
   @JsonKey()
   final double placementWidth;
@@ -768,10 +871,22 @@ class _$ResourceImpl extends _Resource {
   final double? restValue;
   @override
   final int? storeCost;
+  @override
+  final double? spawnedResourceHitboxWidth;
+  @override
+  final double? spawnedResourceHitboxHeight;
+  @override
+  @JsonKey()
+  final double spawnedResourceHitboxOffsetX;
+  @override
+  @JsonKey()
+  final double spawnedResourceHitboxOffsetY;
+  @override
+  final String? smeltsInto;
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, restValue: $restValue, storeCost: $storeCost)';
+    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto)';
   }
 
   @override
@@ -800,6 +915,8 @@ class _$ResourceImpl extends _Resource {
                 .equals(other._ingredients, _ingredients) &&
             (identical(other.interactionRadius, interactionRadius) ||
                 other.interactionRadius == interactionRadius) &&
+            (identical(other.secondsToSmelt, secondsToSmelt) ||
+                other.secondsToSmelt == secondsToSmelt) &&
             (identical(other.secondsToCraft, secondsToCraft) ||
                 other.secondsToCraft == secondsToCraft) &&
             (identical(other.secondsToMine, secondsToMine) ||
@@ -819,6 +936,8 @@ class _$ResourceImpl extends _Resource {
                 other.canPickUp == canPickUp) &&
             (identical(other.canConstruct, canConstruct) ||
                 other.canConstruct == canConstruct) &&
+            (identical(other.canSmelt, canSmelt) ||
+                other.canSmelt == canSmelt) &&
             (identical(other.placementWidth, placementWidth) ||
                 other.placementWidth == placementWidth) &&
             (identical(other.placementHeight, placementHeight) ||
@@ -843,12 +962,16 @@ class _$ResourceImpl extends _Resource {
                 other.farmYieldMax == farmYieldMax) &&
             (identical(other.contentsWillSell, contentsWillSell) ||
                 other.contentsWillSell == contentsWillSell) &&
-            (identical(other.saleValue, saleValue) ||
-                other.saleValue == saleValue) &&
+            (identical(other.saleValue, saleValue) || other.saleValue == saleValue) &&
             (identical(other.miningOutputResource, miningOutputResource) || other.miningOutputResource == miningOutputResource) &&
             const DeepCollectionEquality().equals(other._canOnlyBePlacedOn, _canOnlyBePlacedOn) &&
             (identical(other.restValue, restValue) || other.restValue == restValue) &&
-            (identical(other.storeCost, storeCost) || other.storeCost == storeCost));
+            (identical(other.storeCost, storeCost) || other.storeCost == storeCost) &&
+            (identical(other.spawnedResourceHitboxWidth, spawnedResourceHitboxWidth) || other.spawnedResourceHitboxWidth == spawnedResourceHitboxWidth) &&
+            (identical(other.spawnedResourceHitboxHeight, spawnedResourceHitboxHeight) || other.spawnedResourceHitboxHeight == spawnedResourceHitboxHeight) &&
+            (identical(other.spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetX) || other.spawnedResourceHitboxOffsetX == spawnedResourceHitboxOffsetX) &&
+            (identical(other.spawnedResourceHitboxOffsetY, spawnedResourceHitboxOffsetY) || other.spawnedResourceHitboxOffsetY == spawnedResourceHitboxOffsetY) &&
+            (identical(other.smeltsInto, smeltsInto) || other.smeltsInto == smeltsInto));
   }
 
   @JsonKey(ignore: true)
@@ -866,6 +989,7 @@ class _$ResourceImpl extends _Resource {
         amountPerSlot,
         const DeepCollectionEquality().hash(_ingredients),
         interactionRadius,
+        secondsToSmelt,
         secondsToCraft,
         secondsToMine,
         miningToolRequiredIdentifier,
@@ -874,6 +998,7 @@ class _$ResourceImpl extends _Resource {
         canPlace,
         canPickUp,
         canConstruct,
+        canSmelt,
         placementWidth,
         placementHeight,
         const DeepCollectionEquality().hash(_requiredToMine),
@@ -891,7 +1016,12 @@ class _$ResourceImpl extends _Resource {
         miningOutputResource,
         const DeepCollectionEquality().hash(_canOnlyBePlacedOn),
         restValue,
-        storeCost
+        storeCost,
+        spawnedResourceHitboxWidth,
+        spawnedResourceHitboxHeight,
+        spawnedResourceHitboxOffsetX,
+        spawnedResourceHitboxOffsetY,
+        smeltsInto
       ]);
 
   @JsonKey(ignore: true)
@@ -921,6 +1051,7 @@ abstract class _Resource extends Resource {
       final int amountPerSlot,
       final List<Ingredient> ingredients,
       final double interactionRadius,
+      final double? secondsToSmelt,
       final double? secondsToCraft,
       final double? secondsToMine,
       final String? miningToolRequiredIdentifier,
@@ -929,6 +1060,7 @@ abstract class _Resource extends Resource {
       final bool canPlace,
       final bool canPickUp,
       final bool canConstruct,
+      final bool canSmelt,
       final double placementWidth,
       final double placementHeight,
       final List<Resource> requiredToMine,
@@ -947,7 +1079,12 @@ abstract class _Resource extends Resource {
       final Resource? miningOutputResource,
       final List<Resource>? canOnlyBePlacedOn,
       final double? restValue,
-      final int? storeCost}) = _$ResourceImpl;
+      final int? storeCost,
+      final double? spawnedResourceHitboxWidth,
+      final double? spawnedResourceHitboxHeight,
+      final double spawnedResourceHitboxOffsetX,
+      final double spawnedResourceHitboxOffsetY,
+      final String? smeltsInto}) = _$ResourceImpl;
   const _Resource._() : super._();
 
   factory _Resource.fromJson(Map<String, dynamic> json) =
@@ -976,6 +1113,8 @@ abstract class _Resource extends Resource {
   @override
   double get interactionRadius;
   @override
+  double? get secondsToSmelt;
+  @override
   double? get secondsToCraft;
   @override
   double? get secondsToMine;
@@ -991,6 +1130,8 @@ abstract class _Resource extends Resource {
   bool get canPickUp;
   @override
   bool get canConstruct;
+  @override
+  bool get canSmelt;
   @override
   double get placementWidth;
   @override
@@ -1028,6 +1169,16 @@ abstract class _Resource extends Resource {
   double? get restValue;
   @override
   int? get storeCost;
+  @override
+  double? get spawnedResourceHitboxWidth;
+  @override
+  double? get spawnedResourceHitboxHeight;
+  @override
+  double get spawnedResourceHitboxOffsetX;
+  @override
+  double get spawnedResourceHitboxOffsetY;
+  @override
+  String? get smeltsInto;
   @override
   @JsonKey(ignore: true)
   _$$ResourceImplCopyWith<_$ResourceImpl> get copyWith =>

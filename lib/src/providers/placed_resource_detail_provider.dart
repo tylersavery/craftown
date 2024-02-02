@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:collection/collection.dart';
+import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/toast_message.dart';
@@ -20,6 +21,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
   Timer? constructorTimer;
   Timer? sellingTimer;
   Timer? miningTimer;
+  Timer? smeltingTimer;
 
   @override
   PlacedResource? build(String arg) {
@@ -122,6 +124,97 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     }
 
     state = state!.copyWith(isConstructing: false);
+  }
+
+  void toggleSmelting() {
+    if (state == null) {
+      print("PlacedResources state is null");
+      return;
+    }
+
+    if (state!.isConstructing) {
+      stopSmelting();
+    } else {
+      startSmelting();
+    }
+  }
+
+  bool startSmelting({bool automaticStop = false}) {
+    if (state == null) {
+      print("PlacedResources state is null");
+      return false;
+    }
+
+    if (!state!.sprite.resource.canSmelt) {
+      print("Can't smelt");
+      return false;
+    }
+
+    //TODO: figure out what this smelts into
+
+    final resources = state!.contents.expand((element) => element).toList();
+    if (resources.isEmpty) {
+      ref.read(toastMessagesListProvider.notifier).add("No resources to smelt.");
+      return false;
+    }
+
+    final inputResource = resources.first;
+    final outputResourceIdentifer = inputResource.smeltsInto;
+
+    final outputResource = Resources.all.firstWhereOrNull((r) => r.identifier == outputResourceIdentifer);
+    if (outputResource == null || outputResource.secondsToSmelt == null) {
+      ref.read(toastMessagesListProvider.notifier).add("${inputResource.name} can't be smelted.");
+      return false;
+    }
+
+    state = state!.copyWith(isSmelting: true);
+
+    smeltingTimer = Timer.periodic(Duration(seconds: outputResource.secondsToSmelt!.round()), (timer) {
+      final resources = state!.contents.expand((element) => element).toList();
+
+      for (final ingredient in outputResource.ingredients) {
+        final available = resources.where((r) => r.identifier == ingredient.resource.identifier).toList().length;
+        if (available < ingredient.quantity) {
+          if (automaticStop) {
+            stopConstruction();
+          }
+          // print("Not enough ${ingredient.resource.name} to produce ${recipe.name}");
+          return;
+        }
+      }
+
+      final outputCount = state!.outputSlotContents.length;
+
+      if (outputCount >= state!.sprite.resource.outputSlotSize) {
+        print("Output is full");
+        if (automaticStop) {
+          stopConstruction();
+        }
+        return;
+      }
+
+      for (final ingredient in outputResource.ingredients) {
+        removeFromAnySlot(ingredient.resource, count: ingredient.quantity);
+      }
+
+      addToOutputSlot(outputResource);
+    });
+
+    return true;
+  }
+
+  void stopSmelting() {
+    if (smeltingTimer != null) {
+      smeltingTimer!.cancel();
+      smeltingTimer = null;
+    }
+
+    if (state == null) {
+      print("PlacedResources state is null");
+      return;
+    }
+
+    state = state!.copyWith(isSmelting: false);
   }
 
   void toggleSelling() {

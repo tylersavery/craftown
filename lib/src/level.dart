@@ -123,6 +123,9 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
           case "Copper":
             resource = Resources.copper;
             break;
+          case "Clay":
+            resource = Resources.clay;
+            break;
           case "Wood":
             resource = Resources.wood;
             break;
@@ -144,10 +147,15 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
           );
           add(sprite);
 
-          final block = CollisionBlock(position: Vector2(object.x, object.y), size: Vector2(object.width, object.height));
+          if (resource.spawnedResourceHasHitbox) {
+            final block = CollisionBlock(
+              position: Vector2(object.x + resource.spawnedResourceHitboxOffsetX, object.y + resource.spawnedResourceHitboxOffsetY),
+              size: Vector2(resource.spawnedResourceHitboxWidth ?? object.width, resource.spawnedResourceHitboxHeight ?? object.height),
+            );
 
-          collisionBlocks.add(block);
-          add(block);
+            collisionBlocks.add(block);
+            add(block);
+          }
 
           Future.delayed(Duration(milliseconds: 10), () {
             ref.read(mapResourceListProvider.notifier).add(

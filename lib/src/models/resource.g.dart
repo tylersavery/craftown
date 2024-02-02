@@ -23,6 +23,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
           const [],
       interactionRadius:
           (json['interactionRadius'] as num?)?.toDouble() ?? 32.0,
+      secondsToSmelt: (json['secondsToSmelt'] as num?)?.toDouble(),
       secondsToCraft: (json['secondsToCraft'] as num?)?.toDouble(),
       secondsToMine: (json['secondsToMine'] as num?)?.toDouble(),
       miningToolRequiredIdentifier:
@@ -34,6 +35,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       canPlace: json['canPlace'] as bool? ?? false,
       canPickUp: json['canPickUp'] as bool? ?? false,
       canConstruct: json['canConstruct'] as bool? ?? false,
+      canSmelt: json['canSmelt'] as bool? ?? false,
       placementWidth: (json['placementWidth'] as num?)?.toDouble() ?? TILE_SIZE,
       placementHeight:
           (json['placementHeight'] as num?)?.toDouble() ?? TILE_SIZE,
@@ -66,6 +68,15 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
           null,
       restValue: (json['restValue'] as num?)?.toDouble(),
       storeCost: json['storeCost'] as int?,
+      spawnedResourceHitboxWidth:
+          (json['spawnedResourceHitboxWidth'] as num?)?.toDouble(),
+      spawnedResourceHitboxHeight:
+          (json['spawnedResourceHitboxHeight'] as num?)?.toDouble(),
+      spawnedResourceHitboxOffsetX:
+          (json['spawnedResourceHitboxOffsetX'] as num?)?.toDouble() ?? 0.0,
+      spawnedResourceHitboxOffsetY:
+          (json['spawnedResourceHitboxOffsetY'] as num?)?.toDouble() ?? 0.0,
+      smeltsInto: json['smeltsInto'] as String?,
     );
 
 Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
@@ -81,6 +92,7 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'amountPerSlot': instance.amountPerSlot,
       'ingredients': instance.ingredients.map((e) => e.toJson()).toList(),
       'interactionRadius': instance.interactionRadius,
+      'secondsToSmelt': instance.secondsToSmelt,
       'secondsToCraft': instance.secondsToCraft,
       'secondsToMine': instance.secondsToMine,
       'miningToolRequiredIdentifier': instance.miningToolRequiredIdentifier,
@@ -89,6 +101,7 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'canPlace': instance.canPlace,
       'canPickUp': instance.canPickUp,
       'canConstruct': instance.canConstruct,
+      'canSmelt': instance.canSmelt,
       'placementWidth': instance.placementWidth,
       'placementHeight': instance.placementHeight,
       'requiredToMine': instance.requiredToMine.map((e) => e.toJson()).toList(),
@@ -108,4 +121,9 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
           instance.canOnlyBePlacedOn?.map((e) => e.toJson()).toList(),
       'restValue': instance.restValue,
       'storeCost': instance.storeCost,
+      'spawnedResourceHitboxWidth': instance.spawnedResourceHitboxWidth,
+      'spawnedResourceHitboxHeight': instance.spawnedResourceHitboxHeight,
+      'spawnedResourceHitboxOffsetX': instance.spawnedResourceHitboxOffsetX,
+      'spawnedResourceHitboxOffsetY': instance.spawnedResourceHitboxOffsetY,
+      'smeltsInto': instance.smeltsInto,
     };
