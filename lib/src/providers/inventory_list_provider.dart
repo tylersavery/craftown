@@ -5,6 +5,7 @@ import 'package:craftown/src/models/ingredient.dart';
 import 'package:craftown/src/models/inventory_slot.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
+import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'inventory_list_provider.g.dart';
@@ -133,6 +134,8 @@ class InventoryList extends _$InventoryList {
         );
       return true;
     }
+
+    ref.read(toastMessagesListProvider.notifier).add("No room in inventory");
 
     return false;
   }

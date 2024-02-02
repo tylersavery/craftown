@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -33,12 +34,20 @@ class MenuContainer extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
           ),
+          //  child: BackdropFilter(
+          //   filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+          //   child: Container(
+          //     color: Colors.black26,
+          //     width: double.infinity,
+          //     height: double.infinity,
+          //   ),
+          // ),
         ),
         Center(
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(4.0),
+              borderRadius: BorderRadius.circular(4),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

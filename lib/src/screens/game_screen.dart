@@ -4,12 +4,14 @@ import 'package:craftown/src/menus/providers/game_menu_provider.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
 import 'package:craftown/src/menus/providers/seed_menu_provider.dart';
+import 'package:craftown/src/menus/providers/store_menu_provider.dart';
 import 'package:craftown/src/menus/providers/tool_menu_provider.dart';
 import 'package:craftown/src/menus/widgets/craft_menu.dart';
 import 'package:craftown/src/menus/widgets/game_menu.dart';
 import 'package:craftown/src/menus/widgets/inventory_menu.dart';
 import 'package:craftown/src/menus/widgets/resource_contents_menu.dart';
 import 'package:craftown/src/menus/widgets/seed_menu.dart';
+import 'package:craftown/src/menus/widgets/store_menu.dart';
 import 'package:craftown/src/menus/widgets/tool_menu.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
@@ -20,6 +22,7 @@ import 'package:craftown/src/widgets/game_menu_button.dart';
 import 'package:craftown/src/widgets/inventory_bar.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/stats_gui.dart';
+import 'package:craftown/src/widgets/store_button.dart';
 import 'package:craftown/src/widgets/tool_button.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +78,8 @@ class GameScreen extends StatelessWidget {
                     children: [
                       ToolButton(),
                       SizedBox(width: 4),
+                      StoreButton(),
+                      SizedBox(width: 4),
                       CraftButton(),
                     ],
                   ),
@@ -89,58 +94,6 @@ class GameScreen extends StatelessWidget {
                   child: StatsGui(),
                 ),
               ),
-            ),
-            Consumer(
-              builder: (context, ref, _) {
-                final toastMessages = ref.watch(toastMessagesListProvider);
-                if (toastMessages.isNotEmpty) {
-                  return Align(
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: toastMessages.map((t) {
-                            return Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: Container(
-                                width: 300,
-                                decoration: BoxDecoration(
-                                  color: t.type.bgColor,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          t.message,
-                                          style: TextStyle(
-                                            color: t.type.fgColor,
-                                          ),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          ref.read(toastMessagesListProvider.notifier).remove(t);
-                                        },
-                                        child: Icon(
-                                          Icons.close,
-                                          color: t.type.fgColor,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ));
-                }
-
-                return const SizedBox.shrink();
-              },
             ),
             Consumer(
               builder: (context, ref, _) {
@@ -239,6 +192,18 @@ class GameScreen extends StatelessWidget {
             ),
             Consumer(
               builder: (context, ref, _) {
+                if (ref.watch(storeMenuProvider).isOpen) {
+                  return const Align(
+                    alignment: Alignment.center,
+                    child: StoreMenuWidget(),
+                  );
+                }
+
+                return const SizedBox.shrink();
+              },
+            ),
+            Consumer(
+              builder: (context, ref, _) {
                 if (ref.watch(seedMenuProvider).isOpen) {
                   return const Align(
                     alignment: Alignment.center,
@@ -256,6 +221,58 @@ class GameScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     child: GameMenuWidget(),
                   );
+                }
+
+                return const SizedBox.shrink();
+              },
+            ),
+            Consumer(
+              builder: (context, ref, _) {
+                final toastMessages = ref.watch(toastMessagesListProvider);
+                if (toastMessages.isNotEmpty) {
+                  return Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: toastMessages.map((t) {
+                            return Padding(
+                              padding: const EdgeInsets.all(1.0),
+                              child: Container(
+                                width: 300,
+                                decoration: BoxDecoration(
+                                  color: t.type.bgColor,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          t.message,
+                                          style: TextStyle(
+                                            color: t.type.fgColor,
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          ref.read(toastMessagesListProvider.notifier).remove(t);
+                                        },
+                                        child: Icon(
+                                          Icons.close,
+                                          color: t.type.fgColor,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ));
                 }
 
                 return const SizedBox.shrink();

@@ -67,6 +67,7 @@ class Resource with _$Resource {
     @Default(0) int saleValue,
     Resource? miningOutputResource,
     @Default(null) List<Resource>? canOnlyBePlacedOn,
+    int? storeCost,
   }) = _Resource;
 
   factory Resource.fromJson(Map<String, dynamic> json) => _$ResourceFromJson(json);
@@ -101,6 +102,10 @@ class Resource with _$Resource {
 
   bool get isMiner {
     return miningOutputResource != null;
+  }
+
+  bool get availableInStore {
+    return storeCost != null;
   }
 
   bool canCraft(List<InventorySlot> slots) {

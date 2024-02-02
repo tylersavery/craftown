@@ -56,6 +56,7 @@ mixin _$Resource {
   int get saleValue => throw _privateConstructorUsedError;
   Resource? get miningOutputResource => throw _privateConstructorUsedError;
   List<Resource>? get canOnlyBePlacedOn => throw _privateConstructorUsedError;
+  int? get storeCost => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -103,7 +104,8 @@ abstract class $ResourceCopyWith<$Res> {
       bool contentsWillSell,
       int saleValue,
       Resource? miningOutputResource,
-      List<Resource>? canOnlyBePlacedOn});
+      List<Resource>? canOnlyBePlacedOn,
+      int? storeCost});
 
   $ResourceCopyWith<$Res>? get growsInto;
   $ResourceCopyWith<$Res>? get miningOutputResource;
@@ -156,6 +158,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? saleValue = null,
     Object? miningOutputResource = freezed,
     Object? canOnlyBePlacedOn = freezed,
+    Object? storeCost = freezed,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -294,6 +297,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.canOnlyBePlacedOn
           : canOnlyBePlacedOn // ignore: cast_nullable_to_non_nullable
               as List<Resource>?,
+      storeCost: freezed == storeCost
+          ? _value.storeCost
+          : storeCost // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -365,7 +372,8 @@ abstract class _$$ResourceImplCopyWith<$Res>
       bool contentsWillSell,
       int saleValue,
       Resource? miningOutputResource,
-      List<Resource>? canOnlyBePlacedOn});
+      List<Resource>? canOnlyBePlacedOn,
+      int? storeCost});
 
   @override
   $ResourceCopyWith<$Res>? get growsInto;
@@ -418,6 +426,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? saleValue = null,
     Object? miningOutputResource = freezed,
     Object? canOnlyBePlacedOn = freezed,
+    Object? storeCost = freezed,
   }) {
     return _then(_$ResourceImpl(
       identifier: null == identifier
@@ -556,6 +565,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value._canOnlyBePlacedOn
           : canOnlyBePlacedOn // ignore: cast_nullable_to_non_nullable
               as List<Resource>?,
+      storeCost: freezed == storeCost
+          ? _value.storeCost
+          : storeCost // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -598,7 +611,8 @@ class _$ResourceImpl extends _Resource {
       this.contentsWillSell = false,
       this.saleValue = 0,
       this.miningOutputResource,
-      final List<Resource>? canOnlyBePlacedOn = null})
+      final List<Resource>? canOnlyBePlacedOn = null,
+      this.storeCost})
       : _ingredients = ingredients,
         _requiredToMine = requiredToMine,
         _canOnlyBePlacedOn = canOnlyBePlacedOn,
@@ -720,8 +734,11 @@ class _$ResourceImpl extends _Resource {
   }
 
   @override
+  final int? storeCost;
+
+  @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, energyWhenConsumed: $energyWhenConsumed, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn)';
+    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, energyWhenConsumed: $energyWhenConsumed, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, storeCost: $storeCost)';
   }
 
   @override
@@ -795,7 +812,9 @@ class _$ResourceImpl extends _Resource {
             (identical(other.miningOutputResource, miningOutputResource) ||
                 other.miningOutputResource == miningOutputResource) &&
             const DeepCollectionEquality()
-                .equals(other._canOnlyBePlacedOn, _canOnlyBePlacedOn));
+                .equals(other._canOnlyBePlacedOn, _canOnlyBePlacedOn) &&
+            (identical(other.storeCost, storeCost) ||
+                other.storeCost == storeCost));
   }
 
   @JsonKey(ignore: true)
@@ -835,7 +854,8 @@ class _$ResourceImpl extends _Resource {
         contentsWillSell,
         saleValue,
         miningOutputResource,
-        const DeepCollectionEquality().hash(_canOnlyBePlacedOn)
+        const DeepCollectionEquality().hash(_canOnlyBePlacedOn),
+        storeCost
       ]);
 
   @JsonKey(ignore: true)
@@ -888,7 +908,8 @@ abstract class _Resource extends Resource {
       final bool contentsWillSell,
       final int saleValue,
       final Resource? miningOutputResource,
-      final List<Resource>? canOnlyBePlacedOn}) = _$ResourceImpl;
+      final List<Resource>? canOnlyBePlacedOn,
+      final int? storeCost}) = _$ResourceImpl;
   const _Resource._() : super._();
 
   factory _Resource.fromJson(Map<String, dynamic> json) =
@@ -963,6 +984,8 @@ abstract class _Resource extends Resource {
   Resource? get miningOutputResource;
   @override
   List<Resource>? get canOnlyBePlacedOn;
+  @override
+  int? get storeCost;
   @override
   @JsonKey(ignore: true)
   _$$ResourceImplCopyWith<_$ResourceImpl> get copyWith =>

@@ -1,8 +1,5 @@
-import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/models/ingredient.dart';
-import 'package:craftown/src/models/recipe.dart';
 import 'package:craftown/src/models/resource.dart';
-import 'package:craftown/src/models/tool.dart';
 
 class Resources {
   // PRIMARY
@@ -85,6 +82,7 @@ class Resources {
         growsInto: Resources.potato,
         farmYieldMin: 4,
         farmYieldMax: 6,
+        storeCost: 2,
       );
 
   static Resource get carrot => Resource(
@@ -105,6 +103,7 @@ class Resources {
         growsInto: Resources.carrot,
         farmYieldMin: 14,
         farmYieldMax: 20,
+        storeCost: 3,
       );
 
   static Resource get garlic => Resource(
@@ -127,6 +126,7 @@ class Resources {
         growsInto: Resources.garlic,
         farmYieldMin: 4,
         farmYieldMax: 10,
+        storeCost: 5,
       );
 
 // Secondary
@@ -140,6 +140,7 @@ class Resources {
         amountPerSlot: 1,
         canPlace: true,
         canPickUp: true,
+        storeCost: 10,
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 5),
           Ingredient(resource: Resources.iron, quantity: 2),
@@ -357,4 +358,5 @@ class Resources {
 
   static List<Resource> get craftable => all.where((r) => r.secondsToCraft != null).toList();
   static List<Resource> get mineable => all.where((r) => r.secondsToMine != null).toList();
+  static List<Resource> get availableInStore => all.where((r) => r.availableInStore).toList();
 }

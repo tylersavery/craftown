@@ -61,6 +61,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
               .toList() ??
           null,
+      storeCost: json['storeCost'] as int?,
     );
 
 Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
@@ -100,4 +101,5 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'miningOutputResource': instance.miningOutputResource?.toJson(),
       'canOnlyBePlacedOn':
           instance.canOnlyBePlacedOn?.map((e) => e.toJson()).toList(),
+      'storeCost': instance.storeCost,
     };

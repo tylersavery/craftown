@@ -21,6 +21,18 @@ class StatsDetail extends _$StatsDetail {
     state = value;
   }
 
+  setSustainability(double value) {
+    state = state.copyWith(sustainability: value);
+  }
+
+  increaseSustainability(double amount) {
+    state = state.copyWith(sustainability: min(1, state.sustainability + amount));
+  }
+
+  decreaseSustainability(double amount) {
+    state = state.copyWith(sustainability: max(0, state.sustainability - amount));
+  }
+
   setEnergy(double value) {
     state = state.copyWith(energy: value);
   }
