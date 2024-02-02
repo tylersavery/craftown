@@ -29,7 +29,7 @@ class SavedGameList extends _$SavedGameList {
   @override
   List<SavedGame> build() {
     db = Singletons.instance<Database>();
-    store = intMapStoreFactory.store("savedGamesv13");
+    store = intMapStoreFactory.store("savedGamesv14");
     return [];
   }
 

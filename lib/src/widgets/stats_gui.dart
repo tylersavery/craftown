@@ -1,3 +1,4 @@
+import 'package:craftown/src/models/stats.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:flutter/material.dart';
@@ -39,8 +40,10 @@ class StatsGui extends StatelessWidget {
                   ],
                 ),
               ),
-              _StatRow(label: "Sustainability", value: state.sustainability),
-              _StatRow(label: "Energy", value: state.energy),
+              _StatRow(type: StatType.sustainability, value: state.sustainability),
+              _StatRow(type: StatType.hunger, value: state.hunger),
+              _StatRow(type: StatType.energy, value: state.energy),
+              _StatRow(type: StatType.thirst, value: state.thirst),
             ],
           );
         }),
@@ -50,32 +53,47 @@ class StatsGui extends StatelessWidget {
 }
 
 class _StatRow extends StatelessWidget {
-  final String label;
+  final StatType type;
   final double value;
   const _StatRow({
     super.key,
-    required this.label,
+    required this.type,
     required this.value,
   });
 
   @override
   Widget build(BuildContext context) {
     Color color = Colors.red;
-    if (value > .3) {
-      color = Colors.orange;
-    }
-    if (value > .5) {
-      color = Colors.yellow;
-    }
-    if (value > .7) {
+
+    if (type.positiveIsGood) {
+      if (value > .3) {
+        color = Colors.orange;
+      }
+      if (value > .5) {
+        color = Colors.yellow;
+      }
+      if (value > .7) {
+        color = Colors.green;
+      }
+    } else {
       color = Colors.green;
+
+      if (value > .3) {
+        color = Colors.yellow;
+      }
+      if (value > .5) {
+        color = Colors.orange;
+      }
+      if (value > .7) {
+        color = Colors.red;
+      }
     }
     return Row(
       children: [
         SizedBox(
           width: 110,
           child: Text(
-            "$label:",
+            "${type.label}:",
             style: TextStyle(
               color: Colors.white,
               fontSize: 12,

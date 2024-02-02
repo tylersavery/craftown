@@ -11,6 +11,7 @@ import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:craftown/src/providers/recipes_list_provider.dart';
+import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/recipes_selector_list.dart';
@@ -226,18 +227,20 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                                 height: 8,
                               ),
                             ],
+                            // if (resource.slots > 0) ...[
+                            //   SizedBox(
+                            //     height: 8,
+                            //   ),
+                            //   Text(
+                            //     "Contents:",
+                            //   ),
+                            // ],
                             SizedBox(
                               height: 8,
                             ),
-                            Text(
-                              "Contents:",
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            if (!placedResource.sprite.resource.isMiner)
+                            if (resource.slots > 0)
                               Text(
-                                "Input:",
+                                resource.canConstruct ? "Input:" : "Contents:",
                               ),
                             Wrap(
                               alignment: WrapAlignment.start,
@@ -417,6 +420,23 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                                     ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).toggleSelling();
                                   },
                                   completeOnClick: true,
+                                  small: true,
+                                ),
+                              ),
+
+                            if (placedResource.sprite.resource.canRest)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: HoldDownButton(
+                                  label: "Rest",
+                                  duration: Duration(seconds: 3),
+                                  onComplete: () {
+                                    final provider = ref.read(statsDetailProvider.notifier);
+
+                                    provider.increaseEnergy(placedResource.sprite.resource.restValue ?? 0.1);
+                                    provider.increaseThirst(0.25);
+                                    provider.increaseHunger(0.2);
+                                  },
                                   small: true,
                                 ),
                               ),

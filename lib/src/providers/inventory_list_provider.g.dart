@@ -6,7 +6,7 @@ part of 'inventory_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$inventoryListHash() => r'2e53cf67fbca82c014c1e5f8c541861bb46a8c11';
+String _$inventoryListHash() => r'efc6edaf060c2825835d20f4e8612c333e2e1dd8';
 
 /// See also [InventoryList].
 @ProviderFor(InventoryList)

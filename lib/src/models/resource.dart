@@ -47,7 +47,8 @@ class Resource with _$Resource {
     double? secondsToCraft,
     double? secondsToMine,
     String? miningToolRequiredIdentifier,
-    @Default(0) double energyWhenConsumed,
+    @Default(0) double hungerDecreaseOnConsumption,
+    @Default(0) double thirstDecreaseOnConsumption,
     @Default(false) bool canPlace,
     @Default(false) bool canPickUp,
     @Default(false) bool canConstruct,
@@ -67,6 +68,7 @@ class Resource with _$Resource {
     @Default(0) int saleValue,
     Resource? miningOutputResource,
     @Default(null) List<Resource>? canOnlyBePlacedOn,
+    double? restValue,
     int? storeCost,
   }) = _Resource;
 
@@ -97,7 +99,7 @@ class Resource with _$Resource {
   }
 
   bool get canConsume {
-    return energyWhenConsumed > 0;
+    return thirstDecreaseOnConsumption > 0 || hungerDecreaseOnConsumption > 0;
   }
 
   bool get isMiner {
@@ -106,6 +108,10 @@ class Resource with _$Resource {
 
   bool get availableInStore {
     return storeCost != null;
+  }
+
+  bool get canRest {
+    return restValue != null;
   }
 
   bool canCraft(List<InventorySlot> slots) {

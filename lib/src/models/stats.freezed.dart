@@ -23,6 +23,8 @@ mixin _$Stats {
   int get dollars => throw _privateConstructorUsedError;
   double get sustainability => throw _privateConstructorUsedError;
   double get energy => throw _privateConstructorUsedError;
+  double get hunger => throw _privateConstructorUsedError;
+  double get thirst => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +36,12 @@ abstract class $StatsCopyWith<$Res> {
   factory $StatsCopyWith(Stats value, $Res Function(Stats) then) =
       _$StatsCopyWithImpl<$Res, Stats>;
   @useResult
-  $Res call({int dollars, double sustainability, double energy});
+  $Res call(
+      {int dollars,
+      double sustainability,
+      double energy,
+      double hunger,
+      double thirst});
 }
 
 /// @nodoc
@@ -53,6 +60,8 @@ class _$StatsCopyWithImpl<$Res, $Val extends Stats>
     Object? dollars = null,
     Object? sustainability = null,
     Object? energy = null,
+    Object? hunger = null,
+    Object? thirst = null,
   }) {
     return _then(_value.copyWith(
       dollars: null == dollars
@@ -67,6 +76,14 @@ class _$StatsCopyWithImpl<$Res, $Val extends Stats>
           ? _value.energy
           : energy // ignore: cast_nullable_to_non_nullable
               as double,
+      hunger: null == hunger
+          ? _value.hunger
+          : hunger // ignore: cast_nullable_to_non_nullable
+              as double,
+      thirst: null == thirst
+          ? _value.thirst
+          : thirst // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -78,7 +95,12 @@ abstract class _$$StatsImplCopyWith<$Res> implements $StatsCopyWith<$Res> {
       __$$StatsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int dollars, double sustainability, double energy});
+  $Res call(
+      {int dollars,
+      double sustainability,
+      double energy,
+      double hunger,
+      double thirst});
 }
 
 /// @nodoc
@@ -95,6 +117,8 @@ class __$$StatsImplCopyWithImpl<$Res>
     Object? dollars = null,
     Object? sustainability = null,
     Object? energy = null,
+    Object? hunger = null,
+    Object? thirst = null,
   }) {
     return _then(_$StatsImpl(
       dollars: null == dollars
@@ -109,6 +133,14 @@ class __$$StatsImplCopyWithImpl<$Res>
           ? _value.energy
           : energy // ignore: cast_nullable_to_non_nullable
               as double,
+      hunger: null == hunger
+          ? _value.hunger
+          : hunger // ignore: cast_nullable_to_non_nullable
+              as double,
+      thirst: null == thirst
+          ? _value.thirst
+          : thirst // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -119,7 +151,9 @@ class _$StatsImpl implements _Stats {
   const _$StatsImpl(
       {required this.dollars,
       required this.sustainability,
-      required this.energy});
+      required this.energy,
+      required this.hunger,
+      required this.thirst});
 
   factory _$StatsImpl.fromJson(Map<String, dynamic> json) =>
       _$$StatsImplFromJson(json);
@@ -130,10 +164,14 @@ class _$StatsImpl implements _Stats {
   final double sustainability;
   @override
   final double energy;
+  @override
+  final double hunger;
+  @override
+  final double thirst;
 
   @override
   String toString() {
-    return 'Stats(dollars: $dollars, sustainability: $sustainability, energy: $energy)';
+    return 'Stats(dollars: $dollars, sustainability: $sustainability, energy: $energy, hunger: $hunger, thirst: $thirst)';
   }
 
   @override
@@ -144,12 +182,15 @@ class _$StatsImpl implements _Stats {
             (identical(other.dollars, dollars) || other.dollars == dollars) &&
             (identical(other.sustainability, sustainability) ||
                 other.sustainability == sustainability) &&
-            (identical(other.energy, energy) || other.energy == energy));
+            (identical(other.energy, energy) || other.energy == energy) &&
+            (identical(other.hunger, hunger) || other.hunger == hunger) &&
+            (identical(other.thirst, thirst) || other.thirst == thirst));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, dollars, sustainability, energy);
+  int get hashCode =>
+      Object.hash(runtimeType, dollars, sustainability, energy, hunger, thirst);
 
   @JsonKey(ignore: true)
   @override
@@ -169,7 +210,9 @@ abstract class _Stats implements Stats {
   const factory _Stats(
       {required final int dollars,
       required final double sustainability,
-      required final double energy}) = _$StatsImpl;
+      required final double energy,
+      required final double hunger,
+      required final double thirst}) = _$StatsImpl;
 
   factory _Stats.fromJson(Map<String, dynamic> json) = _$StatsImpl.fromJson;
 
@@ -179,6 +222,10 @@ abstract class _Stats implements Stats {
   double get sustainability;
   @override
   double get energy;
+  @override
+  double get hunger;
+  @override
+  double get thirst;
   @override
   @JsonKey(ignore: true)
   _$$StatsImplCopyWith<_$StatsImpl> get copyWith =>

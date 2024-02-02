@@ -35,7 +35,8 @@ mixin _$Resource {
   double? get secondsToMine => throw _privateConstructorUsedError;
   String? get miningToolRequiredIdentifier =>
       throw _privateConstructorUsedError;
-  double get energyWhenConsumed => throw _privateConstructorUsedError;
+  double get hungerDecreaseOnConsumption => throw _privateConstructorUsedError;
+  double get thirstDecreaseOnConsumption => throw _privateConstructorUsedError;
   bool get canPlace => throw _privateConstructorUsedError;
   bool get canPickUp => throw _privateConstructorUsedError;
   bool get canConstruct => throw _privateConstructorUsedError;
@@ -56,6 +57,7 @@ mixin _$Resource {
   int get saleValue => throw _privateConstructorUsedError;
   Resource? get miningOutputResource => throw _privateConstructorUsedError;
   List<Resource>? get canOnlyBePlacedOn => throw _privateConstructorUsedError;
+  double? get restValue => throw _privateConstructorUsedError;
   int? get storeCost => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -84,7 +86,8 @@ abstract class $ResourceCopyWith<$Res> {
       double? secondsToCraft,
       double? secondsToMine,
       String? miningToolRequiredIdentifier,
-      double energyWhenConsumed,
+      double hungerDecreaseOnConsumption,
+      double thirstDecreaseOnConsumption,
       bool canPlace,
       bool canPickUp,
       bool canConstruct,
@@ -105,6 +108,7 @@ abstract class $ResourceCopyWith<$Res> {
       int saleValue,
       Resource? miningOutputResource,
       List<Resource>? canOnlyBePlacedOn,
+      double? restValue,
       int? storeCost});
 
   $ResourceCopyWith<$Res>? get growsInto;
@@ -138,7 +142,8 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? secondsToCraft = freezed,
     Object? secondsToMine = freezed,
     Object? miningToolRequiredIdentifier = freezed,
-    Object? energyWhenConsumed = null,
+    Object? hungerDecreaseOnConsumption = null,
+    Object? thirstDecreaseOnConsumption = null,
     Object? canPlace = null,
     Object? canPickUp = null,
     Object? canConstruct = null,
@@ -158,6 +163,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? saleValue = null,
     Object? miningOutputResource = freezed,
     Object? canOnlyBePlacedOn = freezed,
+    Object? restValue = freezed,
     Object? storeCost = freezed,
   }) {
     return _then(_value.copyWith(
@@ -217,9 +223,13 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.miningToolRequiredIdentifier
           : miningToolRequiredIdentifier // ignore: cast_nullable_to_non_nullable
               as String?,
-      energyWhenConsumed: null == energyWhenConsumed
-          ? _value.energyWhenConsumed
-          : energyWhenConsumed // ignore: cast_nullable_to_non_nullable
+      hungerDecreaseOnConsumption: null == hungerDecreaseOnConsumption
+          ? _value.hungerDecreaseOnConsumption
+          : hungerDecreaseOnConsumption // ignore: cast_nullable_to_non_nullable
+              as double,
+      thirstDecreaseOnConsumption: null == thirstDecreaseOnConsumption
+          ? _value.thirstDecreaseOnConsumption
+          : thirstDecreaseOnConsumption // ignore: cast_nullable_to_non_nullable
               as double,
       canPlace: null == canPlace
           ? _value.canPlace
@@ -297,6 +307,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.canOnlyBePlacedOn
           : canOnlyBePlacedOn // ignore: cast_nullable_to_non_nullable
               as List<Resource>?,
+      restValue: freezed == restValue
+          ? _value.restValue
+          : restValue // ignore: cast_nullable_to_non_nullable
+              as double?,
       storeCost: freezed == storeCost
           ? _value.storeCost
           : storeCost // ignore: cast_nullable_to_non_nullable
@@ -352,7 +366,8 @@ abstract class _$$ResourceImplCopyWith<$Res>
       double? secondsToCraft,
       double? secondsToMine,
       String? miningToolRequiredIdentifier,
-      double energyWhenConsumed,
+      double hungerDecreaseOnConsumption,
+      double thirstDecreaseOnConsumption,
       bool canPlace,
       bool canPickUp,
       bool canConstruct,
@@ -373,6 +388,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
       int saleValue,
       Resource? miningOutputResource,
       List<Resource>? canOnlyBePlacedOn,
+      double? restValue,
       int? storeCost});
 
   @override
@@ -406,7 +422,8 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? secondsToCraft = freezed,
     Object? secondsToMine = freezed,
     Object? miningToolRequiredIdentifier = freezed,
-    Object? energyWhenConsumed = null,
+    Object? hungerDecreaseOnConsumption = null,
+    Object? thirstDecreaseOnConsumption = null,
     Object? canPlace = null,
     Object? canPickUp = null,
     Object? canConstruct = null,
@@ -426,6 +443,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? saleValue = null,
     Object? miningOutputResource = freezed,
     Object? canOnlyBePlacedOn = freezed,
+    Object? restValue = freezed,
     Object? storeCost = freezed,
   }) {
     return _then(_$ResourceImpl(
@@ -485,9 +503,13 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.miningToolRequiredIdentifier
           : miningToolRequiredIdentifier // ignore: cast_nullable_to_non_nullable
               as String?,
-      energyWhenConsumed: null == energyWhenConsumed
-          ? _value.energyWhenConsumed
-          : energyWhenConsumed // ignore: cast_nullable_to_non_nullable
+      hungerDecreaseOnConsumption: null == hungerDecreaseOnConsumption
+          ? _value.hungerDecreaseOnConsumption
+          : hungerDecreaseOnConsumption // ignore: cast_nullable_to_non_nullable
+              as double,
+      thirstDecreaseOnConsumption: null == thirstDecreaseOnConsumption
+          ? _value.thirstDecreaseOnConsumption
+          : thirstDecreaseOnConsumption // ignore: cast_nullable_to_non_nullable
               as double,
       canPlace: null == canPlace
           ? _value.canPlace
@@ -565,6 +587,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value._canOnlyBePlacedOn
           : canOnlyBePlacedOn // ignore: cast_nullable_to_non_nullable
               as List<Resource>?,
+      restValue: freezed == restValue
+          ? _value.restValue
+          : restValue // ignore: cast_nullable_to_non_nullable
+              as double?,
       storeCost: freezed == storeCost
           ? _value.storeCost
           : storeCost // ignore: cast_nullable_to_non_nullable
@@ -591,7 +617,8 @@ class _$ResourceImpl extends _Resource {
       this.secondsToCraft,
       this.secondsToMine,
       this.miningToolRequiredIdentifier,
-      this.energyWhenConsumed = 0,
+      this.hungerDecreaseOnConsumption = 0,
+      this.thirstDecreaseOnConsumption = 0,
       this.canPlace = false,
       this.canPickUp = false,
       this.canConstruct = false,
@@ -612,6 +639,7 @@ class _$ResourceImpl extends _Resource {
       this.saleValue = 0,
       this.miningOutputResource,
       final List<Resource>? canOnlyBePlacedOn = null,
+      this.restValue,
       this.storeCost})
       : _ingredients = ingredients,
         _requiredToMine = requiredToMine,
@@ -662,7 +690,10 @@ class _$ResourceImpl extends _Resource {
   final String? miningToolRequiredIdentifier;
   @override
   @JsonKey()
-  final double energyWhenConsumed;
+  final double hungerDecreaseOnConsumption;
+  @override
+  @JsonKey()
+  final double thirstDecreaseOnConsumption;
   @override
   @JsonKey()
   final bool canPlace;
@@ -734,11 +765,13 @@ class _$ResourceImpl extends _Resource {
   }
 
   @override
+  final double? restValue;
+  @override
   final int? storeCost;
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, energyWhenConsumed: $energyWhenConsumed, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, storeCost: $storeCost)';
+    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, restValue: $restValue, storeCost: $storeCost)';
   }
 
   @override
@@ -771,12 +804,15 @@ class _$ResourceImpl extends _Resource {
                 other.secondsToCraft == secondsToCraft) &&
             (identical(other.secondsToMine, secondsToMine) ||
                 other.secondsToMine == secondsToMine) &&
-            (identical(other.miningToolRequiredIdentifier,
-                    miningToolRequiredIdentifier) ||
+            (identical(other.miningToolRequiredIdentifier, miningToolRequiredIdentifier) ||
                 other.miningToolRequiredIdentifier ==
                     miningToolRequiredIdentifier) &&
-            (identical(other.energyWhenConsumed, energyWhenConsumed) ||
-                other.energyWhenConsumed == energyWhenConsumed) &&
+            (identical(other.hungerDecreaseOnConsumption, hungerDecreaseOnConsumption) ||
+                other.hungerDecreaseOnConsumption ==
+                    hungerDecreaseOnConsumption) &&
+            (identical(other.thirstDecreaseOnConsumption, thirstDecreaseOnConsumption) ||
+                other.thirstDecreaseOnConsumption ==
+                    thirstDecreaseOnConsumption) &&
             (identical(other.canPlace, canPlace) ||
                 other.canPlace == canPlace) &&
             (identical(other.canPickUp, canPickUp) ||
@@ -809,12 +845,10 @@ class _$ResourceImpl extends _Resource {
                 other.contentsWillSell == contentsWillSell) &&
             (identical(other.saleValue, saleValue) ||
                 other.saleValue == saleValue) &&
-            (identical(other.miningOutputResource, miningOutputResource) ||
-                other.miningOutputResource == miningOutputResource) &&
-            const DeepCollectionEquality()
-                .equals(other._canOnlyBePlacedOn, _canOnlyBePlacedOn) &&
-            (identical(other.storeCost, storeCost) ||
-                other.storeCost == storeCost));
+            (identical(other.miningOutputResource, miningOutputResource) || other.miningOutputResource == miningOutputResource) &&
+            const DeepCollectionEquality().equals(other._canOnlyBePlacedOn, _canOnlyBePlacedOn) &&
+            (identical(other.restValue, restValue) || other.restValue == restValue) &&
+            (identical(other.storeCost, storeCost) || other.storeCost == storeCost));
   }
 
   @JsonKey(ignore: true)
@@ -835,7 +869,8 @@ class _$ResourceImpl extends _Resource {
         secondsToCraft,
         secondsToMine,
         miningToolRequiredIdentifier,
-        energyWhenConsumed,
+        hungerDecreaseOnConsumption,
+        thirstDecreaseOnConsumption,
         canPlace,
         canPickUp,
         canConstruct,
@@ -855,6 +890,7 @@ class _$ResourceImpl extends _Resource {
         saleValue,
         miningOutputResource,
         const DeepCollectionEquality().hash(_canOnlyBePlacedOn),
+        restValue,
         storeCost
       ]);
 
@@ -888,7 +924,8 @@ abstract class _Resource extends Resource {
       final double? secondsToCraft,
       final double? secondsToMine,
       final String? miningToolRequiredIdentifier,
-      final double energyWhenConsumed,
+      final double hungerDecreaseOnConsumption,
+      final double thirstDecreaseOnConsumption,
       final bool canPlace,
       final bool canPickUp,
       final bool canConstruct,
@@ -909,6 +946,7 @@ abstract class _Resource extends Resource {
       final int saleValue,
       final Resource? miningOutputResource,
       final List<Resource>? canOnlyBePlacedOn,
+      final double? restValue,
       final int? storeCost}) = _$ResourceImpl;
   const _Resource._() : super._();
 
@@ -944,7 +982,9 @@ abstract class _Resource extends Resource {
   @override
   String? get miningToolRequiredIdentifier;
   @override
-  double get energyWhenConsumed;
+  double get hungerDecreaseOnConsumption;
+  @override
+  double get thirstDecreaseOnConsumption;
   @override
   bool get canPlace;
   @override
@@ -984,6 +1024,8 @@ abstract class _Resource extends Resource {
   Resource? get miningOutputResource;
   @override
   List<Resource>? get canOnlyBePlacedOn;
+  @override
+  double? get restValue;
   @override
   int? get storeCost;
   @override

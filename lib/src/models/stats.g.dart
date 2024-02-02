@@ -10,6 +10,8 @@ _$StatsImpl _$$StatsImplFromJson(Map<String, dynamic> json) => _$StatsImpl(
       dollars: json['dollars'] as int,
       sustainability: (json['sustainability'] as num).toDouble(),
       energy: (json['energy'] as num).toDouble(),
+      hunger: (json['hunger'] as num).toDouble(),
+      thirst: (json['thirst'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$StatsImplToJson(_$StatsImpl instance) =>
@@ -17,4 +19,6 @@ Map<String, dynamic> _$$StatsImplToJson(_$StatsImpl instance) =>
       'dollars': instance.dollars,
       'sustainability': instance.sustainability,
       'energy': instance.energy,
+      'hunger': instance.hunger,
+      'thirst': instance.thirst,
     };

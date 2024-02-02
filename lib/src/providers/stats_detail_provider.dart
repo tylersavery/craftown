@@ -11,9 +11,11 @@ class StatsDetail extends _$StatsDetail {
   @override
   Stats build() {
     return Stats(
+      dollars: 10,
       sustainability: 1,
       energy: 0.5,
-      dollars: 10,
+      hunger: 0.2,
+      thirst: 0.3,
     );
   }
 
@@ -43,6 +45,30 @@ class StatsDetail extends _$StatsDetail {
 
   decreaseEnergy(double amount) {
     state = state.copyWith(energy: max(0, state.energy - amount));
+  }
+
+  setHunger(double value) {
+    state = state.copyWith(hunger: value);
+  }
+
+  increaseHunger(double amount) {
+    state = state.copyWith(hunger: min(1, state.hunger + amount));
+  }
+
+  decreaseHunger(double amount) {
+    state = state.copyWith(hunger: max(0, state.hunger - amount));
+  }
+
+  setThirst(double value) {
+    state = state.copyWith(thirst: value);
+  }
+
+  increaseThirst(double amount) {
+    state = state.copyWith(thirst: min(1, state.thirst + amount));
+  }
+
+  decreaseThirst(double amount) {
+    state = state.copyWith(thirst: max(0, state.thirst - amount));
   }
 
   setDollars(int value) {

@@ -51,6 +51,7 @@ class Resources {
         isLiquid: true,
         requiredToMine: [Resources.woodenBucket],
         miningToolRequiredIdentifier: "water_bucket",
+        thirstDecreaseOnConsumption: 0.2,
       );
 
   static Resource get straw => Resource(
@@ -69,7 +70,7 @@ class Resources {
         assetFileName16: "potato-16x16.png",
         name: "Potato",
         namePlural: "Potatos",
-        energyWhenConsumed: 0.2,
+        hungerDecreaseOnConsumption: 0.2,
         saleValue: 2,
       );
 
@@ -90,7 +91,7 @@ class Resources {
         assetFileName16: "carrot-16x16.png",
         name: "Carrot",
         namePlural: "Carrots",
-        energyWhenConsumed: 0.15,
+        hungerDecreaseOnConsumption: 0.15,
         saleValue: 1,
       );
 
@@ -111,7 +112,7 @@ class Resources {
         assetFileName16: "garlic-10x12.png",
         name: "Garlic",
         namePlural: "Garlic",
-        energyWhenConsumed: 0.03,
+        hungerDecreaseOnConsumption: 0.03,
         saleValue: 3,
         placementWidth: 10,
         placementHeight: 12,
@@ -158,7 +159,8 @@ class Resources {
           Ingredient(resource: Resources.water, quantity: 2),
           Ingredient(resource: Resources.straw, quantity: 3),
         ],
-        energyWhenConsumed: 0.1,
+        hungerDecreaseOnConsumption: 0.1,
+        thirstDecreaseOnConsumption: 0.1,
         isLiquid: true,
       );
 
@@ -170,6 +172,25 @@ class Resources {
         secondsToCraft: 10,
         ingredients: [
           Ingredient(resource: Resources.iron, quantity: 3),
+        ],
+      );
+
+  static Resource get tent => Resource(
+        identifier: "tent",
+        assetFileName16: "tent-16x16.png",
+        assetFileNameLarge: "tent-34x26.png",
+        name: "Tent",
+        namePlural: "Tents",
+        secondsToCraft: 8,
+        canPlace: true,
+        canPickUp: true,
+        placementWidth: 34,
+        placementHeight: 26,
+        interactionRadius: 48,
+        restValue: 0.4,
+        ingredients: [
+          Ingredient(resource: Resources.wood, quantity: 10),
+          Ingredient(resource: Resources.straw, quantity: 20),
         ],
       );
 
@@ -340,6 +361,7 @@ class Resources {
         Resources.screw,
         Resources.woodenBucket,
         Resources.soup,
+        Resources.tent,
         Resources.chest,
         Resources.communityChest,
         Resources.constructorA,

@@ -27,7 +27,10 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       secondsToMine: (json['secondsToMine'] as num?)?.toDouble(),
       miningToolRequiredIdentifier:
           json['miningToolRequiredIdentifier'] as String?,
-      energyWhenConsumed: (json['energyWhenConsumed'] as num?)?.toDouble() ?? 0,
+      hungerDecreaseOnConsumption:
+          (json['hungerDecreaseOnConsumption'] as num?)?.toDouble() ?? 0,
+      thirstDecreaseOnConsumption:
+          (json['thirstDecreaseOnConsumption'] as num?)?.toDouble() ?? 0,
       canPlace: json['canPlace'] as bool? ?? false,
       canPickUp: json['canPickUp'] as bool? ?? false,
       canConstruct: json['canConstruct'] as bool? ?? false,
@@ -61,6 +64,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
               .toList() ??
           null,
+      restValue: (json['restValue'] as num?)?.toDouble(),
       storeCost: json['storeCost'] as int?,
     );
 
@@ -80,7 +84,8 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'secondsToCraft': instance.secondsToCraft,
       'secondsToMine': instance.secondsToMine,
       'miningToolRequiredIdentifier': instance.miningToolRequiredIdentifier,
-      'energyWhenConsumed': instance.energyWhenConsumed,
+      'hungerDecreaseOnConsumption': instance.hungerDecreaseOnConsumption,
+      'thirstDecreaseOnConsumption': instance.thirstDecreaseOnConsumption,
       'canPlace': instance.canPlace,
       'canPickUp': instance.canPickUp,
       'canConstruct': instance.canConstruct,
@@ -101,5 +106,6 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'miningOutputResource': instance.miningOutputResource?.toJson(),
       'canOnlyBePlacedOn':
           instance.canOnlyBePlacedOn?.map((e) => e.toJson()).toList(),
+      'restValue': instance.restValue,
       'storeCost': instance.storeCost,
     };
