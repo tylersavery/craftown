@@ -1,5 +1,7 @@
 import 'package:craftown/src/components/collision_box.dart';
 import 'package:craftown/src/components/farmland_sprite.dart';
+import 'package:craftown/src/components/level.dart';
+import 'package:craftown/src/menus/providers/research_menu_provider.dart';
 import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/saved_game.dart';
@@ -8,6 +10,7 @@ import 'package:craftown/src/providers/farmland_list_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
+import 'package:craftown/src/providers/research_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/providers/selected_character_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
@@ -29,7 +32,7 @@ class SavedGameList extends _$SavedGameList {
   @override
   List<SavedGame> build() {
     db = Singletons.instance<Database>();
-    store = intMapStoreFactory.store("savedGamesv14");
+    store = intMapStoreFactory.store("savedGamesv16");
     return [];
   }
 
@@ -45,6 +48,16 @@ class SavedGameList extends _$SavedGameList {
     ref.read(inventoryListProvider.notifier).set(save.inventory);
     ref.read(statsDetailProvider.notifier).set(save.stats);
     ref.read(resourceInHandProvider.notifier).set(save.inHand);
+    ref.read(researchListProvider.notifier).set(save.researchLevels);
+
+    if (save.isResearching != null && save.researchStarted != null) {
+      final now = DateTime.now();
+      final saveTime = save.savedAt;
+      final diff = now.difference(saveTime);
+
+      final started = save.researchStarted!.add(diff);
+      ref.read(researchMenuProvider.notifier).continueResearch(save.isResearching!, researchStarted: started);
+    }
 
     // Placed Resources
     final placedResources = save.placedResources;
@@ -64,7 +77,11 @@ class SavedGameList extends _$SavedGameList {
       for (final pr in placedResources) {
         gameWidgetKey.currentState!.currentGame.level.add(pr.sprite);
         final block = CollisionBlock(position: pr.sprite.position, size: pr.sprite.size);
-        gameWidgetKey.currentState!.currentGame.level.collisionBlocks.add(block);
+
+        final level = gameWidgetKey.currentState!.currentGame.level;
+        if (level is Level) {
+          level.collisionBlocks.add(block);
+        }
         final detailProvider = ref.read(placedResourceDetailProvider(pr.uniqueIdentifier).notifier);
         detailProvider.setContents(pr.contents);
         detailProvider.setOutput(pr.outputSlotContents);
@@ -152,6 +169,9 @@ class SavedGameList extends _$SavedGameList {
       stats: ref.read(statsDetailProvider),
       inHand: ref.read(resourceInHandProvider),
       farmlands: updatedFarmlands,
+      researchLevels: ref.read(researchListProvider),
+      isResearching: ref.read(researchMenuProvider).isResearching,
+      researchStarted: ref.read(researchMenuProvider).researchStarted,
     );
 
     final data = game.toJson();

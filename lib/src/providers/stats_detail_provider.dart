@@ -23,8 +23,8 @@ class StatsDetail extends _$StatsDetail {
       dollars: 10,
       sustainability: 1,
       energy: 0.9,
-      hunger: 0.5,
-      thirst: 0.97,
+      hunger: 0.1,
+      thirst: 0.1,
     );
   }
 

@@ -1,4 +1,6 @@
+import 'package:craftown/src/data/research_levels.dart';
 import 'package:craftown/src/models/ingredient.dart';
+import 'package:craftown/src/models/research_level.dart';
 import 'package:craftown/src/models/resource.dart';
 
 class Resources {
@@ -186,6 +188,9 @@ class Resources {
         ingredients: [
           Ingredient(resource: Resources.copper, quantity: 3),
         ],
+        researchRequirements: [
+          ResearchLevels.level1,
+        ],
       );
 
   static Resource get brick => Resource(
@@ -223,6 +228,9 @@ class Resources {
         ingredients: [
           Ingredient(resource: Resources.ironPlate, quantity: 3),
         ],
+        researchRequirements: [
+          ResearchLevels.level1,
+        ],
       );
 
   static Resource get lumber => Resource(
@@ -248,6 +256,9 @@ class Resources {
         secondsToCraft: 10,
         ingredients: [
           Ingredient(resource: Resources.straw, quantity: 5),
+        ],
+        researchRequirements: [
+          ResearchLevels.level2,
         ],
       );
 
@@ -500,7 +511,10 @@ class Resources {
           assetFileNameLarge: "wood-house-96x112.png",
           placementWidth: 96,
           placementHeight: 112,
+          canPlace: true,
+          canPickUp: true,
           secondsToCraft: 30,
+          isHouse: true,
           ingredients: [
             Ingredient(resource: Resources.wood, quantity: 500),
             Ingredient(resource: Resources.stone, quantity: 200),
@@ -515,6 +529,7 @@ class Resources {
           placementWidth: 96,
           placementHeight: 112,
           secondsToCraft: 30,
+          isHouse: true,
           ingredients: [
             Ingredient(resource: Resources.brick, quantity: 500),
             Ingredient(resource: Resources.stone, quantity: 200),

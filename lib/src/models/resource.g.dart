@@ -78,6 +78,11 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       spawnedResourceHitboxOffsetY:
           (json['spawnedResourceHitboxOffsetY'] as num?)?.toDouble() ?? 0.0,
       smeltsInto: json['smeltsInto'] as String?,
+      isHouse: json['isHouse'] as bool? ?? false,
+      researchRequirements: (json['researchRequirements'] as List<dynamic>?)
+              ?.map((e) => ResearchLevel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
@@ -128,4 +133,7 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'spawnedResourceHitboxOffsetX': instance.spawnedResourceHitboxOffsetX,
       'spawnedResourceHitboxOffsetY': instance.spawnedResourceHitboxOffsetY,
       'smeltsInto': instance.smeltsInto,
+      'isHouse': instance.isHouse,
+      'researchRequirements':
+          instance.researchRequirements.map((e) => e.toJson()).toList(),
     };

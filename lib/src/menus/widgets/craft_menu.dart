@@ -1,8 +1,10 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/craft_menu_provider.dart';
+import 'package:craftown/src/providers/can_craft_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/inventory_map_provider.dart';
 import 'package:craftown/src/providers/recipes_list_provider.dart';
+import 'package:craftown/src/providers/resource_available_from_research_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/recipes_selector_list.dart';
 import 'package:craftown/src/widgets/shared/hold_down_button.dart';
@@ -18,11 +20,11 @@ class CraftMenuWidget extends ConsumerWidget {
     final menuProvider = ref.read(craftMenuProvider.notifier);
     final invProvider = ref.read(inventoryListProvider.notifier);
     final menuState = ref.watch(craftMenuProvider);
-    final recipes = ref.watch(recipesListProvider(RecipeListType.craftable));
+    final recipes = ref.watch(recipeListProvider(RecipeListType.craftable));
 
     final selectedResource = recipes[menuState.selectedIndex];
 
-    final canCraft = selectedResource.canCraft(ref.watch(inventoryListProvider));
+    final canCraft = ref.watch(canCraftProvider(selectedResource));
 
     return MenuContainer(
       title: "Crafting Table",
@@ -128,7 +130,11 @@ class CraftMenuWidget extends ConsumerWidget {
                   if (selectedResource.secondsToCraft != null)
                     HoldDownButton(
                       duration: Duration(seconds: selectedResource.secondsToCraft!.round()),
-                      disabledMessage: canCraft ? null : "Missing Resources",
+                      disabledMessage: canCraft
+                          ? null
+                          : ref.watch(resourceAvailableFromResearchProvider(selectedResource))
+                              ? "Missing Resources"
+                              : "Research Required",
                       label: "Craft",
                       onComplete: () {
                         invProvider.removeIngredients(selectedResource.ingredients);

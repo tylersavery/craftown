@@ -6,13 +6,12 @@ part of 'inventory_map_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$inventoryMapHash() => r'991d5a0ae410d65eeb94137376c1a5cf371d1ec2';
+String _$inventoryMapHash() => r'28c989b51844d2018af99ba31427d97a5979a860';
 
-/// See also [InventoryMap].
-@ProviderFor(InventoryMap)
-final inventoryMapProvider =
-    NotifierProvider<InventoryMap, Map<String, int>>.internal(
-  InventoryMap.new,
+/// See also [inventoryMap].
+@ProviderFor(inventoryMap)
+final inventoryMapProvider = Provider<Map<String, int>>.internal(
+  inventoryMap,
   name: r'inventoryMapProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : _$inventoryMapHash,
@@ -20,6 +19,6 @@ final inventoryMapProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$InventoryMap = Notifier<Map<String, int>>;
+typedef InventoryMapRef = ProviderRef<Map<String, int>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

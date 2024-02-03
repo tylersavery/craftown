@@ -17,7 +17,7 @@ class RecipeSelectorList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final recipes = ref.read(recipesListProvider(listType));
+    final recipes = ref.read(recipeListProvider(listType));
 
     return ListView.builder(
       shrinkWrap: true,

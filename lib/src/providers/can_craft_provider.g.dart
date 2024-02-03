@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'recipes_list_provider.dart';
+part of 'can_craft_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$recipeListHash() => r'b6e208de5690a14f5a2b1e9c230961be88f5d245';
+String _$canCraftHash() => r'6e90e07d3269918bae77eda697574d188627f2a9';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,30 +29,30 @@ class _SystemHash {
   }
 }
 
-/// See also [recipeList].
-@ProviderFor(recipeList)
-const recipeListProvider = RecipeListFamily();
+/// See also [canCraft].
+@ProviderFor(canCraft)
+const canCraftProvider = CanCraftFamily();
 
-/// See also [recipeList].
-class RecipeListFamily extends Family<List<Resource>> {
-  /// See also [recipeList].
-  const RecipeListFamily();
+/// See also [canCraft].
+class CanCraftFamily extends Family<bool> {
+  /// See also [canCraft].
+  const CanCraftFamily();
 
-  /// See also [recipeList].
-  RecipeListProvider call(
-    RecipeListType type,
+  /// See also [canCraft].
+  CanCraftProvider call(
+    Resource resource,
   ) {
-    return RecipeListProvider(
-      type,
+    return CanCraftProvider(
+      resource,
     );
   }
 
   @override
-  RecipeListProvider getProviderOverride(
-    covariant RecipeListProvider provider,
+  CanCraftProvider getProviderOverride(
+    covariant CanCraftProvider provider,
   ) {
     return call(
-      provider.type,
+      provider.resource,
     );
   }
 
@@ -68,91 +68,89 @@ class RecipeListFamily extends Family<List<Resource>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'recipeListProvider';
+  String? get name => r'canCraftProvider';
 }
 
-/// See also [recipeList].
-class RecipeListProvider extends Provider<List<Resource>> {
-  /// See also [recipeList].
-  RecipeListProvider(
-    RecipeListType type,
+/// See also [canCraft].
+class CanCraftProvider extends Provider<bool> {
+  /// See also [canCraft].
+  CanCraftProvider(
+    Resource resource,
   ) : this._internal(
-          (ref) => recipeList(
-            ref as RecipeListRef,
-            type,
+          (ref) => canCraft(
+            ref as CanCraftRef,
+            resource,
           ),
-          from: recipeListProvider,
-          name: r'recipeListProvider',
+          from: canCraftProvider,
+          name: r'canCraftProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$recipeListHash,
-          dependencies: RecipeListFamily._dependencies,
-          allTransitiveDependencies:
-              RecipeListFamily._allTransitiveDependencies,
-          type: type,
+                  : _$canCraftHash,
+          dependencies: CanCraftFamily._dependencies,
+          allTransitiveDependencies: CanCraftFamily._allTransitiveDependencies,
+          resource: resource,
         );
 
-  RecipeListProvider._internal(
+  CanCraftProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.type,
+    required this.resource,
   }) : super.internal();
 
-  final RecipeListType type;
+  final Resource resource;
 
   @override
   Override overrideWith(
-    List<Resource> Function(RecipeListRef provider) create,
+    bool Function(CanCraftRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: RecipeListProvider._internal(
-        (ref) => create(ref as RecipeListRef),
+      override: CanCraftProvider._internal(
+        (ref) => create(ref as CanCraftRef),
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        type: type,
+        resource: resource,
       ),
     );
   }
 
   @override
-  ProviderElement<List<Resource>> createElement() {
-    return _RecipeListProviderElement(this);
+  ProviderElement<bool> createElement() {
+    return _CanCraftProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is RecipeListProvider && other.type == type;
+    return other is CanCraftProvider && other.resource == resource;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, type.hashCode);
+    hash = _SystemHash.combine(hash, resource.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin RecipeListRef on ProviderRef<List<Resource>> {
-  /// The parameter `type` of this provider.
-  RecipeListType get type;
+mixin CanCraftRef on ProviderRef<bool> {
+  /// The parameter `resource` of this provider.
+  Resource get resource;
 }
 
-class _RecipeListProviderElement extends ProviderElement<List<Resource>>
-    with RecipeListRef {
-  _RecipeListProviderElement(super.provider);
+class _CanCraftProviderElement extends ProviderElement<bool> with CanCraftRef {
+  _CanCraftProviderElement(super.provider);
 
   @override
-  RecipeListType get type => (origin as RecipeListProvider).type;
+  Resource get resource => (origin as CanCraftProvider).resource;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

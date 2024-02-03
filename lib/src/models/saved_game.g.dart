@@ -30,6 +30,17 @@ _$SavedGameImpl _$$SavedGameImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Farmland.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      researchLevels: (json['researchLevels'] as List<dynamic>?)
+              ?.map((e) => ResearchLevel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      isResearching: json['isResearching'] == null
+          ? null
+          : ResearchLevel.fromJson(
+              json['isResearching'] as Map<String, dynamic>),
+      researchStarted: json['researchStarted'] == null
+          ? null
+          : DateTime.parse(json['researchStarted'] as String),
     );
 
 Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
@@ -46,4 +57,7 @@ Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
       'stats': instance.stats.toJson(),
       'inHand': instance.inHand?.toJson(),
       'farmlands': instance.farmlands.map((e) => e.toJson()).toList(),
+      'researchLevels': instance.researchLevels.map((e) => e.toJson()).toList(),
+      'isResearching': instance.isResearching?.toJson(),
+      'researchStarted': instance.researchStarted?.toIso8601String(),
     };

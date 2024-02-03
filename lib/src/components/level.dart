@@ -1,8 +1,6 @@
 // ignore_for_file: implementation_imports
 
 import 'dart:async';
-import 'dart:ui';
-import 'dart:math' as math;
 
 import 'package:collection/collection.dart';
 import 'package:craftown/src/components/collision_box.dart';
@@ -13,21 +11,15 @@ import 'package:craftown/src/components/resource_sprite.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/data/resources.dart';
-import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/map_resource.dart';
 import 'package:craftown/src/models/resource.dart';
-import 'package:craftown/src/models/tile_info.dart';
-import 'package:craftown/src/models/tool.dart';
 import 'package:craftown/src/providers/farmland_list_provider.dart';
-import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/map_resource_list_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
-import 'package:craftown/src/providers/player_position_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
-import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/utils/randomization.dart';
 import 'package:flame/components.dart';
@@ -310,28 +302,4 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       }
     }
   }
-
-  // @override
-  // void onTapUp(TapUpEvent event) {
-  //   final tool = ref.read(selectedToolProvider);
-
-  //   // final tile = _getTappedCell(event.localPosition);
-
-  //   // final layer = backgroundMap.tileMap.getLayer<Layer>("Ground");
-
-  //   final tile = backgroundMap.componentsAtPoint(event.localPosition).first;
-  //   print(tile.children);
-  //   // final x = event.canvasPosition.x;
-  //   // final y = event.canvasPosition.y;
-
-  //   if (tool == null) return;
-  //   switch (tool.type) {
-  //     case ToolType.shovel:
-  //       // print(event);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   super.onTapUp(event);
-  // }
 }

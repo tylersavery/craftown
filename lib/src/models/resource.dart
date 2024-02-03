@@ -1,6 +1,7 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/models/ingredient.dart';
 import 'package:craftown/src/models/inventory_slot.dart';
+import 'package:craftown/src/models/research_level.dart';
 import 'package:craftown/src/models/tool.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -78,9 +79,19 @@ class Resource with _$Resource {
     @Default(0.0) double spawnedResourceHitboxOffsetX,
     @Default(0.0) double spawnedResourceHitboxOffsetY,
     String? smeltsInto,
+    @Default(false) bool isHouse,
+    @Default([]) List<ResearchLevel> researchRequirements,
   }) = _Resource;
 
   factory Resource.fromJson(Map<String, dynamic> json) => _$ResourceFromJson(json);
+
+  @override
+  bool operator ==(Object other) {
+    return other is Resource && identifier == other.identifier;
+  }
+
+  @override
+  int get hashCode => identifier.hashCode;
 
   String get assetPath16 {
     return "assets/images/resources/$assetFileName16";
@@ -130,34 +141,5 @@ class Resource with _$Resource {
 
   bool get spawnedResourceHasHitbox {
     return spawnedResourceHitboxWidth != null && spawnedResourceHitboxHeight != null;
-  }
-
-  bool canCraft(List<InventorySlot> slots) {
-    Map<String, int> data = {};
-
-    for (final slot in slots) {
-      if (slot.resource != null) {
-        final key = slot.resource!.identifier;
-
-        if (data.containsKey(key)) {
-          data[key] = (data[key] ?? 0) + slot.count;
-        } else {
-          data[key] = slot.count;
-        }
-      }
-    }
-
-    for (final ingredient in ingredients) {
-      final key = ingredient.resource.identifier;
-      if (!data.containsKey(key)) {
-        return false;
-      }
-
-      if ((data[key] ?? 0) < ingredient.quantity) {
-        return false;
-      }
-    }
-
-    return true;
   }
 }

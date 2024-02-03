@@ -1,3 +1,4 @@
+import 'package:craftown/src/components/level.dart';
 import 'package:craftown/src/components/resource_sprite.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/models/placed_resource.dart';
@@ -72,13 +73,20 @@ class PlacedResourcesList extends _$PlacedResourcesList {
     gameWidgetKey.currentState!.currentGame.level.remove(gameComponent);
 
     // TODO: Perhaps a better way to do this (tie the two together)
-    final collisionBlockIndex = gameWidgetKey.currentState!.currentGame.level.collisionBlocks.indexWhere(
+
+    final level = gameWidgetKey.currentState!.currentGame.level;
+
+    if(level is Level) {
+
+    final collisionBlockIndex = level.collisionBlocks.indexWhere(
       (element) => element.x == item.sprite.x && element.y == item.sprite.y,
     );
-
-    if (collisionBlockIndex >= 0) {
-      gameWidgetKey.currentState!.currentGame.level.collisionBlocks.removeAt(collisionBlockIndex);
+       if (collisionBlockIndex >= 0) {
+      level.collisionBlocks.removeAt(collisionBlockIndex);
     }
+    }
+
+ 
 
     return true;
   }

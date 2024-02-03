@@ -162,7 +162,8 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   }
 
   bool validateInteractivity() {
-    if (!isWithinRadius(game.player.position, position, resource.interactionRadius)) {
+    if (!isWithinRadius(game.player.position, Vector2(position.x + (resource.placementWidth / 2), position.y + (resource.placementHeight / 2)),
+        resource.interactionRadius + max(resource.placementWidth / 2, resource.placementHeight / 2))) {
       ref.read(toastMessagesListProvider.notifier).add(
             "Move closer to interact",
             type: ToastMessageType.info,
@@ -202,7 +203,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       return;
     }
 
-    if (resource.isMiner || resource.canHoldResources || resource.canConstruct || resource.canPickUp) {
+    if (resource.isMiner || resource.canHoldResources || resource.canConstruct || resource.canPickUp || resource.isHouse) {
       ref.read(resourceContentsMenuProvider.notifier).openWith(this);
       return;
     }

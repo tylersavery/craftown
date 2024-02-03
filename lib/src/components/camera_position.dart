@@ -35,7 +35,7 @@ class CameraPosition extends PositionComponent with HasGameRef<Craftown>, Keyboa
 
   @override
   FutureOr<void> onLoad() {
-    debugMode = true;
+    debugMode = false;
     // TODO: implement onLoad
     return super.onLoad();
   }

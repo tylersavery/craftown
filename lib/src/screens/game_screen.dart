@@ -2,6 +2,7 @@ import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/menus/providers/craft_menu_provider.dart';
 import 'package:craftown/src/menus/providers/game_menu_provider.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
+import 'package:craftown/src/menus/providers/research_menu_provider.dart';
 import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
 import 'package:craftown/src/menus/providers/seed_menu_provider.dart';
 import 'package:craftown/src/menus/providers/store_menu_provider.dart';
@@ -9,6 +10,7 @@ import 'package:craftown/src/menus/providers/tool_menu_provider.dart';
 import 'package:craftown/src/menus/widgets/craft_menu.dart';
 import 'package:craftown/src/menus/widgets/game_menu.dart';
 import 'package:craftown/src/menus/widgets/inventory_menu.dart';
+import 'package:craftown/src/menus/widgets/research_menu.dart';
 import 'package:craftown/src/menus/widgets/resource_contents_menu.dart';
 import 'package:craftown/src/menus/widgets/seed_menu.dart';
 import 'package:craftown/src/menus/widgets/store_menu.dart';
@@ -21,6 +23,7 @@ import 'package:craftown/src/widgets/craft_button.dart';
 import 'package:craftown/src/widgets/game_menu_button.dart';
 import 'package:craftown/src/widgets/inventory_bar.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
+import 'package:craftown/src/widgets/research_button.dart';
 import 'package:craftown/src/widgets/stats_gui.dart';
 import 'package:craftown/src/widgets/store_button.dart';
 import 'package:craftown/src/widgets/tool_button.dart';
@@ -79,6 +82,8 @@ class GameScreen extends StatelessWidget {
                       ToolButton(),
                       SizedBox(width: 4),
                       StoreButton(),
+                      SizedBox(width: 4),
+                      ResearchButton(),
                       SizedBox(width: 4),
                       CraftButton(),
                     ],
@@ -208,6 +213,18 @@ class GameScreen extends StatelessWidget {
                   return const Align(
                     alignment: Alignment.center,
                     child: SeedMenuWidget(),
+                  );
+                }
+
+                return const SizedBox.shrink();
+              },
+            ),
+            Consumer(
+              builder: (context, ref, _) {
+                if (ref.watch(researchMenuProvider).isOpen) {
+                  return const Align(
+                    alignment: Alignment.center,
+                    child: ResearchMenuWidget(),
                   );
                 }
 

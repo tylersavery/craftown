@@ -41,8 +41,8 @@ class StatsGui extends StatelessWidget {
                 ),
               ),
               _StatRow(type: StatType.sustainability, value: state.sustainability),
-              _StatRow(type: StatType.hunger, value: state.hunger),
               _StatRow(type: StatType.energy, value: state.energy),
+              _StatRow(type: StatType.hunger, value: state.hunger),
               _StatRow(type: StatType.thirst, value: state.thirst),
             ],
           );

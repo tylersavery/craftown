@@ -67,6 +67,9 @@ mixin _$Resource {
   double get spawnedResourceHitboxOffsetX => throw _privateConstructorUsedError;
   double get spawnedResourceHitboxOffsetY => throw _privateConstructorUsedError;
   String? get smeltsInto => throw _privateConstructorUsedError;
+  bool get isHouse => throw _privateConstructorUsedError;
+  List<ResearchLevel> get researchRequirements =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -125,7 +128,9 @@ abstract class $ResourceCopyWith<$Res> {
       double? spawnedResourceHitboxHeight,
       double spawnedResourceHitboxOffsetX,
       double spawnedResourceHitboxOffsetY,
-      String? smeltsInto});
+      String? smeltsInto,
+      bool isHouse,
+      List<ResearchLevel> researchRequirements});
 
   $ResourceCopyWith<$Res>? get growsInto;
   $ResourceCopyWith<$Res>? get miningOutputResource;
@@ -189,6 +194,8 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? spawnedResourceHitboxOffsetX = null,
     Object? spawnedResourceHitboxOffsetY = null,
     Object? smeltsInto = freezed,
+    Object? isHouse = null,
+    Object? researchRequirements = null,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -371,6 +378,14 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.smeltsInto
           : smeltsInto // ignore: cast_nullable_to_non_nullable
               as String?,
+      isHouse: null == isHouse
+          ? _value.isHouse
+          : isHouse // ignore: cast_nullable_to_non_nullable
+              as bool,
+      researchRequirements: null == researchRequirements
+          ? _value.researchRequirements
+          : researchRequirements // ignore: cast_nullable_to_non_nullable
+              as List<ResearchLevel>,
     ) as $Val);
   }
 
@@ -453,7 +468,9 @@ abstract class _$$ResourceImplCopyWith<$Res>
       double? spawnedResourceHitboxHeight,
       double spawnedResourceHitboxOffsetX,
       double spawnedResourceHitboxOffsetY,
-      String? smeltsInto});
+      String? smeltsInto,
+      bool isHouse,
+      List<ResearchLevel> researchRequirements});
 
   @override
   $ResourceCopyWith<$Res>? get growsInto;
@@ -517,6 +534,8 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? spawnedResourceHitboxOffsetX = null,
     Object? spawnedResourceHitboxOffsetY = null,
     Object? smeltsInto = freezed,
+    Object? isHouse = null,
+    Object? researchRequirements = null,
   }) {
     return _then(_$ResourceImpl(
       identifier: null == identifier
@@ -697,6 +716,14 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.smeltsInto
           : smeltsInto // ignore: cast_nullable_to_non_nullable
               as String?,
+      isHouse: null == isHouse
+          ? _value.isHouse
+          : isHouse // ignore: cast_nullable_to_non_nullable
+              as bool,
+      researchRequirements: null == researchRequirements
+          ? _value._researchRequirements
+          : researchRequirements // ignore: cast_nullable_to_non_nullable
+              as List<ResearchLevel>,
     ));
   }
 }
@@ -750,10 +777,13 @@ class _$ResourceImpl extends _Resource {
       this.spawnedResourceHitboxHeight,
       this.spawnedResourceHitboxOffsetX = 0.0,
       this.spawnedResourceHitboxOffsetY = 0.0,
-      this.smeltsInto})
+      this.smeltsInto,
+      this.isHouse = false,
+      final List<ResearchLevel> researchRequirements = const []})
       : _ingredients = ingredients,
         _requiredToMine = requiredToMine,
         _canOnlyBePlacedOn = canOnlyBePlacedOn,
+        _researchRequirements = researchRequirements,
         super._();
 
   factory _$ResourceImpl.fromJson(Map<String, dynamic> json) =>
@@ -898,148 +928,23 @@ class _$ResourceImpl extends _Resource {
   final double spawnedResourceHitboxOffsetY;
   @override
   final String? smeltsInto;
+  @override
+  @JsonKey()
+  final bool isHouse;
+  final List<ResearchLevel> _researchRequirements;
+  @override
+  @JsonKey()
+  List<ResearchLevel> get researchRequirements {
+    if (_researchRequirements is EqualUnmodifiableListView)
+      return _researchRequirements;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_researchRequirements);
+  }
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto)';
+    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ResourceImpl &&
-            (identical(other.identifier, identifier) ||
-                other.identifier == identifier) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.namePlural, namePlural) ||
-                other.namePlural == namePlural) &&
-            (identical(other.assetFileName16, assetFileName16) ||
-                other.assetFileName16 == assetFileName16) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.assetFileNameLarge, assetFileNameLarge) ||
-                other.assetFileNameLarge == assetFileNameLarge) &&
-            (identical(other.assetFileNameWhenFull, assetFileNameWhenFull) ||
-                other.assetFileNameWhenFull == assetFileNameWhenFull) &&
-            (identical(other.isLiquid, isLiquid) ||
-                other.isLiquid == isLiquid) &&
-            (identical(other.amountPerSlot, amountPerSlot) ||
-                other.amountPerSlot == amountPerSlot) &&
-            const DeepCollectionEquality()
-                .equals(other._ingredients, _ingredients) &&
-            (identical(other.interactionRadius, interactionRadius) ||
-                other.interactionRadius == interactionRadius) &&
-            (identical(other.secondsToSmelt, secondsToSmelt) ||
-                other.secondsToSmelt == secondsToSmelt) &&
-            (identical(other.secondsToCraft, secondsToCraft) ||
-                other.secondsToCraft == secondsToCraft) &&
-            (identical(other.secondsToMine, secondsToMine) ||
-                other.secondsToMine == secondsToMine) &&
-            const DeepCollectionEquality()
-                .equals(other.energyToMine, energyToMine) &&
-            (identical(other.miningToolRequiredIdentifier, miningToolRequiredIdentifier) ||
-                other.miningToolRequiredIdentifier ==
-                    miningToolRequiredIdentifier) &&
-            (identical(other.hungerDecreaseOnConsumption, hungerDecreaseOnConsumption) ||
-                other.hungerDecreaseOnConsumption ==
-                    hungerDecreaseOnConsumption) &&
-            (identical(other.thirstDecreaseOnConsumption, thirstDecreaseOnConsumption) ||
-                other.thirstDecreaseOnConsumption ==
-                    thirstDecreaseOnConsumption) &&
-            (identical(other.canPlace, canPlace) ||
-                other.canPlace == canPlace) &&
-            (identical(other.canPickUp, canPickUp) ||
-                other.canPickUp == canPickUp) &&
-            (identical(other.canConstruct, canConstruct) ||
-                other.canConstruct == canConstruct) &&
-            (identical(other.canSmelt, canSmelt) ||
-                other.canSmelt == canSmelt) &&
-            (identical(other.placementWidth, placementWidth) ||
-                other.placementWidth == placementWidth) &&
-            (identical(other.placementHeight, placementHeight) ||
-                other.placementHeight == placementHeight) &&
-            const DeepCollectionEquality()
-                .equals(other._requiredToMine, _requiredToMine) &&
-            (identical(other.slots, slots) || other.slots == slots) &&
-            (identical(other.storageType, storageType) ||
-                other.storageType == storageType) &&
-            (identical(other.resourcesPerSlot, resourcesPerSlot) ||
-                other.resourcesPerSlot == resourcesPerSlot) &&
-            (identical(other.outputSlotSize, outputSlotSize) ||
-                other.outputSlotSize == outputSlotSize) &&
-            (identical(other.isSeed, isSeed) || other.isSeed == isSeed) &&
-            (identical(other.secondsToGrow, secondsToGrow) ||
-                other.secondsToGrow == secondsToGrow) &&
-            (identical(other.growsInto, growsInto) ||
-                other.growsInto == growsInto) &&
-            (identical(other.farmYieldMin, farmYieldMin) ||
-                other.farmYieldMin == farmYieldMin) &&
-            (identical(other.farmYieldMax, farmYieldMax) ||
-                other.farmYieldMax == farmYieldMax) &&
-            (identical(other.contentsWillSell, contentsWillSell) || other.contentsWillSell == contentsWillSell) &&
-            (identical(other.saleValue, saleValue) || other.saleValue == saleValue) &&
-            (identical(other.miningOutputResource, miningOutputResource) || other.miningOutputResource == miningOutputResource) &&
-            const DeepCollectionEquality().equals(other._canOnlyBePlacedOn, _canOnlyBePlacedOn) &&
-            (identical(other.restValue, restValue) || other.restValue == restValue) &&
-            (identical(other.storeCost, storeCost) || other.storeCost == storeCost) &&
-            (identical(other.spawnedResourceHitboxWidth, spawnedResourceHitboxWidth) || other.spawnedResourceHitboxWidth == spawnedResourceHitboxWidth) &&
-            (identical(other.spawnedResourceHitboxHeight, spawnedResourceHitboxHeight) || other.spawnedResourceHitboxHeight == spawnedResourceHitboxHeight) &&
-            (identical(other.spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetX) || other.spawnedResourceHitboxOffsetX == spawnedResourceHitboxOffsetX) &&
-            (identical(other.spawnedResourceHitboxOffsetY, spawnedResourceHitboxOffsetY) || other.spawnedResourceHitboxOffsetY == spawnedResourceHitboxOffsetY) &&
-            (identical(other.smeltsInto, smeltsInto) || other.smeltsInto == smeltsInto));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        identifier,
-        name,
-        namePlural,
-        assetFileName16,
-        description,
-        assetFileNameLarge,
-        assetFileNameWhenFull,
-        isLiquid,
-        amountPerSlot,
-        const DeepCollectionEquality().hash(_ingredients),
-        interactionRadius,
-        secondsToSmelt,
-        secondsToCraft,
-        secondsToMine,
-        const DeepCollectionEquality().hash(energyToMine),
-        miningToolRequiredIdentifier,
-        hungerDecreaseOnConsumption,
-        thirstDecreaseOnConsumption,
-        canPlace,
-        canPickUp,
-        canConstruct,
-        canSmelt,
-        placementWidth,
-        placementHeight,
-        const DeepCollectionEquality().hash(_requiredToMine),
-        slots,
-        storageType,
-        resourcesPerSlot,
-        outputSlotSize,
-        isSeed,
-        secondsToGrow,
-        growsInto,
-        farmYieldMin,
-        farmYieldMax,
-        contentsWillSell,
-        saleValue,
-        miningOutputResource,
-        const DeepCollectionEquality().hash(_canOnlyBePlacedOn),
-        restValue,
-        storeCost,
-        spawnedResourceHitboxWidth,
-        spawnedResourceHitboxHeight,
-        spawnedResourceHitboxOffsetX,
-        spawnedResourceHitboxOffsetY,
-        smeltsInto
-      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -1102,7 +1007,9 @@ abstract class _Resource extends Resource {
       final double? spawnedResourceHitboxHeight,
       final double spawnedResourceHitboxOffsetX,
       final double spawnedResourceHitboxOffsetY,
-      final String? smeltsInto}) = _$ResourceImpl;
+      final String? smeltsInto,
+      final bool isHouse,
+      final List<ResearchLevel> researchRequirements}) = _$ResourceImpl;
   const _Resource._() : super._();
 
   factory _Resource.fromJson(Map<String, dynamic> json) =
@@ -1199,6 +1106,10 @@ abstract class _Resource extends Resource {
   double get spawnedResourceHitboxOffsetY;
   @override
   String? get smeltsInto;
+  @override
+  bool get isHouse;
+  @override
+  List<ResearchLevel> get researchRequirements;
   @override
   @JsonKey(ignore: true)
   _$$ResourceImplCopyWith<_$ResourceImpl> get copyWith =>

@@ -125,6 +125,7 @@ class InventoryMenuWidget extends ConsumerWidget {
                                   ref.read(resourceInHandProvider.notifier).set(resource);
                                   menuProvider.close();
                                 },
+                                small: true,
                               ),
                             if (resource.canConsume)
                               Padding(

@@ -19,7 +19,7 @@ class InventoryList extends _$InventoryList {
       (index) => InventorySlot(resource: null, count: 0),
     );
 
-    initialState[0] = InventorySlot(resource: Resources.iron, count: 50);
+    initialState[0] = InventorySlot(resource: Resources.ironPlate, count: 50);
     initialState[1] = InventorySlot(resource: Resources.copper, count: 50);
     initialState[2] = InventorySlot(resource: Resources.straw, count: 50);
     initialState[3] = InventorySlot(resource: Resources.woodenBucket, count: 1);
@@ -30,7 +30,7 @@ class InventoryList extends _$InventoryList {
     initialState[8] = InventorySlot(resource: Resources.well, count: 3);
     initialState[9] = InventorySlot(resource: Resources.heavyMiner, count: 2);
     initialState[10] = InventorySlot(resource: Resources.water, count: 3);
-    initialState[11] = InventorySlot(resource: Resources.carrot, count: 3);
+    initialState[11] = InventorySlot(resource: Resources.woodHouse, count: 3);
 
     return initialState;
   }

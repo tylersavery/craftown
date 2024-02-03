@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'package:craftown/src/components/indoor_level.dart';
 import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/components/shift_button.dart';
 import 'package:craftown/src/models/character.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:craftown/src/constants.dart';
-import 'package:craftown/src/level.dart';
+import 'package:craftown/src/components/level.dart';
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -19,7 +20,7 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
   late SpriteSheet cropsSpriteSheet;
 
   late final Player player;
-  late final Level level;
+  late Level level;
   late JoystickComponent joystick;
 
   Craftown({required this.character}) {
@@ -39,6 +40,12 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
     );
 
     _loadLevel();
+
+    if (JOYSTICK_ENABLED) {
+      _addJoystick();
+      cam.viewport.add(joystick);
+      // cam.viewport.add(ShiftButton());
+    }
 
     return super.onLoad();
   }
@@ -75,11 +82,17 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
     cam.follow(player);
 
     addAll([cam, level]);
-    if (JOYSTICK_ENABLED) {
-      _addJoystick();
-      cam.viewport.add(joystick);
-      // cam.viewport.add(ShiftButton());
-    }
+  }
+
+  void enterBuilding() {
+    // removeWhere((component) => component is Player);
+    // _loadLevel();
+    final indoorLevel = IndoorLevel();
+    indoorLevel.priority = 0;
+    add(indoorLevel);
+
+    // indoorLevel.add(player);
+    cam.world = indoorLevel;
   }
 
   void _addJoystick() {

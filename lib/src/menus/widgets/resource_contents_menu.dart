@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:craftown/src/components/indoor_level.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
@@ -13,6 +14,7 @@ import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:craftown/src/providers/recipes_list_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
+import 'package:craftown/src/screens/game_screen.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/recipes_selector_list.dart';
 import 'package:craftown/src/widgets/shared/hold_down_button.dart';
@@ -81,7 +83,7 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                           child: RecipeSelectorList(
                             listType: RecipeListType.constructable,
                             onSelect: (index) {
-                              final recipe = ref.read(recipesListProvider(RecipeListType.constructable))[index];
+                              final recipe = ref.read(recipeListProvider(RecipeListType.constructable))[index];
 
                               ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).selectRecipe(recipe);
                             },
@@ -432,6 +434,22 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                                   duration: Duration.zero,
                                   onComplete: () {
                                     ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).toggleSelling();
+                                  },
+                                  completeOnClick: true,
+                                  small: true,
+                                ),
+                              ),
+
+                            if (placedResource.sprite.resource.isHouse)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: HoldDownButton(
+                                  label: "Enter",
+                                  duration: Duration.zero,
+                                  onComplete: () {
+                                    // final level = IndoorLevel(player: gameWidgetKey.currentState!.currentGame.player);
+
+                                    gameWidgetKey.currentState!.currentGame.enterBuilding();
                                   },
                                   completeOnClick: true,
                                   small: true,
