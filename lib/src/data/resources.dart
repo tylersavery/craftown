@@ -44,7 +44,7 @@ class Resources {
         placementWidth: 24,
         placementHeight: 20,
         secondsToMine: 3,
-        miningToolRequiredIdentifier: "pick",
+        miningToolRequiredIdentifier: "shovel",
         smeltsInto: "brick",
       );
 
@@ -305,6 +305,20 @@ class Resources {
 
   // Assemblables (2+ ingredients)
 
+  static Resource get shovel => Resource(
+        identifier: "shovel",
+        assetFileName16: "shovel-16x16.png",
+        assetFileNameLarge: "shovel-32x32.png",
+        name: "Shovel",
+        namePlural: "Shovels",
+        secondsToCraft: 3,
+        amountPerSlot: 1,
+        ingredients: [
+          Ingredient(resource: Resources.wood, quantity: 10),
+          Ingredient(resource: Resources.iron, quantity: 5),
+        ],
+      );
+
   static Resource get woodenBucket => Resource(
         identifier: "wooden_bucket",
         assetFileName16: "wooden-bucket-16x16.png",
@@ -317,7 +331,7 @@ class Resources {
         storeCost: 10,
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 5),
-          Ingredient(resource: Resources.iron, quantity: 2),
+          Ingredient(resource: Resources.ironPlate, quantity: 2),
         ],
       );
 
@@ -392,7 +406,7 @@ class Resources {
         secondsToCraft: 10,
         ingredients: [
           Ingredient(resource: Resources.iron, quantity: 20),
-          Ingredient(resource: Resources.copper, quantity: 10),
+          Ingredient(resource: Resources.clay, quantity: 10),
           Ingredient(resource: Resources.stone, quantity: 10),
         ],
         storageType: StorageType.all,
@@ -568,6 +582,7 @@ class Resources {
         Resources.chest,
 
         // Assembleables
+        Resources.shovel,
         Resources.woodenBucket,
         Resources.soup,
         Resources.tent,

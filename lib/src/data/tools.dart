@@ -19,6 +19,7 @@ class Tools {
         identifier: "shovel",
         name: "Shovel",
         assetName: "shovel",
+        resourcesRequired: [Resources.shovel],
       );
   static Tool get sythe => Tool(
         type: ToolType.sythe,

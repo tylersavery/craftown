@@ -1,6 +1,8 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/menus/providers/tool_menu_provider.dart';
+import 'package:craftown/src/providers/inventory_list_provider.dart';
+import 'package:craftown/src/providers/inventory_map_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/shared/menu_container.dart';
@@ -14,6 +16,7 @@ class ToolMenuWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final menuProvider = ref.read(toolMenuProvider.notifier);
     final selectedTool = ref.watch(selectedToolProvider);
+
     return MenuContainer(
       title: "Tools",
       handleClose: () {
@@ -31,23 +34,35 @@ class ToolMenuWidget extends ConsumerWidget {
                 children: Tools.allTools.map((tool) {
                   final isSelected = selectedTool == tool;
 
+                  bool isAvailable = true;
+
+                  for (final r in tool.resourcesRequired) {
+                    if (!ref.watch(inventoryMapProvider).containsKey(r.identifier)) {
+                      isAvailable = false;
+                      break;
+                    }
+                  }
+
                   return InkWell(
                     onTap: () {
                       menuProvider.setSelected(tool, true);
                     },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 2,
-                          color: isSelected ? Colors.green : Colors.transparent,
+                    child: Opacity(
+                      opacity: isAvailable ? 1 : 0.5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 2,
+                            color: isSelected ? Colors.green : Colors.transparent,
+                          ),
                         ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: PixelArtImageAsset(
-                          tool.assetPath,
-                          width: 32,
-                          height: 32,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: PixelArtImageAsset(
+                            tool.assetPath,
+                            width: 32,
+                            height: 32,
+                          ),
                         ),
                       ),
                     ),

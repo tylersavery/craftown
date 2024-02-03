@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+const DEBUG_INVENTORY = false;
 const TILE_SIZE = 16.0;
 const CAMERA_ZOOM = 2.0;
 const JOYSTICK_ENABLED = false;

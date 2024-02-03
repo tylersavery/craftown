@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:craftown/src/components/player.dart';
-import 'package:craftown/src/components/shift_button.dart';
 import 'package:craftown/src/models/character.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
@@ -58,8 +57,6 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
   }
 
   void _loadLevel(String levelName, Player p) async {
-    await Future.delayed(const Duration(milliseconds: 500));
-
     level = Level(levelName: levelName, player: p);
 
     final windowWidth = size.x;
