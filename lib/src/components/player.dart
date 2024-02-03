@@ -193,6 +193,10 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
       }
     }
 
+    // if (keysPressed.contains(LogicalKeyboardKey.space)) {
+    //   game.exitBuilding();
+    // }
+
     return super.onKeyEvent(event, keysPressed);
   }
 

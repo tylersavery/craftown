@@ -72,6 +72,11 @@ class SavedGameList extends _$SavedGameList {
     // Farming
 
     Future.delayed(Duration(milliseconds: 10), () {
+      if (gameWidgetKey.currentState == null) {
+        print("GameState NULL");
+        return false;
+      }
+
       gameWidgetKey.currentState!.currentGame.player.setPosition(Vector2(save.playerPositionX, save.playerPositionY));
 
       for (final pr in placedResources) {
@@ -119,6 +124,10 @@ class SavedGameList extends _$SavedGameList {
   }
 
   Future<void> saveGame(String filename, {SavedGame? overwrite}) async {
+    if (gameWidgetKey.currentState == null) {
+      print("GameState NULL");
+      return;
+    }
     final playerState = gameWidgetKey.currentState!.currentGame.player;
 
     final placedResources = ref.read(placedResourcesListProvider);

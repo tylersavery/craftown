@@ -7,7 +7,7 @@ part of 'placed_resources_list_provider.dart';
 // **************************************************************************
 
 String _$placedResourcesListHash() =>
-    r'4394058f93c6f4c2efb1917d6e57556894112bf8';
+    r'8d06bb665fb03667d511512e07f3139c72c8e4d6';
 
 /// See also [PlacedResourcesList].
 @ProviderFor(PlacedResourcesList)

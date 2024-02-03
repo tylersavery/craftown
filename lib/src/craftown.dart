@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:craftown/src/components/indoor_level.dart';
 import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/components/shift_button.dart';
 import 'package:craftown/src/models/character.dart';
@@ -39,7 +38,7 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
       srcSize: Vector2(16, 16),
     );
 
-    _loadLevel();
+    _loadLevel("level_0", player);
 
     if (JOYSTICK_ENABLED) {
       _addJoystick();
@@ -58,8 +57,10 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
     super.update(dt);
   }
 
-  void _loadLevel() {
-    level = Level(levelName: "level_0", player: player);
+  void _loadLevel(String levelName, Player p) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    level = Level(levelName: levelName, player: p);
 
     final windowWidth = size.x;
     final windowHeight = size.y;
@@ -82,17 +83,6 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
     cam.follow(player);
 
     addAll([cam, level]);
-  }
-
-  void enterBuilding() {
-    // removeWhere((component) => component is Player);
-    // _loadLevel();
-    final indoorLevel = IndoorLevel();
-    indoorLevel.priority = 0;
-    add(indoorLevel);
-
-    // indoorLevel.add(player);
-    cam.world = indoorLevel;
   }
 
   void _addJoystick() {

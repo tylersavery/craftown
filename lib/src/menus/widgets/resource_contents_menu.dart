@@ -2,7 +2,6 @@
 
 import 'dart:math';
 
-import 'package:craftown/src/components/indoor_level.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
@@ -448,8 +447,12 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                                   duration: Duration.zero,
                                   onComplete: () {
                                     // final level = IndoorLevel(player: gameWidgetKey.currentState!.currentGame.player);
-
-                                    gameWidgetKey.currentState!.currentGame.enterBuilding();
+                                    if (gameWidgetKey.currentState == null) {
+                                      print("GameState NULL");
+                                      return false;
+                                    }
+                                    ref.read(resourceContentsMenuProvider.notifier).close();
+                                    ref.read(toastMessagesListProvider.notifier).add("Can't enter building.");
                                   },
                                   completeOnClick: true,
                                   small: true,

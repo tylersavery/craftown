@@ -61,6 +61,11 @@ class PlacedResourcesList extends _$PlacedResourcesList {
       ref.read(inventoryMenuProvider.notifier).setSelected(index);
     }
 
+    if (gameWidgetKey.currentState == null) {
+      print("GameState NULL");
+      return false;
+    }
+
     final gameComponent = gameWidgetKey.currentState!.currentGame.level.children.firstWhere((element) {
       if (element is ResourceSprite) {
         if (element.placementUniqueIdentifier == item.uniqueIdentifier) {
@@ -76,17 +81,12 @@ class PlacedResourcesList extends _$PlacedResourcesList {
 
     final level = gameWidgetKey.currentState!.currentGame.level;
 
-    if(level is Level) {
-
     final collisionBlockIndex = level.collisionBlocks.indexWhere(
       (element) => element.x == item.sprite.x && element.y == item.sprite.y,
     );
-       if (collisionBlockIndex >= 0) {
+    if (collisionBlockIndex >= 0) {
       level.collisionBlocks.removeAt(collisionBlockIndex);
     }
-    }
-
- 
 
     return true;
   }
