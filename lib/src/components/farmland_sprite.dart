@@ -40,6 +40,7 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   @override
   FutureOr<void> onLoad() {
+    priority = 20;
     untouchedSprite = Sprite(game.images.fromCache("farmland_untouched_16x16.png"));
     dugSprite = Sprite(game.images.fromCache("farmland_dug_16x16.png"));
     growingSprite = Sprite(game.images.fromCache("farmland_growing_16x16.png"));

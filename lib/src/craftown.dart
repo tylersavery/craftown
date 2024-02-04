@@ -37,7 +37,7 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
       srcSize: Vector2(16, 16),
     );
 
-    _loadLevel("level_0", player);
+    _loadLevel("level_1", player);
 
     if (JOYSTICK_ENABLED) {
       _addJoystick();

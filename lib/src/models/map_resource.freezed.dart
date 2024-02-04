@@ -22,6 +22,8 @@ MapResource _$MapResourceFromJson(Map<String, dynamic> json) {
 mixin _$MapResource {
   String get uniqueIdentifier => throw _privateConstructorUsedError;
   ResourceSprite get sprite => throw _privateConstructorUsedError;
+  int get tileX => throw _privateConstructorUsedError;
+  int get tileY => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +37,8 @@ abstract class $MapResourceCopyWith<$Res> {
           MapResource value, $Res Function(MapResource) then) =
       _$MapResourceCopyWithImpl<$Res, MapResource>;
   @useResult
-  $Res call({String uniqueIdentifier, ResourceSprite sprite});
+  $Res call(
+      {String uniqueIdentifier, ResourceSprite sprite, int tileX, int tileY});
 }
 
 /// @nodoc
@@ -53,6 +56,8 @@ class _$MapResourceCopyWithImpl<$Res, $Val extends MapResource>
   $Res call({
     Object? uniqueIdentifier = null,
     Object? sprite = null,
+    Object? tileX = null,
+    Object? tileY = null,
   }) {
     return _then(_value.copyWith(
       uniqueIdentifier: null == uniqueIdentifier
@@ -63,6 +68,14 @@ class _$MapResourceCopyWithImpl<$Res, $Val extends MapResource>
           ? _value.sprite
           : sprite // ignore: cast_nullable_to_non_nullable
               as ResourceSprite,
+      tileX: null == tileX
+          ? _value.tileX
+          : tileX // ignore: cast_nullable_to_non_nullable
+              as int,
+      tileY: null == tileY
+          ? _value.tileY
+          : tileY // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -75,7 +88,8 @@ abstract class _$$MapResourceImplCopyWith<$Res>
       __$$MapResourceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uniqueIdentifier, ResourceSprite sprite});
+  $Res call(
+      {String uniqueIdentifier, ResourceSprite sprite, int tileX, int tileY});
 }
 
 /// @nodoc
@@ -91,6 +105,8 @@ class __$$MapResourceImplCopyWithImpl<$Res>
   $Res call({
     Object? uniqueIdentifier = null,
     Object? sprite = null,
+    Object? tileX = null,
+    Object? tileY = null,
   }) {
     return _then(_$MapResourceImpl(
       uniqueIdentifier: null == uniqueIdentifier
@@ -101,6 +117,14 @@ class __$$MapResourceImplCopyWithImpl<$Res>
           ? _value.sprite
           : sprite // ignore: cast_nullable_to_non_nullable
               as ResourceSprite,
+      tileX: null == tileX
+          ? _value.tileX
+          : tileX // ignore: cast_nullable_to_non_nullable
+              as int,
+      tileY: null == tileY
+          ? _value.tileY
+          : tileY // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -109,7 +133,10 @@ class __$$MapResourceImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MapResourceImpl extends _MapResource {
   const _$MapResourceImpl(
-      {required this.uniqueIdentifier, required this.sprite})
+      {required this.uniqueIdentifier,
+      required this.sprite,
+      required this.tileX,
+      required this.tileY})
       : super._();
 
   factory _$MapResourceImpl.fromJson(Map<String, dynamic> json) =>
@@ -119,10 +146,14 @@ class _$MapResourceImpl extends _MapResource {
   final String uniqueIdentifier;
   @override
   final ResourceSprite sprite;
+  @override
+  final int tileX;
+  @override
+  final int tileY;
 
   @override
   String toString() {
-    return 'MapResource(uniqueIdentifier: $uniqueIdentifier, sprite: $sprite)';
+    return 'MapResource(uniqueIdentifier: $uniqueIdentifier, sprite: $sprite, tileX: $tileX, tileY: $tileY)';
   }
 
   @override
@@ -132,12 +163,15 @@ class _$MapResourceImpl extends _MapResource {
             other is _$MapResourceImpl &&
             (identical(other.uniqueIdentifier, uniqueIdentifier) ||
                 other.uniqueIdentifier == uniqueIdentifier) &&
-            (identical(other.sprite, sprite) || other.sprite == sprite));
+            (identical(other.sprite, sprite) || other.sprite == sprite) &&
+            (identical(other.tileX, tileX) || other.tileX == tileX) &&
+            (identical(other.tileY, tileY) || other.tileY == tileY));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uniqueIdentifier, sprite);
+  int get hashCode =>
+      Object.hash(runtimeType, uniqueIdentifier, sprite, tileX, tileY);
 
   @JsonKey(ignore: true)
   @override
@@ -156,7 +190,9 @@ class _$MapResourceImpl extends _MapResource {
 abstract class _MapResource extends MapResource {
   const factory _MapResource(
       {required final String uniqueIdentifier,
-      required final ResourceSprite sprite}) = _$MapResourceImpl;
+      required final ResourceSprite sprite,
+      required final int tileX,
+      required final int tileY}) = _$MapResourceImpl;
   const _MapResource._() : super._();
 
   factory _MapResource.fromJson(Map<String, dynamic> json) =
@@ -166,6 +202,10 @@ abstract class _MapResource extends MapResource {
   String get uniqueIdentifier;
   @override
   ResourceSprite get sprite;
+  @override
+  int get tileX;
+  @override
+  int get tileY;
   @override
   @JsonKey(ignore: true)
   _$$MapResourceImplCopyWith<_$MapResourceImpl> get copyWith =>

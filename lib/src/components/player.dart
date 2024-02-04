@@ -111,7 +111,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
 
   @override
   FutureOr<void> onLoad() {
-    priority = 5;
+    priority = 50;
     debugMode = false;
     _loadAllAnimations();
     startingPosition = Vector2(position.x, position.y);

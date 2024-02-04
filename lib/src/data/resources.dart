@@ -56,10 +56,10 @@ class Resources {
         assetFileNameLarge: "copper-32x32.png",
         secondsToMine: 3,
         miningToolRequiredIdentifier: "pick",
-        spawnedResourceHitboxWidth: 27,
-        spawnedResourceHitboxHeight: 25,
+        spawnedResourceHitboxWidth: 12,
+        spawnedResourceHitboxHeight: 8,
         spawnedResourceHitboxOffsetX: 2,
-        spawnedResourceHitboxOffsetY: 3,
+        spawnedResourceHitboxOffsetY: 4,
         // smeltsInto: "wire",
       );
 

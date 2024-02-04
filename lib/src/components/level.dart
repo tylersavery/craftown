@@ -11,9 +11,11 @@ import 'package:craftown/src/components/resource_sprite.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/data/resources.dart';
+import 'package:craftown/src/models/calendar_state.dart';
 import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/map_resource.dart';
 import 'package:craftown/src/models/resource.dart';
+import 'package:craftown/src/providers/calendar_provider.dart';
 import 'package:craftown/src/providers/farmland_list_provider.dart';
 import 'package:craftown/src/providers/map_resource_list_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
@@ -37,26 +39,28 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
     required this.player,
   });
 
-  late TiledComponent backgroundMap;
-  late TiledComponent foregroundMap;
+  late TiledComponent mapSummer;
+  late TiledComponent mapWinter;
   late GridOverlay gridOverlay;
   List<CollisionBlock> collisionBlocks = [];
 
   bool isPlacingObject = false;
+  CalendarSeason currentSeason = CalendarSeason.summer;
 
   @override
   FutureOr<void> onLoad() async {
-    backgroundMap = await TiledComponent.load("$levelName.tmx", Vector2.all(16))
+    mapSummer = await TiledComponent.load("$levelName.tmx", Vector2.all(16))
       ..priority = 0;
-    foregroundMap = await TiledComponent.load("$levelName.tmx", Vector2.all(16))
-      ..priority = 10;
-    add(backgroundMap);
-    add(foregroundMap);
 
-    gridOverlay = GridOverlay(handleTap: _onGridTap);
+    // mapWinter = await TiledComponent.load("${levelName}_winter.tmx", Vector2.all(16))
+    //   ..priority = 0;
+    mapWinter = await TiledComponent.load("${levelName}.tmx", Vector2.all(16))
+      ..priority = 0;
 
-    _updateBackground();
-    _updateForground();
+    add(mapSummer);
+
+    gridOverlay = GridOverlay(handleTap: _onGridTap, size: mapSummer.size);
+
     _spawnResources();
     _spawnPlayer();
     _spawnFarmland();
@@ -74,6 +78,8 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       _hideGrid();
     }
 
+    _handleSeasons(dt);
+
     super.update(dt);
   }
 
@@ -86,7 +92,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
   }
 
   void _spawnPlayer() {
-    final spawnPointsLayer = backgroundMap.tileMap.getLayer<ObjectGroup>("Spawnpoints");
+    final spawnPointsLayer = mapSummer.tileMap.getLayer<ObjectGroup>("Spawnpoints");
     if (spawnPointsLayer != null) {
       for (final spawnPoint in spawnPointsLayer.objects) {
         switch (spawnPoint.class_) {
@@ -100,14 +106,21 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
   }
 
   void _spawnResources() {
-    final resourcesLayer = backgroundMap.tileMap.getLayer<ObjectGroup>("Resources");
+    final resourcesLayer = mapSummer.tileMap.getLayer<ObjectGroup>("Resources");
     if (resourcesLayer != null) {
       // final List<String> identifiers = [];
       for (final object in resourcesLayer.objects) {
+        final properties = object.properties;
         Resource? resource;
+        bool isGround = false;
         switch (object.class_) {
           case "Iron":
             resource = Resources.iron;
+            break;
+
+          case "IronGround":
+            resource = Resources.iron;
+            isGround = true;
             break;
           case "Stone":
             resource = Resources.stone;
@@ -117,6 +130,10 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
             break;
           case "Clay":
             resource = Resources.clay;
+            break;
+          case "ClayGround":
+            resource = Resources.clay;
+            isGround = true;
             break;
           case "Wood":
             resource = Resources.wood;
@@ -131,29 +148,63 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
         if (resource != null) {
           final uniqueIdentifier = randomString();
 
-          final sprite = ResourceSprite(
-            placementUniqueIdentifier: uniqueIdentifier,
-            resource: resource,
-            position: Vector2(object.x, object.y),
-            size: Vector2(object.width, object.height),
-          );
-          add(sprite);
+          if (isGround) {
+            final cols = object.width / TILE_SIZE;
+            final rows = object.height / TILE_SIZE;
 
-          if (resource.spawnedResourceHasHitbox) {
-            final block = CollisionBlock(
-              position: Vector2(object.x + resource.spawnedResourceHitboxOffsetX, object.y + resource.spawnedResourceHitboxOffsetY),
-              size: Vector2(resource.spawnedResourceHitboxWidth ?? object.width, resource.spawnedResourceHitboxHeight ?? object.height),
-            );
-
-            collisionBlocks.add(block);
-            add(block);
-          }
-
-          Future.delayed(Duration(milliseconds: 10), () {
-            ref.read(mapResourceListProvider.notifier).add(
-                  MapResource(uniqueIdentifier: uniqueIdentifier, sprite: sprite),
+            for (int x = 0; x < cols; x++) {
+              for (int y = 0; y < rows; y++) {
+                final sprite = ResourceSprite(
+                  placementUniqueIdentifier: uniqueIdentifier,
+                  resource: resource,
+                  position: Vector2(object.x + (x * TILE_SIZE), object.y + (y * TILE_SIZE)),
+                  size: Vector2(TILE_SIZE, TILE_SIZE),
+                  isGround: isGround,
                 );
-          });
+                add(sprite);
+
+                Future.delayed(Duration(milliseconds: 10), () {
+                  ref.read(mapResourceListProvider.notifier).add(
+                        MapResource(
+                          uniqueIdentifier: uniqueIdentifier,
+                          sprite: sprite,
+                          tileX: (object.x / TILE_SIZE).round() + x,
+                          tileY: (object.y / TILE_SIZE).round() + y,
+                        ),
+                      );
+                });
+              }
+            }
+          } else {
+            final sprite = ResourceSprite(
+              placementUniqueIdentifier: uniqueIdentifier,
+              resource: resource,
+              position: Vector2(object.x, object.y),
+              size: Vector2(object.width, object.height),
+              isGround: isGround,
+            );
+            add(sprite);
+
+            if (resource.spawnedResourceHasHitbox) {
+              final block = CollisionBlock(
+                position: Vector2(object.x + resource.spawnedResourceHitboxOffsetX, object.y + resource.spawnedResourceHitboxOffsetY),
+                size: Vector2(resource.spawnedResourceHitboxWidth ?? object.width, resource.spawnedResourceHitboxHeight ?? object.height),
+              );
+
+              collisionBlocks.add(block);
+              add(block);
+            }
+
+            Future.delayed(Duration(milliseconds: 10), () {
+              ref.read(mapResourceListProvider.notifier).add(
+                    MapResource(
+                        uniqueIdentifier: uniqueIdentifier,
+                        sprite: sprite,
+                        tileX: (object.x / TILE_SIZE).round(),
+                        tileY: (object.y / TILE_SIZE).round()),
+                  );
+            });
+          }
 
           // identifiers.add(uniqueIdentifier);
         }
@@ -162,7 +213,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
   }
 
   void _addCollisions() {
-    final collisionsLayer = backgroundMap.tileMap.getLayer<ObjectGroup>("CollisionBoxes");
+    final collisionsLayer = mapSummer.tileMap.getLayer<ObjectGroup>("CollisionBoxes");
     if (collisionsLayer != null) {
       for (final collision in collisionsLayer.objects) {
         final block = CollisionBlock(
@@ -175,22 +226,6 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
     }
 
     player.collisionBlocks = collisionBlocks;
-  }
-
-  void _updateBackground() {
-    for (final layer in backgroundMap.tileMap.renderableLayers) {
-      if (layer.layer.class_ == "Foreground") {
-        layer.layer.visible = false;
-      }
-    }
-  }
-
-  void _updateForground() {
-    for (final layer in foregroundMap.tileMap.renderableLayers) {
-      if (layer.layer.class_ != "Foreground") {
-        layer.layer.visible = false;
-      }
-    }
   }
 
   void _showGrid() {
@@ -215,8 +250,14 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       final y = (tileY * TILE_SIZE).toDouble();
 
       final resourceAtCoords =
-          ref.read(mapResourceListProvider).firstWhereOrNull((mapResource) => mapResource.sprite.x == x && mapResource.sprite.y == y);
+          ref.read(mapResourceListProvider).firstWhereOrNull((mapResource) => mapResource.tileX == tileX && mapResource.tileY == tileY);
 
+      final placedResourceAtCoords = ref.read(placedResourcesListProvider).firstWhereOrNull((pr) => pr.tileX == tileX && pr.tileY == tileY);
+
+      if (placedResourceAtCoords != null) {
+        ref.read(toastMessagesListProvider.notifier).add("${placedResourceAtCoords.sprite.resource.name} is in the way.");
+        return;
+      }
       Resource? updatedResource;
 
       if (resource.canOnlyBePlacedOn != null) {
@@ -225,8 +266,14 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
           return;
         }
 
-        final canBePlaced =
+        bool canBePlaced =
             resource.canOnlyBePlacedOn!.firstWhereOrNull((element) => element.identifier == resourceAtCoords.sprite.resource.identifier) != null;
+        if (resource.canOnlyBePlacedOnGround) {
+          if (!resourceAtCoords.sprite.isGround) {
+            canBePlaced = false;
+          }
+        }
+
         if (!canBePlaced) {
           ref.read(toastMessagesListProvider.notifier).add("${resource.name} can't be placed here.");
 
@@ -245,13 +292,14 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       final newResource = ResourceSprite(
         resource: updatedResource ?? resource,
         placementUniqueIdentifier: uniqueIdentifier,
-        position: Vector2(x, y),
+        position: Vector2(x, y - resource.placementHeight + TILE_SIZE),
         size: Vector2(resource.placementWidth, resource.placementHeight),
         visible: true,
+        isGround: false,
       );
 
       add(newResource);
-      ref.read(placedResourcesListProvider.notifier).add(uniqueIdentifier, newResource);
+      ref.read(placedResourcesListProvider.notifier).add(uniqueIdentifier, newResource, tileX, tileY);
       final block = CollisionBlock(
         position: newResource.position,
         size: newResource.size,
@@ -266,7 +314,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
   }
 
   void _spawnFarmland() {
-    final farmableLayer = backgroundMap.tileMap.getLayer<ObjectGroup>("Farmable");
+    final farmableLayer = mapSummer.tileMap.getLayer<ObjectGroup>("Farmable");
     if (farmableLayer != null) {
       for (final obj in farmableLayer.objects) {
         final x = obj.x;
@@ -299,6 +347,28 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
             ref.read(farmlandListProvider.notifier).add(Farmland(identifier: identifier));
           }
         });
+      }
+    }
+  }
+
+  void _handleSeasons(double dt) {
+    final season = ref.read(calendarProvider).season;
+
+    if (currentSeason != season) {
+      currentSeason = season;
+      switch (season) {
+        case CalendarSeason.summer:
+          if (mapWinter.isMounted) {
+            remove(mapWinter);
+          }
+          add(mapSummer);
+          break;
+        case CalendarSeason.winter:
+          if (mapSummer.isMounted) {
+            remove(mapSummer);
+          }
+          add(mapWinter);
+          break;
       }
     }
   }

@@ -29,6 +29,8 @@ mixin _$PlacedResource {
   bool get isMining => throw _privateConstructorUsedError;
   bool get isSmelting => throw _privateConstructorUsedError;
   List<Resource> get outputSlotContents => throw _privateConstructorUsedError;
+  int get tileX => throw _privateConstructorUsedError;
+  int get tileY => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +53,9 @@ abstract class $PlacedResourceCopyWith<$Res> {
       bool isSelling,
       bool isMining,
       bool isSmelting,
-      List<Resource> outputSlotContents});
+      List<Resource> outputSlotContents,
+      int tileX,
+      int tileY});
 
   $ResourceCopyWith<$Res>? get selectedRecipe;
 }
@@ -78,6 +82,8 @@ class _$PlacedResourceCopyWithImpl<$Res, $Val extends PlacedResource>
     Object? isMining = null,
     Object? isSmelting = null,
     Object? outputSlotContents = null,
+    Object? tileX = null,
+    Object? tileY = null,
   }) {
     return _then(_value.copyWith(
       uniqueIdentifier: null == uniqueIdentifier
@@ -116,6 +122,14 @@ class _$PlacedResourceCopyWithImpl<$Res, $Val extends PlacedResource>
           ? _value.outputSlotContents
           : outputSlotContents // ignore: cast_nullable_to_non_nullable
               as List<Resource>,
+      tileX: null == tileX
+          ? _value.tileX
+          : tileX // ignore: cast_nullable_to_non_nullable
+              as int,
+      tileY: null == tileY
+          ? _value.tileY
+          : tileY // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 
@@ -149,7 +163,9 @@ abstract class _$$PlacedResourceImplCopyWith<$Res>
       bool isSelling,
       bool isMining,
       bool isSmelting,
-      List<Resource> outputSlotContents});
+      List<Resource> outputSlotContents,
+      int tileX,
+      int tileY});
 
   @override
   $ResourceCopyWith<$Res>? get selectedRecipe;
@@ -175,6 +191,8 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
     Object? isMining = null,
     Object? isSmelting = null,
     Object? outputSlotContents = null,
+    Object? tileX = null,
+    Object? tileY = null,
   }) {
     return _then(_$PlacedResourceImpl(
       uniqueIdentifier: null == uniqueIdentifier
@@ -213,6 +231,14 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
           ? _value._outputSlotContents
           : outputSlotContents // ignore: cast_nullable_to_non_nullable
               as List<Resource>,
+      tileX: null == tileX
+          ? _value.tileX
+          : tileX // ignore: cast_nullable_to_non_nullable
+              as int,
+      tileY: null == tileY
+          ? _value.tileY
+          : tileY // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -229,7 +255,9 @@ class _$PlacedResourceImpl extends _PlacedResource {
       this.isSelling = false,
       this.isMining = false,
       this.isSmelting = false,
-      final List<Resource> outputSlotContents = const []})
+      final List<Resource> outputSlotContents = const [],
+      required this.tileX,
+      required this.tileY})
       : _contents = contents,
         _outputSlotContents = outputSlotContents,
         super._();
@@ -275,8 +303,13 @@ class _$PlacedResourceImpl extends _PlacedResource {
   }
 
   @override
+  final int tileX;
+  @override
+  final int tileY;
+
+  @override
   String toString() {
-    return 'PlacedResource(uniqueIdentifier: $uniqueIdentifier, sprite: $sprite, contents: $contents, selectedRecipe: $selectedRecipe, isConstructing: $isConstructing, isSelling: $isSelling, isMining: $isMining, isSmelting: $isSmelting, outputSlotContents: $outputSlotContents)';
+    return 'PlacedResource(uniqueIdentifier: $uniqueIdentifier, sprite: $sprite, contents: $contents, selectedRecipe: $selectedRecipe, isConstructing: $isConstructing, isSelling: $isSelling, isMining: $isMining, isSmelting: $isSmelting, outputSlotContents: $outputSlotContents, tileX: $tileX, tileY: $tileY)';
   }
 
   @override
@@ -299,7 +332,9 @@ class _$PlacedResourceImpl extends _PlacedResource {
             (identical(other.isSmelting, isSmelting) ||
                 other.isSmelting == isSmelting) &&
             const DeepCollectionEquality()
-                .equals(other._outputSlotContents, _outputSlotContents));
+                .equals(other._outputSlotContents, _outputSlotContents) &&
+            (identical(other.tileX, tileX) || other.tileX == tileX) &&
+            (identical(other.tileY, tileY) || other.tileY == tileY));
   }
 
   @JsonKey(ignore: true)
@@ -314,7 +349,9 @@ class _$PlacedResourceImpl extends _PlacedResource {
       isSelling,
       isMining,
       isSmelting,
-      const DeepCollectionEquality().hash(_outputSlotContents));
+      const DeepCollectionEquality().hash(_outputSlotContents),
+      tileX,
+      tileY);
 
   @JsonKey(ignore: true)
   @override
@@ -341,7 +378,9 @@ abstract class _PlacedResource extends PlacedResource {
       final bool isSelling,
       final bool isMining,
       final bool isSmelting,
-      final List<Resource> outputSlotContents}) = _$PlacedResourceImpl;
+      final List<Resource> outputSlotContents,
+      required final int tileX,
+      required final int tileY}) = _$PlacedResourceImpl;
   const _PlacedResource._() : super._();
 
   factory _PlacedResource.fromJson(Map<String, dynamic> json) =
@@ -365,6 +404,10 @@ abstract class _PlacedResource extends PlacedResource {
   bool get isSmelting;
   @override
   List<Resource> get outputSlotContents;
+  @override
+  int get tileX;
+  @override
+  int get tileY;
   @override
   @JsonKey(ignore: true)
   _$$PlacedResourceImplCopyWith<_$PlacedResourceImpl> get copyWith =>

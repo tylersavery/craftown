@@ -27,6 +27,8 @@ _$PlacedResourceImpl _$$PlacedResourceImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      tileX: json['tileX'] as int,
+      tileY: json['tileY'] as int,
     );
 
 Map<String, dynamic> _$$PlacedResourceImplToJson(
@@ -44,4 +46,6 @@ Map<String, dynamic> _$$PlacedResourceImplToJson(
       'isSmelting': instance.isSmelting,
       'outputSlotContents':
           instance.outputSlotContents.map((e) => e.toJson()).toList(),
+      'tileX': instance.tileX,
+      'tileY': instance.tileY,
     };

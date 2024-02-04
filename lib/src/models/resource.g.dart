@@ -67,6 +67,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
               .toList() ??
           null,
+      canOnlyBePlacedOnGround: json['canOnlyBePlacedOnGround'] as bool? ?? true,
       restValue: (json['restValue'] as num?)?.toDouble(),
       storeCost: json['storeCost'] as int?,
       spawnedResourceHitboxWidth:
@@ -126,6 +127,7 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'miningOutputResource': instance.miningOutputResource?.toJson(),
       'canOnlyBePlacedOn':
           instance.canOnlyBePlacedOn?.map((e) => e.toJson()).toList(),
+      'canOnlyBePlacedOnGround': instance.canOnlyBePlacedOnGround,
       'restValue': instance.restValue,
       'storeCost': instance.storeCost,
       'spawnedResourceHitboxWidth': instance.spawnedResourceHitboxWidth,

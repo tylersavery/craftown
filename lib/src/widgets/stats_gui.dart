@@ -1,4 +1,5 @@
 import 'package:craftown/src/models/stats.dart';
+import 'package:craftown/src/providers/calendar_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:flutter/material.dart';
@@ -16,29 +17,41 @@ class StatsGui extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Consumer(builder: (context, ref, _) {
           final state = ref.watch(statsDetailProvider);
+          final calendar = ref.watch(calendarProvider);
 
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    PixelArtImageAsset(
-                      "assets/images/coins-16x16.png",
-                      width: 16,
-                      height: 16,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "${calendar.month.label}, ${calendar.year}",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.white,
                     ),
-                    Text(
-                      "${state.dollars}",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      PixelArtImageAsset(
+                        "assets/images/coins-16x16.png",
+                        width: 16,
+                        height: 16,
                       ),
-                    )
-                  ],
-                ),
+                      Text(
+                        "${state.dollars}",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      )
+                    ],
+                  ),
+                ],
               ),
               _StatRow(type: StatType.sustainability, value: state.sustainability),
               _StatRow(type: StatType.energy, value: state.energy),

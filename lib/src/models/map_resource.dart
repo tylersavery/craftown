@@ -11,6 +11,8 @@ class MapResource with _$MapResource {
   const factory MapResource({
     required String uniqueIdentifier,
     required ResourceSprite sprite,
+    required int tileX,
+    required int tileY,
   }) = _MapResource;
 
   factory MapResource.fromJson(Map<String, dynamic> json) => _$MapResourceFromJson(json);

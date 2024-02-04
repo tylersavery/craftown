@@ -19,6 +19,8 @@ class PlacedResource with _$PlacedResource {
     @Default(false) bool isMining,
     @Default(false) bool isSmelting,
     @Default([]) List<Resource> outputSlotContents,
+    required int tileX,
+    required int tileY,
   }) = _PlacedResource;
 
   factory PlacedResource.fromJson(Map<String, dynamic> json) => _$PlacedResourceFromJson(json);

@@ -72,6 +72,7 @@ class Resource with _$Resource {
     @Default(0) int saleValue,
     Resource? miningOutputResource,
     @Default(null) List<Resource>? canOnlyBePlacedOn,
+    @Default(true) bool canOnlyBePlacedOnGround,
     double? restValue,
     int? storeCost,
     double? spawnedResourceHitboxWidth,

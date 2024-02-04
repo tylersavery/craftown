@@ -60,6 +60,7 @@ mixin _$Resource {
   int get saleValue => throw _privateConstructorUsedError;
   Resource? get miningOutputResource => throw _privateConstructorUsedError;
   List<Resource>? get canOnlyBePlacedOn => throw _privateConstructorUsedError;
+  bool get canOnlyBePlacedOnGround => throw _privateConstructorUsedError;
   double? get restValue => throw _privateConstructorUsedError;
   int? get storeCost => throw _privateConstructorUsedError;
   double? get spawnedResourceHitboxWidth => throw _privateConstructorUsedError;
@@ -122,6 +123,7 @@ abstract class $ResourceCopyWith<$Res> {
       int saleValue,
       Resource? miningOutputResource,
       List<Resource>? canOnlyBePlacedOn,
+      bool canOnlyBePlacedOnGround,
       double? restValue,
       int? storeCost,
       double? spawnedResourceHitboxWidth,
@@ -187,6 +189,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? saleValue = null,
     Object? miningOutputResource = freezed,
     Object? canOnlyBePlacedOn = freezed,
+    Object? canOnlyBePlacedOnGround = null,
     Object? restValue = freezed,
     Object? storeCost = freezed,
     Object? spawnedResourceHitboxWidth = freezed,
@@ -350,6 +353,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.canOnlyBePlacedOn
           : canOnlyBePlacedOn // ignore: cast_nullable_to_non_nullable
               as List<Resource>?,
+      canOnlyBePlacedOnGround: null == canOnlyBePlacedOnGround
+          ? _value.canOnlyBePlacedOnGround
+          : canOnlyBePlacedOnGround // ignore: cast_nullable_to_non_nullable
+              as bool,
       restValue: freezed == restValue
           ? _value.restValue
           : restValue // ignore: cast_nullable_to_non_nullable
@@ -462,6 +469,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
       int saleValue,
       Resource? miningOutputResource,
       List<Resource>? canOnlyBePlacedOn,
+      bool canOnlyBePlacedOnGround,
       double? restValue,
       int? storeCost,
       double? spawnedResourceHitboxWidth,
@@ -527,6 +535,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? saleValue = null,
     Object? miningOutputResource = freezed,
     Object? canOnlyBePlacedOn = freezed,
+    Object? canOnlyBePlacedOnGround = null,
     Object? restValue = freezed,
     Object? storeCost = freezed,
     Object? spawnedResourceHitboxWidth = freezed,
@@ -688,6 +697,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value._canOnlyBePlacedOn
           : canOnlyBePlacedOn // ignore: cast_nullable_to_non_nullable
               as List<Resource>?,
+      canOnlyBePlacedOnGround: null == canOnlyBePlacedOnGround
+          ? _value.canOnlyBePlacedOnGround
+          : canOnlyBePlacedOnGround // ignore: cast_nullable_to_non_nullable
+              as bool,
       restValue: freezed == restValue
           ? _value.restValue
           : restValue // ignore: cast_nullable_to_non_nullable
@@ -771,6 +784,7 @@ class _$ResourceImpl extends _Resource {
       this.saleValue = 0,
       this.miningOutputResource,
       final List<Resource>? canOnlyBePlacedOn = null,
+      this.canOnlyBePlacedOnGround = true,
       this.restValue,
       this.storeCost,
       this.spawnedResourceHitboxWidth,
@@ -913,6 +927,9 @@ class _$ResourceImpl extends _Resource {
   }
 
   @override
+  @JsonKey()
+  final bool canOnlyBePlacedOnGround;
+  @override
   final double? restValue;
   @override
   final int? storeCost;
@@ -943,7 +960,7 @@ class _$ResourceImpl extends _Resource {
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements)';
+    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements)';
   }
 
   @JsonKey(ignore: true)
@@ -1001,6 +1018,7 @@ abstract class _Resource extends Resource {
       final int saleValue,
       final Resource? miningOutputResource,
       final List<Resource>? canOnlyBePlacedOn,
+      final bool canOnlyBePlacedOnGround,
       final double? restValue,
       final int? storeCost,
       final double? spawnedResourceHitboxWidth,
@@ -1092,6 +1110,8 @@ abstract class _Resource extends Resource {
   Resource? get miningOutputResource;
   @override
   List<Resource>? get canOnlyBePlacedOn;
+  @override
+  bool get canOnlyBePlacedOnGround;
   @override
   double? get restValue;
   @override

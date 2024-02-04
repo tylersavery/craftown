@@ -22,7 +22,7 @@ class PlacedResourcesList extends _$PlacedResourcesList {
     state = items;
   }
 
-  add(String uniquePlacementIdentifier, ResourceSprite sprite) {
+  add(String uniquePlacementIdentifier, ResourceSprite sprite, int tileX, int tileY) {
     sprite.placementUniqueIdentifier = uniquePlacementIdentifier;
 
     state = [
@@ -34,6 +34,8 @@ class PlacedResourcesList extends _$PlacedResourcesList {
           sprite.resource.slots,
           (_) => [],
         ),
+        tileX: tileX,
+        tileY: tileY,
       ),
     ];
   }

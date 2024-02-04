@@ -16,6 +16,7 @@ class GridOverlay extends ParallaxComponent<Craftown> with HasGameRef<Craftown>,
 
   @override
   FutureOr<void> onLoad() async {
+    priority = 100;
     parallax = await game.loadParallax(
       [
         ParallaxImageData('grid_cell.png'),

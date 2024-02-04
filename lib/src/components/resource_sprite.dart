@@ -32,6 +32,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   final Resource resource;
   late Vector2 initialPosition;
   final bool visible;
+  final bool isGround;
 
   late final Sprite emptySprite;
   late final Sprite fullSprite;
@@ -43,6 +44,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   ResourceSprite({
     required this.resource,
+    required this.isGround,
     super.position,
     super.size,
     this.visible = false,
@@ -58,6 +60,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       'position': [position.x, position.y],
       'size': [size.x, size.y],
       'visible': visible,
+      'isGround': isGround,
     };
   }
 
@@ -67,6 +70,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       position: Vector2(data['position'][0], data['position'][1]),
       size: Vector2(data['size'][0], data['size'][1]),
       visible: data['visible'],
+      isGround: data['isGround'],
     );
   }
 
@@ -81,6 +85,8 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   @override
   FutureOr<void> onLoad() {
+    debugMode = false;
+    priority = 25;
     emptySprite = Sprite(
       game.images.fromCache('resources/${resource.assetFileNameLargeWithFallback}'),
     );
