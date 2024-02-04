@@ -99,6 +99,24 @@ class Resources {
 
   //Farming
 
+  static Resource get soil => Resource(
+          identifier: 'soil',
+          name: "Soil",
+          namePlural: "Soil Ore",
+          assetFileName16: "soil-16x16.png",
+          placementWidth: 16,
+          placementHeight: 16,
+          secondsToCraft: 5,
+          canPlace: true,
+          canFarm: true,
+          placeWithHitbox: false,
+          ingredients: [
+            Ingredient(resource: Resources.clay, quantity: 5),
+          ]
+
+          // smeltsInto: "wire",
+          );
+
   static Resource get potato => Resource(
         identifier: "potato",
         assetFileName16: "potato-16x16.png",
@@ -303,7 +321,35 @@ class Resources {
         ],
       );
 
-  // Assemblables (2+ ingredients)
+  // Tools
+
+  static Resource get pick => Resource(
+        identifier: "pick",
+        assetFileName16: "pick-16x16.png",
+        assetFileNameLarge: "pick-32x32.png",
+        name: "Pick",
+        namePlural: "Picks",
+        secondsToCraft: 3,
+        amountPerSlot: 1,
+        ingredients: [
+          Ingredient(resource: Resources.wood, quantity: 10),
+          Ingredient(resource: Resources.iron, quantity: 5),
+        ],
+      );
+
+  static Resource get axe => Resource(
+        identifier: "axe",
+        assetFileName16: "axe-16x16.png",
+        assetFileNameLarge: "axe-32x32.png",
+        name: "Axe",
+        namePlural: "Axes",
+        secondsToCraft: 3,
+        amountPerSlot: 1,
+        ingredients: [
+          Ingredient(resource: Resources.wood, quantity: 10),
+          Ingredient(resource: Resources.iron, quantity: 5),
+        ],
+      );
 
   static Resource get shovel => Resource(
         identifier: "shovel",
@@ -319,9 +365,24 @@ class Resources {
         ],
       );
 
+  static Resource get sythe => Resource(
+        identifier: "sythe",
+        assetFileName16: "sythe-16x16.png",
+        assetFileNameLarge: "sythe-32x32.png",
+        name: "Sythe",
+        namePlural: "Sythes",
+        secondsToCraft: 3,
+        amountPerSlot: 1,
+        ingredients: [
+          Ingredient(resource: Resources.wood, quantity: 10),
+          Ingredient(resource: Resources.iron, quantity: 5),
+        ],
+      );
+
   static Resource get woodenBucket => Resource(
         identifier: "wooden_bucket",
         assetFileName16: "wooden-bucket-16x16.png",
+        assetFileNameLarge: "wooden-bucket-32x32.png",
         name: "Wooden Bucket",
         namePlural: "Wooden Buckets",
         secondsToCraft: 1,
@@ -334,6 +395,8 @@ class Resources {
           Ingredient(resource: Resources.ironPlate, quantity: 2),
         ],
       );
+
+  // Assemblables (2+ ingredients)
 
   static Resource get soup => Resource(
         identifier: "soup",
@@ -561,6 +624,7 @@ class Resources {
         Resources.straw,
 
         // Farming
+        Resources.soil,
         Resources.potato,
         Resources.potatoSeed,
         Resources.carrot,
@@ -581,9 +645,14 @@ class Resources {
         Resources.barrel,
         Resources.chest,
 
-        // Assembleables
+        // Tools
+        Resources.pick,
+        Resources.axe,
         Resources.shovel,
+        Resources.sythe,
         Resources.woodenBucket,
+
+        //Assembleables
         Resources.soup,
         Resources.tent,
         Resources.communityChest,

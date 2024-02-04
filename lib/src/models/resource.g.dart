@@ -34,9 +34,11 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       thirstDecreaseOnConsumption:
           (json['thirstDecreaseOnConsumption'] as num?)?.toDouble() ?? 0,
       canPlace: json['canPlace'] as bool? ?? false,
+      placeWithHitbox: json['placeWithHitbox'] ?? true,
       canPickUp: json['canPickUp'] as bool? ?? false,
       canConstruct: json['canConstruct'] as bool? ?? false,
       canSmelt: json['canSmelt'] as bool? ?? false,
+      canFarm: json['canFarm'] as bool? ?? false,
       placementWidth: (json['placementWidth'] as num?)?.toDouble() ?? TILE_SIZE,
       placementHeight:
           (json['placementHeight'] as num?)?.toDouble() ?? TILE_SIZE,
@@ -107,9 +109,11 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'hungerDecreaseOnConsumption': instance.hungerDecreaseOnConsumption,
       'thirstDecreaseOnConsumption': instance.thirstDecreaseOnConsumption,
       'canPlace': instance.canPlace,
+      'placeWithHitbox': instance.placeWithHitbox,
       'canPickUp': instance.canPickUp,
       'canConstruct': instance.canConstruct,
       'canSmelt': instance.canSmelt,
+      'canFarm': instance.canFarm,
       'placementWidth': instance.placementWidth,
       'placementHeight': instance.placementHeight,
       'requiredToMine': instance.requiredToMine.map((e) => e.toJson()).toList(),

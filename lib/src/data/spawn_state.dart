@@ -8,7 +8,15 @@ class SpawnState {
       (index) => InventorySlot(resource: null, count: 0),
     );
 
-    initialState[0] = InventorySlot(resource: Resources.potatoSeed, count: 6);
+    initialState[0] = InventorySlot(resource: Resources.pick, count: 1);
+    initialState[1] = InventorySlot(resource: Resources.axe, count: 1);
+    initialState[2] = InventorySlot(resource: Resources.potatoSeed, count: 8);
+    initialState[3] = InventorySlot(resource: Resources.carrotSeed, count: 4);
+    initialState[4] = InventorySlot(resource: Resources.soup, count: 3);
+
+    // TEMP:
+    initialState[5] = InventorySlot(resource: Resources.shovel, count: 1);
+    initialState[6] = InventorySlot(resource: Resources.soil, count: 10);
 
     return initialState;
   }

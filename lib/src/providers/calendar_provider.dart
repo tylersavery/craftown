@@ -11,8 +11,8 @@ class Calendar extends _$Calendar {
   late final Timer timer;
   @override
   CalendarState build() {
-    // timer = Timer.periodic(Duration(seconds: SECONDS_BETWEEN_MONTHS.round()), (_) => nextMonth());
-    return CalendarState(monthIndex: 9);
+    timer = Timer.periodic(Duration(seconds: SECONDS_BETWEEN_MONTHS.round()), (_) => nextMonth());
+    return CalendarState(monthIndex: 6);
   }
 
   set(CalendarState calendarState) {

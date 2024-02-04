@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/menus/providers/seed_menu_provider.dart';
+import 'package:craftown/src/models/calendar_state.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/tool.dart';
+import 'package:craftown/src/providers/calendar_provider.dart';
 import 'package:craftown/src/providers/farmland_detail_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
@@ -37,6 +39,7 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   Resource? seed;
   DateTime? completeAt;
+  CalendarSeason currentSeason = CalendarSeason.summer;
 
   @override
   FutureOr<void> onLoad() {
@@ -59,6 +62,27 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   @override
   void update(double dt) {
+    final season = ref.read(calendarProvider).season;
+    if (currentSeason != season) {
+      currentSeason = season;
+
+      switch (season) {
+        case CalendarSeason.summer:
+          opacity = 1;
+          break;
+        case CalendarSeason.winter:
+          current = FarmlandState.untouched;
+          final provider = ref.read(farmlandDetailProvider(identifier).notifier);
+          provider.setState(FarmlandState.untouched);
+          provider.setCompleteAt(null);
+          provider.setSeed(null);
+          opacity = 0;
+          completeAt = null;
+          seed = null;
+          return;
+      }
+    }
+
     if (current == FarmlandState.grown) {
       return;
     }
@@ -82,6 +106,11 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   @override
   void onTapUp(TapUpEvent event) {
     final provider = ref.read(farmlandDetailProvider(identifier).notifier);
+
+    if (currentSeason == CalendarSeason.winter) {
+      ref.read(toastMessagesListProvider.notifier).add("You can't farm in the winter.");
+      return;
+    }
 
     if (!isWithinRadius(game.player.position, position, 48)) {
       return;

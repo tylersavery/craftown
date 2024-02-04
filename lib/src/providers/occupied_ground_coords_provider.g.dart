@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'saved_game_list_provider.dart';
+part of 'occupied_ground_coords_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$savedGameListHash() => r'ca1865c48490998f51e8d77c9c79d59f6a313ffe';
+String _$occupiedGroundCoordsHash() =>
+    r'9029bfbbbc634b637444186a69ced7f05010733e';
 
-/// See also [SavedGameList].
-@ProviderFor(SavedGameList)
-final savedGameListProvider =
-    NotifierProvider<SavedGameList, List<SavedGame>>.internal(
-  SavedGameList.new,
-  name: r'savedGameListProvider',
+/// See also [occupiedGroundCoords].
+@ProviderFor(occupiedGroundCoords)
+final occupiedGroundCoordsProvider = Provider<List<Coord>>.internal(
+  occupiedGroundCoords,
+  name: r'occupiedGroundCoordsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$savedGameListHash,
+      : _$occupiedGroundCoordsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SavedGameList = Notifier<List<SavedGame>>;
+typedef OccupiedGroundCoordsRef = ProviderRef<List<Coord>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

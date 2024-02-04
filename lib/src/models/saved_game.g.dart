@@ -41,6 +41,8 @@ _$SavedGameImpl _$$SavedGameImplFromJson(Map<String, dynamic> json) =>
       researchStarted: json['researchStarted'] == null
           ? null
           : DateTime.parse(json['researchStarted'] as String),
+      calendarState:
+          CalendarState.fromJson(json['calendarState'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
@@ -60,4 +62,5 @@ Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
       'researchLevels': instance.researchLevels.map((e) => e.toJson()).toList(),
       'isResearching': instance.isResearching?.toJson(),
       'researchStarted': instance.researchStarted?.toIso8601String(),
+      'calendarState': instance.calendarState.toJson(),
     };

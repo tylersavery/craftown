@@ -5,6 +5,7 @@ import 'package:craftown/src/menus/providers/research_menu_provider.dart';
 import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/saved_game.dart';
+import 'package:craftown/src/providers/calendar_provider.dart';
 import 'package:craftown/src/providers/farmland_detail_provider.dart';
 import 'package:craftown/src/providers/farmland_list_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
@@ -32,7 +33,7 @@ class SavedGameList extends _$SavedGameList {
   @override
   List<SavedGame> build() {
     db = Singletons.instance<Database>();
-    store = intMapStoreFactory.store("savedGamesv16");
+    store = intMapStoreFactory.store("savedGamesv17");
     return [];
   }
 
@@ -49,6 +50,7 @@ class SavedGameList extends _$SavedGameList {
     ref.read(statsDetailProvider.notifier).set(save.stats);
     ref.read(resourceInHandProvider.notifier).set(save.inHand);
     ref.read(researchListProvider.notifier).set(save.researchLevels);
+    ref.read(calendarProvider.notifier).set(save.calendarState);
 
     if (save.isResearching != null && save.researchStarted != null) {
       final now = DateTime.now();
@@ -84,9 +86,7 @@ class SavedGameList extends _$SavedGameList {
         final block = CollisionBlock(position: pr.sprite.position, size: pr.sprite.size);
 
         final level = gameWidgetKey.currentState!.currentGame.level;
-        if (level is Level) {
-          level.collisionBlocks.add(block);
-        }
+        level.collisionBlocks.add(block);
         final detailProvider = ref.read(placedResourceDetailProvider(pr.uniqueIdentifier).notifier);
         detailProvider.setContents(pr.contents);
         detailProvider.setOutput(pr.outputSlotContents);
@@ -181,6 +181,7 @@ class SavedGameList extends _$SavedGameList {
       researchLevels: ref.read(researchListProvider),
       isResearching: ref.read(researchMenuProvider).isResearching,
       researchStarted: ref.read(researchMenuProvider).researchStarted,
+      calendarState: ref.read(calendarProvider),
     );
 
     final data = game.toJson();

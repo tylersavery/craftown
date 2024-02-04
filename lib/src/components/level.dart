@@ -21,6 +21,7 @@ import 'package:craftown/src/providers/farmland_list_provider.dart';
 import 'package:craftown/src/providers/map_resource_list_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/occupied_coords_provider.dart';
+import 'package:craftown/src/providers/occupied_ground_coords_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
@@ -54,9 +55,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
     mapSummer = await TiledComponent.load("$levelName.tmx", Vector2.all(16))
       ..priority = 0;
 
-    // mapWinter = await TiledComponent.load("${levelName}_winter.tmx", Vector2.all(16))
-    //   ..priority = 0;
-    mapWinter = await TiledComponent.load("${levelName}.tmx", Vector2.all(16))
+    mapWinter = await TiledComponent.load("${levelName}_winter.tmx", Vector2.all(16))
       ..priority = 0;
 
     add(mapSummer);
@@ -281,6 +280,13 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
         return;
       }
 
+      if (resource.canFarm) {
+        if (ref.read(occupiedGroundCoordsProvider).firstWhereOrNull((c) => c.x == tileX && c.y == tileY) != null) {
+          ref.read(toastMessagesListProvider.notifier).add("Can't farm here.");
+          return;
+        }
+      }
+
       Resource? updatedResource;
 
       if (resource.canOnlyBePlacedOn != null) {
@@ -312,6 +318,18 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
       final uniqueIdentifier = randomString();
 
+      if (resource.canFarm) {
+        final farmlandSprite = FarmlandSprite(
+          identifier: uniqueIdentifier,
+          position: Vector2(x, y),
+          size: Vector2.all(TILE_SIZE),
+        );
+
+        add(farmlandSprite);
+        ref.read(farmlandListProvider.notifier).add(Farmland(identifier: uniqueIdentifier));
+        return;
+      }
+
       final newResource = ResourceSprite(
         resource: updatedResource ?? resource,
         placementUniqueIdentifier: uniqueIdentifier,
@@ -324,12 +342,14 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       add(newResource);
       ref.read(placedResourcesListProvider.notifier).add(
           uniqueIdentifier, newResource, tileX, tileY, (resource.placementWidth / TILE_SIZE).round(), (resource.placementHeight / TILE_SIZE).round());
-      final block = CollisionBlock(
-        position: newResource.position,
-        size: newResource.size,
-      );
-      add(block);
-      collisionBlocks.add(block);
+      if (resource.placeWithHitbox) {
+        final block = CollisionBlock(
+          position: newResource.position,
+          size: newResource.size,
+        );
+        add(block);
+        collisionBlocks.add(block);
+      }
 
       if (resource.isMiner) {
         ref.read(placedResourceDetailProvider(uniqueIdentifier).notifier).startMining();

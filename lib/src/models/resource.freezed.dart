@@ -40,9 +40,11 @@ mixin _$Resource {
   double get hungerDecreaseOnConsumption => throw _privateConstructorUsedError;
   double get thirstDecreaseOnConsumption => throw _privateConstructorUsedError;
   bool get canPlace => throw _privateConstructorUsedError;
+  dynamic get placeWithHitbox => throw _privateConstructorUsedError;
   bool get canPickUp => throw _privateConstructorUsedError;
   bool get canConstruct => throw _privateConstructorUsedError;
   bool get canSmelt => throw _privateConstructorUsedError;
+  bool get canFarm => throw _privateConstructorUsedError;
   double get placementWidth => throw _privateConstructorUsedError;
   double get placementHeight => throw _privateConstructorUsedError;
   List<Resource> get requiredToMine => throw _privateConstructorUsedError;
@@ -103,9 +105,11 @@ abstract class $ResourceCopyWith<$Res> {
       double hungerDecreaseOnConsumption,
       double thirstDecreaseOnConsumption,
       bool canPlace,
+      dynamic placeWithHitbox,
       bool canPickUp,
       bool canConstruct,
       bool canSmelt,
+      bool canFarm,
       double placementWidth,
       double placementHeight,
       List<Resource> requiredToMine,
@@ -170,9 +174,11 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? hungerDecreaseOnConsumption = null,
     Object? thirstDecreaseOnConsumption = null,
     Object? canPlace = null,
+    Object? placeWithHitbox = freezed,
     Object? canPickUp = null,
     Object? canConstruct = null,
     Object? canSmelt = null,
+    Object? canFarm = null,
     Object? placementWidth = null,
     Object? placementHeight = null,
     Object? requiredToMine = null,
@@ -277,6 +283,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.canPlace
           : canPlace // ignore: cast_nullable_to_non_nullable
               as bool,
+      placeWithHitbox: freezed == placeWithHitbox
+          ? _value.placeWithHitbox
+          : placeWithHitbox // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       canPickUp: null == canPickUp
           ? _value.canPickUp
           : canPickUp // ignore: cast_nullable_to_non_nullable
@@ -288,6 +298,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
       canSmelt: null == canSmelt
           ? _value.canSmelt
           : canSmelt // ignore: cast_nullable_to_non_nullable
+              as bool,
+      canFarm: null == canFarm
+          ? _value.canFarm
+          : canFarm // ignore: cast_nullable_to_non_nullable
               as bool,
       placementWidth: null == placementWidth
           ? _value.placementWidth
@@ -449,9 +463,11 @@ abstract class _$$ResourceImplCopyWith<$Res>
       double hungerDecreaseOnConsumption,
       double thirstDecreaseOnConsumption,
       bool canPlace,
+      dynamic placeWithHitbox,
       bool canPickUp,
       bool canConstruct,
       bool canSmelt,
+      bool canFarm,
       double placementWidth,
       double placementHeight,
       List<Resource> requiredToMine,
@@ -516,9 +532,11 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? hungerDecreaseOnConsumption = null,
     Object? thirstDecreaseOnConsumption = null,
     Object? canPlace = null,
+    Object? placeWithHitbox = freezed,
     Object? canPickUp = null,
     Object? canConstruct = null,
     Object? canSmelt = null,
+    Object? canFarm = null,
     Object? placementWidth = null,
     Object? placementHeight = null,
     Object? requiredToMine = null,
@@ -621,6 +639,9 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.canPlace
           : canPlace // ignore: cast_nullable_to_non_nullable
               as bool,
+      placeWithHitbox: freezed == placeWithHitbox
+          ? _value.placeWithHitbox!
+          : placeWithHitbox,
       canPickUp: null == canPickUp
           ? _value.canPickUp
           : canPickUp // ignore: cast_nullable_to_non_nullable
@@ -632,6 +653,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
       canSmelt: null == canSmelt
           ? _value.canSmelt
           : canSmelt // ignore: cast_nullable_to_non_nullable
+              as bool,
+      canFarm: null == canFarm
+          ? _value.canFarm
+          : canFarm // ignore: cast_nullable_to_non_nullable
               as bool,
       placementWidth: null == placementWidth
           ? _value.placementWidth
@@ -764,9 +789,11 @@ class _$ResourceImpl extends _Resource {
       this.hungerDecreaseOnConsumption = 0,
       this.thirstDecreaseOnConsumption = 0,
       this.canPlace = false,
+      this.placeWithHitbox = true,
       this.canPickUp = false,
       this.canConstruct = false,
       this.canSmelt = false,
+      this.canFarm = false,
       this.placementWidth = TILE_SIZE,
       this.placementHeight = TILE_SIZE,
       final List<Resource> requiredToMine = const [],
@@ -858,6 +885,9 @@ class _$ResourceImpl extends _Resource {
   final bool canPlace;
   @override
   @JsonKey()
+  final dynamic placeWithHitbox;
+  @override
+  @JsonKey()
   final bool canPickUp;
   @override
   @JsonKey()
@@ -865,6 +895,9 @@ class _$ResourceImpl extends _Resource {
   @override
   @JsonKey()
   final bool canSmelt;
+  @override
+  @JsonKey()
+  final bool canFarm;
   @override
   @JsonKey()
   final double placementWidth;
@@ -960,7 +993,7 @@ class _$ResourceImpl extends _Resource {
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements)';
+    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, placeWithHitbox: $placeWithHitbox, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, canFarm: $canFarm, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements)';
   }
 
   @JsonKey(ignore: true)
@@ -998,9 +1031,11 @@ abstract class _Resource extends Resource {
       final double hungerDecreaseOnConsumption,
       final double thirstDecreaseOnConsumption,
       final bool canPlace,
+      final dynamic placeWithHitbox,
       final bool canPickUp,
       final bool canConstruct,
       final bool canSmelt,
+      final bool canFarm,
       final double placementWidth,
       final double placementHeight,
       final List<Resource> requiredToMine,
@@ -1072,11 +1107,15 @@ abstract class _Resource extends Resource {
   @override
   bool get canPlace;
   @override
+  dynamic get placeWithHitbox;
+  @override
   bool get canPickUp;
   @override
   bool get canConstruct;
   @override
   bool get canSmelt;
+  @override
+  bool get canFarm;
   @override
   double get placementWidth;
   @override

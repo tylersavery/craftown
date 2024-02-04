@@ -7,12 +7,14 @@ class Tools {
         identifier: "pick",
         name: "Pick Axe",
         assetName: "pick",
+        resourcesRequired: [Resources.pick],
       );
   static Tool get axe => Tool(
         type: ToolType.axe,
         identifier: "axe",
         name: "Axe",
         assetName: "axe",
+        resourcesRequired: [Resources.axe],
       );
   static Tool get shovel => Tool(
         type: ToolType.shovel,
@@ -26,6 +28,7 @@ class Tools {
         identifier: "sythe",
         name: "Sythe",
         assetName: "sythe",
+        resourcesRequired: [Resources.sythe],
       );
   static Tool get waterBucket => Tool(
         type: ToolType.waterBucket,

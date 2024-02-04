@@ -1,3 +1,4 @@
+import 'package:craftown/src/models/calendar_state.dart';
 import 'package:craftown/src/models/character.dart';
 import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/inventory_slot.dart';
@@ -30,6 +31,7 @@ class SavedGame with _$SavedGame {
     @Default([]) List<ResearchLevel> researchLevels,
     ResearchLevel? isResearching,
     DateTime? researchStarted,
+    required CalendarState calendarState,
   }) = _SavedGame;
 
   factory SavedGame.fromJson(Map<String, dynamic> json) => _$SavedGameFromJson(json);
