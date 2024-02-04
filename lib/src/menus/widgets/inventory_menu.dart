@@ -1,9 +1,12 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
+import 'package:collection/collection.dart';
 import 'package:craftown/src/constants.dart';
+import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
+import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/shared/hold_down_button.dart';
 import 'package:craftown/src/widgets/shared/inventory_slot_wrap.dart';
@@ -138,6 +141,26 @@ class InventoryMenuWidget extends ConsumerWidget {
                                   onComplete: () {
                                     _inventoryProvider.consume(resource, 1);
                                   },
+                                ),
+                              ),
+                            if (resource.canEquip)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: HoldDownButton(
+                                  label: "Equip",
+                                  duration: Duration.zero,
+                                  onComplete: () {
+                                    final toolName = resource.equipsTool;
+
+                                    final tool = Tools.allTools.firstWhereOrNull((t) => t.identifier == toolName);
+
+                                    if (tool != null) {
+                                      ref.read(selectedToolProvider.notifier).set(tool);
+                                      ref.read(inventoryMenuProvider.notifier).close();
+                                    }
+                                  },
+                                  completeOnClick: true,
+                                  small: true,
                                 ),
                               ),
                           ],

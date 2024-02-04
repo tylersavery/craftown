@@ -73,6 +73,7 @@ mixin _$Resource {
   bool get isHouse => throw _privateConstructorUsedError;
   List<ResearchLevel> get researchRequirements =>
       throw _privateConstructorUsedError;
+  String? get equipsTool => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -136,7 +137,8 @@ abstract class $ResourceCopyWith<$Res> {
       double spawnedResourceHitboxOffsetY,
       String? smeltsInto,
       bool isHouse,
-      List<ResearchLevel> researchRequirements});
+      List<ResearchLevel> researchRequirements,
+      String? equipsTool});
 
   $ResourceCopyWith<$Res>? get growsInto;
   $ResourceCopyWith<$Res>? get miningOutputResource;
@@ -205,6 +207,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? smeltsInto = freezed,
     Object? isHouse = null,
     Object? researchRequirements = null,
+    Object? equipsTool = freezed,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -407,6 +410,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.researchRequirements
           : researchRequirements // ignore: cast_nullable_to_non_nullable
               as List<ResearchLevel>,
+      equipsTool: freezed == equipsTool
+          ? _value.equipsTool
+          : equipsTool // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -494,7 +501,8 @@ abstract class _$$ResourceImplCopyWith<$Res>
       double spawnedResourceHitboxOffsetY,
       String? smeltsInto,
       bool isHouse,
-      List<ResearchLevel> researchRequirements});
+      List<ResearchLevel> researchRequirements,
+      String? equipsTool});
 
   @override
   $ResourceCopyWith<$Res>? get growsInto;
@@ -563,6 +571,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? smeltsInto = freezed,
     Object? isHouse = null,
     Object? researchRequirements = null,
+    Object? equipsTool = freezed,
   }) {
     return _then(_$ResourceImpl(
       identifier: null == identifier
@@ -762,6 +771,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value._researchRequirements
           : researchRequirements // ignore: cast_nullable_to_non_nullable
               as List<ResearchLevel>,
+      equipsTool: freezed == equipsTool
+          ? _value.equipsTool
+          : equipsTool // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -820,7 +833,8 @@ class _$ResourceImpl extends _Resource {
       this.spawnedResourceHitboxOffsetY = 0.0,
       this.smeltsInto,
       this.isHouse = false,
-      final List<ResearchLevel> researchRequirements = const []})
+      final List<ResearchLevel> researchRequirements = const [],
+      this.equipsTool})
       : _ingredients = ingredients,
         _requiredToMine = requiredToMine,
         _canOnlyBePlacedOn = canOnlyBePlacedOn,
@@ -992,8 +1006,11 @@ class _$ResourceImpl extends _Resource {
   }
 
   @override
+  final String? equipsTool;
+
+  @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, placeWithHitbox: $placeWithHitbox, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, canFarm: $canFarm, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements)';
+    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, placeWithHitbox: $placeWithHitbox, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, canFarm: $canFarm, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements, equipsTool: $equipsTool)';
   }
 
   @JsonKey(ignore: true)
@@ -1062,7 +1079,8 @@ abstract class _Resource extends Resource {
       final double spawnedResourceHitboxOffsetY,
       final String? smeltsInto,
       final bool isHouse,
-      final List<ResearchLevel> researchRequirements}) = _$ResourceImpl;
+      final List<ResearchLevel> researchRequirements,
+      final String? equipsTool}) = _$ResourceImpl;
   const _Resource._() : super._();
 
   factory _Resource.fromJson(Map<String, dynamic> json) =
@@ -1169,6 +1187,8 @@ abstract class _Resource extends Resource {
   bool get isHouse;
   @override
   List<ResearchLevel> get researchRequirements;
+  @override
+  String? get equipsTool;
   @override
   @JsonKey(ignore: true)
   _$$ResourceImplCopyWith<_$ResourceImpl> get copyWith =>

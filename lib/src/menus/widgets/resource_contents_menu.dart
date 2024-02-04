@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:craftown/src/constants.dart';
+import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
 import 'package:craftown/src/models/resource.dart';
@@ -11,6 +12,7 @@ import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:craftown/src/providers/recipes_list_provider.dart';
+import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';

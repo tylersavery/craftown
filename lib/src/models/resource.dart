@@ -84,6 +84,7 @@ class Resource with _$Resource {
     String? smeltsInto,
     @Default(false) bool isHouse,
     @Default([]) List<ResearchLevel> researchRequirements,
+    String? equipsTool,
   }) = _Resource;
 
   factory Resource.fromJson(Map<String, dynamic> json) => _$ResourceFromJson(json);
@@ -136,6 +137,10 @@ class Resource with _$Resource {
 
   bool get availableInStore {
     return storeCost != null;
+  }
+
+  bool get canEquip {
+    return equipsTool != null;
   }
 
   bool get canRest {

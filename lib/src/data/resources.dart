@@ -1,7 +1,9 @@
 import 'package:craftown/src/data/research_levels.dart';
+import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/models/ingredient.dart';
 import 'package:craftown/src/models/research_level.dart';
 import 'package:craftown/src/models/resource.dart';
+import 'package:craftown/src/models/tool.dart';
 
 class Resources {
   // PRIMARY
@@ -331,6 +333,7 @@ class Resources {
         namePlural: "Picks",
         secondsToCraft: 3,
         amountPerSlot: 1,
+        equipsTool: "pick",
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 10),
           Ingredient(resource: Resources.iron, quantity: 5),
@@ -345,6 +348,7 @@ class Resources {
         namePlural: "Axes",
         secondsToCraft: 3,
         amountPerSlot: 1,
+        equipsTool: "axe",
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 10),
           Ingredient(resource: Resources.iron, quantity: 5),
@@ -359,6 +363,7 @@ class Resources {
         namePlural: "Shovels",
         secondsToCraft: 3,
         amountPerSlot: 1,
+        equipsTool: "shovel",
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 10),
           Ingredient(resource: Resources.iron, quantity: 5),
@@ -373,6 +378,7 @@ class Resources {
         namePlural: "Sythes",
         secondsToCraft: 3,
         amountPerSlot: 1,
+        equipsTool: "sythe",
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 10),
           Ingredient(resource: Resources.iron, quantity: 5),
@@ -389,6 +395,7 @@ class Resources {
         amountPerSlot: 1,
         canPlace: true,
         canPickUp: true,
+        equipsTool: "wooden_bucket",
         storeCost: 10,
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 5),

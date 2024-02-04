@@ -86,6 +86,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => ResearchLevel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      equipsTool: json['equipsTool'] as String?,
     );
 
 Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
@@ -142,4 +143,5 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'isHouse': instance.isHouse,
       'researchRequirements':
           instance.researchRequirements.map((e) => e.toJson()).toList(),
+      'equipsTool': instance.equipsTool,
     };
