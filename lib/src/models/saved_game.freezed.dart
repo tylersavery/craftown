@@ -36,6 +36,8 @@ mixin _$SavedGame {
   ResearchLevel? get isResearching => throw _privateConstructorUsedError;
   DateTime? get researchStarted => throw _privateConstructorUsedError;
   CalendarState get calendarState => throw _privateConstructorUsedError;
+  List<PlacedFarmland> get placedFarmlands =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -63,7 +65,8 @@ abstract class $SavedGameCopyWith<$Res> {
       List<ResearchLevel> researchLevels,
       ResearchLevel? isResearching,
       DateTime? researchStarted,
-      CalendarState calendarState});
+      CalendarState calendarState,
+      List<PlacedFarmland> placedFarmlands});
 
   $CharacterCopyWith<$Res> get character;
   $StatsCopyWith<$Res> get stats;
@@ -100,6 +103,7 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
     Object? isResearching = freezed,
     Object? researchStarted = freezed,
     Object? calendarState = null,
+    Object? placedFarmlands = null,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -162,6 +166,10 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
           ? _value.calendarState
           : calendarState // ignore: cast_nullable_to_non_nullable
               as CalendarState,
+      placedFarmlands: null == placedFarmlands
+          ? _value.placedFarmlands
+          : placedFarmlands // ignore: cast_nullable_to_non_nullable
+              as List<PlacedFarmland>,
     ) as $Val);
   }
 
@@ -237,7 +245,8 @@ abstract class _$$SavedGameImplCopyWith<$Res>
       List<ResearchLevel> researchLevels,
       ResearchLevel? isResearching,
       DateTime? researchStarted,
-      CalendarState calendarState});
+      CalendarState calendarState,
+      List<PlacedFarmland> placedFarmlands});
 
   @override
   $CharacterCopyWith<$Res> get character;
@@ -277,6 +286,7 @@ class __$$SavedGameImplCopyWithImpl<$Res>
     Object? isResearching = freezed,
     Object? researchStarted = freezed,
     Object? calendarState = null,
+    Object? placedFarmlands = null,
   }) {
     return _then(_$SavedGameImpl(
       identifier: null == identifier
@@ -339,6 +349,10 @@ class __$$SavedGameImplCopyWithImpl<$Res>
           ? _value.calendarState
           : calendarState // ignore: cast_nullable_to_non_nullable
               as CalendarState,
+      placedFarmlands: null == placedFarmlands
+          ? _value._placedFarmlands
+          : placedFarmlands // ignore: cast_nullable_to_non_nullable
+              as List<PlacedFarmland>,
     ));
   }
 }
@@ -361,11 +375,13 @@ class _$SavedGameImpl extends _SavedGame {
       final List<ResearchLevel> researchLevels = const [],
       this.isResearching,
       this.researchStarted,
-      required this.calendarState})
+      required this.calendarState,
+      final List<PlacedFarmland> placedFarmlands = const []})
       : _inventory = inventory,
         _placedResources = placedResources,
         _farmlands = farmlands,
         _researchLevels = researchLevels,
+        _placedFarmlands = placedFarmlands,
         super._();
 
   factory _$SavedGameImpl.fromJson(Map<String, dynamic> json) =>
@@ -429,10 +445,18 @@ class _$SavedGameImpl extends _SavedGame {
   final DateTime? researchStarted;
   @override
   final CalendarState calendarState;
+  final List<PlacedFarmland> _placedFarmlands;
+  @override
+  @JsonKey()
+  List<PlacedFarmland> get placedFarmlands {
+    if (_placedFarmlands is EqualUnmodifiableListView) return _placedFarmlands;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_placedFarmlands);
+  }
 
   @override
   String toString() {
-    return 'SavedGame(identifier: $identifier, fileName: $fileName, character: $character, savedAt: $savedAt, inventory: $inventory, playerPositionX: $playerPositionX, playerPositionY: $playerPositionY, placedResources: $placedResources, stats: $stats, inHand: $inHand, farmlands: $farmlands, researchLevels: $researchLevels, isResearching: $isResearching, researchStarted: $researchStarted, calendarState: $calendarState)';
+    return 'SavedGame(identifier: $identifier, fileName: $fileName, character: $character, savedAt: $savedAt, inventory: $inventory, playerPositionX: $playerPositionX, playerPositionY: $playerPositionY, placedResources: $placedResources, stats: $stats, inHand: $inHand, farmlands: $farmlands, researchLevels: $researchLevels, isResearching: $isResearching, researchStarted: $researchStarted, calendarState: $calendarState, placedFarmlands: $placedFarmlands)';
   }
 
   @override
@@ -466,7 +490,9 @@ class _$SavedGameImpl extends _SavedGame {
             (identical(other.researchStarted, researchStarted) ||
                 other.researchStarted == researchStarted) &&
             (identical(other.calendarState, calendarState) ||
-                other.calendarState == calendarState));
+                other.calendarState == calendarState) &&
+            const DeepCollectionEquality()
+                .equals(other._placedFarmlands, _placedFarmlands));
   }
 
   @JsonKey(ignore: true)
@@ -487,7 +513,8 @@ class _$SavedGameImpl extends _SavedGame {
       const DeepCollectionEquality().hash(_researchLevels),
       isResearching,
       researchStarted,
-      calendarState);
+      calendarState,
+      const DeepCollectionEquality().hash(_placedFarmlands));
 
   @JsonKey(ignore: true)
   @override
@@ -519,7 +546,8 @@ abstract class _SavedGame extends SavedGame {
       final List<ResearchLevel> researchLevels,
       final ResearchLevel? isResearching,
       final DateTime? researchStarted,
-      required final CalendarState calendarState}) = _$SavedGameImpl;
+      required final CalendarState calendarState,
+      final List<PlacedFarmland> placedFarmlands}) = _$SavedGameImpl;
   const _SavedGame._() : super._();
 
   factory _SavedGame.fromJson(Map<String, dynamic> json) =
@@ -555,6 +583,8 @@ abstract class _SavedGame extends SavedGame {
   DateTime? get researchStarted;
   @override
   CalendarState get calendarState;
+  @override
+  List<PlacedFarmland> get placedFarmlands;
   @override
   @JsonKey(ignore: true)
   _$$SavedGameImplCopyWith<_$SavedGameImpl> get copyWith =>

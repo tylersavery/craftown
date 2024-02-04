@@ -43,6 +43,10 @@ _$SavedGameImpl _$$SavedGameImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['researchStarted'] as String),
       calendarState:
           CalendarState.fromJson(json['calendarState'] as Map<String, dynamic>),
+      placedFarmlands: (json['placedFarmlands'] as List<dynamic>?)
+              ?.map((e) => PlacedFarmland.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
@@ -63,4 +67,6 @@ Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
       'isResearching': instance.isResearching?.toJson(),
       'researchStarted': instance.researchStarted?.toIso8601String(),
       'calendarState': instance.calendarState.toJson(),
+      'placedFarmlands':
+          instance.placedFarmlands.map((e) => e.toJson()).toList(),
     };

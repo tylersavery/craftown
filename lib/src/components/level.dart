@@ -14,6 +14,7 @@ import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/models/calendar_state.dart';
 import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/map_resource.dart';
+import 'package:craftown/src/models/placed_farmland.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/calendar_provider.dart';
@@ -22,6 +23,7 @@ import 'package:craftown/src/providers/map_resource_list_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/occupied_coords_provider.dart';
 import 'package:craftown/src/providers/occupied_ground_coords_provider.dart';
+import 'package:craftown/src/providers/placed_farmland_list_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
@@ -325,8 +327,14 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
           size: Vector2.all(TILE_SIZE),
         );
 
+        final farmland = Farmland(identifier: uniqueIdentifier);
+
         add(farmlandSprite);
-        ref.read(farmlandListProvider.notifier).add(Farmland(identifier: uniqueIdentifier));
+        ref.read(farmlandListProvider.notifier).add(farmland);
+
+        ref.read(placedFarmlandListProvider.notifier).add(
+              PlacedFarmland(identifier: uniqueIdentifier, farmland: farmland, tileX: tileX, tileY: tileY),
+            );
         return;
       }
 

@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'saved_game_list_provider.dart';
+part of 'placed_farmland_list_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$savedGameListHash() => r'd13f7df0ebcf59c8b92c5d2b07c1376c57333dea';
+String _$placedFarmlandListHash() =>
+    r'5b9d829c5e94dee0030254d60cfe4d28fd7cfbc8';
 
-/// See also [SavedGameList].
-@ProviderFor(SavedGameList)
-final savedGameListProvider =
-    NotifierProvider<SavedGameList, List<SavedGame>>.internal(
-  SavedGameList.new,
-  name: r'savedGameListProvider',
+/// See also [PlacedFarmlandList].
+@ProviderFor(PlacedFarmlandList)
+final placedFarmlandListProvider =
+    NotifierProvider<PlacedFarmlandList, List<PlacedFarmland>>.internal(
+  PlacedFarmlandList.new,
+  name: r'placedFarmlandListProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$savedGameListHash,
+      : _$placedFarmlandListHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SavedGameList = Notifier<List<SavedGame>>;
+typedef _$PlacedFarmlandList = Notifier<List<PlacedFarmland>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

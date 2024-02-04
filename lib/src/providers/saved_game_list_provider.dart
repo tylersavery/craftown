@@ -1,14 +1,17 @@
 import 'package:craftown/src/components/collision_box.dart';
 import 'package:craftown/src/components/farmland_sprite.dart';
 import 'package:craftown/src/components/level.dart';
+import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/research_menu_provider.dart';
 import 'package:craftown/src/models/farmland.dart';
+import 'package:craftown/src/models/placed_farmland.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/saved_game.dart';
 import 'package:craftown/src/providers/calendar_provider.dart';
 import 'package:craftown/src/providers/farmland_detail_provider.dart';
 import 'package:craftown/src/providers/farmland_list_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
+import 'package:craftown/src/providers/placed_farmland_list_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:craftown/src/providers/research_list_provider.dart';
@@ -51,6 +54,7 @@ class SavedGameList extends _$SavedGameList {
     ref.read(resourceInHandProvider.notifier).set(save.inHand);
     ref.read(researchListProvider.notifier).set(save.researchLevels);
     ref.read(calendarProvider.notifier).set(save.calendarState);
+    ref.read(placedFarmlandListProvider.notifier).set(save.placedFarmlands);
 
     if (save.isResearching != null && save.researchStarted != null) {
       final now = DateTime.now();
@@ -104,7 +108,20 @@ class SavedGameList extends _$SavedGameList {
         }
       }
 
-      final farmlands = save.farmlands;
+      final farmlands = [...save.farmlands, ...save.placedFarmlands.map((pfl) => pfl.farmland).toList()];
+
+      for (final pfl in save.placedFarmlands) {
+        gameWidgetKey.currentState!.currentGame.level.add(
+          FarmlandSprite(
+            identifier: pfl.identifier,
+            position: Vector2(
+              pfl.tileX * TILE_SIZE,
+              pfl.tileY * TILE_SIZE,
+            ),
+            size: Vector2(16, 16),
+          ),
+        );
+      }
 
       final sprites = gameWidgetKey.currentState!.currentGame.level.children;
       int i = 0;
@@ -166,6 +183,24 @@ class SavedGameList extends _$SavedGameList {
       }
     }
 
+    final placedFarmlands = ref.read(placedFarmlandListProvider);
+
+    final List<PlacedFarmland> updatedPlacedFarmlands = [];
+
+    for (final pfl in placedFarmlands) {
+      final farmland = ref.read(farmlandDetailProvider(pfl.identifier));
+      if (farmland != null) {
+        updatedPlacedFarmlands.add(
+          PlacedFarmland(
+            identifier: pfl.identifier,
+            farmland: farmland,
+            tileX: pfl.tileX,
+            tileY: pfl.tileY,
+          ),
+        );
+      }
+    }
+
     final game = SavedGame(
       identifier: overwrite?.identifier ?? randomString(),
       fileName: filename.isNotEmpty ? filename : ref.read(selectedCharacterProvider).name,
@@ -182,7 +217,11 @@ class SavedGameList extends _$SavedGameList {
       isResearching: ref.read(researchMenuProvider).isResearching,
       researchStarted: ref.read(researchMenuProvider).researchStarted,
       calendarState: ref.read(calendarProvider),
+      placedFarmlands: updatedPlacedFarmlands,
     );
+
+    print(game.placedFarmlands);
+    print("----");
 
     final data = game.toJson();
 

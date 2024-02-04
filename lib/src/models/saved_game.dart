@@ -2,6 +2,7 @@ import 'package:craftown/src/models/calendar_state.dart';
 import 'package:craftown/src/models/character.dart';
 import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/inventory_slot.dart';
+import 'package:craftown/src/models/placed_farmland.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/research_level.dart';
 import 'package:craftown/src/models/resource.dart';
@@ -32,6 +33,7 @@ class SavedGame with _$SavedGame {
     ResearchLevel? isResearching,
     DateTime? researchStarted,
     required CalendarState calendarState,
+    @Default([]) List<PlacedFarmland> placedFarmlands,
   }) = _SavedGame;
 
   factory SavedGame.fromJson(Map<String, dynamic> json) => _$SavedGameFromJson(json);
