@@ -14,11 +14,13 @@ import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/models/calendar_state.dart';
 import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/map_resource.dart';
+import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/calendar_provider.dart';
 import 'package:craftown/src/providers/farmland_list_provider.dart';
 import 'package:craftown/src/providers/map_resource_list_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
+import 'package:craftown/src/providers/occupied_coords_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
@@ -181,7 +183,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
               resource: resource,
               position: Vector2(object.x, object.y),
               size: Vector2(object.width, object.height),
-              isGround: isGround,
+              isGround: false,
             );
             add(sprite);
 
@@ -202,6 +204,15 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
                         sprite: sprite,
                         tileX: (object.x / TILE_SIZE).round(),
                         tileY: (object.y / TILE_SIZE).round()),
+                  );
+
+              ref.read(placedResourcesListProvider.notifier).add(
+                    uniqueIdentifier,
+                    sprite,
+                    (object.x / TILE_SIZE).round(),
+                    (object.y / TILE_SIZE).round(),
+                    (object.width / TILE_SIZE).round(),
+                    (object.height / TILE_SIZE).round(),
                   );
             });
           }
@@ -249,15 +260,27 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       final x = (tileX * TILE_SIZE).toDouble();
       final y = (tileY * TILE_SIZE).toDouble();
 
+      PlacedResource? placedResourceAtCoords;
+
+      outerLoop:
+      for (int x = tileX; x < (tileX + resource.placementWidth / TILE_SIZE).round(); x++) {
+        for (int y = tileY; y < (tileY + resource.placementHeight / TILE_SIZE).round(); y++) {
+          final coordWithResource = ref.read(occupiedCoordsProvider).firstWhereOrNull((c) => c.x == x && c.y == y);
+          if (coordWithResource != null) {
+            placedResourceAtCoords = coordWithResource.placedResource;
+            break outerLoop;
+          }
+        }
+      }
+
       final resourceAtCoords =
           ref.read(mapResourceListProvider).firstWhereOrNull((mapResource) => mapResource.tileX == tileX && mapResource.tileY == tileY);
-
-      final placedResourceAtCoords = ref.read(placedResourcesListProvider).firstWhereOrNull((pr) => pr.tileX == tileX && pr.tileY == tileY);
 
       if (placedResourceAtCoords != null) {
         ref.read(toastMessagesListProvider.notifier).add("${placedResourceAtCoords.sprite.resource.name} is in the way.");
         return;
       }
+
       Resource? updatedResource;
 
       if (resource.canOnlyBePlacedOn != null) {
@@ -299,7 +322,8 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       );
 
       add(newResource);
-      ref.read(placedResourcesListProvider.notifier).add(uniqueIdentifier, newResource, tileX, tileY);
+      ref.read(placedResourcesListProvider.notifier).add(
+          uniqueIdentifier, newResource, tileX, tileY, (resource.placementWidth / TILE_SIZE).round(), (resource.placementHeight / TILE_SIZE).round());
       final block = CollisionBlock(
         position: newResource.position,
         size: newResource.size,

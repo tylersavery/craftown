@@ -1,27 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'placed_resources_list_provider.dart';
+part of 'occupied_coords_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$placedResourcesListHash() =>
-    r'ea1fedb5419576f5f26597e006e0ee3d6299d5c9';
+String _$occupiedCoordsHash() => r'9ac89d61af95083b9c7de3cd5c534779539c53ee';
 
-/// See also [PlacedResourcesList].
-@ProviderFor(PlacedResourcesList)
-final placedResourcesListProvider =
-    NotifierProvider<PlacedResourcesList, List<PlacedResource>>.internal(
-  PlacedResourcesList.new,
-  name: r'placedResourcesListProvider',
+/// See also [occupiedCoords].
+@ProviderFor(occupiedCoords)
+final occupiedCoordsProvider = Provider<List<Coord>>.internal(
+  occupiedCoords,
+  name: r'occupiedCoordsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$placedResourcesListHash,
+      : _$occupiedCoordsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$PlacedResourcesList = Notifier<List<PlacedResource>>;
+typedef OccupiedCoordsRef = ProviderRef<List<Coord>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

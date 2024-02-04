@@ -29,6 +29,8 @@ _$PlacedResourceImpl _$$PlacedResourceImplFromJson(Map<String, dynamic> json) =>
           const [],
       tileX: json['tileX'] as int,
       tileY: json['tileY'] as int,
+      tileSizeX: json['tileSizeX'] as int,
+      tileSizeY: json['tileSizeY'] as int,
     );
 
 Map<String, dynamic> _$$PlacedResourceImplToJson(
@@ -48,4 +50,6 @@ Map<String, dynamic> _$$PlacedResourceImplToJson(
           instance.outputSlotContents.map((e) => e.toJson()).toList(),
       'tileX': instance.tileX,
       'tileY': instance.tileY,
+      'tileSizeX': instance.tileSizeX,
+      'tileSizeY': instance.tileSizeY,
     };

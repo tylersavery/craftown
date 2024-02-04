@@ -21,6 +21,8 @@ class PlacedResource with _$PlacedResource {
     @Default([]) List<Resource> outputSlotContents,
     required int tileX,
     required int tileY,
+    required int tileSizeX,
+    required int tileSizeY,
   }) = _PlacedResource;
 
   factory PlacedResource.fromJson(Map<String, dynamic> json) => _$PlacedResourceFromJson(json);
