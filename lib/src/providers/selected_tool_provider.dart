@@ -2,7 +2,6 @@ import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/models/tool.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'selected_tool_provider.g.dart';

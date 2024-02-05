@@ -1,7 +1,6 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/menus/providers/tool_menu_provider.dart';
-import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/inventory_map_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';

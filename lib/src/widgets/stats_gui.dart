@@ -69,7 +69,6 @@ class _StatRow extends StatelessWidget {
   final StatType type;
   final double value;
   const _StatRow({
-    super.key,
     required this.type,
     required this.value,
   });

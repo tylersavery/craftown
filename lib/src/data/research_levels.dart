@@ -1,7 +1,6 @@
 import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/models/ingredient.dart';
 import 'package:craftown/src/models/research_level.dart';
-import 'package:craftown/src/models/resource.dart';
 
 class ResearchLevels {
   static ResearchLevel get level1 {

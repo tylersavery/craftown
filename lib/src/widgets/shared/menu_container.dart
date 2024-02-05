@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -21,6 +20,7 @@ class MenuContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final maxContentHeight = MediaQuery.of(context).size.height - 32 - 64;
+    // ignore: no_leading_underscores_for_local_identifiers
     final _maxContentHeight = maxContentHeightOverride != null ? min(maxContentHeightOverride!, maxContentHeight) : maxContentHeight;
 
     return Stack(

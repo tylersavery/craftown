@@ -1,12 +1,8 @@
 import 'package:craftown/src/constants.dart';
-import 'package:craftown/src/data/tools.dart';
-import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/menus/providers/seed_menu_provider.dart';
-import 'package:craftown/src/menus/providers/tool_menu_provider.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/farmland_detail_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
-import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/shared/menu_container.dart';
 import 'package:flutter/material.dart';

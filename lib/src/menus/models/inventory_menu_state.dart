@@ -1,4 +1,3 @@
-import 'package:craftown/src/models/resource.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'inventory_menu_state.freezed.dart';

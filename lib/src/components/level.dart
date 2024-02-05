@@ -113,7 +113,6 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
     if (resourcesLayer != null) {
       // final List<String> identifiers = [];
       for (final object in resourcesLayer.objects) {
-        final properties = object.properties;
         Resource? resource;
         bool isGround = false;
         switch (object.class_) {

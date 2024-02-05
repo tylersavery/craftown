@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';

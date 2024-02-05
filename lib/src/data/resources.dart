@@ -1,9 +1,6 @@
 import 'package:craftown/src/data/research_levels.dart';
-import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/models/ingredient.dart';
-import 'package:craftown/src/models/research_level.dart';
 import 'package:craftown/src/models/resource.dart';
-import 'package:craftown/src/models/tool.dart';
 
 class Resources {
   // PRIMARY

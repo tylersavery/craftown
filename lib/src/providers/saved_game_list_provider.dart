@@ -1,6 +1,5 @@
 import 'package:craftown/src/components/collision_box.dart';
 import 'package:craftown/src/components/farmland_sprite.dart';
-import 'package:craftown/src/components/level.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/research_menu_provider.dart';
 import 'package:craftown/src/models/farmland.dart';

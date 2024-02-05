@@ -1,8 +1,8 @@
-import 'package:craftown/src/components/level.dart';
 import 'package:craftown/src/components/resource_sprite.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
+import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -49,15 +49,11 @@ class PlacedResourcesList extends _$PlacedResourcesList {
     for (final r in [...inputs, ...outputs, item.sprite.resource]) {
       final success = ref.read(inventoryListProvider.notifier).addResource(r);
 
-      //TODO: add this back in when ready to test
-
-      // if (!success) {
-      //   ref.read(toastMessagesListProvider.notifier).add("Not enough room to move everything");
-      //   return false;
-      // }
+      if (!success) {
+        ref.read(toastMessagesListProvider.notifier).add("Not enough room to move everything");
+        return false;
+      }
     }
-
-    //TODO: some funky stuff happening with multiple dudes - need a better identifier method perhaps
 
     final index = ref.read(inventoryListProvider).indexWhere((element) => element.resource?.identifier == item.sprite.resource.identifier);
     if (index > -1) {
@@ -79,8 +75,6 @@ class PlacedResourcesList extends _$PlacedResourcesList {
     });
 
     gameWidgetKey.currentState!.currentGame.level.remove(gameComponent);
-
-    // TODO: Perhaps a better way to do this (tie the two together)
 
     final level = gameWidgetKey.currentState!.currentGame.level;
 

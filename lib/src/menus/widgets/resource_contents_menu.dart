@@ -3,7 +3,6 @@
 import 'dart:math';
 
 import 'package:craftown/src/constants.dart';
-import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
 import 'package:craftown/src/models/resource.dart';
@@ -12,7 +11,6 @@ import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:craftown/src/providers/recipes_list_provider.dart';
-import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';
@@ -23,7 +21,6 @@ import 'package:craftown/src/widgets/shared/inventory_slot_wrap.dart';
 import 'package:craftown/src/widgets/shared/menu_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:collection/collection.dart';
 
 class ResourceContentsMenuWidget extends ConsumerWidget {
   const ResourceContentsMenuWidget({super.key});
@@ -252,7 +249,6 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                               runSpacing: 4,
                               children: slots.asMap().entries.map((entry) {
                                 final index = entry.key;
-                                final slot = entry.value;
                                 return Container(
                                   width: 48,
                                   height: 48,

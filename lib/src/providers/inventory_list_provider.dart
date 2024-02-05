@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:craftown/src/constants.dart';
-import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/data/spawn_state.dart';
 import 'package:craftown/src/models/ingredient.dart';
 import 'package:craftown/src/models/inventory_slot.dart';

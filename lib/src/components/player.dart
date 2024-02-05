@@ -7,7 +7,6 @@ import 'package:craftown/src/components/custom_hitbox.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/models/character.dart';
-import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/inventory_map_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';

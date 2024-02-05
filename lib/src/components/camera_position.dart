@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:flame/components.dart';
@@ -31,13 +29,6 @@ class CameraPosition extends PositionComponent with HasGameRef<Craftown>, Keyboa
 
   double get mapHeightPixels {
     return mapHeight * TILE_SIZE;
-  }
-
-  @override
-  FutureOr<void> onLoad() {
-    debugMode = false;
-    // TODO: implement onLoad
-    return super.onLoad();
   }
 
   @override

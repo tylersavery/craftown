@@ -37,9 +37,7 @@ class GameMenuWidget extends ConsumerWidget {
 }
 
 class _RootMenu extends ConsumerWidget {
-  const _RootMenu({
-    super.key,
-  });
+  const _RootMenu();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -91,9 +89,7 @@ class _RootMenu extends ConsumerWidget {
 }
 
 class _SaveGameMenu extends ConsumerWidget {
-  const _SaveGameMenu({
-    super.key,
-  });
+  const _SaveGameMenu();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -211,9 +207,7 @@ class _SaveGameMenu extends ConsumerWidget {
 }
 
 class _LoadGameMenu extends ConsumerWidget {
-  const _LoadGameMenu({
-    super.key,
-  });
+  const _LoadGameMenu();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -261,7 +255,6 @@ class _MenuItem extends StatelessWidget {
   const _MenuItem({
     required this.label,
     required this.onPressed,
-    super.key,
   });
 
   @override

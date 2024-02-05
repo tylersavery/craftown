@@ -49,7 +49,6 @@ class ResearchMenuWidget extends ConsumerWidget {
 class _ResearchCard extends ConsumerWidget {
   final ResearchLevel researchLevel;
   const _ResearchCard({
-    super.key,
     required this.researchLevel,
   });
 
@@ -223,7 +222,6 @@ class _ResearchProgressIndicator extends StatefulWidget {
   const _ResearchProgressIndicator({
     required this.researchStarted,
     required this.researchCompletes,
-    super.key,
   });
 
   @override

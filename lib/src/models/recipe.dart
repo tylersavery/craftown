@@ -1,5 +1,4 @@
 import 'package:craftown/src/models/ingredient.dart';
-import 'package:craftown/src/models/resource.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'recipe.freezed.dart';

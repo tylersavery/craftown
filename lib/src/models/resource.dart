@@ -1,8 +1,6 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/models/ingredient.dart';
-import 'package:craftown/src/models/inventory_slot.dart';
 import 'package:craftown/src/models/research_level.dart';
-import 'package:craftown/src/models/tool.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'resource.freezed.dart';
