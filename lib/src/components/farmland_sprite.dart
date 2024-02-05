@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:craftown/src/components/farmland_grown_sprite.dart';
 import 'package:craftown/src/components/player.dart';
+import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/menus/providers/seed_menu_provider.dart';
 import 'package:craftown/src/models/calendar_state.dart';
@@ -115,7 +116,8 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
         current = FarmlandState.grown;
         ref.read(farmlandDetailProvider(identifier).notifier).setState(FarmlandState.grown);
 
-        grownOverlaySprite = FarmlandGrownSprite(position: Vector2(0, 0), size: Vector2(16, 16));
+        grownOverlaySprite = FarmlandGrownSprite(seed: seed);
+
         add(grownOverlaySprite!);
       }
     }
@@ -181,6 +183,14 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
         }
         if (tool?.type == ToolType.sythe) {
           if (seed!.growsInto != null) {
+            game.player.isMining = true;
+
+            game.player.interactionAnimationType = PlayerInteractionAnimationType.hoe;
+
+            Future.delayed(Duration(milliseconds: 400), () {
+              game.player.isMining = false;
+            });
+
             int amount = seed!.farmYieldMin == seed!.farmYieldMax ? seed!.farmYieldMin : randomInt(seed!.farmYieldMin, seed!.farmYieldMax);
             final wateredTooLittle = wateringCount == 0;
             final wateredTooMuch = wateringCount > 2;

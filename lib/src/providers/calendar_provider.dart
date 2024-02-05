@@ -12,7 +12,7 @@ class Calendar extends _$Calendar {
   @override
   CalendarState build() {
     timer = Timer.periodic(Duration(seconds: SECONDS_BETWEEN_MONTHS.round()), (_) => nextMonth());
-    return CalendarState(monthIndex: 5);
+    return CalendarState(monthIndex: 4);
   }
 
   set(CalendarState calendarState) {

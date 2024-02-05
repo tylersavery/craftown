@@ -57,7 +57,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       resourcesPerSlot: json['resourcesPerSlot'] as int? ?? 0,
       outputSlotSize: json['outputSlotSize'] as int? ?? 0,
       isSeed: json['isSeed'] as bool? ?? false,
-      secondsToGrow: json['secondsToGrow'] as int? ?? 60,
+      secondsToGrow: json['secondsToGrow'] as int? ?? 20,
       growsInto: json['growsInto'] == null
           ? null
           : Resource.fromJson(json['growsInto'] as Map<String, dynamic>),
@@ -91,6 +91,11 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       equipsTool: json['equipsTool'] as String?,
+      farmlandGrownAssetPath: json['farmlandGrownAssetPath'] as String?,
+      farmlandGrownWidth:
+          (json['farmlandGrownWidth'] as num?)?.toDouble() ?? 16.0,
+      farmlandGrownHeight:
+          (json['farmlandGrownHeight'] as num?)?.toDouble() ?? 16.0,
     );
 
 Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
@@ -150,6 +155,9 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'researchRequirements':
           instance.researchRequirements.map((e) => e.toJson()).toList(),
       'equipsTool': instance.equipsTool,
+      'farmlandGrownAssetPath': instance.farmlandGrownAssetPath,
+      'farmlandGrownWidth': instance.farmlandGrownWidth,
+      'farmlandGrownHeight': instance.farmlandGrownHeight,
     };
 
 const _$PlayerInteractionAnimationTypeEnumMap = {

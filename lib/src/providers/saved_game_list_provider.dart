@@ -1,4 +1,5 @@
 import 'package:craftown/src/components/collision_box.dart';
+import 'package:craftown/src/components/farmland_grown_sprite.dart';
 import 'package:craftown/src/components/farmland_sprite.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/research_menu_provider.dart';
@@ -110,16 +111,16 @@ class SavedGameList extends _$SavedGameList {
       final farmlands = [...save.farmlands, ...save.placedFarmlands.map((pfl) => pfl.farmland).toList()];
 
       for (final pfl in save.placedFarmlands) {
-        gameWidgetKey.currentState!.currentGame.level.add(
-          FarmlandSprite(
-            identifier: pfl.identifier,
-            position: Vector2(
-              pfl.tileX * TILE_SIZE,
-              pfl.tileY * TILE_SIZE,
-            ),
-            size: Vector2(16, 16),
+        final fls = FarmlandSprite(
+          identifier: pfl.identifier,
+          position: Vector2(
+            pfl.tileX * TILE_SIZE,
+            pfl.tileY * TILE_SIZE,
           ),
+          size: Vector2(16, 16),
         );
+
+        gameWidgetKey.currentState!.currentGame.level.add(fls);
       }
 
       final sprites = gameWidgetKey.currentState!.currentGame.level.children;
@@ -133,6 +134,11 @@ class SavedGameList extends _$SavedGameList {
           sprite.current = fl.state;
           sprite.wateringCount = fl.wateringCount;
           i++;
+
+          if (fl.seed != null && fl.completeAt != null && fl.completeAt!.isBefore(DateTime.now())) {
+            sprite.grownOverlaySprite = FarmlandGrownSprite(seed: fl.seed);
+            sprite.add(sprite.grownOverlaySprite!);
+          }
         }
       }
 

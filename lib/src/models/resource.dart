@@ -85,6 +85,9 @@ class Resource with _$Resource {
     @Default(false) bool isHouse,
     @Default([]) List<ResearchLevel> researchRequirements,
     String? equipsTool,
+    String? farmlandGrownAssetPath,
+    @Default(16.0) double farmlandGrownWidth,
+    @Default(16.0) double farmlandGrownHeight,
   }) = _Resource;
 
   factory Resource.fromJson(Map<String, dynamic> json) => _$ResourceFromJson(json);

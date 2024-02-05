@@ -138,6 +138,9 @@ class Resources {
         farmYieldMin: 4,
         farmYieldMax: 6,
         storeCost: 2,
+        farmlandGrownAssetPath: "farming/grown-potato-11x17.png",
+        farmlandGrownWidth: 11,
+        farmlandGrownHeight: 17,
       );
 
   static Resource get carrot => Resource(
@@ -159,6 +162,9 @@ class Resources {
         farmYieldMin: 14,
         farmYieldMax: 20,
         storeCost: 3,
+        farmlandGrownAssetPath: "farming/grown-carrot-10x16.png",
+        farmlandGrownWidth: 10,
+        farmlandGrownHeight: 16,
       );
 
   static Resource get garlic => Resource(
@@ -182,6 +188,35 @@ class Resources {
         farmYieldMin: 4,
         farmYieldMax: 10,
         storeCost: 5,
+        farmlandGrownAssetPath: "farming/grown-garlic-10x17.png",
+        farmlandGrownWidth: 10,
+        farmlandGrownHeight: 17,
+      );
+
+  static Resource get tomato => Resource(
+        identifier: "tomato",
+        assetFileName16: "tomato-16x16.png",
+        name: "Tomato",
+        namePlural: "Tomato",
+        hungerDecreaseOnConsumption: 0.03,
+        saleValue: 3,
+        placementWidth: 16,
+        placementHeight: 16,
+      );
+
+  static Resource get tomatoSeed => Resource(
+        identifier: "tomato_seed",
+        assetFileName16: "tomato-seed-16x16.png",
+        name: "Tomato Seed",
+        namePlural: "Tomato Seeds",
+        isSeed: true,
+        growsInto: Resources.tomato,
+        farmYieldMin: 4,
+        farmYieldMax: 10,
+        storeCost: 5,
+        farmlandGrownAssetPath: "farming/grown-tomato-14x29.png",
+        farmlandGrownWidth: 10,
+        farmlandGrownHeight: 17,
       );
 
 // Smeltables

@@ -39,7 +39,6 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
     if (JOYSTICK_ENABLED) {
       _addJoystick();
       cam.viewport.add(joystick);
-      // cam.viewport.add(ShiftButton());
     }
 
     return super.onLoad();
