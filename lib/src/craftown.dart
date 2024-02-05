@@ -23,10 +23,7 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
 
   Craftown({required this.character}) {
     player = Player(character: character);
-    // globalGameReference.gameReference = this;
   }
-
-  // GlobalGameReference globalGameReference = Get.put(GlobalGameReference());
 
   @override
   FutureOr<void> onLoad() async {

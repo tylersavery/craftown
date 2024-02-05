@@ -15,6 +15,7 @@ import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/utils/collisions.dart';
+import 'package:craftown/src/utils/direction.dart';
 import 'package:craftown/src/utils/randomization.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -225,21 +226,9 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       isMining = true;
 
       game.player.isMining = true;
+      game.player.interactionAnimationType = resource.interactionAnimation;
 
-      final playerCenter = Vector2(game.player.position.x + (game.player.size.x / 2), game.player.position.y + (game.player.size.y / 2));
-      final resourceCenter = Vector2(position.x + (size.x / 2), position.y + (size.y / 2));
-
-      final deltaX = playerCenter.x - resourceCenter.x;
-      final deltaY = playerCenter.y - resourceCenter.y;
-      if (deltaX > 0 && deltaX > deltaY) {
-        game.player.miningDirection = WalkDirection.left;
-      } else if (deltaX < 0 && deltaX < deltaY) {
-        game.player.miningDirection = WalkDirection.right;
-      } else if (deltaY > 0) {
-        game.player.miningDirection = WalkDirection.up;
-      } else {
-        game.player.miningDirection = WalkDirection.down;
-      }
+      game.player.miningDirection = getWalkDirectionForMining(game.player, this);
     }
     super.onTapDown(event);
   }

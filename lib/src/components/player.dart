@@ -30,12 +30,58 @@ enum PlayerState {
   miningDown("Pickaxe_Down", 4),
   miningRight("Pickaxe_Right", 4),
   miningLeft("Pickaxe_Left", 4),
+  choppingUp("Axe_Up", 4),
+  choppingDown("Axe_Down", 4),
+  choppingRight("Axe_Right", 4),
+  choppingLeft("Axe_Left", 4),
+  hoeingUp("Hoe_Up", 4),
+  hoeingDown("Hoe_Down", 4),
+  hoeingRight("Hoe_Right", 4),
+  hoeingLeft("Hoe_Left", 4),
+  wateringUp("Watercan_Up", 4),
+  wateringDown("Watercan_Down", 4),
+  wateringRight("Watercan_Right", 4),
+  wateringLeft("Watercan_Left", 4),
   dead("Dead", 4),
   ;
 
   final String assetName;
   final int frameCount;
   const PlayerState(this.assetName, this.frameCount);
+}
+
+enum PlayerInteractionAnimationType {
+  pick(
+    PlayerState.miningUp,
+    PlayerState.miningDown,
+    PlayerState.miningRight,
+    PlayerState.miningLeft,
+  ),
+  axe(
+    PlayerState.choppingUp,
+    PlayerState.choppingDown,
+    PlayerState.choppingRight,
+    PlayerState.choppingLeft,
+  ),
+  hoe(
+    PlayerState.hoeingUp,
+    PlayerState.hoeingDown,
+    PlayerState.hoeingRight,
+    PlayerState.hoeingLeft,
+  ),
+  wateringCan(
+    PlayerState.wateringUp,
+    PlayerState.wateringDown,
+    PlayerState.wateringRight,
+    PlayerState.wateringLeft,
+  ),
+  ;
+
+  final PlayerState up;
+  final PlayerState down;
+  final PlayerState right;
+  final PlayerState left;
+  const PlayerInteractionAnimationType(this.up, this.down, this.right, this.left);
 }
 
 enum WalkDirection {
@@ -77,6 +123,21 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
   late final SpriteAnimation miningRightAnimation;
   late final SpriteAnimation miningLeftAnimation;
 
+  late final SpriteAnimation choppingUpAnimation;
+  late final SpriteAnimation choppingDownAnimation;
+  late final SpriteAnimation choppingRightAnimation;
+  late final SpriteAnimation choppingLeftAnimation;
+
+  late final SpriteAnimation hoeingUpAnimation;
+  late final SpriteAnimation hoeingDownAnimation;
+  late final SpriteAnimation hoeingRightAnimation;
+  late final SpriteAnimation hoeingLeftAnimation;
+
+  late final SpriteAnimation wateringUpAnimation;
+  late final SpriteAnimation wateringDownAnimation;
+  late final SpriteAnimation wateringRightAnimation;
+  late final SpriteAnimation wateringLeftAnimation;
+
   late final SpriteAnimation deadAnimation;
 
   //  constants
@@ -89,6 +150,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
 
   bool isDead = false;
   bool isMining = false;
+  PlayerInteractionAnimationType interactionAnimationType = PlayerInteractionAnimationType.pick;
+
   WalkDirection miningDirection = WalkDirection.down;
 
   CustomHitbox hitbox = CustomHitbox(
@@ -215,6 +278,21 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
     miningRightAnimation = _spriteAnimation(PlayerState.miningRight);
     miningLeftAnimation = _spriteAnimation(PlayerState.miningLeft);
 
+    choppingUpAnimation = _spriteAnimation(PlayerState.choppingUp);
+    choppingDownAnimation = _spriteAnimation(PlayerState.choppingDown);
+    choppingRightAnimation = _spriteAnimation(PlayerState.choppingRight);
+    choppingLeftAnimation = _spriteAnimation(PlayerState.choppingLeft);
+
+    hoeingUpAnimation = _spriteAnimation(PlayerState.hoeingUp);
+    hoeingDownAnimation = _spriteAnimation(PlayerState.hoeingDown);
+    hoeingRightAnimation = _spriteAnimation(PlayerState.hoeingRight);
+    hoeingLeftAnimation = _spriteAnimation(PlayerState.hoeingLeft);
+
+    wateringUpAnimation = _spriteAnimation(PlayerState.wateringUp);
+    wateringDownAnimation = _spriteAnimation(PlayerState.wateringDown);
+    wateringRightAnimation = _spriteAnimation(PlayerState.wateringRight);
+    wateringLeftAnimation = _spriteAnimation(PlayerState.wateringLeft);
+
     deadAnimation = _spriteAnimation(PlayerState.dead);
 
     animations = {
@@ -230,6 +308,18 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
       PlayerState.miningDown: miningDownAnimation,
       PlayerState.miningRight: miningRightAnimation,
       PlayerState.miningLeft: miningLeftAnimation,
+      PlayerState.choppingUp: choppingUpAnimation,
+      PlayerState.choppingDown: choppingDownAnimation,
+      PlayerState.choppingRight: choppingRightAnimation,
+      PlayerState.choppingLeft: choppingLeftAnimation,
+      PlayerState.hoeingUp: hoeingUpAnimation,
+      PlayerState.hoeingDown: hoeingDownAnimation,
+      PlayerState.hoeingRight: hoeingRightAnimation,
+      PlayerState.hoeingLeft: hoeingLeftAnimation,
+      PlayerState.wateringUp: wateringUpAnimation,
+      PlayerState.wateringDown: wateringDownAnimation,
+      PlayerState.wateringRight: wateringRightAnimation,
+      PlayerState.wateringLeft: wateringLeftAnimation,
       PlayerState.dead: deadAnimation,
     };
 
@@ -259,16 +349,15 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
   void _updatePlayerState() {
     if (isMining) {
       current = switch (miningDirection) {
-        WalkDirection.down => PlayerState.miningDown,
-        WalkDirection.up => PlayerState.miningUp,
-        WalkDirection.left => PlayerState.miningLeft,
-        WalkDirection.right => PlayerState.miningRight,
+        WalkDirection.down => interactionAnimationType.down,
+        WalkDirection.up => interactionAnimationType.up,
+        WalkDirection.left => interactionAnimationType.left,
+        WalkDirection.right => interactionAnimationType.right,
       };
-
       lastWalkDirection = miningDirection;
-
       return;
     }
+
     PlayerState playerState = switch (lastWalkDirection) {
       WalkDirection.down => PlayerState.idleDown,
       WalkDirection.up => PlayerState.idleUp,

@@ -131,6 +131,7 @@ class SavedGameList extends _$SavedGameList {
           sprite.seed = fl.seed;
           sprite.completeAt = fl.completeAt;
           sprite.current = fl.state;
+          sprite.wateringCount = fl.wateringCount;
           i++;
         }
       }

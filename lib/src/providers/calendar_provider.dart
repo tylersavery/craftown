@@ -8,11 +8,11 @@ part 'calendar_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class Calendar extends _$Calendar {
-  late final Timer timer;
+  Timer? timer;
   @override
   CalendarState build() {
     timer = Timer.periodic(Duration(seconds: SECONDS_BETWEEN_MONTHS.round()), (_) => nextMonth());
-    return CalendarState(monthIndex: 6);
+    return CalendarState(monthIndex: 5);
   }
 
   set(CalendarState calendarState) {

@@ -21,6 +21,7 @@ class Farmland with _$Farmland {
     required String identifier,
     Resource? seed,
     DateTime? completeAt,
+    @Default(0) int wateringCount,
     @JsonKey(fromJson: farmlandStateFromJson, toJson: farmlandStateToJson) @Default(FarmlandState.untouched) FarmlandState state,
   }) = _Farmland;
 

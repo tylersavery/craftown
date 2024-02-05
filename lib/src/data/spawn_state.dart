@@ -17,6 +17,7 @@ class SpawnState {
     // TEMP:
     initialState[5] = InventorySlot(resource: Resources.shovel, count: 1);
     initialState[6] = InventorySlot(resource: Resources.soil, count: 10);
+    initialState[7] = InventorySlot(resource: Resources.woodenBucket, count: 1);
 
     return initialState;
   }

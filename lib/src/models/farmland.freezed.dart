@@ -23,6 +23,7 @@ mixin _$Farmland {
   String get identifier => throw _privateConstructorUsedError;
   Resource? get seed => throw _privateConstructorUsedError;
   DateTime? get completeAt => throw _privateConstructorUsedError;
+  int get wateringCount => throw _privateConstructorUsedError;
   @JsonKey(fromJson: farmlandStateFromJson, toJson: farmlandStateToJson)
   FarmlandState get state => throw _privateConstructorUsedError;
 
@@ -41,6 +42,7 @@ abstract class $FarmlandCopyWith<$Res> {
       {String identifier,
       Resource? seed,
       DateTime? completeAt,
+      int wateringCount,
       @JsonKey(fromJson: farmlandStateFromJson, toJson: farmlandStateToJson)
       FarmlandState state});
 
@@ -63,6 +65,7 @@ class _$FarmlandCopyWithImpl<$Res, $Val extends Farmland>
     Object? identifier = null,
     Object? seed = freezed,
     Object? completeAt = freezed,
+    Object? wateringCount = null,
     Object? state = null,
   }) {
     return _then(_value.copyWith(
@@ -78,6 +81,10 @@ class _$FarmlandCopyWithImpl<$Res, $Val extends Farmland>
           ? _value.completeAt
           : completeAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      wateringCount: null == wateringCount
+          ? _value.wateringCount
+          : wateringCount // ignore: cast_nullable_to_non_nullable
+              as int,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -110,6 +117,7 @@ abstract class _$$FarmlandImplCopyWith<$Res>
       {String identifier,
       Resource? seed,
       DateTime? completeAt,
+      int wateringCount,
       @JsonKey(fromJson: farmlandStateFromJson, toJson: farmlandStateToJson)
       FarmlandState state});
 
@@ -131,6 +139,7 @@ class __$$FarmlandImplCopyWithImpl<$Res>
     Object? identifier = null,
     Object? seed = freezed,
     Object? completeAt = freezed,
+    Object? wateringCount = null,
     Object? state = null,
   }) {
     return _then(_$FarmlandImpl(
@@ -146,6 +155,10 @@ class __$$FarmlandImplCopyWithImpl<$Res>
           ? _value.completeAt
           : completeAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      wateringCount: null == wateringCount
+          ? _value.wateringCount
+          : wateringCount // ignore: cast_nullable_to_non_nullable
+              as int,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -161,6 +174,7 @@ class _$FarmlandImpl extends _Farmland {
       {required this.identifier,
       this.seed,
       this.completeAt,
+      this.wateringCount = 0,
       @JsonKey(fromJson: farmlandStateFromJson, toJson: farmlandStateToJson)
       this.state = FarmlandState.untouched})
       : super._();
@@ -175,12 +189,15 @@ class _$FarmlandImpl extends _Farmland {
   @override
   final DateTime? completeAt;
   @override
+  @JsonKey()
+  final int wateringCount;
+  @override
   @JsonKey(fromJson: farmlandStateFromJson, toJson: farmlandStateToJson)
   final FarmlandState state;
 
   @override
   String toString() {
-    return 'Farmland(identifier: $identifier, seed: $seed, completeAt: $completeAt, state: $state)';
+    return 'Farmland(identifier: $identifier, seed: $seed, completeAt: $completeAt, wateringCount: $wateringCount, state: $state)';
   }
 
   @override
@@ -193,13 +210,15 @@ class _$FarmlandImpl extends _Farmland {
             (identical(other.seed, seed) || other.seed == seed) &&
             (identical(other.completeAt, completeAt) ||
                 other.completeAt == completeAt) &&
+            (identical(other.wateringCount, wateringCount) ||
+                other.wateringCount == wateringCount) &&
             (identical(other.state, state) || other.state == state));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, identifier, seed, completeAt, state);
+  int get hashCode => Object.hash(
+      runtimeType, identifier, seed, completeAt, wateringCount, state);
 
   @JsonKey(ignore: true)
   @override
@@ -220,6 +239,7 @@ abstract class _Farmland extends Farmland {
       {required final String identifier,
       final Resource? seed,
       final DateTime? completeAt,
+      final int wateringCount,
       @JsonKey(fromJson: farmlandStateFromJson, toJson: farmlandStateToJson)
       final FarmlandState state}) = _$FarmlandImpl;
   const _Farmland._() : super._();
@@ -233,6 +253,8 @@ abstract class _Farmland extends Farmland {
   Resource? get seed;
   @override
   DateTime? get completeAt;
+  @override
+  int get wateringCount;
   @override
   @JsonKey(fromJson: farmlandStateFromJson, toJson: farmlandStateToJson)
   FarmlandState get state;

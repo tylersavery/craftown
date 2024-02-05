@@ -9,7 +9,7 @@ class SelectedCharacter extends _$SelectedCharacter {
   Character build() {
     return Character(
       name: "Bob",
-      skin: CharacterSkin.femaleBlackBlackHair,
+      skin: CharacterSkin.maleWhiteBlondHair,
     );
   }
 

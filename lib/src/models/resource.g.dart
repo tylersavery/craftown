@@ -22,11 +22,15 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       interactionRadius:
-          (json['interactionRadius'] as num?)?.toDouble() ?? 32.0,
+          (json['interactionRadius'] as num?)?.toDouble() ?? 64.0,
       secondsToSmelt: (json['secondsToSmelt'] as num?)?.toDouble(),
       secondsToCraft: (json['secondsToCraft'] as num?)?.toDouble(),
       secondsToMine: (json['secondsToMine'] as num?)?.toDouble(),
       energyToMine: json['energyToMine'] ?? 0.01,
+      interactionAnimation: $enumDecodeNullable(
+              _$PlayerInteractionAnimationTypeEnumMap,
+              json['interactionAnimation']) ??
+          PlayerInteractionAnimationType.pick,
       miningToolRequiredIdentifier:
           json['miningToolRequiredIdentifier'] as String?,
       hungerDecreaseOnConsumption:
@@ -53,7 +57,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       resourcesPerSlot: json['resourcesPerSlot'] as int? ?? 0,
       outputSlotSize: json['outputSlotSize'] as int? ?? 0,
       isSeed: json['isSeed'] as bool? ?? false,
-      secondsToGrow: json['secondsToGrow'] as int? ?? 5,
+      secondsToGrow: json['secondsToGrow'] as int? ?? 60,
       growsInto: json['growsInto'] == null
           ? null
           : Resource.fromJson(json['growsInto'] as Map<String, dynamic>),
@@ -106,6 +110,8 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'secondsToCraft': instance.secondsToCraft,
       'secondsToMine': instance.secondsToMine,
       'energyToMine': instance.energyToMine,
+      'interactionAnimation': _$PlayerInteractionAnimationTypeEnumMap[
+          instance.interactionAnimation]!,
       'miningToolRequiredIdentifier': instance.miningToolRequiredIdentifier,
       'hungerDecreaseOnConsumption': instance.hungerDecreaseOnConsumption,
       'thirstDecreaseOnConsumption': instance.thirstDecreaseOnConsumption,
@@ -145,3 +151,10 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
           instance.researchRequirements.map((e) => e.toJson()).toList(),
       'equipsTool': instance.equipsTool,
     };
+
+const _$PlayerInteractionAnimationTypeEnumMap = {
+  PlayerInteractionAnimationType.pick: 'pick',
+  PlayerInteractionAnimationType.axe: 'axe',
+  PlayerInteractionAnimationType.hoe: 'hoe',
+  PlayerInteractionAnimationType.wateringCan: 'wateringCan',
+};

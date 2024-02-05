@@ -15,6 +15,7 @@ _$FarmlandImpl _$$FarmlandImplFromJson(Map<String, dynamic> json) =>
       completeAt: json['completeAt'] == null
           ? null
           : DateTime.parse(json['completeAt'] as String),
+      wateringCount: json['wateringCount'] as int? ?? 0,
       state: json['state'] == null
           ? FarmlandState.untouched
           : farmlandStateFromJson(json['state'] as String),
@@ -25,5 +26,6 @@ Map<String, dynamic> _$$FarmlandImplToJson(_$FarmlandImpl instance) =>
       'identifier': instance.identifier,
       'seed': instance.seed?.toJson(),
       'completeAt': instance.completeAt?.toIso8601String(),
+      'wateringCount': instance.wateringCount,
       'state': farmlandStateToJson(instance.state),
     };

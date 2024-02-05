@@ -35,6 +35,8 @@ mixin _$Resource {
   double? get secondsToCraft => throw _privateConstructorUsedError;
   double? get secondsToMine => throw _privateConstructorUsedError;
   dynamic get energyToMine => throw _privateConstructorUsedError;
+  PlayerInteractionAnimationType get interactionAnimation =>
+      throw _privateConstructorUsedError;
   String? get miningToolRequiredIdentifier =>
       throw _privateConstructorUsedError;
   double get hungerDecreaseOnConsumption => throw _privateConstructorUsedError;
@@ -102,6 +104,7 @@ abstract class $ResourceCopyWith<$Res> {
       double? secondsToCraft,
       double? secondsToMine,
       dynamic energyToMine,
+      PlayerInteractionAnimationType interactionAnimation,
       String? miningToolRequiredIdentifier,
       double hungerDecreaseOnConsumption,
       double thirstDecreaseOnConsumption,
@@ -172,6 +175,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? secondsToCraft = freezed,
     Object? secondsToMine = freezed,
     Object? energyToMine = freezed,
+    Object? interactionAnimation = null,
     Object? miningToolRequiredIdentifier = freezed,
     Object? hungerDecreaseOnConsumption = null,
     Object? thirstDecreaseOnConsumption = null,
@@ -270,6 +274,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.energyToMine
           : energyToMine // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      interactionAnimation: null == interactionAnimation
+          ? _value.interactionAnimation
+          : interactionAnimation // ignore: cast_nullable_to_non_nullable
+              as PlayerInteractionAnimationType,
       miningToolRequiredIdentifier: freezed == miningToolRequiredIdentifier
           ? _value.miningToolRequiredIdentifier
           : miningToolRequiredIdentifier // ignore: cast_nullable_to_non_nullable
@@ -466,6 +474,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
       double? secondsToCraft,
       double? secondsToMine,
       dynamic energyToMine,
+      PlayerInteractionAnimationType interactionAnimation,
       String? miningToolRequiredIdentifier,
       double hungerDecreaseOnConsumption,
       double thirstDecreaseOnConsumption,
@@ -536,6 +545,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? secondsToCraft = freezed,
     Object? secondsToMine = freezed,
     Object? energyToMine = freezed,
+    Object? interactionAnimation = null,
     Object? miningToolRequiredIdentifier = freezed,
     Object? hungerDecreaseOnConsumption = null,
     Object? thirstDecreaseOnConsumption = null,
@@ -632,6 +642,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
               as double?,
       energyToMine:
           freezed == energyToMine ? _value.energyToMine! : energyToMine,
+      interactionAnimation: null == interactionAnimation
+          ? _value.interactionAnimation
+          : interactionAnimation // ignore: cast_nullable_to_non_nullable
+              as PlayerInteractionAnimationType,
       miningToolRequiredIdentifier: freezed == miningToolRequiredIdentifier
           ? _value.miningToolRequiredIdentifier
           : miningToolRequiredIdentifier // ignore: cast_nullable_to_non_nullable
@@ -793,11 +807,12 @@ class _$ResourceImpl extends _Resource {
       this.isLiquid = false,
       this.amountPerSlot = 25,
       final List<Ingredient> ingredients = const [],
-      this.interactionRadius = 32.0,
+      this.interactionRadius = 64.0,
       this.secondsToSmelt,
       this.secondsToCraft,
       this.secondsToMine,
       this.energyToMine = 0.01,
+      this.interactionAnimation = PlayerInteractionAnimationType.pick,
       this.miningToolRequiredIdentifier,
       this.hungerDecreaseOnConsumption = 0,
       this.thirstDecreaseOnConsumption = 0,
@@ -816,7 +831,7 @@ class _$ResourceImpl extends _Resource {
       this.resourcesPerSlot = 0,
       this.outputSlotSize = 0,
       this.isSeed = false,
-      this.secondsToGrow = 5,
+      this.secondsToGrow = 60,
       this.growsInto,
       this.farmYieldMin = 1,
       this.farmYieldMax = 1,
@@ -886,6 +901,9 @@ class _$ResourceImpl extends _Resource {
   @override
   @JsonKey()
   final dynamic energyToMine;
+  @override
+  @JsonKey()
+  final PlayerInteractionAnimationType interactionAnimation;
   @override
   final String? miningToolRequiredIdentifier;
   @override
@@ -1010,7 +1028,7 @@ class _$ResourceImpl extends _Resource {
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, placeWithHitbox: $placeWithHitbox, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, canFarm: $canFarm, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements, equipsTool: $equipsTool)';
+    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, interactionAnimation: $interactionAnimation, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, placeWithHitbox: $placeWithHitbox, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, canFarm: $canFarm, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements, equipsTool: $equipsTool)';
   }
 
   @JsonKey(ignore: true)
@@ -1044,6 +1062,7 @@ abstract class _Resource extends Resource {
       final double? secondsToCraft,
       final double? secondsToMine,
       final dynamic energyToMine,
+      final PlayerInteractionAnimationType interactionAnimation,
       final String? miningToolRequiredIdentifier,
       final double hungerDecreaseOnConsumption,
       final double thirstDecreaseOnConsumption,
@@ -1116,6 +1135,8 @@ abstract class _Resource extends Resource {
   double? get secondsToMine;
   @override
   dynamic get energyToMine;
+  @override
+  PlayerInteractionAnimationType get interactionAnimation;
   @override
   String? get miningToolRequiredIdentifier;
   @override

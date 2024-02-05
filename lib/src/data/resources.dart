@@ -1,3 +1,4 @@
+import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/data/research_levels.dart';
 import 'package:craftown/src/models/ingredient.dart';
 import 'package:craftown/src/models/resource.dart';
@@ -45,6 +46,7 @@ class Resources {
         secondsToMine: 3,
         miningToolRequiredIdentifier: "shovel",
         smeltsInto: "brick",
+        interactionAnimation: PlayerInteractionAnimationType.hoe,
       );
 
   static Resource get copper => Resource(
@@ -73,6 +75,7 @@ class Resources {
         spawnedResourceHitboxHeight: 16,
         spawnedResourceHitboxOffsetX: 0,
         spawnedResourceHitboxOffsetY: 0,
+        interactionAnimation: PlayerInteractionAnimationType.axe,
       );
 
   static Resource get water => Resource(
@@ -392,7 +395,7 @@ class Resources {
         amountPerSlot: 1,
         canPlace: true,
         canPickUp: true,
-        equipsTool: "wooden_bucket",
+        equipsTool: "water_bucket",
         storeCost: 10,
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 5),

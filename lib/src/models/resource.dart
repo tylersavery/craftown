@@ -1,3 +1,4 @@
+import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/models/ingredient.dart';
 import 'package:craftown/src/models/research_level.dart';
@@ -42,11 +43,12 @@ class Resource with _$Resource {
     @Default(false) bool isLiquid,
     @Default(25) int amountPerSlot,
     @Default([]) List<Ingredient> ingredients,
-    @Default(32.0) double interactionRadius,
+    @Default(64.0) double interactionRadius,
     double? secondsToSmelt,
     double? secondsToCraft,
     double? secondsToMine,
     @Default(0.01) energyToMine,
+    @Default(PlayerInteractionAnimationType.pick) PlayerInteractionAnimationType interactionAnimation,
     String? miningToolRequiredIdentifier,
     @Default(0) double hungerDecreaseOnConsumption,
     @Default(0) double thirstDecreaseOnConsumption,
@@ -64,7 +66,7 @@ class Resource with _$Resource {
     @Default(0) int resourcesPerSlot,
     @Default(0) int outputSlotSize,
     @Default(false) bool isSeed,
-    @Default(5) int secondsToGrow,
+    @Default(20) int secondsToGrow,
     Resource? growsInto,
     @Default(1) int farmYieldMin,
     @Default(1) int farmYieldMax,

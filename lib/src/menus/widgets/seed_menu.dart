@@ -65,6 +65,7 @@ class SeedMenuWidget extends ConsumerWidget {
 
                           ref.read(farmlandDetailProvider(menuState.farmlandSprite!.identifier).notifier).setCompleteAt(completeAt);
                           ref.read(farmlandDetailProvider(menuState.farmlandSprite!.identifier).notifier).setSeed(seed);
+                          ref.read(farmlandDetailProvider(menuState.farmlandSprite!.identifier).notifier).setWateringCount(0);
                         }
 
                         menuProvider.close();

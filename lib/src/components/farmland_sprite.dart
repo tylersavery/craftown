@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:craftown/src/components/farmland_grown_sprite.dart';
+import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/menus/providers/seed_menu_provider.dart';
 import 'package:craftown/src/models/calendar_state.dart';
@@ -11,6 +13,7 @@ import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/utils/collisions.dart';
+import 'package:craftown/src/utils/direction.dart';
 import 'package:craftown/src/utils/randomization.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -20,6 +23,7 @@ enum FarmlandState {
   untouched("untouched"),
   dug("dug"),
   growing("growing"),
+  watered("watered"),
   grown("grown"),
   ;
 
@@ -35,10 +39,13 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   late final Sprite untouchedSprite;
   late final Sprite dugSprite;
   late final Sprite growingSprite;
+  late final Sprite wateredSprite;
   late final Sprite grownSprite;
+  FarmlandGrownSprite? grownOverlaySprite;
 
   Resource? seed;
   DateTime? completeAt;
+  int wateringCount = 0;
   CalendarSeason currentSeason = CalendarSeason.summer;
 
   @override
@@ -47,12 +54,14 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
     untouchedSprite = Sprite(game.images.fromCache("farmland_untouched_16x16.png"));
     dugSprite = Sprite(game.images.fromCache("farmland_dug_16x16.png"));
     growingSprite = Sprite(game.images.fromCache("farmland_growing_16x16.png"));
+    wateredSprite = Sprite(game.images.fromCache("farmland_watered_16x16.png"));
     grownSprite = Sprite(game.images.fromCache("farmland_grown_16x16.png"));
 
     sprites = {
       FarmlandState.untouched: untouchedSprite,
       FarmlandState.dug: dugSprite,
       FarmlandState.growing: growingSprite,
+      FarmlandState.watered: wateredSprite,
       FarmlandState.grown: grownSprite,
     };
 
@@ -76,9 +85,14 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
           provider.setState(FarmlandState.untouched);
           provider.setCompleteAt(null);
           provider.setSeed(null);
+          provider.setWateringCount(0);
           opacity = 0;
           completeAt = null;
           seed = null;
+          wateringCount = 0;
+          if (grownOverlaySprite != null) {
+            remove(grownOverlaySprite!);
+          }
           return;
       }
     }
@@ -93,10 +107,16 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       return;
     }
 
-    if (seed != null && current == FarmlandState.growing) {
+    if (seed != null && (current == FarmlandState.growing || current == FarmlandState.watered)) {
+      if (wateringCount > 0 && current == FarmlandState.growing) {
+        current = FarmlandState.watered;
+      }
       if (completeAt != null && completeAt!.isBefore(DateTime.now())) {
         current = FarmlandState.grown;
         ref.read(farmlandDetailProvider(identifier).notifier).setState(FarmlandState.grown);
+
+        grownOverlaySprite = FarmlandGrownSprite(position: Vector2(0, 0), size: Vector2(16, 16));
+        add(grownOverlaySprite!);
       }
     }
 
@@ -104,7 +124,7 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   }
 
   @override
-  void onTapUp(TapUpEvent event) {
+  void onTapDown(TapDownEvent event) {
     final provider = ref.read(farmlandDetailProvider(identifier).notifier);
 
     if (currentSeason == CalendarSeason.winter) {
@@ -112,7 +132,7 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       return;
     }
 
-    if (!isWithinRadius(game.player.position, position, 48)) {
+    if (!isWithinRadius(game.player.position, position, 64)) {
       return;
     }
     final tool = ref.read(selectedToolProvider);
@@ -122,6 +142,14 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
         if (tool?.type == ToolType.shovel) {
           current = FarmlandState.dug;
           provider.setState(FarmlandState.dug);
+          game.player.isMining = true;
+          game.player.interactionAnimationType = PlayerInteractionAnimationType.hoe;
+
+          game.player.miningDirection = getWalkDirectionForMining(game.player, this);
+
+          Future.delayed(Duration(milliseconds: 400), () {
+            game.player.isMining = false;
+          });
         } else {
           ref.read(toastMessagesListProvider.notifier).add("Use a shovel to dig here.");
         }
@@ -130,6 +158,20 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
         ref.read(seedMenuProvider.notifier).openWith(this);
         break;
       case FarmlandState.growing:
+      case FarmlandState.watered:
+        if (tool?.type == ToolType.waterBucket) {
+          game.player.isMining = true;
+          game.player.interactionAnimationType = PlayerInteractionAnimationType.wateringCan;
+
+          wateringCount += 1;
+          provider.setWateringCount(wateringCount);
+          Future.delayed(Duration(milliseconds: 400), () {
+            game.player.isMining = false;
+          });
+
+          return;
+        }
+
         if (seed != null && seed!.growsInto != null) {
           ref.read(toastMessagesListProvider.notifier).add("Growing ${seed!.growsInto!.namePlural} here.");
         }
@@ -140,21 +182,40 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
         if (tool?.type == ToolType.sythe) {
           if (seed!.growsInto != null) {
             int amount = seed!.farmYieldMin == seed!.farmYieldMax ? seed!.farmYieldMin : randomInt(seed!.farmYieldMin, seed!.farmYieldMax);
+            final wateredTooLittle = wateringCount == 0;
+            final wateredTooMuch = wateringCount > 2;
+
+            if (wateredTooLittle || wateredTooMuch) {
+              amount = (amount / 2).round();
+            }
 
             for (int i = 0; i < amount; i++) {
               ref.read(inventoryListProvider.notifier).addResource(seed!.growsInto!);
             }
+            String? tip;
+            if (wateredTooMuch) {
+              tip = "Try not to water your crops that much.";
+            }
+
+            if (wateredTooLittle) {
+              tip = "Dont forget to water your crops for a higher yield!";
+            }
             ref
                 .read(toastMessagesListProvider.notifier)
-                .add("Harvested $amount ${amount == 1 ? seed!.growsInto!.name : seed!.growsInto!.namePlural}.");
+                .add("Harvested $amount ${amount == 1 ? seed!.growsInto!.name : seed!.growsInto!.namePlural}. ${tip ?? ''}");
           }
 
           completeAt = null;
           seed = null;
           current = FarmlandState.untouched;
+          wateringCount = 0;
           provider.setState(FarmlandState.untouched);
           provider.setCompleteAt(null);
           provider.setSeed(null);
+          provider.setWateringCount(0);
+          if (grownOverlaySprite != null) {
+            remove(grownOverlaySprite!);
+          }
         } else {
           if (seed != null && seed!.growsInto != null) {
             ref.read(toastMessagesListProvider.notifier).add("Use a sythe to harvest the ${seed!.growsInto!.namePlural}.");
@@ -165,6 +226,6 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
         break;
     }
 
-    super.onTapUp(event);
+    super.onTapDown(event);
   }
 }

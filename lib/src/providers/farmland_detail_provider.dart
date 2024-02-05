@@ -35,4 +35,11 @@ class FarmlandDetail extends _$FarmlandDetail {
     }
     state = state!.copyWith(completeAt: dateTime);
   }
+
+  void setWateringCount(int amount) {
+    if (state == null) {
+      return;
+    }
+    state = state!.copyWith(wateringCount: amount);
+  }
 }
