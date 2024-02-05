@@ -6,7 +6,7 @@ part of 'resource_in_hand_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$resourceInHandHash() => r'ab5124e1f1f34f3b5d9b54775f6c82176f723924';
+String _$resourceInHandHash() => r'266e7146bab25298eb97e6b6d8c3f1b75531377a';
 
 /// See also [ResourceInHand].
 @ProviderFor(ResourceInHand)

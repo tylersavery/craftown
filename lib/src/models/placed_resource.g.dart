@@ -31,6 +31,7 @@ _$PlacedResourceImpl _$$PlacedResourceImplFromJson(Map<String, dynamic> json) =>
       tileY: json['tileY'] as int,
       tileSizeX: json['tileSizeX'] as int,
       tileSizeY: json['tileSizeY'] as int,
+      rotationQuarterTurns: json['rotationQuarterTurns'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$PlacedResourceImplToJson(
@@ -52,4 +53,5 @@ Map<String, dynamic> _$$PlacedResourceImplToJson(
       'tileY': instance.tileY,
       'tileSizeX': instance.tileSizeX,
       'tileSizeY': instance.tileSizeY,
+      'rotationQuarterTurns': instance.rotationQuarterTurns,
     };

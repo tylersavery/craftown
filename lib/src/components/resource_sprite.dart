@@ -43,6 +43,8 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   late OutputIndicatorSprite outputIndicatorSprite;
 
+  int rotationQuarterTurns;
+
   ResourceSprite({
     required this.resource,
     required this.isGround,
@@ -50,6 +52,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
     super.size,
     this.visible = false,
     this.placementUniqueIdentifier,
+    this.rotationQuarterTurns = 0,
   }) {
     initialPosition = Vector2(position.x, position.y);
     identifier = randomString();
@@ -88,16 +91,41 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   FutureOr<void> onLoad() {
     debugMode = false;
     priority = 25;
-    emptySprite = Sprite(
-      game.images.fromCache('resources/${resource.assetFileNameLargeWithFallback}'),
-    );
 
-    fullSprite = resource.assetFileNameWhenFull != null
-        ? Sprite(
-            game.images.fromCache('resources/${resource.assetFileNameWhenFull}'),
-          )
-        : emptySprite;
+    if (resource.canRotate) {
+      late String? assetFileName;
+      switch (rotationQuarterTurns) {
+        case 1:
+          assetFileName = resource.assetFilename90Degrees;
+          break;
+        case 2:
+          assetFileName = resource.assetFilename180Degrees;
+          break;
+        case 3:
+          assetFileName = resource.assetFilename270Degrees;
+          break;
+        default:
+          assetFileName = resource.assetFileName16;
+          break;
+      }
 
+      emptySprite = Sprite(
+        game.images.fromCache('resources/${assetFileName ?? resource.assetFileName16}'),
+      );
+      fullSprite = Sprite(
+        game.images.fromCache('resources/${assetFileName ?? resource.assetFileName16}'),
+      );
+    } else {
+      emptySprite = Sprite(
+        game.images.fromCache('resources/${resource.assetFileNameLargeWithFallback}'),
+      );
+
+      fullSprite = resource.assetFileNameWhenFull != null
+          ? Sprite(
+              game.images.fromCache('resources/${resource.assetFileNameWhenFull}'),
+            )
+          : emptySprite;
+    }
     sprites = {SpriteState.empty: emptySprite, SpriteState.full: fullSprite};
 
     opacity = visible ? 1 : 0;

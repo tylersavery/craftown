@@ -79,6 +79,11 @@ mixin _$Resource {
   String? get farmlandGrownAssetPath => throw _privateConstructorUsedError;
   double get farmlandGrownWidth => throw _privateConstructorUsedError;
   double get farmlandGrownHeight => throw _privateConstructorUsedError;
+  bool get canRotate => throw _privateConstructorUsedError;
+  bool get isConveyor => throw _privateConstructorUsedError;
+  String? get assetFilename90Degrees => throw _privateConstructorUsedError;
+  String? get assetFilename180Degrees => throw _privateConstructorUsedError;
+  String? get assetFilename270Degrees => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -147,7 +152,12 @@ abstract class $ResourceCopyWith<$Res> {
       String? equipsTool,
       String? farmlandGrownAssetPath,
       double farmlandGrownWidth,
-      double farmlandGrownHeight});
+      double farmlandGrownHeight,
+      bool canRotate,
+      bool isConveyor,
+      String? assetFilename90Degrees,
+      String? assetFilename180Degrees,
+      String? assetFilename270Degrees});
 
   $ResourceCopyWith<$Res>? get growsInto;
   $ResourceCopyWith<$Res>? get miningOutputResource;
@@ -221,6 +231,11 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? farmlandGrownAssetPath = freezed,
     Object? farmlandGrownWidth = null,
     Object? farmlandGrownHeight = null,
+    Object? canRotate = null,
+    Object? isConveyor = null,
+    Object? assetFilename90Degrees = freezed,
+    Object? assetFilename180Degrees = freezed,
+    Object? assetFilename270Degrees = freezed,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -443,6 +458,26 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.farmlandGrownHeight
           : farmlandGrownHeight // ignore: cast_nullable_to_non_nullable
               as double,
+      canRotate: null == canRotate
+          ? _value.canRotate
+          : canRotate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isConveyor: null == isConveyor
+          ? _value.isConveyor
+          : isConveyor // ignore: cast_nullable_to_non_nullable
+              as bool,
+      assetFilename90Degrees: freezed == assetFilename90Degrees
+          ? _value.assetFilename90Degrees
+          : assetFilename90Degrees // ignore: cast_nullable_to_non_nullable
+              as String?,
+      assetFilename180Degrees: freezed == assetFilename180Degrees
+          ? _value.assetFilename180Degrees
+          : assetFilename180Degrees // ignore: cast_nullable_to_non_nullable
+              as String?,
+      assetFilename270Degrees: freezed == assetFilename270Degrees
+          ? _value.assetFilename270Degrees
+          : assetFilename270Degrees // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -535,7 +570,12 @@ abstract class _$$ResourceImplCopyWith<$Res>
       String? equipsTool,
       String? farmlandGrownAssetPath,
       double farmlandGrownWidth,
-      double farmlandGrownHeight});
+      double farmlandGrownHeight,
+      bool canRotate,
+      bool isConveyor,
+      String? assetFilename90Degrees,
+      String? assetFilename180Degrees,
+      String? assetFilename270Degrees});
 
   @override
   $ResourceCopyWith<$Res>? get growsInto;
@@ -609,6 +649,11 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? farmlandGrownAssetPath = freezed,
     Object? farmlandGrownWidth = null,
     Object? farmlandGrownHeight = null,
+    Object? canRotate = null,
+    Object? isConveyor = null,
+    Object? assetFilename90Degrees = freezed,
+    Object? assetFilename180Degrees = freezed,
+    Object? assetFilename270Degrees = freezed,
   }) {
     return _then(_$ResourceImpl(
       identifier: null == identifier
@@ -828,6 +873,26 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.farmlandGrownHeight
           : farmlandGrownHeight // ignore: cast_nullable_to_non_nullable
               as double,
+      canRotate: null == canRotate
+          ? _value.canRotate
+          : canRotate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isConveyor: null == isConveyor
+          ? _value.isConveyor
+          : isConveyor // ignore: cast_nullable_to_non_nullable
+              as bool,
+      assetFilename90Degrees: freezed == assetFilename90Degrees
+          ? _value.assetFilename90Degrees
+          : assetFilename90Degrees // ignore: cast_nullable_to_non_nullable
+              as String?,
+      assetFilename180Degrees: freezed == assetFilename180Degrees
+          ? _value.assetFilename180Degrees
+          : assetFilename180Degrees // ignore: cast_nullable_to_non_nullable
+              as String?,
+      assetFilename270Degrees: freezed == assetFilename270Degrees
+          ? _value.assetFilename270Degrees
+          : assetFilename270Degrees // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -891,7 +956,12 @@ class _$ResourceImpl extends _Resource {
       this.equipsTool,
       this.farmlandGrownAssetPath,
       this.farmlandGrownWidth = 16.0,
-      this.farmlandGrownHeight = 16.0})
+      this.farmlandGrownHeight = 16.0,
+      this.canRotate = false,
+      this.isConveyor = false,
+      this.assetFilename90Degrees,
+      this.assetFilename180Degrees,
+      this.assetFilename270Degrees})
       : _ingredients = ingredients,
         _requiredToMine = requiredToMine,
         _canOnlyBePlacedOn = canOnlyBePlacedOn,
@@ -1075,10 +1145,22 @@ class _$ResourceImpl extends _Resource {
   @override
   @JsonKey()
   final double farmlandGrownHeight;
+  @override
+  @JsonKey()
+  final bool canRotate;
+  @override
+  @JsonKey()
+  final bool isConveyor;
+  @override
+  final String? assetFilename90Degrees;
+  @override
+  final String? assetFilename180Degrees;
+  @override
+  final String? assetFilename270Degrees;
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, interactionAnimation: $interactionAnimation, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, placeWithHitbox: $placeWithHitbox, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, canFarm: $canFarm, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements, equipsTool: $equipsTool, farmlandGrownAssetPath: $farmlandGrownAssetPath, farmlandGrownWidth: $farmlandGrownWidth, farmlandGrownHeight: $farmlandGrownHeight)';
+    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, interactionAnimation: $interactionAnimation, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, placeWithHitbox: $placeWithHitbox, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, canFarm: $canFarm, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements, equipsTool: $equipsTool, farmlandGrownAssetPath: $farmlandGrownAssetPath, farmlandGrownWidth: $farmlandGrownWidth, farmlandGrownHeight: $farmlandGrownHeight, canRotate: $canRotate, isConveyor: $isConveyor, assetFilename90Degrees: $assetFilename90Degrees, assetFilename180Degrees: $assetFilename180Degrees, assetFilename270Degrees: $assetFilename270Degrees)';
   }
 
   @JsonKey(ignore: true)
@@ -1152,7 +1234,12 @@ abstract class _Resource extends Resource {
       final String? equipsTool,
       final String? farmlandGrownAssetPath,
       final double farmlandGrownWidth,
-      final double farmlandGrownHeight}) = _$ResourceImpl;
+      final double farmlandGrownHeight,
+      final bool canRotate,
+      final bool isConveyor,
+      final String? assetFilename90Degrees,
+      final String? assetFilename180Degrees,
+      final String? assetFilename270Degrees}) = _$ResourceImpl;
   const _Resource._() : super._();
 
   factory _Resource.fromJson(Map<String, dynamic> json) =
@@ -1269,6 +1356,16 @@ abstract class _Resource extends Resource {
   double get farmlandGrownWidth;
   @override
   double get farmlandGrownHeight;
+  @override
+  bool get canRotate;
+  @override
+  bool get isConveyor;
+  @override
+  String? get assetFilename90Degrees;
+  @override
+  String? get assetFilename180Degrees;
+  @override
+  String? get assetFilename270Degrees;
   @override
   @JsonKey(ignore: true)
   _$$ResourceImplCopyWith<_$ResourceImpl> get copyWith =>

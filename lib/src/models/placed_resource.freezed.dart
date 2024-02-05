@@ -33,6 +33,7 @@ mixin _$PlacedResource {
   int get tileY => throw _privateConstructorUsedError;
   int get tileSizeX => throw _privateConstructorUsedError;
   int get tileSizeY => throw _privateConstructorUsedError;
+  int get rotationQuarterTurns => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,7 +60,8 @@ abstract class $PlacedResourceCopyWith<$Res> {
       int tileX,
       int tileY,
       int tileSizeX,
-      int tileSizeY});
+      int tileSizeY,
+      int rotationQuarterTurns});
 
   $ResourceCopyWith<$Res>? get selectedRecipe;
 }
@@ -90,6 +92,7 @@ class _$PlacedResourceCopyWithImpl<$Res, $Val extends PlacedResource>
     Object? tileY = null,
     Object? tileSizeX = null,
     Object? tileSizeY = null,
+    Object? rotationQuarterTurns = null,
   }) {
     return _then(_value.copyWith(
       uniqueIdentifier: null == uniqueIdentifier
@@ -144,6 +147,10 @@ class _$PlacedResourceCopyWithImpl<$Res, $Val extends PlacedResource>
           ? _value.tileSizeY
           : tileSizeY // ignore: cast_nullable_to_non_nullable
               as int,
+      rotationQuarterTurns: null == rotationQuarterTurns
+          ? _value.rotationQuarterTurns
+          : rotationQuarterTurns // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 
@@ -181,7 +188,8 @@ abstract class _$$PlacedResourceImplCopyWith<$Res>
       int tileX,
       int tileY,
       int tileSizeX,
-      int tileSizeY});
+      int tileSizeY,
+      int rotationQuarterTurns});
 
   @override
   $ResourceCopyWith<$Res>? get selectedRecipe;
@@ -211,6 +219,7 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
     Object? tileY = null,
     Object? tileSizeX = null,
     Object? tileSizeY = null,
+    Object? rotationQuarterTurns = null,
   }) {
     return _then(_$PlacedResourceImpl(
       uniqueIdentifier: null == uniqueIdentifier
@@ -265,6 +274,10 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
           ? _value.tileSizeY
           : tileSizeY // ignore: cast_nullable_to_non_nullable
               as int,
+      rotationQuarterTurns: null == rotationQuarterTurns
+          ? _value.rotationQuarterTurns
+          : rotationQuarterTurns // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -285,7 +298,8 @@ class _$PlacedResourceImpl extends _PlacedResource {
       required this.tileX,
       required this.tileY,
       required this.tileSizeX,
-      required this.tileSizeY})
+      required this.tileSizeY,
+      this.rotationQuarterTurns = 0})
       : _contents = contents,
         _outputSlotContents = outputSlotContents,
         super._();
@@ -338,10 +352,13 @@ class _$PlacedResourceImpl extends _PlacedResource {
   final int tileSizeX;
   @override
   final int tileSizeY;
+  @override
+  @JsonKey()
+  final int rotationQuarterTurns;
 
   @override
   String toString() {
-    return 'PlacedResource(uniqueIdentifier: $uniqueIdentifier, sprite: $sprite, contents: $contents, selectedRecipe: $selectedRecipe, isConstructing: $isConstructing, isSelling: $isSelling, isMining: $isMining, isSmelting: $isSmelting, outputSlotContents: $outputSlotContents, tileX: $tileX, tileY: $tileY, tileSizeX: $tileSizeX, tileSizeY: $tileSizeY)';
+    return 'PlacedResource(uniqueIdentifier: $uniqueIdentifier, sprite: $sprite, contents: $contents, selectedRecipe: $selectedRecipe, isConstructing: $isConstructing, isSelling: $isSelling, isMining: $isMining, isSmelting: $isSmelting, outputSlotContents: $outputSlotContents, tileX: $tileX, tileY: $tileY, tileSizeX: $tileSizeX, tileSizeY: $tileSizeY, rotationQuarterTurns: $rotationQuarterTurns)';
   }
 
   @override
@@ -370,7 +387,9 @@ class _$PlacedResourceImpl extends _PlacedResource {
             (identical(other.tileSizeX, tileSizeX) ||
                 other.tileSizeX == tileSizeX) &&
             (identical(other.tileSizeY, tileSizeY) ||
-                other.tileSizeY == tileSizeY));
+                other.tileSizeY == tileSizeY) &&
+            (identical(other.rotationQuarterTurns, rotationQuarterTurns) ||
+                other.rotationQuarterTurns == rotationQuarterTurns));
   }
 
   @JsonKey(ignore: true)
@@ -389,7 +408,8 @@ class _$PlacedResourceImpl extends _PlacedResource {
       tileX,
       tileY,
       tileSizeX,
-      tileSizeY);
+      tileSizeY,
+      rotationQuarterTurns);
 
   @JsonKey(ignore: true)
   @override
@@ -420,7 +440,8 @@ abstract class _PlacedResource extends PlacedResource {
       required final int tileX,
       required final int tileY,
       required final int tileSizeX,
-      required final int tileSizeY}) = _$PlacedResourceImpl;
+      required final int tileSizeY,
+      final int rotationQuarterTurns}) = _$PlacedResourceImpl;
   const _PlacedResource._() : super._();
 
   factory _PlacedResource.fromJson(Map<String, dynamic> json) =
@@ -452,6 +473,8 @@ abstract class _PlacedResource extends PlacedResource {
   int get tileSizeX;
   @override
   int get tileSizeY;
+  @override
+  int get rotationQuarterTurns;
   @override
   @JsonKey(ignore: true)
   _$$PlacedResourceImplCopyWith<_$PlacedResourceImpl> get copyWith =>

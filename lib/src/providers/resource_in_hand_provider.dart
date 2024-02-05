@@ -1,5 +1,6 @@
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
+import 'package:craftown/src/providers/rotate_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -23,7 +24,11 @@ class ResourceInHand extends _$ResourceInHand {
           break;
         }
       }
+      if (resource.canRotate) {
+        ref.read(rotateProvider.notifier).showButton();
+      }
     }
+
     state = resource;
   }
 

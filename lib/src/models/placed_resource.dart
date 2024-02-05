@@ -23,6 +23,7 @@ class PlacedResource with _$PlacedResource {
     required int tileY,
     required int tileSizeX,
     required int tileSizeY,
+    @Default(0) int rotationQuarterTurns,
   }) = _PlacedResource;
 
   factory PlacedResource.fromJson(Map<String, dynamic> json) => _$PlacedResourceFromJson(json);

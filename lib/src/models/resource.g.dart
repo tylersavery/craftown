@@ -96,6 +96,11 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
           (json['farmlandGrownWidth'] as num?)?.toDouble() ?? 16.0,
       farmlandGrownHeight:
           (json['farmlandGrownHeight'] as num?)?.toDouble() ?? 16.0,
+      canRotate: json['canRotate'] as bool? ?? false,
+      isConveyor: json['isConveyor'] as bool? ?? false,
+      assetFilename90Degrees: json['assetFilename90Degrees'] as String?,
+      assetFilename180Degrees: json['assetFilename180Degrees'] as String?,
+      assetFilename270Degrees: json['assetFilename270Degrees'] as String?,
     );
 
 Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
@@ -158,6 +163,11 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'farmlandGrownAssetPath': instance.farmlandGrownAssetPath,
       'farmlandGrownWidth': instance.farmlandGrownWidth,
       'farmlandGrownHeight': instance.farmlandGrownHeight,
+      'canRotate': instance.canRotate,
+      'isConveyor': instance.isConveyor,
+      'assetFilename90Degrees': instance.assetFilename90Degrees,
+      'assetFilename180Degrees': instance.assetFilename180Degrees,
+      'assetFilename270Degrees': instance.assetFilename270Degrees,
     };
 
 const _$PlayerInteractionAnimationTypeEnumMap = {

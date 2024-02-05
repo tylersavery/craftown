@@ -655,6 +655,26 @@ class Resources {
             Ingredient(resource: Resources.wood, quantity: 100),
           ]);
 
+  static Resource get conveyorBelt => Resource(
+          identifier: "conveyor_belt",
+          name: "Conveyor Belt",
+          namePlural: "Conveyor Belts",
+          assetFileName16: "conveyor-belt-16x16.png",
+          assetFilename90Degrees: "conveyor-belt-16x16-90deg.png",
+          assetFilename180Degrees: "conveyor-belt-16x16-180deg.png",
+          assetFilename270Degrees: "conveyor-belt-16x16-270deg.png",
+          placementWidth: 16,
+          placementHeight: 16,
+          secondsToCraft: 3,
+          canPlace: true,
+          placeWithHitbox: false,
+          canRotate: true,
+          isConveyor: true,
+          ingredients: [
+            Ingredient(resource: Resources.ironPlate, quantity: 2),
+            Ingredient(resource: Resources.screw, quantity: 4),
+          ]);
+
   static List<Resource> get all => [
         //Primary
         Resources.iron,
@@ -699,6 +719,7 @@ class Resources {
         Resources.tent,
         Resources.communityChest,
         Resources.constructorA,
+        Resources.conveyorBelt,
 
         //Special
         Resources.smelterA,

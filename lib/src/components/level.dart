@@ -14,10 +14,12 @@ import 'package:craftown/src/data/resources.dart';
 import 'package:craftown/src/models/calendar_state.dart';
 import 'package:craftown/src/models/farmland.dart';
 import 'package:craftown/src/models/map_resource.dart';
+import 'package:craftown/src/models/placed_conveyor.dart';
 import 'package:craftown/src/models/placed_farmland.dart';
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/calendar_provider.dart';
+import 'package:craftown/src/providers/conveyor_list_provider.dart';
 import 'package:craftown/src/providers/farmland_list_provider.dart';
 import 'package:craftown/src/providers/map_resource_list_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
@@ -27,6 +29,7 @@ import 'package:craftown/src/providers/placed_farmland_list_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
+import 'package:craftown/src/providers/rotate_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/utils/randomization.dart';
 import 'package:flame/components.dart';
@@ -52,6 +55,9 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
   bool isPlacingObject = false;
   CalendarSeason currentSeason = CalendarSeason.summer;
 
+  double conveyorDeltaTime = 1 / 2;
+  double accumulatedConveyorTime = 0;
+
   @override
   FutureOr<void> onLoad() async {
     mapSummer = await TiledComponent.load("$levelName.tmx", Vector2.all(16))
@@ -73,6 +79,8 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
   @override
   void update(double dt) {
+    accumulatedConveyorTime += dt;
+
     final resourceInHand = ref.read(resourceInHandProvider);
 
     if (resourceInHand != null && resourceInHand.canPlace && !isPlacingObject) {
@@ -82,6 +90,10 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
     }
 
     _handleSeasons(dt);
+    while (accumulatedConveyorTime >= conveyorDeltaTime) {
+      _handleConveyors(dt);
+      accumulatedConveyorTime -= conveyorDeltaTime;
+    }
 
     super.update(dt);
   }
@@ -337,6 +349,8 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
         return;
       }
 
+      final rotationQuarterTurns = resource.canRotate ? ref.read(rotateProvider).quarterTurns : 0;
+
       final newResource = ResourceSprite(
         resource: updatedResource ?? resource,
         placementUniqueIdentifier: uniqueIdentifier,
@@ -344,11 +358,31 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
         size: Vector2(resource.placementWidth, resource.placementHeight),
         visible: true,
         isGround: false,
+        rotationQuarterTurns: rotationQuarterTurns,
       );
 
       add(newResource);
       ref.read(placedResourcesListProvider.notifier).add(
-          uniqueIdentifier, newResource, tileX, tileY, (resource.placementWidth / TILE_SIZE).round(), (resource.placementHeight / TILE_SIZE).round());
+            uniqueIdentifier,
+            newResource,
+            tileX,
+            tileY,
+            (resource.placementWidth / TILE_SIZE).round(),
+            (resource.placementHeight / TILE_SIZE).round(),
+            rotationQuarterTurns: rotationQuarterTurns,
+          );
+
+      if (resource.isConveyor) {
+        ref.read(conveyorListProvider.notifier).add(
+              PlacedConveyor(
+                identifier: uniqueIdentifier,
+                tileX: tileX,
+                tileY: tileY,
+                quarterTurns: rotationQuarterTurns,
+              ),
+            );
+      }
+
       if (resource.placeWithHitbox) {
         final block = CollisionBlock(
           position: newResource.position,
@@ -422,5 +456,10 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
           break;
       }
     }
+  }
+
+  void _handleConveyors(double dt) {
+    // final conveyers = ref.read(conveyorListProvider);
+    //TODO: handle resource movement...
   }
 }

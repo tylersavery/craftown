@@ -88,6 +88,11 @@ class Resource with _$Resource {
     String? farmlandGrownAssetPath,
     @Default(16.0) double farmlandGrownWidth,
     @Default(16.0) double farmlandGrownHeight,
+    @Default(false) bool canRotate,
+    @Default(false) bool isConveyor,
+    String? assetFilename90Degrees,
+    String? assetFilename180Degrees,
+    String? assetFilename270Degrees,
   }) = _Resource;
 
   factory Resource.fromJson(Map<String, dynamic> json) => _$ResourceFromJson(json);

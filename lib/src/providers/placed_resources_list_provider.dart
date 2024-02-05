@@ -22,22 +22,32 @@ class PlacedResourcesList extends _$PlacedResourcesList {
     state = items;
   }
 
-  add(String uniquePlacementIdentifier, ResourceSprite sprite, int tileX, int tileY, int tileSizeX, int tileSizeY) {
+  add(
+    String uniquePlacementIdentifier,
+    ResourceSprite sprite,
+    int tileX,
+    int tileY,
+    int tileSizeX,
+    int tileSizeY, {
+    int rotationQuarterTurns = 0,
+  }) {
     sprite.placementUniqueIdentifier = uniquePlacementIdentifier;
 
     state = [
       ...state,
       PlacedResource(
-          sprite: sprite,
-          uniqueIdentifier: uniquePlacementIdentifier,
-          contents: List.generate(
-            sprite.resource.slots,
-            (_) => [],
-          ),
-          tileX: tileX,
-          tileY: tileY,
-          tileSizeX: tileSizeX,
-          tileSizeY: tileSizeY),
+        sprite: sprite,
+        uniqueIdentifier: uniquePlacementIdentifier,
+        contents: List.generate(
+          sprite.resource.slots,
+          (_) => [],
+        ),
+        tileX: tileX,
+        tileY: tileY,
+        tileSizeX: tileSizeX,
+        tileSizeY: tileSizeY,
+        rotationQuarterTurns: rotationQuarterTurns,
+      ),
     ];
   }
 

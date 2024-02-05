@@ -12,11 +12,13 @@ import 'package:craftown/src/menus/widgets/game_menu.dart';
 import 'package:craftown/src/menus/widgets/inventory_menu.dart';
 import 'package:craftown/src/menus/widgets/research_menu.dart';
 import 'package:craftown/src/menus/widgets/resource_contents_menu.dart';
+import 'package:craftown/src/menus/widgets/rotate_button.dart';
 import 'package:craftown/src/menus/widgets/seed_menu.dart';
 import 'package:craftown/src/menus/widgets/store_menu.dart';
 import 'package:craftown/src/menus/widgets/tool_menu.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
+import 'package:craftown/src/providers/rotate_provider.dart';
 import 'package:craftown/src/providers/selected_character_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/widgets/craft_button.dart';
@@ -96,7 +98,24 @@ class GameScreen extends StatelessWidget {
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: StatsGui(),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      StatsGui(),
+                      Consumer(
+                        builder: (context, ref, _) {
+                          if (ref.watch(rotateProvider).buttonVisible) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: RotateButton(),
+                            );
+                          }
+                          return SizedBox.shrink();
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
