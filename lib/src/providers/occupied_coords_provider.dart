@@ -11,6 +11,11 @@ class Coord {
   final int y;
   final PlacedResource placedResource;
   const Coord(this.x, this.y, this.placedResource);
+
+  @override
+  String toString() {
+    return "$x,$y";
+  }
 }
 
 @Riverpod(keepAlive: true)

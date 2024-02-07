@@ -290,11 +290,11 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
       PlacedResource? placedResourceAtCoords;
 
-      //TODO: large items are not reacting correctly.
       outerLoop:
       for (int x = tileX; x < (tileX + resource.placementWidth / TILE_SIZE).floor(); x++) {
-        for (int y = tileY; y < (tileY + resource.placementHeight / TILE_SIZE).floor(); y++) {
+        for (int y = tileY - (resource.placementHeight / TILE_SIZE).floor() + 1; y <= tileY; y++) {
           final coordWithResource = ref.read(occupiedCoordsProvider).firstWhereOrNull((c) => c.x == x && c.y == y);
+
           if (coordWithResource != null) {
             placedResourceAtCoords = coordWithResource.placedResource;
             break outerLoop;
@@ -379,11 +379,12 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       );
 
       add(newResource);
+
       ref.read(placedResourcesListProvider.notifier).add(
             uniqueIdentifier,
             newResource,
             tileX,
-            tileY,
+            tileY - (resource.placementHeight / TILE_SIZE).floor() + 1,
             (resource.placementWidth / TILE_SIZE).floor(),
             (resource.placementHeight / TILE_SIZE).floor(),
             rotationQuarterTurns: rotationQuarterTurns,

@@ -106,8 +106,6 @@ class Resources {
           name: "Soil",
           namePlural: "Soil Ore",
           assetFileName16: "soil-16x16.png",
-          placementWidth: 16,
-          placementHeight: 16,
           secondsToCraft: 5,
           canPlace: true,
           canFarm: true,
@@ -200,8 +198,6 @@ class Resources {
         namePlural: "Tomato",
         hungerDecreaseOnConsumption: 0.03,
         saleValue: 3,
-        placementWidth: 16,
-        placementHeight: 16,
       );
 
   static Resource get tomatoSeed => Resource(
@@ -667,8 +663,6 @@ class Resources {
           assetFilename90Degrees: "conveyor-belt-16x16-90deg.png",
           assetFilename180Degrees: "conveyor-belt-16x16-180deg.png",
           assetFilename270Degrees: "conveyor-belt-16x16-270deg.png",
-          placementWidth: 16,
-          placementHeight: 16,
           secondsToCraft: 3,
           canPlace: true,
           placeWithHitbox: false,

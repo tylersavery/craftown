@@ -52,8 +52,10 @@ class GridOverlay extends ParallaxComponent<Craftown> with HasGameRef<Craftown>,
     final y = (event.localPosition.y / TILE_SIZE).floor();
 
     if (ghost != null) {
+      final offset = ghost!.resource.placementHeight % TILE_SIZE;
+
       ghost!.position.x = x * TILE_SIZE;
-      ghost!.position.y = y * TILE_SIZE;
+      ghost!.position.y = y * TILE_SIZE - offset;
       ghost!.opacity = 0.5;
     }
 

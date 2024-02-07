@@ -42,7 +42,7 @@ class SpawnState {
     initialState[8] = InventorySlot(resource: Resources.cement, count: 10);
     initialState[9] = InventorySlot(resource: Resources.heavyMiner, count: 10);
     initialState[10] = InventorySlot(resource: Resources.powerGeneratorWood, count: 3);
-    initialState[11] = InventorySlot(resource: Resources.powerGeneratorSolar, count: 3);
+    initialState[11] = InventorySlot(resource: Resources.powerGeneratorSolar, count: 30);
 
     return initialState;
   }
