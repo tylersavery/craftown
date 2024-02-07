@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:craftown/src/components/custom_hitbox.dart';
 import 'package:craftown/src/components/output_indicator_sprite.dart';
-import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
@@ -34,6 +33,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   late Vector2 initialPosition;
   final bool visible;
   final bool isGround;
+  final bool isGhost;
 
   late final Sprite emptySprite;
   late final Sprite fullSprite;
@@ -53,6 +53,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
     this.visible = false,
     this.placementUniqueIdentifier,
     this.rotationQuarterTurns = 0,
+    this.isGhost = false,
   }) {
     initialPosition = Vector2(position.x, position.y);
     identifier = randomString();
@@ -234,6 +235,10 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   @override
   void onTapDown(TapDownEvent event) {
+    if (isGhost) {
+      return;
+    }
+
     if (!validateInteractivity()) {
       return;
     }
@@ -263,6 +268,9 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   @override
   void onTapUp(TapUpEvent event) {
+    if (isGhost) {
+      return;
+    }
     if (resource.minePerSecond != null) {
       isMining = false;
       game.player.isMining = false;
@@ -273,6 +281,9 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   @override
   void onTapCancel(TapCancelEvent event) {
+    if (isGhost) {
+      return;
+    }
     if (resource.minePerSecond != null) {
       isMining = false;
       game.player.isMining = false;
@@ -284,6 +295,9 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   @override
   void onHoverEnter() {
+    if (isGhost) {
+      return;
+    }
     game.mouseCursor = SystemMouseCursors.click;
 
     super.onHoverEnter();
@@ -291,6 +305,9 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   @override
   void onHoverExit() {
+    if (isGhost) {
+      return;
+    }
     game.mouseCursor = SystemMouseCursors.basic;
 
     super.onHoverExit();

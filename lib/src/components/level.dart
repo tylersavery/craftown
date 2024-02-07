@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:craftown/src/components/collision_box.dart';
 import 'package:craftown/src/components/farmland_sprite.dart';
+import 'package:craftown/src/components/ghost_resource_sprite.dart';
 import 'package:craftown/src/components/grid_overlay.dart';
 import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/components/resource_sprite.dart';
@@ -214,17 +215,17 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
                     MapResource(
                         uniqueIdentifier: uniqueIdentifier,
                         sprite: sprite,
-                        tileX: (object.x / TILE_SIZE).round(),
-                        tileY: (object.y / TILE_SIZE).round()),
+                        tileX: (object.x / TILE_SIZE).floor(),
+                        tileY: (object.y / TILE_SIZE).floor()),
                   );
 
               ref.read(placedResourcesListProvider.notifier).add(
                     uniqueIdentifier,
                     sprite,
-                    (object.x / TILE_SIZE).round(),
-                    (object.y / TILE_SIZE).round(),
-                    (object.width / TILE_SIZE).round(),
-                    (object.height / TILE_SIZE).round(),
+                    (object.x / TILE_SIZE).floor(),
+                    (object.y / TILE_SIZE).floor(),
+                    (object.width / TILE_SIZE).floor(),
+                    (object.height / TILE_SIZE).floor(),
                   );
             });
           }
@@ -253,11 +254,26 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
   void _showGrid() {
     isPlacingObject = true;
+    final resource = ref.read(resourceInHandProvider);
+
+    if (resource != null) {
+      final ghostSprite = GhostResourceSprite(
+        resource: resource,
+        size: Vector2(resource.placementWidth, resource.placementHeight),
+      );
+
+      gridOverlay.ghost = ghostSprite;
+      gridOverlay.add(gridOverlay.ghost!);
+    }
+
     add(gridOverlay);
   }
 
   void _hideGrid() {
     isPlacingObject = false;
+    if (gridOverlay.ghost != null) {
+      gridOverlay.remove(gridOverlay.ghost!);
+    }
     remove(gridOverlay);
   }
 
@@ -276,8 +292,8 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
       //TODO: large items are not reacting correctly.
       outerLoop:
-      for (int x = tileX; x < (tileX + resource.placementWidth / TILE_SIZE).round(); x++) {
-        for (int y = tileY; y < (tileY + resource.placementHeight / TILE_SIZE).round(); y++) {
+      for (int x = tileX; x < (tileX + resource.placementWidth / TILE_SIZE).floor(); x++) {
+        for (int y = tileY; y < (tileY + resource.placementHeight / TILE_SIZE).floor(); y++) {
           final coordWithResource = ref.read(occupiedCoordsProvider).firstWhereOrNull((c) => c.x == x && c.y == y);
           if (coordWithResource != null) {
             placedResourceAtCoords = coordWithResource.placedResource;
@@ -368,8 +384,8 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
             newResource,
             tileX,
             tileY,
-            (resource.placementWidth / TILE_SIZE).round(),
-            (resource.placementHeight / TILE_SIZE).round(),
+            (resource.placementWidth / TILE_SIZE).floor(),
+            (resource.placementHeight / TILE_SIZE).floor(),
             rotationQuarterTurns: rotationQuarterTurns,
           );
 

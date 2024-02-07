@@ -95,6 +95,8 @@ class PlacedResourcesList extends _$PlacedResourcesList {
       level.collisionBlocks.removeAt(collisionBlockIndex);
     }
 
+    state = [...state]..removeWhere((pr) => pr.uniqueIdentifier == item.uniqueIdentifier);
+
     return true;
   }
 }
