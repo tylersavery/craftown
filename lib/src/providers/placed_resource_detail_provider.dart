@@ -9,6 +9,10 @@ import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/toast_message.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
+import 'package:craftown/src/providers/power_available_provider.dart';
+import 'package:craftown/src/providers/power_consuming_resources_list_provider.dart';
+import 'package:craftown/src/providers/power_consumption_provider.dart';
+import 'package:craftown/src/providers/power_generating_resources_list_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/utils/randomization.dart';
@@ -20,6 +24,7 @@ part 'placed_resource_detail_provider.g.dart';
 class PlacedResourceDetail extends _$PlacedResourceDetail {
   Timer? constructorTimer;
   Timer? sellingTimer;
+  Timer? powerGeneratingTimer;
   Timer? miningTimer;
   Timer? smeltingTimer;
 
@@ -53,7 +58,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     }
   }
 
-  bool startConstruction({bool automaticStop = false}) {
+  bool startConstruction() {
     if (state == null) {
       print("PlacedResources state is null");
       return false;
@@ -74,9 +79,16 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
       return false;
     }
 
+    ref.read(powerConsumingResourcesListProvider.notifier).add(state!);
     state = state!.copyWith(isConstructing: true);
 
     constructorTimer = Timer.periodic(Duration(seconds: state!.selectedRecipe!.secondsToCraft!.round()), (timer) {
+      if (state == null) return;
+
+      if (!_powerAvailableGuard()) {
+        return;
+      }
+
       final recipe = state!.selectedRecipe!;
 
       final resources = state!.contents.expand((element) => element).toList();
@@ -84,9 +96,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
       for (final ingredient in recipe.ingredients) {
         final available = resources.where((r) => r.identifier == ingredient.resource.identifier).toList().length;
         if (available < ingredient.quantity) {
-          if (automaticStop) {
-            stopConstruction();
-          }
+          stopConstruction();
           print("Not enough ${ingredient.resource.name} to produce ${recipe.name}");
           return;
         }
@@ -96,9 +106,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
 
       if (outputCount >= state!.sprite.resource.outputSlotSize) {
         print("Output is full");
-        if (automaticStop) {
-          stopConstruction();
-        }
+        stopConstruction();
         return;
       }
 
@@ -123,6 +131,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
       return;
     }
 
+    ref.read(powerConsumingResourcesListProvider.notifier).remove(state!);
     state = state!.copyWith(isConstructing: false);
   }
 
@@ -139,7 +148,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     }
   }
 
-  bool startSmelting({bool automaticStop = false}) {
+  bool startSmelting() {
     if (state == null) {
       print("PlacedResources state is null");
       return false;
@@ -166,16 +175,18 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     }
 
     state = state!.copyWith(isSmelting: true);
-
+    ref.read(powerConsumingResourcesListProvider.notifier).add(state!);
     smeltingTimer = Timer.periodic(Duration(seconds: outputResource.secondsToSmelt!.round()), (timer) {
+      if (state == null) return;
+      if (!_powerAvailableGuard()) {
+        return;
+      }
       final resources = state!.contents.expand((element) => element).toList();
 
       for (final ingredient in outputResource.ingredients) {
         final available = resources.where((r) => r.identifier == ingredient.resource.identifier).toList().length;
         if (available < ingredient.quantity) {
-          if (automaticStop) {
-            stopConstruction();
-          }
+          stopSmelting();
           print("Not enough ${ingredient.resource.name} to produce ${outputResource.name}");
           return;
         }
@@ -185,9 +196,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
 
       if (outputCount >= state!.sprite.resource.outputSlotSize) {
         print("Output is full");
-        if (automaticStop) {
-          stopConstruction();
-        }
+        stopSmelting();
         return;
       }
 
@@ -211,7 +220,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
       print("PlacedResources state is null");
       return;
     }
-
+    ref.read(powerConsumingResourcesListProvider.notifier).remove(state!);
     state = state!.copyWith(isSmelting: false);
   }
 
@@ -228,7 +237,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     }
   }
 
-  bool startSelling({bool automaticStop = false}) {
+  bool startSelling() {
     if (state == null) {
       print("PlacedResources state is null");
       return false;
@@ -241,12 +250,11 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     state = state!.copyWith(isSelling: true);
 
     sellingTimer = Timer.periodic(Duration(seconds: 10), (timer) {
+      if (state == null) return;
       final resources = state!.contents.expand((element) => element).toList().where((element) => element.saleValue > 0).toList();
 
       if (resources.isEmpty) {
-        if (automaticStop) {
-          stopSelling();
-        }
+        stopSelling();
         return;
       }
 
@@ -265,12 +273,71 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
       sellingTimer = null;
     }
 
-    if (state != null) {
+    if (state == null) {
       print("PlacedResources state is null");
       return;
     }
 
     state = state!.copyWith(isSelling: false);
+  }
+
+  void togglePowerGenerating() {
+    if (state == null) {
+      print("PlacedResources state is null");
+      return;
+    }
+
+    if (state!.isPowerGenerating) {
+      stopPowerGenerating();
+    } else {
+      startPowerGenerating();
+    }
+  }
+
+  bool startPowerGenerating() {
+    if (state == null) {
+      print("PlacedResources state is null");
+      return false;
+    }
+
+    state = state!.copyWith(isPowerGenerating: true);
+    ref.read(powerGeneratingResourcesListProvider.notifier).add(state!);
+
+    powerGeneratingTimer = Timer.periodic(Duration(seconds: 5), (timer) {
+      if (state == null) return;
+
+      final fuelOptions = state!.sprite.resource.fuelResourceOptions;
+
+      if (fuelOptions.isEmpty) {
+        return;
+      }
+
+      final resources = state!.contents.expand((element) => element).toList().where((r) => fuelOptions.contains(r)).toList();
+
+      if (resources.isEmpty) {
+        stopPowerGenerating();
+        return;
+      }
+
+      final r = randomItemInList(resources);
+      removeFromAnySlot(r);
+    });
+    return true;
+  }
+
+  void stopPowerGenerating() {
+    if (powerGeneratingTimer != null) {
+      powerGeneratingTimer!.cancel();
+      powerGeneratingTimer = null;
+    }
+
+    if (state == null) {
+      print("PlacedResources state is null");
+      return;
+    }
+    ref.read(powerGeneratingResourcesListProvider.notifier).remove(state!);
+
+    state = state!.copyWith(isPowerGenerating: false);
   }
 
   void toggleMining() {
@@ -286,7 +353,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     }
   }
 
-  bool startMining({bool automaticStop = false}) {
+  bool startMining() {
     if (state == null) {
       print("PlacedResources state is null");
       return false;
@@ -297,15 +364,18 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     }
 
     state = state!.copyWith(isMining: true);
+    ref.read(powerConsumingResourcesListProvider.notifier).add(state!);
 
     miningTimer = Timer.periodic(Duration(seconds: 10), (timer) {
+      if (state == null) return;
+      if (!_powerAvailableGuard()) {
+        return;
+      }
       final outputCount = state!.outputSlotContents.length;
 
       if (outputCount >= state!.sprite.resource.outputSlotSize) {
         print("Output is full");
-        if (automaticStop) {
-          stopConstruction();
-        }
+        stopMining();
         return;
       }
 
@@ -320,10 +390,11 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
       miningTimer = null;
     }
 
-    if (state != null) {
+    if (state == null) {
       print("PlacedResources state is null");
       return;
     }
+    ref.read(powerConsumingResourcesListProvider.notifier).remove(state!);
 
     state = state!.copyWith(isMining: false);
   }
@@ -493,5 +564,29 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
 
     state = state!.copyWith(outputSlotContents: updatedContents);
     return resourcesRemoved;
+  }
+
+  bool _powerAvailableGuard() {
+    final powerUse = ref.read(powerConsumptionProvider);
+    final powerAvail = ref.read(powerAvailableProvider);
+
+    if (powerUse > powerAvail) {
+      stopConstruction();
+      stopMining();
+      stopSmelting();
+
+      final possiblePlacedResources = ref.watch(placedResourcesListProvider).where((pr) => pr.sprite.resource.canGeneratePower).toList();
+      final List<String> placedResourceIdentifiers = possiblePlacedResources.map((pr) => pr.uniqueIdentifier).toList();
+
+      for (final identifier in placedResourceIdentifiers) {
+        final pr = ref.read(placedResourceDetailProvider(identifier).notifier);
+        pr.stopPowerGenerating();
+        ref.read(toastMessagesListProvider.notifier).add("Power surge!!", type: ToastMessageType.error, identifierOverride: "power_surge");
+      }
+
+      return false;
+    }
+
+    return true;
   }
 }

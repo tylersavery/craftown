@@ -93,7 +93,7 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
 
                   return InventorySlotWrap(
                     selectedIndex: -1,
-                    onTap: (int index) {
+                    onTap: (int index, bool withMessage) {
                       final slot = inventory[index];
 
                       if (slot.resource == null) return;
@@ -103,13 +103,28 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
 
                       final storageType = placedResource.sprite.resource.storageType;
                       if (storageType == StorageType.liquid && !resource.isLiquid) {
-                        ref.read(toastMessagesListProvider.notifier).add("Only liquids can be stored in ${placedResourceSprite.resource.name}");
+                        if (withMessage) {
+                          ref.read(toastMessagesListProvider.notifier).add("Only liquids can be stored in ${placedResourceSprite.resource.name}");
+                        }
                         return;
                       }
 
                       if (storageType == StorageType.solid && resource.isLiquid) {
-                        ref.read(toastMessagesListProvider.notifier).add("Liquids can't be stored in ${placedResourceSprite.resource.name}");
+                        if (withMessage) {
+                          ref.read(toastMessagesListProvider.notifier).add("Liquids can't be stored in ${placedResourceSprite.resource.name}");
+                        }
                         return;
+                      }
+
+                      if (storageType == StorageType.specific) {
+                        if (!placedResource.sprite.resource.specificStorageWhitelist.contains(resource)) {
+                          if (withMessage) {
+                            ref
+                                .read(toastMessagesListProvider.notifier)
+                                .add("${resource.namePlural} can't be stored in ${placedResourceSprite.resource.name}");
+                          }
+                          return;
+                        }
                       }
 
                       final success = ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).addContents(resource);
@@ -431,6 +446,20 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                                   duration: Duration.zero,
                                   onComplete: () {
                                     ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).toggleSelling();
+                                  },
+                                  completeOnClick: true,
+                                  small: true,
+                                ),
+                              ),
+
+                            if (placedResource.sprite.resource.canGeneratePower)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: HoldDownButton(
+                                  label: placedResource.isPowerGenerating ? "Stop Generating" : "Start Generating",
+                                  duration: Duration.zero,
+                                  onComplete: () {
+                                    ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).togglePowerGenerating();
                                   },
                                   completeOnClick: true,
                                   small: true,

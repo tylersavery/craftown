@@ -14,6 +14,7 @@ enum StorageType {
   all("all"),
   liquid("liquid"),
   solid("solid"),
+  specific("Specific"),
   ;
 
   final String id;
@@ -63,6 +64,7 @@ class Resource with _$Resource {
     @Default([]) List<Resource> requiredToMine,
     @Default(0) int slots,
     @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson) @Default(StorageType.none) StorageType storageType,
+    @Default([]) List<Resource> specificStorageWhitelist,
     @Default(0) int resourcesPerSlot,
     @Default(0) int outputSlotSize,
     @Default(false) bool isSeed,
@@ -93,6 +95,10 @@ class Resource with _$Resource {
     String? assetFilename90Degrees,
     String? assetFilename180Degrees,
     String? assetFilename270Degrees,
+    double? powerGenerated,
+    double? powerConsumed,
+    @Default([]) List<Resource> fuelResourceOptions,
+    @Default(0.0) double sustainabilityPenalty,
   }) = _Resource;
 
   factory Resource.fromJson(Map<String, dynamic> json) => _$ResourceFromJson(json);
@@ -153,6 +159,14 @@ class Resource with _$Resource {
 
   bool get canRest {
     return restValue != null;
+  }
+
+  bool get canGeneratePower {
+    return powerGenerated != null;
+  }
+
+  bool get canConsumePower {
+    return powerConsumed != null;
   }
 
   bool get spawnedResourceHasHitbox {

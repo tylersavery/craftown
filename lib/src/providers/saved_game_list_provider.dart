@@ -14,6 +14,7 @@ import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/placed_farmland_list_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
+import 'package:craftown/src/providers/power_generating_resources_list_provider.dart';
 import 'package:craftown/src/providers/research_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/providers/selected_character_provider.dart';
@@ -95,6 +96,11 @@ class SavedGameList extends _$SavedGameList {
         detailProvider.setContents(pr.contents);
         detailProvider.setOutput(pr.outputSlotContents);
         detailProvider.selectRecipe(pr.selectedRecipe);
+
+        if (pr.isPowerGenerating) {
+          detailProvider.startPowerGenerating();
+        }
+
         if (pr.isConstructing) {
           detailProvider.startConstruction();
         }
@@ -168,6 +174,8 @@ class SavedGameList extends _$SavedGameList {
             selectedRecipe: detailState.selectedRecipe,
             isSelling: detailState.isSelling,
             isMining: detailState.isMining,
+            isSmelting: detailState.isSmelting,
+            isPowerGenerating: detailState.isPowerGenerating,
           );
 
           updatedPlacedResources.add(updatedPr);

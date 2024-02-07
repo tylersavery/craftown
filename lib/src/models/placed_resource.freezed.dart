@@ -26,6 +26,7 @@ mixin _$PlacedResource {
   Resource? get selectedRecipe => throw _privateConstructorUsedError;
   bool get isConstructing => throw _privateConstructorUsedError;
   bool get isSelling => throw _privateConstructorUsedError;
+  bool get isPowerGenerating => throw _privateConstructorUsedError;
   bool get isMining => throw _privateConstructorUsedError;
   bool get isSmelting => throw _privateConstructorUsedError;
   List<Resource> get outputSlotContents => throw _privateConstructorUsedError;
@@ -54,6 +55,7 @@ abstract class $PlacedResourceCopyWith<$Res> {
       Resource? selectedRecipe,
       bool isConstructing,
       bool isSelling,
+      bool isPowerGenerating,
       bool isMining,
       bool isSmelting,
       List<Resource> outputSlotContents,
@@ -85,6 +87,7 @@ class _$PlacedResourceCopyWithImpl<$Res, $Val extends PlacedResource>
     Object? selectedRecipe = freezed,
     Object? isConstructing = null,
     Object? isSelling = null,
+    Object? isPowerGenerating = null,
     Object? isMining = null,
     Object? isSmelting = null,
     Object? outputSlotContents = null,
@@ -118,6 +121,10 @@ class _$PlacedResourceCopyWithImpl<$Res, $Val extends PlacedResource>
       isSelling: null == isSelling
           ? _value.isSelling
           : isSelling // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPowerGenerating: null == isPowerGenerating
+          ? _value.isPowerGenerating
+          : isPowerGenerating // ignore: cast_nullable_to_non_nullable
               as bool,
       isMining: null == isMining
           ? _value.isMining
@@ -182,6 +189,7 @@ abstract class _$$PlacedResourceImplCopyWith<$Res>
       Resource? selectedRecipe,
       bool isConstructing,
       bool isSelling,
+      bool isPowerGenerating,
       bool isMining,
       bool isSmelting,
       List<Resource> outputSlotContents,
@@ -212,6 +220,7 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
     Object? selectedRecipe = freezed,
     Object? isConstructing = null,
     Object? isSelling = null,
+    Object? isPowerGenerating = null,
     Object? isMining = null,
     Object? isSmelting = null,
     Object? outputSlotContents = null,
@@ -245,6 +254,10 @@ class __$$PlacedResourceImplCopyWithImpl<$Res>
       isSelling: null == isSelling
           ? _value.isSelling
           : isSelling // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPowerGenerating: null == isPowerGenerating
+          ? _value.isPowerGenerating
+          : isPowerGenerating // ignore: cast_nullable_to_non_nullable
               as bool,
       isMining: null == isMining
           ? _value.isMining
@@ -292,6 +305,7 @@ class _$PlacedResourceImpl extends _PlacedResource {
       this.selectedRecipe,
       this.isConstructing = false,
       this.isSelling = false,
+      this.isPowerGenerating = false,
       this.isMining = false,
       this.isSmelting = false,
       final List<Resource> outputSlotContents = const [],
@@ -330,6 +344,9 @@ class _$PlacedResourceImpl extends _PlacedResource {
   final bool isSelling;
   @override
   @JsonKey()
+  final bool isPowerGenerating;
+  @override
+  @JsonKey()
   final bool isMining;
   @override
   @JsonKey()
@@ -358,7 +375,7 @@ class _$PlacedResourceImpl extends _PlacedResource {
 
   @override
   String toString() {
-    return 'PlacedResource(uniqueIdentifier: $uniqueIdentifier, sprite: $sprite, contents: $contents, selectedRecipe: $selectedRecipe, isConstructing: $isConstructing, isSelling: $isSelling, isMining: $isMining, isSmelting: $isSmelting, outputSlotContents: $outputSlotContents, tileX: $tileX, tileY: $tileY, tileSizeX: $tileSizeX, tileSizeY: $tileSizeY, rotationQuarterTurns: $rotationQuarterTurns)';
+    return 'PlacedResource(uniqueIdentifier: $uniqueIdentifier, sprite: $sprite, contents: $contents, selectedRecipe: $selectedRecipe, isConstructing: $isConstructing, isSelling: $isSelling, isPowerGenerating: $isPowerGenerating, isMining: $isMining, isSmelting: $isSmelting, outputSlotContents: $outputSlotContents, tileX: $tileX, tileY: $tileY, tileSizeX: $tileSizeX, tileSizeY: $tileSizeY, rotationQuarterTurns: $rotationQuarterTurns)';
   }
 
   @override
@@ -376,6 +393,8 @@ class _$PlacedResourceImpl extends _PlacedResource {
                 other.isConstructing == isConstructing) &&
             (identical(other.isSelling, isSelling) ||
                 other.isSelling == isSelling) &&
+            (identical(other.isPowerGenerating, isPowerGenerating) ||
+                other.isPowerGenerating == isPowerGenerating) &&
             (identical(other.isMining, isMining) ||
                 other.isMining == isMining) &&
             (identical(other.isSmelting, isSmelting) ||
@@ -402,6 +421,7 @@ class _$PlacedResourceImpl extends _PlacedResource {
       selectedRecipe,
       isConstructing,
       isSelling,
+      isPowerGenerating,
       isMining,
       isSmelting,
       const DeepCollectionEquality().hash(_outputSlotContents),
@@ -434,6 +454,7 @@ abstract class _PlacedResource extends PlacedResource {
       final Resource? selectedRecipe,
       final bool isConstructing,
       final bool isSelling,
+      final bool isPowerGenerating,
       final bool isMining,
       final bool isSmelting,
       final List<Resource> outputSlotContents,
@@ -459,6 +480,8 @@ abstract class _PlacedResource extends PlacedResource {
   bool get isConstructing;
   @override
   bool get isSelling;
+  @override
+  bool get isPowerGenerating;
   @override
   bool get isMining;
   @override

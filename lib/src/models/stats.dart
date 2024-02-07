@@ -4,15 +4,18 @@ part 'stats.freezed.dart';
 part 'stats.g.dart';
 
 enum StatType {
-  sustainability("Sustainability", true),
-  energy("Energy", true),
-  hunger("Hunger", false),
-  thirst("Thirst", false),
+  sustainability("Sustainability", true, true, "%"),
+  energy("Energy", true, true, "%"),
+  hunger("Hunger", true, false, "%"),
+  thirst("Thirst", true, false, "%"),
+  powerUse("Power Use", true, false, "%"),
   ;
 
   final bool positiveIsGood;
   final String label;
-  const StatType(this.label, this.positiveIsGood);
+  final bool isPercent;
+  final String unitLabel;
+  const StatType(this.label, this.isPercent, this.positiveIsGood, this.unitLabel);
 }
 
 @freezed

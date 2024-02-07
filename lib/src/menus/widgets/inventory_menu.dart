@@ -50,7 +50,7 @@ class InventoryMenuWidget extends ConsumerWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: InventorySlotWrap(
                   selectedIndex: menuState.selectedIndex,
-                  onTap: (int index) {
+                  onTap: (int index, bool withMessage) {
                     final slot = inventory[index];
                     if (slot.resource != null) {
                       menuProvider.setSelected(index);

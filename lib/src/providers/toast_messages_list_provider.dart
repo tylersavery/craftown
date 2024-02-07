@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:collection/collection.dart';
 import 'package:craftown/src/models/toast_message.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -18,9 +19,14 @@ class ToastMessagesList extends _$ToastMessagesList {
     String message, {
     ToastMessageType type = ToastMessageType.info,
     Duration duration = const Duration(seconds: 2),
+    String? identifierOverride,
   }) {
-    final identifier = rng.nextDouble().toString();
+    final identifier = identifierOverride ?? rng.nextDouble().toString();
     final toastMessage = ToastMessage(identifier: identifier, message: message, type: type, duration: duration);
+
+    if (state.firstWhereOrNull((element) => element.identifier == identifier) != null) {
+      return;
+    }
 
     state = [...state, toastMessage];
 

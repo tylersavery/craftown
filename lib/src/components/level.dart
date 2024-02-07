@@ -274,6 +274,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
       PlacedResource? placedResourceAtCoords;
 
+      //TODO: large items are not reacting correctly.
       outerLoop:
       for (int x = tileX; x < (tileX + resource.placementWidth / TILE_SIZE).round(); x++) {
         for (int y = tileY; y < (tileY + resource.placementHeight / TILE_SIZE).round(); y++) {
@@ -394,6 +395,10 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
       if (resource.isMiner) {
         ref.read(placedResourceDetailProvider(uniqueIdentifier).notifier).startMining();
+      }
+
+      if (resource.canGeneratePower && resource.fuelResourceOptions.isEmpty) {
+        ref.read(placedResourceDetailProvider(uniqueIdentifier).notifier).startPowerGenerating();
       }
     }
   }

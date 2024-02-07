@@ -6,7 +6,7 @@ part of 'toast_messages_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$toastMessagesListHash() => r'390d8257bf3f256f2b83e5f7564e518fb5c588c8';
+String _$toastMessagesListHash() => r'fc918ed3b2198084e91fdd488f8b6a203968cf05';
 
 /// See also [ToastMessagesList].
 @ProviderFor(ToastMessagesList)

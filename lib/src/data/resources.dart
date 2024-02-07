@@ -521,6 +521,7 @@ class Resources {
         canSmelt: true,
         outputSlotSize: 100,
         interactionRadius: 48,
+        powerConsumed: 1.0,
       );
 
   static Resource get constructorA => Resource(
@@ -544,6 +545,7 @@ class Resources {
         canConstruct: true,
         outputSlotSize: 100,
         interactionRadius: 48,
+        powerConsumed: 2.0,
       );
 
   static Resource get lightMiner => Resource(
@@ -559,6 +561,7 @@ class Resources {
       interactionRadius: 48,
       outputSlotSize: 25,
       storageType: StorageType.solid,
+      powerConsumed: 0.25,
       ingredients: [
         Ingredient(resource: Resources.iron, quantity: 10),
         Ingredient(resource: Resources.stone, quantity: 10),
@@ -588,6 +591,7 @@ class Resources {
         Ingredient(resource: Resources.stone, quantity: 10),
       ],
       miningOutputResource: Resources.iron,
+      powerConsumed: 0.5,
       canOnlyBePlacedOn: [
         Resources.straw,
         Resources.wood,
@@ -675,6 +679,58 @@ class Resources {
             Ingredient(resource: Resources.screw, quantity: 4),
           ]);
 
+  // Power
+
+  static Resource get powerGeneratorWood => Resource(
+        identifier: 'power_generator_wood',
+        name: "Wood Power Generator",
+        namePlural: "Wood Power Generators",
+        assetFileName16: "power-generator-wood-16x16.png",
+        assetFileNameLarge: "power-generator-wood-32x74.png",
+        placementWidth: 32,
+        placementHeight: 74,
+        canPlace: true,
+        canPickUp: true,
+        secondsToCraft: 5,
+        slots: 4,
+        resourcesPerSlot: 50,
+        storageType: StorageType.specific,
+        powerGenerated: 5.0,
+        sustainabilityPenalty: 0.075,
+        specificStorageWhitelist: [
+          Resources.wood,
+          Resources.lumber,
+        ],
+        fuelResourceOptions: [
+          Resources.wood,
+          Resources.lumber,
+        ],
+        ingredients: [
+          Ingredient(resource: Resources.cement, quantity: 25),
+          Ingredient(resource: Resources.brick, quantity: 40),
+        ],
+      );
+
+  static Resource get powerGeneratorSolar => Resource(
+        identifier: 'power_generator_solar',
+        name: "Solar Power Generator",
+        namePlural: "Solar Power Generators",
+        assetFileName16: "power-generator-solar-16x16.png",
+        assetFileNameLarge: "power-generator-solar-32x32.png",
+        placementWidth: 32,
+        placementHeight: 32,
+        canPlace: true,
+        canPickUp: true,
+        secondsToCraft: 5,
+        powerGenerated: 5.0,
+        sustainabilityPenalty: 0,
+        ingredients: [
+          Ingredient(resource: Resources.ironPlate, quantity: 25),
+          Ingredient(resource: Resources.screw, quantity: 10),
+          Ingredient(resource: Resources.cement, quantity: 5),
+        ],
+      );
+
   static List<Resource> get all => [
         //Primary
         Resources.iron,
@@ -726,6 +782,8 @@ class Resources {
         Resources.well,
         Resources.lightMiner,
         Resources.heavyMiner,
+        Resources.powerGeneratorWood,
+        Resources.powerGeneratorSolar,
 
         //Housing
         Resources.woodHouse,

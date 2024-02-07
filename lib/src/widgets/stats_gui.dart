@@ -1,5 +1,8 @@
 import 'package:craftown/src/models/stats.dart';
 import 'package:craftown/src/providers/calendar_provider.dart';
+import 'package:craftown/src/providers/dirty_resources_sustainability_penalty_provider.dart';
+import 'package:craftown/src/providers/power_available_provider.dart';
+import 'package:craftown/src/providers/power_consumption_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +21,23 @@ class StatsGui extends StatelessWidget {
         child: Consumer(builder: (context, ref, _) {
           final state = ref.watch(statsDetailProvider);
           final calendar = ref.watch(calendarProvider);
+
+          final powerAvailable = ref.watch(powerAvailableProvider);
+          final powerUse = ref.watch(powerConsumptionProvider);
+
+          final showPowerInfo = powerAvailable > 0 || powerUse > 0;
+
+          double powerUsePercent = 0.0;
+
+          if (powerAvailable == 0) {
+            powerUsePercent = 1;
+          } else if (powerUse == 0) {
+            powerUsePercent = 0;
+          } else {
+            powerUsePercent = powerUse / powerAvailable;
+          }
+
+          final sustainability = state.sustainability - ref.watch(dirtyResourcesSustainablityPenaltyProvider);
 
           return Column(
             mainAxisSize: MainAxisSize.min,
@@ -53,10 +73,11 @@ class StatsGui extends StatelessWidget {
                   ),
                 ],
               ),
-              _StatRow(type: StatType.sustainability, value: state.sustainability),
+              _StatRow(type: StatType.sustainability, value: sustainability),
               _StatRow(type: StatType.energy, value: state.energy),
               _StatRow(type: StatType.hunger, value: state.hunger),
               _StatRow(type: StatType.thirst, value: state.thirst),
+              if (showPowerInfo) _StatRow(type: StatType.powerUse, value: powerUsePercent),
             ],
           );
         }),
@@ -126,7 +147,7 @@ class _StatRow extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerRight,
               child: Text(
-                "${(value * 100).round()}%",
+                "${(value * (type.isPercent ? 100 : 1)).round()}${type.unitLabel}",
                 style: TextStyle(
                   fontSize: 8,
                   color: Colors.white,

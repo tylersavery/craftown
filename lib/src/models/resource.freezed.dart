@@ -53,6 +53,8 @@ mixin _$Resource {
   int get slots => throw _privateConstructorUsedError;
   @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
   StorageType get storageType => throw _privateConstructorUsedError;
+  List<Resource> get specificStorageWhitelist =>
+      throw _privateConstructorUsedError;
   int get resourcesPerSlot => throw _privateConstructorUsedError;
   int get outputSlotSize => throw _privateConstructorUsedError;
   bool get isSeed => throw _privateConstructorUsedError;
@@ -84,6 +86,10 @@ mixin _$Resource {
   String? get assetFilename90Degrees => throw _privateConstructorUsedError;
   String? get assetFilename180Degrees => throw _privateConstructorUsedError;
   String? get assetFilename270Degrees => throw _privateConstructorUsedError;
+  double? get powerGenerated => throw _privateConstructorUsedError;
+  double? get powerConsumed => throw _privateConstructorUsedError;
+  List<Resource> get fuelResourceOptions => throw _privateConstructorUsedError;
+  double get sustainabilityPenalty => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -128,6 +134,7 @@ abstract class $ResourceCopyWith<$Res> {
       int slots,
       @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
       StorageType storageType,
+      List<Resource> specificStorageWhitelist,
       int resourcesPerSlot,
       int outputSlotSize,
       bool isSeed,
@@ -157,7 +164,11 @@ abstract class $ResourceCopyWith<$Res> {
       bool isConveyor,
       String? assetFilename90Degrees,
       String? assetFilename180Degrees,
-      String? assetFilename270Degrees});
+      String? assetFilename270Degrees,
+      double? powerGenerated,
+      double? powerConsumed,
+      List<Resource> fuelResourceOptions,
+      double sustainabilityPenalty});
 
   $ResourceCopyWith<$Res>? get growsInto;
   $ResourceCopyWith<$Res>? get miningOutputResource;
@@ -206,6 +217,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? requiredToMine = null,
     Object? slots = null,
     Object? storageType = null,
+    Object? specificStorageWhitelist = null,
     Object? resourcesPerSlot = null,
     Object? outputSlotSize = null,
     Object? isSeed = null,
@@ -236,6 +248,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? assetFilename90Degrees = freezed,
     Object? assetFilename180Degrees = freezed,
     Object? assetFilename270Degrees = freezed,
+    Object? powerGenerated = freezed,
+    Object? powerConsumed = freezed,
+    Object? fuelResourceOptions = null,
+    Object? sustainabilityPenalty = null,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -358,6 +374,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.storageType
           : storageType // ignore: cast_nullable_to_non_nullable
               as StorageType,
+      specificStorageWhitelist: null == specificStorageWhitelist
+          ? _value.specificStorageWhitelist
+          : specificStorageWhitelist // ignore: cast_nullable_to_non_nullable
+              as List<Resource>,
       resourcesPerSlot: null == resourcesPerSlot
           ? _value.resourcesPerSlot
           : resourcesPerSlot // ignore: cast_nullable_to_non_nullable
@@ -478,6 +498,22 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.assetFilename270Degrees
           : assetFilename270Degrees // ignore: cast_nullable_to_non_nullable
               as String?,
+      powerGenerated: freezed == powerGenerated
+          ? _value.powerGenerated
+          : powerGenerated // ignore: cast_nullable_to_non_nullable
+              as double?,
+      powerConsumed: freezed == powerConsumed
+          ? _value.powerConsumed
+          : powerConsumed // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fuelResourceOptions: null == fuelResourceOptions
+          ? _value.fuelResourceOptions
+          : fuelResourceOptions // ignore: cast_nullable_to_non_nullable
+              as List<Resource>,
+      sustainabilityPenalty: null == sustainabilityPenalty
+          ? _value.sustainabilityPenalty
+          : sustainabilityPenalty // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 
@@ -546,6 +582,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
       int slots,
       @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
       StorageType storageType,
+      List<Resource> specificStorageWhitelist,
       int resourcesPerSlot,
       int outputSlotSize,
       bool isSeed,
@@ -575,7 +612,11 @@ abstract class _$$ResourceImplCopyWith<$Res>
       bool isConveyor,
       String? assetFilename90Degrees,
       String? assetFilename180Degrees,
-      String? assetFilename270Degrees});
+      String? assetFilename270Degrees,
+      double? powerGenerated,
+      double? powerConsumed,
+      List<Resource> fuelResourceOptions,
+      double sustainabilityPenalty});
 
   @override
   $ResourceCopyWith<$Res>? get growsInto;
@@ -624,6 +665,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? requiredToMine = null,
     Object? slots = null,
     Object? storageType = null,
+    Object? specificStorageWhitelist = null,
     Object? resourcesPerSlot = null,
     Object? outputSlotSize = null,
     Object? isSeed = null,
@@ -654,6 +696,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? assetFilename90Degrees = freezed,
     Object? assetFilename180Degrees = freezed,
     Object? assetFilename270Degrees = freezed,
+    Object? powerGenerated = freezed,
+    Object? powerConsumed = freezed,
+    Object? fuelResourceOptions = null,
+    Object? sustainabilityPenalty = null,
   }) {
     return _then(_$ResourceImpl(
       identifier: null == identifier
@@ -773,6 +819,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.storageType
           : storageType // ignore: cast_nullable_to_non_nullable
               as StorageType,
+      specificStorageWhitelist: null == specificStorageWhitelist
+          ? _value._specificStorageWhitelist
+          : specificStorageWhitelist // ignore: cast_nullable_to_non_nullable
+              as List<Resource>,
       resourcesPerSlot: null == resourcesPerSlot
           ? _value.resourcesPerSlot
           : resourcesPerSlot // ignore: cast_nullable_to_non_nullable
@@ -893,6 +943,22 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.assetFilename270Degrees
           : assetFilename270Degrees // ignore: cast_nullable_to_non_nullable
               as String?,
+      powerGenerated: freezed == powerGenerated
+          ? _value.powerGenerated
+          : powerGenerated // ignore: cast_nullable_to_non_nullable
+              as double?,
+      powerConsumed: freezed == powerConsumed
+          ? _value.powerConsumed
+          : powerConsumed // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fuelResourceOptions: null == fuelResourceOptions
+          ? _value._fuelResourceOptions
+          : fuelResourceOptions // ignore: cast_nullable_to_non_nullable
+              as List<Resource>,
+      sustainabilityPenalty: null == sustainabilityPenalty
+          ? _value.sustainabilityPenalty
+          : sustainabilityPenalty // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -932,6 +998,7 @@ class _$ResourceImpl extends _Resource {
       this.slots = 0,
       @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
       this.storageType = StorageType.none,
+      final List<Resource> specificStorageWhitelist = const [],
       this.resourcesPerSlot = 0,
       this.outputSlotSize = 0,
       this.isSeed = false,
@@ -961,11 +1028,17 @@ class _$ResourceImpl extends _Resource {
       this.isConveyor = false,
       this.assetFilename90Degrees,
       this.assetFilename180Degrees,
-      this.assetFilename270Degrees})
+      this.assetFilename270Degrees,
+      this.powerGenerated,
+      this.powerConsumed,
+      final List<Resource> fuelResourceOptions = const [],
+      this.sustainabilityPenalty = 0.0})
       : _ingredients = ingredients,
         _requiredToMine = requiredToMine,
+        _specificStorageWhitelist = specificStorageWhitelist,
         _canOnlyBePlacedOn = canOnlyBePlacedOn,
         _researchRequirements = researchRequirements,
+        _fuelResourceOptions = fuelResourceOptions,
         super._();
 
   factory _$ResourceImpl.fromJson(Map<String, dynamic> json) =>
@@ -1063,6 +1136,16 @@ class _$ResourceImpl extends _Resource {
   @override
   @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
   final StorageType storageType;
+  final List<Resource> _specificStorageWhitelist;
+  @override
+  @JsonKey()
+  List<Resource> get specificStorageWhitelist {
+    if (_specificStorageWhitelist is EqualUnmodifiableListView)
+      return _specificStorageWhitelist;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_specificStorageWhitelist);
+  }
+
   @override
   @JsonKey()
   final int resourcesPerSlot;
@@ -1157,10 +1240,27 @@ class _$ResourceImpl extends _Resource {
   final String? assetFilename180Degrees;
   @override
   final String? assetFilename270Degrees;
+  @override
+  final double? powerGenerated;
+  @override
+  final double? powerConsumed;
+  final List<Resource> _fuelResourceOptions;
+  @override
+  @JsonKey()
+  List<Resource> get fuelResourceOptions {
+    if (_fuelResourceOptions is EqualUnmodifiableListView)
+      return _fuelResourceOptions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_fuelResourceOptions);
+  }
+
+  @override
+  @JsonKey()
+  final double sustainabilityPenalty;
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, interactionAnimation: $interactionAnimation, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, placeWithHitbox: $placeWithHitbox, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, canFarm: $canFarm, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements, equipsTool: $equipsTool, farmlandGrownAssetPath: $farmlandGrownAssetPath, farmlandGrownWidth: $farmlandGrownWidth, farmlandGrownHeight: $farmlandGrownHeight, canRotate: $canRotate, isConveyor: $isConveyor, assetFilename90Degrees: $assetFilename90Degrees, assetFilename180Degrees: $assetFilename180Degrees, assetFilename270Degrees: $assetFilename270Degrees)';
+    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, interactionAnimation: $interactionAnimation, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, placeWithHitbox: $placeWithHitbox, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, canFarm: $canFarm, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, specificStorageWhitelist: $specificStorageWhitelist, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements, equipsTool: $equipsTool, farmlandGrownAssetPath: $farmlandGrownAssetPath, farmlandGrownWidth: $farmlandGrownWidth, farmlandGrownHeight: $farmlandGrownHeight, canRotate: $canRotate, isConveyor: $isConveyor, assetFilename90Degrees: $assetFilename90Degrees, assetFilename180Degrees: $assetFilename180Degrees, assetFilename270Degrees: $assetFilename270Degrees, powerGenerated: $powerGenerated, powerConsumed: $powerConsumed, fuelResourceOptions: $fuelResourceOptions, sustainabilityPenalty: $sustainabilityPenalty)';
   }
 
   @JsonKey(ignore: true)
@@ -1210,6 +1310,7 @@ abstract class _Resource extends Resource {
       final int slots,
       @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
       final StorageType storageType,
+      final List<Resource> specificStorageWhitelist,
       final int resourcesPerSlot,
       final int outputSlotSize,
       final bool isSeed,
@@ -1239,7 +1340,11 @@ abstract class _Resource extends Resource {
       final bool isConveyor,
       final String? assetFilename90Degrees,
       final String? assetFilename180Degrees,
-      final String? assetFilename270Degrees}) = _$ResourceImpl;
+      final String? assetFilename270Degrees,
+      final double? powerGenerated,
+      final double? powerConsumed,
+      final List<Resource> fuelResourceOptions,
+      final double sustainabilityPenalty}) = _$ResourceImpl;
   const _Resource._() : super._();
 
   factory _Resource.fromJson(Map<String, dynamic> json) =
@@ -1307,6 +1412,8 @@ abstract class _Resource extends Resource {
   @JsonKey(toJson: storageTypeToJson, fromJson: storageTypeFromJson)
   StorageType get storageType;
   @override
+  List<Resource> get specificStorageWhitelist;
+  @override
   int get resourcesPerSlot;
   @override
   int get outputSlotSize;
@@ -1366,6 +1473,14 @@ abstract class _Resource extends Resource {
   String? get assetFilename180Degrees;
   @override
   String? get assetFilename270Degrees;
+  @override
+  double? get powerGenerated;
+  @override
+  double? get powerConsumed;
+  @override
+  List<Resource> get fuelResourceOptions;
+  @override
+  double get sustainabilityPenalty;
   @override
   @JsonKey(ignore: true)
   _$$ResourceImplCopyWith<_$ResourceImpl> get copyWith =>

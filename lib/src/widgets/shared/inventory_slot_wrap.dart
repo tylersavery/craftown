@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class InventorySlotWrap extends ConsumerWidget {
   final int selectedIndex;
-  final Function(int index) onTap;
+  final Function(int index, bool withMessage) onTap;
   final double slotSize;
 
   const InventorySlotWrap({
@@ -35,7 +35,7 @@ class InventorySlotWrap extends ConsumerWidget {
           onDoubleTap: () {
             final amountToMove = min(INVENTORY_MOVE_WHEN_SHIFT_PRESSED, slot.count);
             for (int i = 0; i < amountToMove; i++) {
-              onTap(index);
+              onTap(index, i == 0);
             }
           },
           onTap: () {
@@ -43,10 +43,10 @@ class InventorySlotWrap extends ConsumerWidget {
               final amountToMove = min(INVENTORY_MOVE_WHEN_SHIFT_PRESSED, slot.count);
 
               for (int i = 0; i < amountToMove; i++) {
-                onTap(index);
+                onTap(index, i == 0);
               }
             } else {
-              onTap(index);
+              onTap(index, true);
             }
           },
           child: Container(

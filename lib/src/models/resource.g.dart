@@ -54,6 +54,11 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       storageType: json['storageType'] == null
           ? StorageType.none
           : storageTypeFromJson(json['storageType'] as String),
+      specificStorageWhitelist:
+          (json['specificStorageWhitelist'] as List<dynamic>?)
+                  ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
+                  .toList() ??
+              const [],
       resourcesPerSlot: json['resourcesPerSlot'] as int? ?? 0,
       outputSlotSize: json['outputSlotSize'] as int? ?? 0,
       isSeed: json['isSeed'] as bool? ?? false,
@@ -101,6 +106,14 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       assetFilename90Degrees: json['assetFilename90Degrees'] as String?,
       assetFilename180Degrees: json['assetFilename180Degrees'] as String?,
       assetFilename270Degrees: json['assetFilename270Degrees'] as String?,
+      powerGenerated: (json['powerGenerated'] as num?)?.toDouble(),
+      powerConsumed: (json['powerConsumed'] as num?)?.toDouble(),
+      fuelResourceOptions: (json['fuelResourceOptions'] as List<dynamic>?)
+              ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      sustainabilityPenalty:
+          (json['sustainabilityPenalty'] as num?)?.toDouble() ?? 0.0,
     );
 
 Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
@@ -136,6 +149,8 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'requiredToMine': instance.requiredToMine.map((e) => e.toJson()).toList(),
       'slots': instance.slots,
       'storageType': storageTypeToJson(instance.storageType),
+      'specificStorageWhitelist':
+          instance.specificStorageWhitelist.map((e) => e.toJson()).toList(),
       'resourcesPerSlot': instance.resourcesPerSlot,
       'outputSlotSize': instance.outputSlotSize,
       'isSeed': instance.isSeed,
@@ -168,6 +183,11 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'assetFilename90Degrees': instance.assetFilename90Degrees,
       'assetFilename180Degrees': instance.assetFilename180Degrees,
       'assetFilename270Degrees': instance.assetFilename270Degrees,
+      'powerGenerated': instance.powerGenerated,
+      'powerConsumed': instance.powerConsumed,
+      'fuelResourceOptions':
+          instance.fuelResourceOptions.map((e) => e.toJson()).toList(),
+      'sustainabilityPenalty': instance.sustainabilityPenalty,
     };
 
 const _$PlayerInteractionAnimationTypeEnumMap = {
