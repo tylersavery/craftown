@@ -14,9 +14,6 @@ class SpawnState {
     initialState[3] = InventorySlot(resource: Resources.carrotSeed, count: 4);
     initialState[4] = InventorySlot(resource: Resources.soup, count: 3);
 
-    initialState[5] = InventorySlot(resource: Resources.wood, count: 10);
-    initialState[6] = InventorySlot(resource: Resources.iron, count: 10);
-
     return initialState;
   }
 

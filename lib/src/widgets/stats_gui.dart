@@ -1,3 +1,5 @@
+import 'package:craftown/src/menus/providers/research_menu_provider.dart';
+import 'package:craftown/src/menus/widgets/research_menu.dart';
 import 'package:craftown/src/models/stats.dart';
 import 'package:craftown/src/providers/calendar_provider.dart';
 import 'package:craftown/src/providers/dirty_resources_sustainability_penalty_provider.dart';
@@ -8,79 +10,109 @@ import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class StatsGui extends StatelessWidget {
+class StatsGui extends ConsumerWidget {
   const StatsGui({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final researchingState = ref.watch(researchMenuProvider);
+
+    return SizedBox(
       width: 180,
-      color: Colors.black38,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer(builder: (context, ref, _) {
-          final state = ref.watch(statsDetailProvider);
-          final calendar = ref.watch(calendarProvider);
+      child: Column(
+        children: [
+          Container(
+            color: Colors.black38,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Consumer(builder: (context, ref, _) {
+                final state = ref.watch(statsDetailProvider);
+                final calendar = ref.watch(calendarProvider);
 
-          final powerAvailable = ref.watch(powerAvailableProvider);
-          final powerUse = ref.watch(powerConsumptionProvider);
+                final powerAvailable = ref.watch(powerAvailableProvider);
+                final powerUse = ref.watch(powerConsumptionProvider);
 
-          final showPowerInfo = powerAvailable > 0 || powerUse > 0;
+                final showPowerInfo = powerAvailable > 0 || powerUse > 0;
 
-          double powerUsePercent = 0.0;
+                double powerUsePercent = 0.0;
 
-          if (powerAvailable == 0) {
-            powerUsePercent = 1;
-          } else if (powerUse == 0) {
-            powerUsePercent = 0;
-          } else {
-            powerUsePercent = powerUse / powerAvailable;
-          }
+                if (powerAvailable == 0) {
+                  powerUsePercent = 1;
+                } else if (powerUse == 0) {
+                  powerUsePercent = 0;
+                } else {
+                  powerUsePercent = powerUse / powerAvailable;
+                }
 
-          final sustainability = state.sustainability - ref.watch(dirtyResourcesSustainablityPenaltyProvider);
+                final sustainability = state.sustainability - ref.watch(dirtyResourcesSustainablityPenaltyProvider);
 
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${calendar.month.label}, ${calendar.year}",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Colors.white,
-                    ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      PixelArtImageAsset(
-                        "assets/images/coins-16x16.png",
-                        width: 16,
-                        height: 16,
-                      ),
-                      Text(
-                        "${state.dollars}",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${calendar.month.label}, ${calendar.year}",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.white,
+                          ),
                         ),
-                      )
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            PixelArtImageAsset(
+                              "assets/images/coins-16x16.png",
+                              width: 16,
+                              height: 16,
+                            ),
+                            Text(
+                              "${state.dollars}",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    _StatRow(type: StatType.sustainability, value: sustainability),
+                    _StatRow(type: StatType.energy, value: state.energy),
+                    _StatRow(type: StatType.hunger, value: state.hunger),
+                    _StatRow(type: StatType.thirst, value: state.thirst),
+                    if (showPowerInfo) _StatRow(type: StatType.powerUse, value: powerUsePercent),
+                  ],
+                );
+              }),
+            ),
+          ),
+          if (researchingState.isResearching != null && researchingState.researchStarted != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 6.0),
+              child: Container(
+                color: Colors.black38,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Researching ${researchingState.isResearching!.name}",
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                      ResearchProgressIndicator(
+                          researchStarted: researchingState.researchStarted!, researchCompletes: researchingState.researchCompletes)
                     ],
                   ),
-                ],
+                ),
               ),
-              _StatRow(type: StatType.sustainability, value: sustainability),
-              _StatRow(type: StatType.energy, value: state.energy),
-              _StatRow(type: StatType.hunger, value: state.hunger),
-              _StatRow(type: StatType.thirst, value: state.thirst),
-              if (showPowerInfo) _StatRow(type: StatType.powerUse, value: powerUsePercent),
-            ],
-          );
-        }),
+            )
+        ],
       ),
     );
   }

@@ -20,6 +20,11 @@ _$TutorialStepImpl _$$TutorialStepImplFromJson(Map<String, dynamic> json) =>
                   ?.map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
                   .toList() ??
               const [],
+      researchLevelsRequired: (json['researchLevelsRequired'] as List<dynamic>?)
+              ?.map((e) => ResearchLevel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      powerAvailableRequired: json['powerAvailableRequired'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$TutorialStepImplToJson(_$TutorialStepImpl instance) =>
@@ -31,4 +36,7 @@ Map<String, dynamic> _$$TutorialStepImplToJson(_$TutorialStepImpl instance) =>
           instance.resourcesRequired.map((e) => e.toJson()).toList(),
       'placedResourcesRequired':
           instance.placedResourcesRequired.map((e) => e.toJson()).toList(),
+      'researchLevelsRequired':
+          instance.researchLevelsRequired.map((e) => e.toJson()).toList(),
+      'powerAvailableRequired': instance.powerAvailableRequired,
     };

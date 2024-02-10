@@ -6,7 +6,7 @@ part of 'research_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$researchListHash() => r'34a04be93bc1481d19452c1303500587cd861265';
+String _$researchListHash() => r'cd4d8baaa7436ad94a031e7036b28e54dfdbc90e';
 
 /// See also [ResearchList].
 @ProviderFor(ResearchList)

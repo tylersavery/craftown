@@ -499,8 +499,8 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                                     final provider = ref.read(statsDetailProvider.notifier);
 
                                     provider.increaseEnergy(placedResource.sprite.resource.restValue ?? 0.1);
-                                    provider.increaseThirst(0.25);
-                                    provider.increaseHunger(0.2);
+                                    provider.increaseThirst(0.05);
+                                    provider.increaseHunger(0.075);
                                   },
                                   small: true,
                                 ),

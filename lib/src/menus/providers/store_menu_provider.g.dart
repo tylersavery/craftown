@@ -6,7 +6,7 @@ part of 'store_menu_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$storeMenuHash() => r'7b4bf49ec7d2df4b6dfc7bba261fd1a8c0a0ba59';
+String _$storeMenuHash() => r'1850dc767a26eb228914ba089418422ce55b8a06';
 
 /// See also [StoreMenu].
 @ProviderFor(StoreMenu)

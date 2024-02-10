@@ -2,6 +2,7 @@ import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/models/store_menu_state.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
+import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -25,7 +26,13 @@ class StoreMenu extends _$StoreMenu {
 
   bool purchase(Resource resource) {
     if (DEBUG_STORE) {
-      ref.read(inventoryListProvider.notifier).addResource(resource);
+      if (ref.read(modifierKeyProvider).shiftPressed) {
+        for (int i = 0; i < 5; i++) {
+          ref.read(inventoryListProvider.notifier).addResource(resource);
+        }
+      } else {
+        ref.read(inventoryListProvider.notifier).addResource(resource);
+      }
 
       return true;
     }

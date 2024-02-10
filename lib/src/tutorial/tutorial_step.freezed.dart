@@ -26,6 +26,9 @@ mixin _$TutorialStep {
   List<Ingredient> get resourcesRequired => throw _privateConstructorUsedError;
   List<Ingredient> get placedResourcesRequired =>
       throw _privateConstructorUsedError;
+  List<ResearchLevel> get researchLevelsRequired =>
+      throw _privateConstructorUsedError;
+  bool get powerAvailableRequired => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +47,9 @@ abstract class $TutorialStepCopyWith<$Res> {
       String name,
       String description,
       List<Ingredient> resourcesRequired,
-      List<Ingredient> placedResourcesRequired});
+      List<Ingredient> placedResourcesRequired,
+      List<ResearchLevel> researchLevelsRequired,
+      bool powerAvailableRequired});
 }
 
 /// @nodoc
@@ -65,6 +70,8 @@ class _$TutorialStepCopyWithImpl<$Res, $Val extends TutorialStep>
     Object? description = null,
     Object? resourcesRequired = null,
     Object? placedResourcesRequired = null,
+    Object? researchLevelsRequired = null,
+    Object? powerAvailableRequired = null,
   }) {
     return _then(_value.copyWith(
       index: null == index
@@ -87,6 +94,14 @@ class _$TutorialStepCopyWithImpl<$Res, $Val extends TutorialStep>
           ? _value.placedResourcesRequired
           : placedResourcesRequired // ignore: cast_nullable_to_non_nullable
               as List<Ingredient>,
+      researchLevelsRequired: null == researchLevelsRequired
+          ? _value.researchLevelsRequired
+          : researchLevelsRequired // ignore: cast_nullable_to_non_nullable
+              as List<ResearchLevel>,
+      powerAvailableRequired: null == powerAvailableRequired
+          ? _value.powerAvailableRequired
+          : powerAvailableRequired // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -104,7 +119,9 @@ abstract class _$$TutorialStepImplCopyWith<$Res>
       String name,
       String description,
       List<Ingredient> resourcesRequired,
-      List<Ingredient> placedResourcesRequired});
+      List<Ingredient> placedResourcesRequired,
+      List<ResearchLevel> researchLevelsRequired,
+      bool powerAvailableRequired});
 }
 
 /// @nodoc
@@ -123,6 +140,8 @@ class __$$TutorialStepImplCopyWithImpl<$Res>
     Object? description = null,
     Object? resourcesRequired = null,
     Object? placedResourcesRequired = null,
+    Object? researchLevelsRequired = null,
+    Object? powerAvailableRequired = null,
   }) {
     return _then(_$TutorialStepImpl(
       index: null == index
@@ -145,6 +164,14 @@ class __$$TutorialStepImplCopyWithImpl<$Res>
           ? _value._placedResourcesRequired
           : placedResourcesRequired // ignore: cast_nullable_to_non_nullable
               as List<Ingredient>,
+      researchLevelsRequired: null == researchLevelsRequired
+          ? _value._researchLevelsRequired
+          : researchLevelsRequired // ignore: cast_nullable_to_non_nullable
+              as List<ResearchLevel>,
+      powerAvailableRequired: null == powerAvailableRequired
+          ? _value.powerAvailableRequired
+          : powerAvailableRequired // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -157,9 +184,12 @@ class _$TutorialStepImpl extends _TutorialStep {
       required this.name,
       required this.description,
       final List<Ingredient> resourcesRequired = const [],
-      final List<Ingredient> placedResourcesRequired = const []})
+      final List<Ingredient> placedResourcesRequired = const [],
+      final List<ResearchLevel> researchLevelsRequired = const [],
+      this.powerAvailableRequired = false})
       : _resourcesRequired = resourcesRequired,
         _placedResourcesRequired = placedResourcesRequired,
+        _researchLevelsRequired = researchLevelsRequired,
         super._();
 
   factory _$TutorialStepImpl.fromJson(Map<String, dynamic> json) =>
@@ -191,9 +221,23 @@ class _$TutorialStepImpl extends _TutorialStep {
     return EqualUnmodifiableListView(_placedResourcesRequired);
   }
 
+  final List<ResearchLevel> _researchLevelsRequired;
+  @override
+  @JsonKey()
+  List<ResearchLevel> get researchLevelsRequired {
+    if (_researchLevelsRequired is EqualUnmodifiableListView)
+      return _researchLevelsRequired;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_researchLevelsRequired);
+  }
+
+  @override
+  @JsonKey()
+  final bool powerAvailableRequired;
+
   @override
   String toString() {
-    return 'TutorialStep(index: $index, name: $name, description: $description, resourcesRequired: $resourcesRequired, placedResourcesRequired: $placedResourcesRequired)';
+    return 'TutorialStep(index: $index, name: $name, description: $description, resourcesRequired: $resourcesRequired, placedResourcesRequired: $placedResourcesRequired, researchLevelsRequired: $researchLevelsRequired, powerAvailableRequired: $powerAvailableRequired)';
   }
 
   @override
@@ -208,7 +252,11 @@ class _$TutorialStepImpl extends _TutorialStep {
             const DeepCollectionEquality()
                 .equals(other._resourcesRequired, _resourcesRequired) &&
             const DeepCollectionEquality().equals(
-                other._placedResourcesRequired, _placedResourcesRequired));
+                other._placedResourcesRequired, _placedResourcesRequired) &&
+            const DeepCollectionEquality().equals(
+                other._researchLevelsRequired, _researchLevelsRequired) &&
+            (identical(other.powerAvailableRequired, powerAvailableRequired) ||
+                other.powerAvailableRequired == powerAvailableRequired));
   }
 
   @JsonKey(ignore: true)
@@ -219,7 +267,9 @@ class _$TutorialStepImpl extends _TutorialStep {
       name,
       description,
       const DeepCollectionEquality().hash(_resourcesRequired),
-      const DeepCollectionEquality().hash(_placedResourcesRequired));
+      const DeepCollectionEquality().hash(_placedResourcesRequired),
+      const DeepCollectionEquality().hash(_researchLevelsRequired),
+      powerAvailableRequired);
 
   @JsonKey(ignore: true)
   @override
@@ -241,7 +291,9 @@ abstract class _TutorialStep extends TutorialStep {
       required final String name,
       required final String description,
       final List<Ingredient> resourcesRequired,
-      final List<Ingredient> placedResourcesRequired}) = _$TutorialStepImpl;
+      final List<Ingredient> placedResourcesRequired,
+      final List<ResearchLevel> researchLevelsRequired,
+      final bool powerAvailableRequired}) = _$TutorialStepImpl;
   const _TutorialStep._() : super._();
 
   factory _TutorialStep.fromJson(Map<String, dynamic> json) =
@@ -257,6 +309,10 @@ abstract class _TutorialStep extends TutorialStep {
   List<Ingredient> get resourcesRequired;
   @override
   List<Ingredient> get placedResourcesRequired;
+  @override
+  List<ResearchLevel> get researchLevelsRequired;
+  @override
+  bool get powerAvailableRequired;
   @override
   @JsonKey(ignore: true)
   _$$TutorialStepImplCopyWith<_$TutorialStepImpl> get copyWith =>

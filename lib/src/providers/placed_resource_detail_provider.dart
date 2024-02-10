@@ -15,6 +15,7 @@ import 'package:craftown/src/providers/power_consumption_provider.dart';
 import 'package:craftown/src/providers/power_generating_resources_list_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
+import 'package:craftown/src/tutorial/tutorial_provider.dart';
 import 'package:craftown/src/utils/randomization.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -303,7 +304,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     state = state!.copyWith(isPowerGenerating: true);
     ref.read(powerGeneratingResourcesListProvider.notifier).add(state!);
 
-    powerGeneratingTimer = Timer.periodic(Duration(seconds: 5), (timer) {
+    powerGeneratingTimer = Timer.periodic(Duration(seconds: state!.sprite.resource.powerFuelConsumptionSeconds), (timer) {
       if (state == null) return;
 
       final fuelOptions = state!.sprite.resource.fuelResourceOptions;
@@ -318,6 +319,8 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
         stopPowerGenerating();
         return;
       }
+
+      ref.read(tutorialProvider.notifier).checkProgress();
 
       final r = randomItemInList(resources);
       removeFromAnySlot(r);

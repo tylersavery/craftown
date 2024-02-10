@@ -97,6 +97,7 @@ class Resource with _$Resource {
     String? assetFilename270Degrees,
     double? powerGenerated,
     double? powerConsumed,
+    @Default(30) int powerFuelConsumptionSeconds,
     @Default([]) List<Resource> fuelResourceOptions,
     @Default(0.0) double sustainabilityPenalty,
     bool? showInventoryColumnInResourceContentsMenuOverride,

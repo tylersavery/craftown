@@ -3,3 +3,24 @@
 [] 16x16 icon for clay looks like copper
 [x] resources that dont allow storage (ie tent) shouldn't have the left column
 [x] showing total counts when crafting
+[x] double click for shop
+[x] fix save game list to not overflow
+[x] in craft menu, clicking on the "(1)" should open that in your invetory menu
+[x] when resting, hunger/thirst shouldn't go up that much
+[x] when researching OR completed, don't make cost info pink/red
+[x] lumber required for chest instead of wood?
+[x] show active research progress in main UI
+[x] heavy miner should cost more!
+[x] constructor should require ironplates + copper
+
+
+
+[ ] menu shortcut keys (for desktop)
+[ ] effect when mining manually to show updates
+[ ] watering crops animation incorrect direction?
+[ ] season change while mining crashed game  -- or maybe cuz of farm?
+[ ] power generate (start right away)
+[ ] power generator shouldn't consume if nothing is reqesting it?
+
+
+[ ] certain items only craftable by constructors?

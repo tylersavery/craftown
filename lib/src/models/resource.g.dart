@@ -108,6 +108,8 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       assetFilename270Degrees: json['assetFilename270Degrees'] as String?,
       powerGenerated: (json['powerGenerated'] as num?)?.toDouble(),
       powerConsumed: (json['powerConsumed'] as num?)?.toDouble(),
+      powerFuelConsumptionSeconds:
+          json['powerFuelConsumptionSeconds'] as int? ?? 30,
       fuelResourceOptions: (json['fuelResourceOptions'] as List<dynamic>?)
               ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -187,6 +189,7 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'assetFilename270Degrees': instance.assetFilename270Degrees,
       'powerGenerated': instance.powerGenerated,
       'powerConsumed': instance.powerConsumed,
+      'powerFuelConsumptionSeconds': instance.powerFuelConsumptionSeconds,
       'fuelResourceOptions':
           instance.fuelResourceOptions.map((e) => e.toJson()).toList(),
       'sustainabilityPenalty': instance.sustainabilityPenalty,

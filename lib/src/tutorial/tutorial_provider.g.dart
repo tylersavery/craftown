@@ -6,7 +6,7 @@ part of 'tutorial_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tutorialHash() => r'f35192289f379b0a73f19bb411ca86ef64bdbcfc';
+String _$tutorialHash() => r'4f299388d224c205f043d550fe32edc2a16deaa4';
 
 /// See also [Tutorial].
 @ProviderFor(Tutorial)

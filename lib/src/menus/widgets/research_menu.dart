@@ -118,7 +118,7 @@ class _ResearchCard extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(
                     bottom: 4,
                   ),
-                  child: _ResearchProgressIndicator(researchStarted: menuState.researchStarted!, researchCompletes: menuState.researchCompletes),
+                  child: ResearchProgressIndicator(researchStarted: menuState.researchStarted!, researchCompletes: menuState.researchCompletes),
                 );
               },
             ),
@@ -147,7 +147,7 @@ class _ResearchCard extends ConsumerWidget {
 
                         return Container(
                           decoration: BoxDecoration(
-                            color: hasEnough ? Colors.black12 : Colors.red.shade100,
+                            color: hasEnough || isResearched || isResearching ? Colors.black12 : Colors.red.shade100,
                             borderRadius: BorderRadius.circular(4.0),
                           ),
                           child: Padding(
@@ -215,20 +215,20 @@ class _ResearchCard extends ConsumerWidget {
   }
 }
 
-class _ResearchProgressIndicator extends StatefulWidget {
+class ResearchProgressIndicator extends StatefulWidget {
   final DateTime researchStarted;
   final DateTime researchCompletes;
 
-  const _ResearchProgressIndicator({
+  const ResearchProgressIndicator({
     required this.researchStarted,
     required this.researchCompletes,
   });
 
   @override
-  State<_ResearchProgressIndicator> createState() => _ResearchProgressIndicatorState();
+  State<ResearchProgressIndicator> createState() => _ResearchProgressIndicatorState();
 }
 
-class _ResearchProgressIndicatorState extends State<_ResearchProgressIndicator> {
+class _ResearchProgressIndicatorState extends State<ResearchProgressIndicator> {
   late final Timer timer;
 
   late DateTime now;

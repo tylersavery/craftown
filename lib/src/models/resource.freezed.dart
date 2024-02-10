@@ -88,6 +88,7 @@ mixin _$Resource {
   String? get assetFilename270Degrees => throw _privateConstructorUsedError;
   double? get powerGenerated => throw _privateConstructorUsedError;
   double? get powerConsumed => throw _privateConstructorUsedError;
+  int get powerFuelConsumptionSeconds => throw _privateConstructorUsedError;
   List<Resource> get fuelResourceOptions => throw _privateConstructorUsedError;
   double get sustainabilityPenalty => throw _privateConstructorUsedError;
   bool? get showInventoryColumnInResourceContentsMenuOverride =>
@@ -169,6 +170,7 @@ abstract class $ResourceCopyWith<$Res> {
       String? assetFilename270Degrees,
       double? powerGenerated,
       double? powerConsumed,
+      int powerFuelConsumptionSeconds,
       List<Resource> fuelResourceOptions,
       double sustainabilityPenalty,
       bool? showInventoryColumnInResourceContentsMenuOverride});
@@ -253,6 +255,7 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     Object? assetFilename270Degrees = freezed,
     Object? powerGenerated = freezed,
     Object? powerConsumed = freezed,
+    Object? powerFuelConsumptionSeconds = null,
     Object? fuelResourceOptions = null,
     Object? sustainabilityPenalty = null,
     Object? showInventoryColumnInResourceContentsMenuOverride = freezed,
@@ -510,6 +513,10 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
           ? _value.powerConsumed
           : powerConsumed // ignore: cast_nullable_to_non_nullable
               as double?,
+      powerFuelConsumptionSeconds: null == powerFuelConsumptionSeconds
+          ? _value.powerFuelConsumptionSeconds
+          : powerFuelConsumptionSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
       fuelResourceOptions: null == fuelResourceOptions
           ? _value.fuelResourceOptions
           : fuelResourceOptions // ignore: cast_nullable_to_non_nullable
@@ -624,6 +631,7 @@ abstract class _$$ResourceImplCopyWith<$Res>
       String? assetFilename270Degrees,
       double? powerGenerated,
       double? powerConsumed,
+      int powerFuelConsumptionSeconds,
       List<Resource> fuelResourceOptions,
       double sustainabilityPenalty,
       bool? showInventoryColumnInResourceContentsMenuOverride});
@@ -708,6 +716,7 @@ class __$$ResourceImplCopyWithImpl<$Res>
     Object? assetFilename270Degrees = freezed,
     Object? powerGenerated = freezed,
     Object? powerConsumed = freezed,
+    Object? powerFuelConsumptionSeconds = null,
     Object? fuelResourceOptions = null,
     Object? sustainabilityPenalty = null,
     Object? showInventoryColumnInResourceContentsMenuOverride = freezed,
@@ -962,6 +971,10 @@ class __$$ResourceImplCopyWithImpl<$Res>
           ? _value.powerConsumed
           : powerConsumed // ignore: cast_nullable_to_non_nullable
               as double?,
+      powerFuelConsumptionSeconds: null == powerFuelConsumptionSeconds
+          ? _value.powerFuelConsumptionSeconds
+          : powerFuelConsumptionSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
       fuelResourceOptions: null == fuelResourceOptions
           ? _value._fuelResourceOptions
           : fuelResourceOptions // ignore: cast_nullable_to_non_nullable
@@ -1047,6 +1060,7 @@ class _$ResourceImpl extends _Resource {
       this.assetFilename270Degrees,
       this.powerGenerated,
       this.powerConsumed,
+      this.powerFuelConsumptionSeconds = 30,
       final List<Resource> fuelResourceOptions = const [],
       this.sustainabilityPenalty = 0.0,
       this.showInventoryColumnInResourceContentsMenuOverride})
@@ -1261,6 +1275,9 @@ class _$ResourceImpl extends _Resource {
   final double? powerGenerated;
   @override
   final double? powerConsumed;
+  @override
+  @JsonKey()
+  final int powerFuelConsumptionSeconds;
   final List<Resource> _fuelResourceOptions;
   @override
   @JsonKey()
@@ -1279,7 +1296,7 @@ class _$ResourceImpl extends _Resource {
 
   @override
   String toString() {
-    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, interactionAnimation: $interactionAnimation, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, placeWithHitbox: $placeWithHitbox, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, canFarm: $canFarm, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, specificStorageWhitelist: $specificStorageWhitelist, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements, equipsTool: $equipsTool, farmlandGrownAssetPath: $farmlandGrownAssetPath, farmlandGrownWidth: $farmlandGrownWidth, farmlandGrownHeight: $farmlandGrownHeight, canRotate: $canRotate, isConveyor: $isConveyor, assetFilename90Degrees: $assetFilename90Degrees, assetFilename180Degrees: $assetFilename180Degrees, assetFilename270Degrees: $assetFilename270Degrees, powerGenerated: $powerGenerated, powerConsumed: $powerConsumed, fuelResourceOptions: $fuelResourceOptions, sustainabilityPenalty: $sustainabilityPenalty, showInventoryColumnInResourceContentsMenuOverride: $showInventoryColumnInResourceContentsMenuOverride)';
+    return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, interactionAnimation: $interactionAnimation, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, placeWithHitbox: $placeWithHitbox, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, canFarm: $canFarm, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, specificStorageWhitelist: $specificStorageWhitelist, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements, equipsTool: $equipsTool, farmlandGrownAssetPath: $farmlandGrownAssetPath, farmlandGrownWidth: $farmlandGrownWidth, farmlandGrownHeight: $farmlandGrownHeight, canRotate: $canRotate, isConveyor: $isConveyor, assetFilename90Degrees: $assetFilename90Degrees, assetFilename180Degrees: $assetFilename180Degrees, assetFilename270Degrees: $assetFilename270Degrees, powerGenerated: $powerGenerated, powerConsumed: $powerConsumed, powerFuelConsumptionSeconds: $powerFuelConsumptionSeconds, fuelResourceOptions: $fuelResourceOptions, sustainabilityPenalty: $sustainabilityPenalty, showInventoryColumnInResourceContentsMenuOverride: $showInventoryColumnInResourceContentsMenuOverride)';
   }
 
   @JsonKey(ignore: true)
@@ -1362,6 +1379,7 @@ abstract class _Resource extends Resource {
           final String? assetFilename270Degrees,
           final double? powerGenerated,
           final double? powerConsumed,
+          final int powerFuelConsumptionSeconds,
           final List<Resource> fuelResourceOptions,
           final double sustainabilityPenalty,
           final bool? showInventoryColumnInResourceContentsMenuOverride}) =
@@ -1498,6 +1516,8 @@ abstract class _Resource extends Resource {
   double? get powerGenerated;
   @override
   double? get powerConsumed;
+  @override
+  int get powerFuelConsumptionSeconds;
   @override
   List<Resource> get fuelResourceOptions;
   @override

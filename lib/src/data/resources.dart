@@ -112,6 +112,9 @@ class Resources {
           placeWithHitbox: false,
           ingredients: [
             Ingredient(resource: Resources.clay, quantity: 5),
+          ],
+          researchRequirements: [
+            ResearchLevels.farming1,
           ]
 
           // smeltsInto: "wire",
@@ -280,6 +283,7 @@ class Resources {
         ingredients: [
           Ingredient(resource: Resources.ironPlate, quantity: 3),
         ],
+        researchRequirements: [ResearchLevels.smelting1],
       );
 
   static Resource get lumber => Resource(
@@ -349,7 +353,7 @@ class Resources {
         resourcesPerSlot: 50,
         interactionRadius: 48,
         ingredients: [
-          Ingredient(resource: Resources.wood, quantity: 10),
+          Ingredient(resource: Resources.lumber, quantity: 10),
         ],
         researchRequirements: [
           ResearchLevels.storage1,
@@ -493,6 +497,7 @@ class Resources {
           Ingredient(resource: Resources.wood, quantity: 15),
           Ingredient(resource: Resources.iron, quantity: 10),
         ],
+        researchRequirements: [ResearchLevels.storage2],
       );
 
   // Special
@@ -533,7 +538,7 @@ class Resources {
         namePlural: "Constructors",
         secondsToCraft: 10,
         ingredients: [
-          Ingredient(resource: Resources.iron, quantity: 20),
+          Ingredient(resource: Resources.ironPlate, quantity: 20),
           Ingredient(resource: Resources.copper, quantity: 10),
         ],
         storageType: StorageType.all,
@@ -544,6 +549,7 @@ class Resources {
         outputSlotSize: 100,
         interactionRadius: 48,
         powerConsumed: 2.0,
+        researchRequirements: [ResearchLevels.construction1],
       );
 
   static Resource get lightMiner => Resource(
@@ -590,13 +596,13 @@ class Resources {
       storageType: StorageType.solid,
       showInventoryColumnInResourceContentsMenuOverride: false,
       ingredients: [
-        Ingredient(resource: Resources.iron, quantity: 10),
-        Ingredient(resource: Resources.stone, quantity: 10),
+        Ingredient(resource: Resources.iron, quantity: 20),
+        Ingredient(resource: Resources.stone, quantity: 20),
       ],
       miningOutputResource: Resources.iron,
       powerConsumed: 0.5,
       researchRequirements: [
-        ResearchLevels.mining2,
+        ResearchLevels.mining1,
       ],
       canOnlyBePlacedOn: [
         Resources.straw,
@@ -635,38 +641,38 @@ class Resources {
 
   // Houses
 
-  static Resource get woodHouse => Resource(
-          identifier: 'wood_house',
-          name: "Wood House",
-          namePlural: "Wood Houses",
-          assetFileName16: "wood-house-16x16.png",
-          assetFileNameLarge: "wood-house-96x112.png",
-          placementWidth: 96,
-          placementHeight: 112,
-          canPlace: true,
-          canPickUp: true,
-          secondsToCraft: 30,
-          isHouse: true,
-          ingredients: [
-            Ingredient(resource: Resources.wood, quantity: 500),
-            Ingredient(resource: Resources.stone, quantity: 200),
-          ]);
+  // static Resource get woodHouse => Resource(
+  //         identifier: 'wood_house',
+  //         name: "Wood House",
+  //         namePlural: "Wood Houses",
+  //         assetFileName16: "wood-house-16x16.png",
+  //         assetFileNameLarge: "wood-house-96x112.png",
+  //         placementWidth: 96,
+  //         placementHeight: 112,
+  //         canPlace: true,
+  //         canPickUp: true,
+  //         secondsToCraft: 30,
+  //         isHouse: true,
+  //         ingredients: [
+  //           Ingredient(resource: Resources.wood, quantity: 500),
+  //           Ingredient(resource: Resources.stone, quantity: 200),
+  //         ]);
 
-  static Resource get brickHouse => Resource(
-          identifier: 'brick_house',
-          name: "Brick House",
-          namePlural: "Brick Houses",
-          assetFileName16: "brick-house-16x16.png",
-          assetFileNameLarge: "brick-house-96x112.png",
-          placementWidth: 96,
-          placementHeight: 112,
-          secondsToCraft: 30,
-          isHouse: true,
-          ingredients: [
-            Ingredient(resource: Resources.brick, quantity: 500),
-            Ingredient(resource: Resources.stone, quantity: 200),
-            Ingredient(resource: Resources.wood, quantity: 100),
-          ]);
+  // static Resource get brickHouse => Resource(
+  //         identifier: 'brick_house',
+  //         name: "Brick House",
+  //         namePlural: "Brick Houses",
+  //         assetFileName16: "brick-house-16x16.png",
+  //         assetFileNameLarge: "brick-house-96x112.png",
+  //         placementWidth: 96,
+  //         placementHeight: 112,
+  //         secondsToCraft: 30,
+  //         isHouse: true,
+  //         ingredients: [
+  //           Ingredient(resource: Resources.brick, quantity: 500),
+  //           Ingredient(resource: Resources.stone, quantity: 200),
+  //           Ingredient(resource: Resources.wood, quantity: 100),
+  //         ]);
 
   // static Resource get conveyorBelt => Resource(
   //         identifier: "conveyor_belt",
@@ -716,7 +722,9 @@ class Resources {
             Ingredient(resource: Resources.stone, quantity: 25),
             Ingredient(resource: Resources.clay, quantity: 40),
           ],
-          researchRequirements: []);
+          researchRequirements: [
+            ResearchLevels.storage1,
+          ]);
 
   static Resource get powerGeneratorSolar => Resource(
           identifier: 'power_generator_solar',
@@ -741,6 +749,13 @@ class Resources {
           ]);
 
   static List<Resource> get all => [
+        // Tools
+        Resources.pick,
+        Resources.axe,
+        Resources.shovel,
+        Resources.sythe,
+        Resources.woodenBucket,
+
         //Primary
         Resources.iron,
         Resources.stone,
@@ -772,13 +787,6 @@ class Resources {
         Resources.barrel,
         Resources.chest,
 
-        // Tools
-        Resources.pick,
-        Resources.axe,
-        Resources.shovel,
-        Resources.sythe,
-        Resources.woodenBucket,
-
         //Assembleables
         Resources.soup,
         Resources.tent,
@@ -795,8 +803,8 @@ class Resources {
         Resources.powerGeneratorSolar,
 
         //Housing
-        Resources.woodHouse,
-        Resources.brickHouse,
+        // Resources.woodHouse,
+        // Resources.brickHouse,
       ];
 
   static List<Resource> get craftable => all.where((r) => r.secondsToCraft != null).toList();

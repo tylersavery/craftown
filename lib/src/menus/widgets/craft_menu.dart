@@ -1,5 +1,6 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/craft_menu_provider.dart';
+import 'package:craftown/src/menus/providers/inventory_menu_provider.dart';
 import 'package:craftown/src/providers/can_craft_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/inventory_map_provider.dart';
@@ -25,6 +26,8 @@ class CraftMenuWidget extends ConsumerWidget {
     final selectedResource = recipes[menuState.selectedIndex];
 
     final canCraft = ref.watch(canCraftProvider(selectedResource));
+
+    final inventoryCount = ref.watch(inventoryMapProvider)[selectedResource.identifier] ?? 0;
 
     return MenuContainer(
       title: "Crafting Table",
@@ -76,11 +79,30 @@ class CraftMenuWidget extends ConsumerWidget {
                       SizedBox(
                         width: 6,
                       ),
-                      Text(
-                        "[${ref.watch(inventoryMapProvider)[selectedResource.identifier] ?? 0}]",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black54,
+                      InkWell(
+                        onTap: inventoryCount > 0
+                            ? () {
+                                int index = 0;
+
+                                for (final slot in ref.read(inventoryListProvider)) {
+                                  if (slot.resource != null && slot.resource!.identifier == selectedResource.identifier) {
+                                    break;
+                                  }
+
+                                  index++;
+                                }
+
+                                ref.read(craftMenuProvider.notifier).close();
+
+                                ref.read(inventoryMenuProvider.notifier).openWith(index);
+                              }
+                            : null,
+                        child: Text(
+                          "[$inventoryCount]",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black54,
+                          ),
                         ),
                       ),
                     ],

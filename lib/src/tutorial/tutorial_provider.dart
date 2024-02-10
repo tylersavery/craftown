@@ -1,6 +1,9 @@
+import 'package:collection/collection.dart';
 import 'package:craftown/src/models/toast_message.dart';
 import 'package:craftown/src/providers/inventory_map_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
+import 'package:craftown/src/providers/power_available_provider.dart';
+import 'package:craftown/src/providers/research_list_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/tutorial/tutorial_step.dart';
 import 'package:craftown/src/tutorial/tutorial_steps.dart';
@@ -75,6 +78,21 @@ class Tutorial extends _$Tutorial {
           completed = false;
           break;
         }
+      }
+    }
+
+    if (state!.researchLevelsRequired.isNotEmpty) {
+      for (final level in state!.researchLevelsRequired) {
+        if (ref.read(researchListProvider).firstWhereOrNull((l) => l.identifier == level.identifier) == null) {
+          completed = false;
+          break;
+        }
+      }
+    }
+
+    if (state!.powerAvailableRequired) {
+      if (ref.read(powerAvailableProvider) == 0) {
+        completed = false;
       }
     }
 
