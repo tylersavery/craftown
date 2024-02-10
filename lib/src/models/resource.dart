@@ -68,7 +68,7 @@ class Resource with _$Resource {
     @Default(0) int resourcesPerSlot,
     @Default(0) int outputSlotSize,
     @Default(false) bool isSeed,
-    @Default(20) int secondsToGrow,
+    @Default(120) int secondsToGrow,
     Resource? growsInto,
     @Default(1) int farmYieldMin,
     @Default(1) int farmYieldMax,
@@ -99,6 +99,7 @@ class Resource with _$Resource {
     double? powerConsumed,
     @Default([]) List<Resource> fuelResourceOptions,
     @Default(0.0) double sustainabilityPenalty,
+    bool? showInventoryColumnInResourceContentsMenuOverride,
   }) = _Resource;
 
   factory Resource.fromJson(Map<String, dynamic> json) => _$ResourceFromJson(json);
@@ -171,5 +172,13 @@ class Resource with _$Resource {
 
   bool get spawnedResourceHasHitbox {
     return spawnedResourceHitboxWidth != null && spawnedResourceHitboxHeight != null;
+  }
+
+  bool get showInventoryColumnInResourceContentsMenu {
+    if (showInventoryColumnInResourceContentsMenuOverride != null) {
+      return showInventoryColumnInResourceContentsMenuOverride!;
+    }
+
+    return canConstruct || storageType != StorageType.none;
   }
 }

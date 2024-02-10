@@ -62,7 +62,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       resourcesPerSlot: json['resourcesPerSlot'] as int? ?? 0,
       outputSlotSize: json['outputSlotSize'] as int? ?? 0,
       isSeed: json['isSeed'] as bool? ?? false,
-      secondsToGrow: json['secondsToGrow'] as int? ?? 20,
+      secondsToGrow: json['secondsToGrow'] as int? ?? 120,
       growsInto: json['growsInto'] == null
           ? null
           : Resource.fromJson(json['growsInto'] as Map<String, dynamic>),
@@ -114,6 +114,8 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
           const [],
       sustainabilityPenalty:
           (json['sustainabilityPenalty'] as num?)?.toDouble() ?? 0.0,
+      showInventoryColumnInResourceContentsMenuOverride:
+          json['showInventoryColumnInResourceContentsMenuOverride'] as bool?,
     );
 
 Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
@@ -188,6 +190,8 @@ Map<String, dynamic> _$$ResourceImplToJson(_$ResourceImpl instance) =>
       'fuelResourceOptions':
           instance.fuelResourceOptions.map((e) => e.toJson()).toList(),
       'sustainabilityPenalty': instance.sustainabilityPenalty,
+      'showInventoryColumnInResourceContentsMenuOverride':
+          instance.showInventoryColumnInResourceContentsMenuOverride,
     };
 
 const _$PlayerInteractionAnimationTypeEnumMap = {

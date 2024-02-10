@@ -50,92 +50,95 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
     final sprite = placedResource.sprite;
     final resource = sprite.resource;
 
+    final hasTwoColumns = placedResource.sprite.resource.showInventoryColumnInResourceContentsMenu;
+
     return MenuContainer(
         title: sprite.resource.name,
         handleClose: menuProvider.close,
-        width: INVENTORY_MENU_WIDTH,
+        width: INVENTORY_MENU_WIDTH / (hasTwoColumns ? 1 : 2),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: CRAFT_MENU_WIDTH / 2,
-              decoration: BoxDecoration(
-                border: Border(
-                  right: BorderSide(
-                    width: 1,
-                    color: Colors.black12,
+            if (hasTwoColumns)
+              Container(
+                width: INVENTORY_MENU_WIDTH / 2,
+                decoration: BoxDecoration(
+                  border: Border(
+                    right: BorderSide(
+                      width: 1,
+                      color: Colors.black12,
+                    ),
                   ),
                 ),
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Builder(builder: (context) {
-                  if (placedResource.sprite.resource.canConstruct && selectedRecipe == null) {
-                    return Column(
-                      children: [
-                        Text(
-                          "Select Recipe:",
-                        ),
-                        Expanded(
-                          child: RecipeSelectorList(
-                            listType: RecipeListType.constructable,
-                            onSelect: (index) {
-                              final recipe = ref.read(recipeListProvider(RecipeListType.constructable))[index];
-
-                              ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).selectRecipe(recipe);
-                            },
+                clipBehavior: Clip.antiAlias,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Builder(builder: (context) {
+                    if (placedResource.sprite.resource.canConstruct && selectedRecipe == null) {
+                      return Column(
+                        children: [
+                          Text(
+                            "Select Recipe:",
                           ),
-                        )
-                      ],
-                    );
-                  }
+                          Expanded(
+                            child: RecipeSelectorList(
+                              listType: RecipeListType.constructable,
+                              onSelect: (index) {
+                                final recipe = ref.read(recipeListProvider(RecipeListType.constructable))[index];
 
-                  return InventorySlotWrap(
-                    selectedIndex: -1,
-                    onTap: (int index, bool withMessage) {
-                      final slot = inventory[index];
+                                ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).selectRecipe(recipe);
+                              },
+                            ),
+                          )
+                        ],
+                      );
+                    }
 
-                      if (slot.resource == null) return;
+                    return InventorySlotWrap(
+                      selectedIndex: -1,
+                      onTap: (int index, bool withMessage) {
+                        final slot = inventory[index];
 
-                      final resource = slot.resource!;
-                      final placedResourceSprite = placedResource.sprite;
+                        if (slot.resource == null) return;
 
-                      final storageType = placedResource.sprite.resource.storageType;
-                      if (storageType == StorageType.liquid && !resource.isLiquid) {
-                        if (withMessage) {
-                          ref.read(toastMessagesListProvider.notifier).add("Only liquids can be stored in ${placedResourceSprite.resource.name}");
-                        }
-                        return;
-                      }
+                        final resource = slot.resource!;
+                        final placedResourceSprite = placedResource.sprite;
 
-                      if (storageType == StorageType.solid && resource.isLiquid) {
-                        if (withMessage) {
-                          ref.read(toastMessagesListProvider.notifier).add("Liquids can't be stored in ${placedResourceSprite.resource.name}");
-                        }
-                        return;
-                      }
-
-                      if (storageType == StorageType.specific) {
-                        if (!placedResource.sprite.resource.specificStorageWhitelist.contains(resource)) {
+                        final storageType = placedResource.sprite.resource.storageType;
+                        if (storageType == StorageType.liquid && !resource.isLiquid) {
                           if (withMessage) {
-                            ref
-                                .read(toastMessagesListProvider.notifier)
-                                .add("${resource.namePlural} can't be stored in ${placedResourceSprite.resource.name}");
+                            ref.read(toastMessagesListProvider.notifier).add("Only liquids can be stored in ${placedResourceSprite.resource.name}");
                           }
                           return;
                         }
-                      }
 
-                      final success = ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).addContents(resource);
-                      if (success) {
-                        ref.read(inventoryListProvider.notifier).removeResource(resource, 1);
-                      }
-                    },
-                  );
-                }),
+                        if (storageType == StorageType.solid && resource.isLiquid) {
+                          if (withMessage) {
+                            ref.read(toastMessagesListProvider.notifier).add("Liquids can't be stored in ${placedResourceSprite.resource.name}");
+                          }
+                          return;
+                        }
+
+                        if (storageType == StorageType.specific) {
+                          if (!placedResource.sprite.resource.specificStorageWhitelist.contains(resource)) {
+                            if (withMessage) {
+                              ref
+                                  .read(toastMessagesListProvider.notifier)
+                                  .add("${resource.namePlural} can't be stored in ${placedResourceSprite.resource.name}");
+                            }
+                            return;
+                          }
+                        }
+
+                        final success = ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).addContents(resource);
+                        if (success) {
+                          ref.read(inventoryListProvider.notifier).removeResource(resource, 1);
+                        }
+                      },
+                    );
+                  }),
+                ),
               ),
-            ),
             SizedBox(
               width: INVENTORY_MENU_WIDTH / 2,
               // height: INVENTORY_MENU_HEIGHT,

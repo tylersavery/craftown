@@ -1,4 +1,5 @@
-- make crops take longer to grow!
-- resources that dont allow storage (ie tent) shouldn't have the left column
-- inventory bar show more
-- 16x16 icon for clay looks like copper
+[x] make crops take longer to grow!
+[x] inventory bar show more
+[] 16x16 icon for clay looks like copper
+[x] resources that dont allow storage (ie tent) shouldn't have the left column
+[x] showing total counts when crafting

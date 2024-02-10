@@ -1,3 +1,4 @@
+import 'package:craftown/src/providers/inventory_map_provider.dart';
 import 'package:craftown/src/providers/recipes_list_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,15 @@ class RecipeSelectorList extends ConsumerWidget {
                     width: 8,
                   ),
                   Text(resource.name),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  Text(
+                    "[${ref.watch(inventoryMapProvider)[resource.identifier] ?? 0}]",
+                    style: TextStyle(
+                      color: Colors.black54,
+                    ),
+                  )
                 ],
               ),
             ),

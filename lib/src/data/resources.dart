@@ -560,6 +560,7 @@ class Resources {
       outputSlotSize: 25,
       storageType: StorageType.solid,
       powerConsumed: 0.25,
+      showInventoryColumnInResourceContentsMenuOverride: false,
       ingredients: [
         Ingredient(resource: Resources.iron, quantity: 10),
         Ingredient(resource: Resources.stone, quantity: 10),
@@ -587,6 +588,7 @@ class Resources {
       interactionRadius: 48,
       outputSlotSize: 25,
       storageType: StorageType.solid,
+      showInventoryColumnInResourceContentsMenuOverride: false,
       ingredients: [
         Ingredient(resource: Resources.iron, quantity: 10),
         Ingredient(resource: Resources.stone, quantity: 10),
@@ -618,6 +620,7 @@ class Resources {
       interactionRadius: 54,
       outputSlotSize: 25,
       storageType: StorageType.liquid,
+      showInventoryColumnInResourceContentsMenuOverride: false,
       ingredients: [
         Ingredient(resource: Resources.rope, quantity: 5),
         Ingredient(resource: Resources.wood, quantity: 15),

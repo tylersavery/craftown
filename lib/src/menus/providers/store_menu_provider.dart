@@ -26,7 +26,6 @@ class StoreMenu extends _$StoreMenu {
   bool purchase(Resource resource) {
     if (DEBUG_STORE) {
       ref.read(inventoryListProvider.notifier).addResource(resource);
-      ref.read(toastMessagesListProvider.notifier).add("Purchased ${resource.name} for FREE (DEBUG_STORE = true)");
 
       return true;
     }
