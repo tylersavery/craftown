@@ -69,9 +69,12 @@ class ResearchMenu extends _$ResearchMenu {
     for (final ingredient in researchLevel.cost) {
       if (inventory.containsKey(ingredient.resource.identifier)) {
         final quantity = inventory[ingredient.resource.identifier];
+
         if (quantity != null && quantity < ingredient.quantity) {
           missingResources.add(ingredient.resource);
         }
+      } else {
+        missingResources.add(ingredient.resource);
       }
     }
 

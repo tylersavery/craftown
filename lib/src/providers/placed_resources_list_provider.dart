@@ -4,6 +4,7 @@ import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';
+import 'package:craftown/src/tutorial/tutorial_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'placed_resources_list_provider.g.dart';
@@ -49,6 +50,8 @@ class PlacedResourcesList extends _$PlacedResourcesList {
         rotationQuarterTurns: rotationQuarterTurns,
       ),
     ];
+
+    ref.read(tutorialProvider.notifier).checkProgress();
   }
 
   bool pickup(PlacedResource item) {

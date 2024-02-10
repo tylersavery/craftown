@@ -7,6 +7,7 @@ import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/models/research_level.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/stats.dart';
+import 'package:craftown/src/tutorial/tutorial_step.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 
@@ -34,6 +35,7 @@ class SavedGame with _$SavedGame {
     DateTime? researchStarted,
     required CalendarState calendarState,
     @Default([]) List<PlacedFarmland> placedFarmlands,
+    TutorialStep? tutorialStep,
   }) = _SavedGame;
 
   factory SavedGame.fromJson(Map<String, dynamic> json) => _$SavedGameFromJson(json);

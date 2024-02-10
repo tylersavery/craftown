@@ -14,7 +14,6 @@ import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/placed_farmland_list_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
-import 'package:craftown/src/providers/power_generating_resources_list_provider.dart';
 import 'package:craftown/src/providers/research_list_provider.dart';
 import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/providers/selected_character_provider.dart';
@@ -22,6 +21,7 @@ import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';
 import 'package:craftown/src/singletons.dart';
+import 'package:craftown/src/tutorial/tutorial_provider.dart';
 import 'package:craftown/src/utils/randomization.dart';
 import 'package:flame/components.dart' hide Notifier;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -56,6 +56,7 @@ class SavedGameList extends _$SavedGameList {
     ref.read(researchListProvider.notifier).set(save.researchLevels);
     ref.read(calendarProvider.notifier).set(save.calendarState);
     ref.read(placedFarmlandListProvider.notifier).set(save.placedFarmlands);
+    ref.read(tutorialProvider.notifier).set(save.tutorialStep);
 
     if (save.isResearching != null && save.researchStarted != null) {
       final now = DateTime.now();
@@ -216,23 +217,23 @@ class SavedGameList extends _$SavedGameList {
     }
 
     final game = SavedGame(
-      identifier: overwrite?.identifier ?? randomString(),
-      fileName: filename.isNotEmpty ? filename : ref.read(selectedCharacterProvider).name,
-      character: ref.read(selectedCharacterProvider),
-      savedAt: DateTime.now(),
-      inventory: ref.read(inventoryListProvider),
-      playerPositionX: playerState.x,
-      playerPositionY: playerState.y,
-      placedResources: updatedPlacedResources,
-      stats: ref.read(statsDetailProvider),
-      inHand: ref.read(resourceInHandProvider),
-      farmlands: updatedFarmlands,
-      researchLevels: ref.read(researchListProvider),
-      isResearching: ref.read(researchMenuProvider).isResearching,
-      researchStarted: ref.read(researchMenuProvider).researchStarted,
-      calendarState: ref.read(calendarProvider),
-      placedFarmlands: updatedPlacedFarmlands,
-    );
+        identifier: overwrite?.identifier ?? randomString(),
+        fileName: filename.isNotEmpty ? filename : ref.read(selectedCharacterProvider).name,
+        character: ref.read(selectedCharacterProvider),
+        savedAt: DateTime.now(),
+        inventory: ref.read(inventoryListProvider),
+        playerPositionX: playerState.x,
+        playerPositionY: playerState.y,
+        placedResources: updatedPlacedResources,
+        stats: ref.read(statsDetailProvider),
+        inHand: ref.read(resourceInHandProvider),
+        farmlands: updatedFarmlands,
+        researchLevels: ref.read(researchListProvider),
+        isResearching: ref.read(researchMenuProvider).isResearching,
+        researchStarted: ref.read(researchMenuProvider).researchStarted,
+        calendarState: ref.read(calendarProvider),
+        placedFarmlands: updatedPlacedFarmlands,
+        tutorialStep: ref.read(tutorialProvider));
 
     print(game.placedFarmlands);
     print("----");

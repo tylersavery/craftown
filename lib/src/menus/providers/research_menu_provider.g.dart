@@ -6,7 +6,7 @@ part of 'research_menu_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$researchMenuHash() => r'3b366f68a04d7414a34f6a7ff164205f8d52554d';
+String _$researchMenuHash() => r'96da4da9885bb75d439b624ae387114ec1f94128';
 
 /// See also [ResearchMenu].
 @ProviderFor(ResearchMenu)

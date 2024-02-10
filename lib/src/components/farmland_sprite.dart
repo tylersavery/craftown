@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:craftown/src/components/farmland_grown_sprite.dart';
 import 'package:craftown/src/components/player.dart';
-import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/menus/providers/seed_menu_provider.dart';
 import 'package:craftown/src/models/calendar_state.dart';

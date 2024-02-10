@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'store_menu_provider.dart';
+part of 'tutorial_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$storeMenuHash() => r'4f5c9b34b0ceec933abb648d0c3d61691befb68b';
+String _$tutorialHash() => r'f35192289f379b0a73f19bb411ca86ef64bdbcfc';
 
-/// See also [StoreMenu].
-@ProviderFor(StoreMenu)
-final storeMenuProvider = NotifierProvider<StoreMenu, StoreMenuState>.internal(
-  StoreMenu.new,
-  name: r'storeMenuProvider',
+/// See also [Tutorial].
+@ProviderFor(Tutorial)
+final tutorialProvider = NotifierProvider<Tutorial, TutorialStep?>.internal(
+  Tutorial.new,
+  name: r'tutorialProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$storeMenuHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$tutorialHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$StoreMenu = Notifier<StoreMenuState>;
+typedef _$Tutorial = Notifier<TutorialStep?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

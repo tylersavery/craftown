@@ -43,7 +43,7 @@ class Resources {
         assetFileNameLarge: "clay-24x20.png",
         placementWidth: 24,
         placementHeight: 20,
-        secondsToMine: 3,
+        secondsToMine: 1,
         miningToolRequiredIdentifier: "shovel",
         smeltsInto: "brick",
         interactionAnimation: PlayerInteractionAnimationType.hoe,
@@ -224,6 +224,7 @@ class Resources {
         name: "Iron Plate",
         namePlural: "Iron Plates",
         secondsToSmelt: 10,
+        researchRequirements: [ResearchLevels.smelting1],
         ingredients: [
           Ingredient(resource: Resources.iron, quantity: 3),
         ],
@@ -239,9 +240,7 @@ class Resources {
         ingredients: [
           Ingredient(resource: Resources.copper, quantity: 3),
         ],
-        researchRequirements: [
-          ResearchLevels.level1,
-        ],
+        researchRequirements: [ResearchLevels.smelting1],
       );
 
   static Resource get brick => Resource(
@@ -254,6 +253,7 @@ class Resources {
         ingredients: [
           Ingredient(resource: Resources.clay, quantity: 3),
         ],
+        researchRequirements: [ResearchLevels.smelting2],
       );
 
   static Resource get cement => Resource(
@@ -266,6 +266,7 @@ class Resources {
         ingredients: [
           Ingredient(resource: Resources.stone, quantity: 3),
         ],
+        researchRequirements: [ResearchLevels.smelting2],
       );
 
 // Constructables (1 ingredient)
@@ -279,9 +280,6 @@ class Resources {
         ingredients: [
           Ingredient(resource: Resources.ironPlate, quantity: 3),
         ],
-        researchRequirements: [
-          ResearchLevels.level1,
-        ],
       );
 
   static Resource get lumber => Resource(
@@ -290,7 +288,7 @@ class Resources {
         assetFileNameLarge: "lumber-15x25.png",
         name: "Lumber",
         namePlural: "Lumber",
-        secondsToCraft: 10,
+        secondsToCraft: 1,
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 1),
         ],
@@ -308,9 +306,7 @@ class Resources {
         ingredients: [
           Ingredient(resource: Resources.straw, quantity: 5),
         ],
-        researchRequirements: [
-          ResearchLevels.level2,
-        ],
+        researchRequirements: [],
       );
 
   static Resource get barrel => Resource(
@@ -332,6 +328,9 @@ class Resources {
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 10),
         ],
+        researchRequirements: [
+          ResearchLevels.storage1,
+        ],
       );
 
   static Resource get chest => Resource(
@@ -351,6 +350,9 @@ class Resources {
         interactionRadius: 48,
         ingredients: [
           Ingredient(resource: Resources.wood, quantity: 10),
+        ],
+        researchRequirements: [
+          ResearchLevels.storage1,
         ],
       );
 
@@ -422,15 +424,15 @@ class Resources {
         assetFileNameLarge: "wooden-bucket-32x32.png",
         name: "Wooden Bucket",
         namePlural: "Wooden Buckets",
-        secondsToCraft: 1,
+        secondsToCraft: 10,
         amountPerSlot: 1,
         canPlace: true,
         canPickUp: true,
         equipsTool: "water_bucket",
         storeCost: 10,
         ingredients: [
-          Ingredient(resource: Resources.wood, quantity: 5),
-          Ingredient(resource: Resources.ironPlate, quantity: 2),
+          Ingredient(resource: Resources.lumber, quantity: 10),
+          Ingredient(resource: Resources.iron, quantity: 5),
         ],
       );
 
@@ -496,29 +498,29 @@ class Resources {
   // Special
 
   static Resource get smelterA => Resource(
-        identifier: "smelter_a",
-        assetFileName16: "smelter-a-16x16.png",
-        assetFileNameLarge: "smelter-a-32x26.png",
-        placementWidth: 32,
-        placementHeight: 26,
-        amountPerSlot: 1,
-        name: "Smelter",
-        namePlural: "Smelter",
-        secondsToCraft: 10,
-        ingredients: [
-          Ingredient(resource: Resources.iron, quantity: 20),
-          Ingredient(resource: Resources.clay, quantity: 10),
-          Ingredient(resource: Resources.stone, quantity: 10),
-        ],
-        storageType: StorageType.all,
-        canPlace: true,
-        slots: 1,
-        resourcesPerSlot: 50,
-        canSmelt: true,
-        outputSlotSize: 100,
-        interactionRadius: 48,
-        powerConsumed: 1.0,
-      );
+      identifier: "smelter_a",
+      assetFileName16: "smelter-a-16x16.png",
+      assetFileNameLarge: "smelter-a-32x26.png",
+      placementWidth: 32,
+      placementHeight: 26,
+      amountPerSlot: 1,
+      name: "Smelter",
+      namePlural: "Smelter",
+      secondsToCraft: 10,
+      ingredients: [
+        Ingredient(resource: Resources.iron, quantity: 20),
+        Ingredient(resource: Resources.clay, quantity: 10),
+        Ingredient(resource: Resources.stone, quantity: 10),
+      ],
+      storageType: StorageType.all,
+      canPlace: true,
+      slots: 1,
+      resourcesPerSlot: 50,
+      canSmelt: true,
+      outputSlotSize: 100,
+      interactionRadius: 48,
+      powerConsumed: 1.0,
+      researchRequirements: [ResearchLevels.smelting1]);
 
   static Resource get constructorA => Resource(
         identifier: "constructor_a",
@@ -563,6 +565,9 @@ class Resources {
         Ingredient(resource: Resources.stone, quantity: 10),
       ],
       miningOutputResource: Resources.iron,
+      researchRequirements: [
+        ResearchLevels.mining1,
+      ],
       canOnlyBePlacedOn: [
         Resources.straw,
         Resources.wood,
@@ -588,6 +593,9 @@ class Resources {
       ],
       miningOutputResource: Resources.iron,
       powerConsumed: 0.5,
+      researchRequirements: [
+        ResearchLevels.mining2,
+      ],
       canOnlyBePlacedOn: [
         Resources.straw,
         Resources.wood,
@@ -598,27 +606,29 @@ class Resources {
       ]);
 
   static Resource get well => Resource(
-        identifier: "well",
-        assetFileName16: "well-16x16.png",
-        assetFileNameLarge: "well-48x57.png",
-        name: "Well",
-        namePlural: "Wells",
-        secondsToCraft: 5,
-        canPlace: true,
-        placementWidth: 48,
-        placementHeight: 57,
-        interactionRadius: 54,
-        outputSlotSize: 25,
-        storageType: StorageType.liquid,
-        ingredients: [
-          Ingredient(resource: Resources.rope, quantity: 5),
-          Ingredient(resource: Resources.wood, quantity: 15),
-          Ingredient(resource: Resources.iron, quantity: 5),
-          Ingredient(resource: Resources.stone, quantity: 50),
-        ],
-        miningOutputResource: Resources.water,
-        canOnlyBePlacedOn: null,
-      );
+      identifier: "well",
+      assetFileName16: "well-16x16.png",
+      assetFileNameLarge: "well-48x57.png",
+      name: "Well",
+      namePlural: "Wells",
+      secondsToCraft: 5,
+      canPlace: true,
+      placementWidth: 48,
+      placementHeight: 57,
+      interactionRadius: 54,
+      outputSlotSize: 25,
+      storageType: StorageType.liquid,
+      ingredients: [
+        Ingredient(resource: Resources.rope, quantity: 5),
+        Ingredient(resource: Resources.wood, quantity: 15),
+        Ingredient(resource: Resources.iron, quantity: 5),
+        Ingredient(resource: Resources.stone, quantity: 50),
+      ],
+      miningOutputResource: Resources.water,
+      canOnlyBePlacedOn: null,
+      researchRequirements: [
+        ResearchLevels.storage2,
+      ]);
 
   // Houses
 
@@ -655,75 +665,77 @@ class Resources {
             Ingredient(resource: Resources.wood, quantity: 100),
           ]);
 
-  static Resource get conveyorBelt => Resource(
-          identifier: "conveyor_belt",
-          name: "Conveyor Belt",
-          namePlural: "Conveyor Belts",
-          assetFileName16: "conveyor-belt-16x16.png",
-          assetFilename90Degrees: "conveyor-belt-16x16-90deg.png",
-          assetFilename180Degrees: "conveyor-belt-16x16-180deg.png",
-          assetFilename270Degrees: "conveyor-belt-16x16-270deg.png",
-          secondsToCraft: 3,
-          canPlace: true,
-          placeWithHitbox: false,
-          canRotate: true,
-          isConveyor: true,
-          ingredients: [
-            Ingredient(resource: Resources.ironPlate, quantity: 2),
-            Ingredient(resource: Resources.screw, quantity: 4),
-          ]);
+  // static Resource get conveyorBelt => Resource(
+  //         identifier: "conveyor_belt",
+  //         name: "Conveyor Belt",
+  //         namePlural: "Conveyor Belts",
+  //         assetFileName16: "conveyor-belt-16x16.png",
+  //         assetFilename90Degrees: "conveyor-belt-16x16-90deg.png",
+  //         assetFilename180Degrees: "conveyor-belt-16x16-180deg.png",
+  //         assetFilename270Degrees: "conveyor-belt-16x16-270deg.png",
+  //         secondsToCraft: 3,
+  //         canPlace: true,
+  //         placeWithHitbox: false,
+  //         canRotate: true,
+  //         isConveyor: true,
+  //         ingredients: [
+  //           Ingredient(resource: Resources.ironPlate, quantity: 2),
+  //           Ingredient(resource: Resources.screw, quantity: 4),
+  //         ]);
 
   // Power
 
   static Resource get powerGeneratorWood => Resource(
-        identifier: 'power_generator_wood',
-        name: "Wood Power Generator",
-        namePlural: "Wood Power Generators",
-        assetFileName16: "power-generator-wood-16x16.png",
-        assetFileNameLarge: "power-generator-wood-32x74.png",
-        placementWidth: 32,
-        placementHeight: 74,
-        canPlace: true,
-        canPickUp: true,
-        secondsToCraft: 5,
-        slots: 4,
-        resourcesPerSlot: 50,
-        storageType: StorageType.specific,
-        powerGenerated: 5.0,
-        sustainabilityPenalty: 0.075,
-        specificStorageWhitelist: [
-          Resources.wood,
-          Resources.lumber,
-        ],
-        fuelResourceOptions: [
-          Resources.wood,
-          Resources.lumber,
-        ],
-        ingredients: [
-          Ingredient(resource: Resources.cement, quantity: 25),
-          Ingredient(resource: Resources.brick, quantity: 40),
-        ],
-      );
+          identifier: 'power_generator_wood',
+          name: "Wood Power Generator",
+          namePlural: "Wood Power Generators",
+          assetFileName16: "power-generator-wood-16x16.png",
+          assetFileNameLarge: "power-generator-wood-32x74.png",
+          placementWidth: 32,
+          placementHeight: 74,
+          canPlace: true,
+          canPickUp: true,
+          secondsToCraft: 5,
+          slots: 4,
+          resourcesPerSlot: 50,
+          storageType: StorageType.specific,
+          powerGenerated: 5.0,
+          sustainabilityPenalty: 0.075,
+          specificStorageWhitelist: [
+            Resources.wood,
+            Resources.lumber,
+          ],
+          fuelResourceOptions: [
+            Resources.wood,
+            Resources.lumber,
+          ],
+          ingredients: [
+            Ingredient(resource: Resources.stone, quantity: 25),
+            Ingredient(resource: Resources.clay, quantity: 40),
+          ],
+          researchRequirements: []);
 
   static Resource get powerGeneratorSolar => Resource(
-        identifier: 'power_generator_solar',
-        name: "Solar Power Generator",
-        namePlural: "Solar Power Generators",
-        assetFileName16: "power-generator-solar-16x16.png",
-        assetFileNameLarge: "power-generator-solar-32x32.png",
-        placementWidth: 32,
-        placementHeight: 32,
-        canPlace: true,
-        canPickUp: true,
-        secondsToCraft: 5,
-        powerGenerated: 5.0,
-        sustainabilityPenalty: 0,
-        ingredients: [
-          Ingredient(resource: Resources.ironPlate, quantity: 25),
-          Ingredient(resource: Resources.screw, quantity: 10),
-          Ingredient(resource: Resources.cement, quantity: 5),
-        ],
-      );
+          identifier: 'power_generator_solar',
+          name: "Solar Power Generator",
+          namePlural: "Solar Power Generators",
+          assetFileName16: "power-generator-solar-16x16.png",
+          assetFileNameLarge: "power-generator-solar-32x32.png",
+          placementWidth: 32,
+          placementHeight: 32,
+          canPlace: true,
+          canPickUp: true,
+          secondsToCraft: 5,
+          powerGenerated: 5.0,
+          sustainabilityPenalty: 0,
+          ingredients: [
+            Ingredient(resource: Resources.ironPlate, quantity: 25),
+            Ingredient(resource: Resources.screw, quantity: 10),
+            Ingredient(resource: Resources.cement, quantity: 5),
+          ],
+          researchRequirements: [
+            ResearchLevels.power1,
+          ]);
 
   static List<Resource> get all => [
         //Primary
@@ -769,7 +781,7 @@ class Resources {
         Resources.tent,
         Resources.communityChest,
         Resources.constructorA,
-        Resources.conveyorBelt,
+        // Resources.conveyorBelt,
 
         //Special
         Resources.smelterA,

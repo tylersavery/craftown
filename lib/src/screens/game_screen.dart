@@ -21,6 +21,7 @@ import 'package:craftown/src/providers/resource_in_hand_provider.dart';
 import 'package:craftown/src/providers/rotate_provider.dart';
 import 'package:craftown/src/providers/selected_character_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
+import 'package:craftown/src/tutorial/tutorial_overlay.dart';
 import 'package:craftown/src/widgets/craft_button.dart';
 import 'package:craftown/src/widgets/game_menu_button.dart';
 import 'package:craftown/src/widgets/inventory_bar.dart';
@@ -60,7 +61,14 @@ class GameScreen extends StatelessWidget {
               child: SafeArea(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: GameMenuButton(),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GameMenuButton(),
+                      TutorialOverlay(),
+                    ],
+                  ),
                 ),
               ),
             ),

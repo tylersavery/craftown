@@ -1,13 +1,11 @@
 import 'dart:async';
 
 import 'package:craftown/src/components/ghost_resource_sprite.dart';
-import 'package:craftown/src/components/resource_sprite.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/parallax.dart';
-import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 

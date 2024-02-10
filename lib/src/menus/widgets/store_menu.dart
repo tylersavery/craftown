@@ -12,50 +12,52 @@ class StoreMenuWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final resources = Resources.availableInStore;
+    final resources = DEBUG_STORE ? Resources.all : Resources.availableInStore;
 
     return MenuContainer(
-      title: "Shop",
+      title: DEBUG_STORE ? "Shop (DEBUG MODE)" : "Shop",
       handleClose: () {
         ref.read(storeMenuProvider.notifier).close();
       },
       width: STORE_MENU_WIDTH,
-      maxContentHeightOverride: 88,
+      maxContentHeightOverride: 190,
       child: SizedBox(
         width: STORE_MENU_WIDTH,
         child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Wrap(
-              spacing: 4.0,
-              runSpacing: 4.0,
-              alignment: WrapAlignment.center,
-              children: resources.map((r) {
-                return InkWell(
-                  onTap: () {
-                    ref.read(storeMenuProvider.notifier).purchase(r);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        PixelArtImageAsset(
-                          r.assetPath16,
-                          width: 32,
-                          height: 32,
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          "\$${r.storeCost}",
-                          style: TextStyle(height: 1),
-                        ),
-                      ],
+            child: SingleChildScrollView(
+              child: Wrap(
+                spacing: 4.0,
+                runSpacing: 4.0,
+                alignment: WrapAlignment.center,
+                children: resources.map((r) {
+                  return InkWell(
+                    onTap: () {
+                      ref.read(storeMenuProvider.notifier).purchase(r);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          PixelArtImageAsset(
+                            r.assetPath16,
+                            width: 32,
+                            height: 32,
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            DEBUG_STORE ? "Free" : "\$${r.storeCost}",
+                            style: TextStyle(height: 1),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }).toList(),
+                  );
+                }).toList(),
+              ),
             )),
       ),
     );

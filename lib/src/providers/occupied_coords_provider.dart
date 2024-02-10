@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:craftown/src/models/placed_resource.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

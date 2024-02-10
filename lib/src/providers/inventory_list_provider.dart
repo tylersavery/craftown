@@ -7,6 +7,7 @@ import 'package:craftown/src/models/inventory_slot.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
+import 'package:craftown/src/tutorial/tutorial_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'inventory_list_provider.g.dart';
@@ -100,6 +101,7 @@ class InventoryList extends _$InventoryList {
                 count: slot.count + 1,
               ),
             );
+          ref.read(tutorialProvider.notifier).checkProgress();
           return true;
         }
       }
@@ -116,6 +118,7 @@ class InventoryList extends _$InventoryList {
             count: 1,
           ),
         );
+      ref.read(tutorialProvider.notifier).checkProgress();
       return true;
     }
 

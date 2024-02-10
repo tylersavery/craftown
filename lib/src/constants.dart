@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-const DEBUG_INVENTORY = true;
+const DEBUG_INVENTORY = false;
 const TILE_SIZE = 16.0;
 const CAMERA_ZOOM = 2.0;
 const JOYSTICK_ENABLED = false;
@@ -15,5 +15,7 @@ const INVENTORY_ITEM_BAR_COUNT = 8;
 const INVENTORY_MENU_WIDTH = 600.0;
 const INVENTORY_MOVE_WHEN_SHIFT_PRESSED = 5;
 
-const SECONDS_BETWEEN_STAT_UPDATES = 120.0;
+const SECONDS_BETWEEN_STAT_UPDATES = 30.0;
 const SECONDS_BETWEEN_MONTHS = 100.0;
+
+const DEBUG_STORE = true;

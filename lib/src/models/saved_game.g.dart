@@ -47,6 +47,9 @@ _$SavedGameImpl _$$SavedGameImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => PlacedFarmland.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      tutorialStep: json['tutorialStep'] == null
+          ? null
+          : TutorialStep.fromJson(json['tutorialStep'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
@@ -69,4 +72,5 @@ Map<String, dynamic> _$$SavedGameImplToJson(_$SavedGameImpl instance) =>
       'calendarState': instance.calendarState.toJson(),
       'placedFarmlands':
           instance.placedFarmlands.map((e) => e.toJson()).toList(),
+      'tutorialStep': instance.tutorialStep?.toJson(),
     };

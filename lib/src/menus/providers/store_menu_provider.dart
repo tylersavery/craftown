@@ -1,3 +1,4 @@
+import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/models/store_menu_state.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
@@ -23,6 +24,13 @@ class StoreMenu extends _$StoreMenu {
   }
 
   bool purchase(Resource resource) {
+    if (DEBUG_STORE) {
+      ref.read(inventoryListProvider.notifier).addResource(resource);
+      ref.read(toastMessagesListProvider.notifier).add("Purchased ${resource.name} for FREE (DEBUG_STORE = true)");
+
+      return true;
+    }
+
     if (resource.storeCost == null) {
       return false;
     }
