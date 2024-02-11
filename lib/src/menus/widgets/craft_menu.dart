@@ -31,6 +31,7 @@ class CraftMenuWidget extends ConsumerWidget {
 
     return MenuContainer(
       title: "Crafting Table",
+      shortcutKey: "C",
       handleClose: menuProvider.close,
       width: CRAFT_MENU_WIDTH,
       child: Row(

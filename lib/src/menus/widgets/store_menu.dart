@@ -16,6 +16,7 @@ class StoreMenuWidget extends ConsumerWidget {
 
     return MenuContainer(
       title: DEBUG_STORE ? "Shop (DEBUG MODE)" : "Shop",
+      shortcutKey: "Z",
       handleClose: () {
         ref.read(storeMenuProvider.notifier).close();
       },

@@ -22,6 +22,7 @@ import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/providers/calendar_provider.dart';
 import 'package:craftown/src/providers/conveyor_list_provider.dart';
 import 'package:craftown/src/providers/farmland_list_provider.dart';
+import 'package:craftown/src/providers/keyboard_shortcut_provider.dart';
 import 'package:craftown/src/providers/map_resource_list_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/occupied_coords_provider.dart';
@@ -58,6 +59,20 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
   double conveyorDeltaTime = 1 / 2;
   double accumulatedConveyorTime = 0;
+
+  // KEYS
+  bool shortcutKeyClosePressed = false;
+  bool shortcutKeyInventoryPressed = false;
+  bool shortcutKeyResearchPressed = false;
+  bool shortcutKeyCraftPressed = false;
+  bool shortcutKeyStorePressed = false;
+  bool shortcutKeyToolPressed = false;
+
+  bool shortcutKeyTool1Pressed = false;
+  bool shortcutKeyTool2Pressed = false;
+  bool shortcutKeyTool3Pressed = false;
+  bool shortcutKeyTool4Pressed = false;
+  bool shortcutKeyTool5Pressed = false;
 
   @override
   FutureOr<void> onLoad() async {
@@ -103,6 +118,112 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     final shiftKeyPressed = keysPressed.contains(LogicalKeyboardKey.shiftLeft);
     ref.read(modifierKeyProvider.notifier).setShift(shiftKeyPressed);
+
+    // Close
+    if (keysPressed.contains(LogicalKeyboardKey.escape)) {
+      if (!shortcutKeyClosePressed) {
+        shortcutKeyClosePressed = true;
+        ref.read(keyboardShortcutProvider.notifier).handleEscapePressed();
+      }
+    } else {
+      shortcutKeyClosePressed = false;
+    }
+
+    // Inventory
+    if (keysPressed.contains(LogicalKeyboardKey.keyQ)) {
+      if (!shortcutKeyInventoryPressed) {
+        shortcutKeyInventoryPressed = true;
+        ref.read(keyboardShortcutProvider.notifier).handleInventoryShortcut();
+      }
+    } else {
+      shortcutKeyInventoryPressed = false;
+    }
+
+    // Research
+    if (keysPressed.contains(LogicalKeyboardKey.keyR)) {
+      if (!shortcutKeyResearchPressed) {
+        shortcutKeyResearchPressed = true;
+        ref.read(keyboardShortcutProvider.notifier).handleResearchShortcut();
+      }
+    } else {
+      shortcutKeyResearchPressed = false;
+    }
+
+    // Craft
+    if (keysPressed.contains(LogicalKeyboardKey.keyC)) {
+      if (!shortcutKeyCraftPressed) {
+        shortcutKeyCraftPressed = true;
+        ref.read(keyboardShortcutProvider.notifier).handleCraftShortcut();
+      }
+    } else {
+      shortcutKeyCraftPressed = false;
+    }
+
+    // Store Menu
+    if (keysPressed.contains(LogicalKeyboardKey.keyZ)) {
+      if (!shortcutKeyStorePressed) {
+        shortcutKeyStorePressed = true;
+        ref.read(keyboardShortcutProvider.notifier).handleStoreMenuShortcut();
+      }
+    } else {
+      shortcutKeyStorePressed = false;
+    }
+
+    // Tool Menu
+    if (keysPressed.contains(LogicalKeyboardKey.keyT)) {
+      if (!shortcutKeyToolPressed) {
+        shortcutKeyToolPressed = true;
+        ref.read(keyboardShortcutProvider.notifier).handleToolMenuShortcut();
+      }
+    } else {
+      shortcutKeyToolPressed = false;
+    }
+
+    //Tools
+    if (keysPressed.contains(LogicalKeyboardKey.digit1)) {
+      if (!shortcutKeyTool1Pressed) {
+        shortcutKeyTool1Pressed = true;
+        ref.read(keyboardShortcutProvider.notifier).handleToolShortcut(1);
+      }
+    } else {
+      shortcutKeyTool1Pressed = false;
+    }
+
+    if (keysPressed.contains(LogicalKeyboardKey.digit2)) {
+      if (!shortcutKeyTool1Pressed) {
+        shortcutKeyTool1Pressed = true;
+        ref.read(keyboardShortcutProvider.notifier).handleToolShortcut(2);
+      }
+    } else {
+      shortcutKeyTool1Pressed = false;
+    }
+
+    if (keysPressed.contains(LogicalKeyboardKey.digit3)) {
+      if (!shortcutKeyTool1Pressed) {
+        shortcutKeyTool1Pressed = true;
+        ref.read(keyboardShortcutProvider.notifier).handleToolShortcut(3);
+      }
+    } else {
+      shortcutKeyTool1Pressed = false;
+    }
+
+    if (keysPressed.contains(LogicalKeyboardKey.digit4)) {
+      if (!shortcutKeyTool1Pressed) {
+        shortcutKeyTool1Pressed = true;
+        ref.read(keyboardShortcutProvider.notifier).handleToolShortcut(4);
+      }
+    } else {
+      shortcutKeyTool1Pressed = false;
+    }
+
+    if (keysPressed.contains(LogicalKeyboardKey.digit5)) {
+      if (!shortcutKeyTool1Pressed) {
+        shortcutKeyTool1Pressed = true;
+        ref.read(keyboardShortcutProvider.notifier).handleToolShortcut(5);
+      }
+    } else {
+      shortcutKeyTool1Pressed = false;
+    }
 
     return super.onKeyEvent(event, keysPressed);
   }

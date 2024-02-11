@@ -28,6 +28,7 @@ class InventoryMenuWidget extends ConsumerWidget {
 
     return MenuContainer(
         title: "Inventory",
+        shortcutKey: "Q",
         handleClose: menuProvider.close,
         width: INVENTORY_MENU_WIDTH,
         child: Row(

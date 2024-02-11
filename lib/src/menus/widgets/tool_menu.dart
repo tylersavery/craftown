@@ -18,6 +18,7 @@ class ToolMenuWidget extends ConsumerWidget {
 
     return MenuContainer(
       title: "Tools",
+      shortcutKey: "T",
       handleClose: () {
         ref.read(toolMenuProvider.notifier).close();
       },
@@ -30,7 +31,9 @@ class ToolMenuWidget extends ConsumerWidget {
             child: Center(
               child: Wrap(
                 alignment: WrapAlignment.center,
-                children: Tools.allTools.map((tool) {
+                children: Tools.allTools.asMap().entries.map((entry) {
+                  final tool = entry.value;
+                  final index = entry.key;
                   final isSelected = selectedTool == tool;
 
                   bool isAvailable = true;
@@ -57,10 +60,22 @@ class ToolMenuWidget extends ConsumerWidget {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: PixelArtImageAsset(
-                            tool.assetPath,
-                            width: 32,
-                            height: 32,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              PixelArtImageAsset(
+                                tool.assetPath,
+                                width: 32,
+                                height: 32,
+                              ),
+                              if (!JOYSTICK_ENABLED && isAvailable)
+                                Text(
+                                  "${index + 1}",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                )
+                            ],
                           ),
                         ),
                       ),

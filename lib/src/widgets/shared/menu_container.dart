@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:craftown/src/constants.dart';
 import 'package:flutter/material.dart';
 
 class MenuContainer extends StatelessWidget {
   final Function() handleClose;
   final String title;
+  final String? shortcutKey;
   final double width;
   final Widget child;
   final double? maxContentHeightOverride;
@@ -15,6 +17,7 @@ class MenuContainer extends StatelessWidget {
     required this.width,
     required this.child,
     this.maxContentHeightOverride,
+    this.shortcutKey,
   });
 
   @override
@@ -69,12 +72,34 @@ class MenuContainer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                          ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              title,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                              ),
+                            ),
+                            if (shortcutKey != null && !JOYSTICK_ENABLED) ...[
+                              SizedBox(width: 8),
+                              Icon(Icons.keyboard, size: 18, color: Colors.black87),
+                              SizedBox(width: 3),
+                              Transform.translate(
+                                offset: Offset(0, 1),
+                                child: Text(
+                                  shortcutKey!.toUpperCase(),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                    color: Colors.black87,
+                                    height: 1,
+                                  ),
+                                ),
+                              )
+                            ]
+                          ],
                         ),
                         InkWell(
                           onTap: () {

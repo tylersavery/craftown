@@ -15,6 +15,7 @@ class GameMenuWidget extends ConsumerWidget {
 
     return MenuContainer(
       title: "Menu${subMenu != null ? ': ${subMenu.label}' : ''}",
+      shortcutKey: "ESC",
       handleClose: () {
         ref.read(gameMenuProvider.notifier).close();
       },

@@ -15,8 +15,8 @@
 
 
 
-[ ] menu shortcut keys (for desktop)
-[ ] effect when mining manually to show updates
+[x] menu shortcut keys (for desktop)
+[x] effect when mining manually to show updates
 [ ] watering crops animation incorrect direction?
 [ ] season change while mining crashed game  -- or maybe cuz of farm?
 [ ] power generate (start right away)

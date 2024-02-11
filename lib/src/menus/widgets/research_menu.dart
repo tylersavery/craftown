@@ -23,6 +23,7 @@ class ResearchMenuWidget extends ConsumerWidget {
 
     return MenuContainer(
       title: "Research",
+      shortcutKey: "R",
       handleClose: () {
         ref.read(researchMenuProvider.notifier).close();
       },
@@ -222,6 +223,7 @@ class ResearchProgressIndicator extends StatefulWidget {
   const ResearchProgressIndicator({
     required this.researchStarted,
     required this.researchCompletes,
+    super.key,
   });
 
   @override

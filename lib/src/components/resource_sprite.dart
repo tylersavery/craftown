@@ -3,12 +3,14 @@ import 'dart:math';
 
 import 'package:craftown/src/components/custom_hitbox.dart';
 import 'package:craftown/src/components/output_indicator_sprite.dart';
+import 'package:craftown/src/components/mining_collected_indicator.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/toast_message.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
+import 'package:craftown/src/providers/inventory_map_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
@@ -42,6 +44,10 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   String? placementUniqueIdentifier;
 
   late OutputIndicatorSprite outputIndicatorSprite;
+
+  MiningCollectedIndicator? miningCollectedIndicator;
+  double miningCollectedIndicatorOffset = 0;
+  bool miningCollectedIndicatorVisible = false;
 
   int rotationQuarterTurns;
 
@@ -194,6 +200,8 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       }
     }
 
+    _updateMiningCollectedIndicatorPosition(dt);
+
     super.update(dt);
   }
 
@@ -317,9 +325,6 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
     if (resource.secondsToMine == null) return;
 
     if (isMining) {
-      // position.x = initialPosition.x - rng.nextDouble();
-      // position.y = initialPosition.y - rng.nextDouble();
-
       if (ref.read(statsDetailProvider).energy < resource.energyToMine) {
         isMining = false;
         game.player.isMining = false;
@@ -332,10 +337,59 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
         miningTimeCounter = 0;
         ref.read(inventoryListProvider.notifier).addResource(resource);
         ref.read(statsDetailProvider.notifier).decreaseEnergy(resource.energyToMine);
+
+        final text = "1 [${ref.read(inventoryMapProvider)[resource.identifier] ?? 1}]";
+
+        _showMiningCollectedIndicator(text);
+
         await Future.delayed(Duration(milliseconds: 100));
       }
     } else {
       position = initialPosition;
+    }
+  }
+
+  void _showMiningCollectedIndicator(String text) {
+    if (miningCollectedIndicatorVisible && miningCollectedIndicator != null && miningCollectedIndicator!.isMounted) {
+      remove(miningCollectedIndicator!);
+    }
+
+    miningCollectedIndicatorVisible = true;
+    miningCollectedIndicatorOffset = -8;
+
+    miningCollectedIndicator = MiningCollectedIndicator(
+      text: text,
+      position: Vector2(size.x / 2, miningCollectedIndicatorOffset),
+    );
+
+    add(miningCollectedIndicator!);
+  }
+
+  void _updateMiningCollectedIndicatorPosition(double dt) {
+    if (!miningCollectedIndicatorVisible) {
+      return;
+    }
+
+    miningCollectedIndicatorOffset -= 0.75;
+
+    const startY = -8.0;
+    const endY = -50.0;
+    const range = endY + startY;
+
+    if (miningCollectedIndicatorOffset < endY) {
+      if (miningCollectedIndicator != null) {
+        if (miningCollectedIndicator!.isMounted) {
+          remove(miningCollectedIndicator!);
+        }
+        miningCollectedIndicatorOffset = 0;
+        miningCollectedIndicatorVisible = false;
+        return;
+      }
+    }
+
+    if (miningCollectedIndicator != null) {
+      miningCollectedIndicator!.position.y = miningCollectedIndicatorOffset;
+      miningCollectedIndicator!.opacity = 1 - (miningCollectedIndicatorOffset / range);
     }
   }
 }
