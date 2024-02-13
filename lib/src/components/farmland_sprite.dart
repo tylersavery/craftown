@@ -163,7 +163,7 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
         if (tool?.type == ToolType.waterBucket) {
           game.player.isMining = true;
           game.player.interactionAnimationType = PlayerInteractionAnimationType.wateringCan;
-
+          game.player.miningDirection = getWalkDirectionForMining(game.player, this);
           wateringCount += 1;
           provider.setWateringCount(wateringCount);
           Future.delayed(Duration(milliseconds: 400), () {
