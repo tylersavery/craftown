@@ -28,6 +28,10 @@ class ToastMessagesList extends _$ToastMessagesList {
       return;
     }
 
+    if (state.firstWhereOrNull((element) => element.message == message) != null) {
+      return;
+    }
+
     state = [...state, toastMessage];
 
     Future.delayed(duration, () {

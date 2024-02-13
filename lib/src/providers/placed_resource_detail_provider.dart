@@ -142,7 +142,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
       return;
     }
 
-    if (state!.isConstructing) {
+    if (state!.isSmelting) {
       stopSmelting();
     } else {
       startSmelting();
@@ -295,6 +295,32 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     }
   }
 
+  void _powerGeneratorTick() {
+    if (state == null) return;
+
+    if (ref.read(powerConsumptionProvider) == 0) {
+      return;
+    }
+
+    final fuelOptions = state!.sprite.resource.fuelResourceOptions;
+
+    if (fuelOptions.isEmpty) {
+      return;
+    }
+
+    final resources = state!.contents.expand((element) => element).toList().where((r) => fuelOptions.contains(r)).toList();
+
+    if (resources.isEmpty) {
+      stopPowerGenerating();
+      return;
+    }
+
+    ref.read(tutorialProvider.notifier).checkProgress();
+
+    final r = randomItemInList(resources);
+    removeFromAnySlot(r);
+  }
+
   bool startPowerGenerating() {
     if (state == null) {
       print("PlacedResources state is null");
@@ -304,26 +330,10 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     state = state!.copyWith(isPowerGenerating: true);
     ref.read(powerGeneratingResourcesListProvider.notifier).add(state!);
 
+    _powerGeneratorTick();
+
     powerGeneratingTimer = Timer.periodic(Duration(seconds: state!.sprite.resource.powerFuelConsumptionSeconds), (timer) {
-      if (state == null) return;
-
-      final fuelOptions = state!.sprite.resource.fuelResourceOptions;
-
-      if (fuelOptions.isEmpty) {
-        return;
-      }
-
-      final resources = state!.contents.expand((element) => element).toList().where((r) => fuelOptions.contains(r)).toList();
-
-      if (resources.isEmpty) {
-        stopPowerGenerating();
-        return;
-      }
-
-      ref.read(tutorialProvider.notifier).checkProgress();
-
-      final r = randomItemInList(resources);
-      removeFromAnySlot(r);
+      _powerGeneratorTick();
     });
     return true;
   }

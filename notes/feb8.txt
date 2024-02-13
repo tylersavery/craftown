@@ -18,9 +18,10 @@
 [x] menu shortcut keys (for desktop)
 [x] effect when mining manually to show updates
 [x] watering crops animation incorrect direction?
-[ ] season change while mining crashed game  -- or maybe cuz of farm?
-[ ] power generate (start right away)
-[ ] power generator shouldn't consume if nothing is reqesting it?
+[?] season change while mining crashed game  -- or maybe cuz of farm?
+[x] power generate (start right away)
+[x] power generator shouldn't consume if nothing is reqesting it?
+[x] multiple messages fixes
 
 
 [ ] certain items only craftable by constructors?

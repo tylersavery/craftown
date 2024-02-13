@@ -1,3 +1,4 @@
+import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/research_menu_provider.dart';
 import 'package:craftown/src/menus/widgets/research_menu.dart';
 import 'package:craftown/src/models/stats.dart';
@@ -52,13 +53,20 @@ class StatsGui extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "${calendar.month.label}, ${calendar.year}",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Colors.white,
+                        InkWell(
+                          onTap: DEBUG_CHANGE_DATE
+                              ? () {
+                                  ref.read(calendarProvider.notifier).nextMonth();
+                                }
+                              : null,
+                          child: Text(
+                            "${calendar.month.label}, ${calendar.year}",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              decoration: TextDecoration.underline,
+                              decorationColor: Colors.white,
+                            ),
                           ),
                         ),
                         Row(
