@@ -299,6 +299,7 @@ class PlacedResourceDetail extends _$PlacedResourceDetail {
     if (state == null) return;
 
     if (ref.read(powerConsumptionProvider) == 0) {
+      ref.read(tutorialProvider.notifier).checkProgress();
       return;
     }
 

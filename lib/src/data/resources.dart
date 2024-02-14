@@ -32,7 +32,7 @@ class Resources {
         spawnedResourceHitboxHeight: 25,
         spawnedResourceHitboxOffsetX: 2,
         spawnedResourceHitboxOffsetY: 3,
-        smeltsInto: "stone",
+        smeltsInto: "cement",
       );
 
   static Resource get clay => Resource(
@@ -539,7 +539,7 @@ class Resources {
         secondsToCraft: 10,
         ingredients: [
           Ingredient(resource: Resources.ironPlate, quantity: 20),
-          Ingredient(resource: Resources.copper, quantity: 10),
+          Ingredient(resource: Resources.cement, quantity: 10),
         ],
         storageType: StorageType.all,
         canPlace: true,

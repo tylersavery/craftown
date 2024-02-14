@@ -16,9 +16,9 @@ class MiningCollectedIndicator extends PositionComponent with HasGameRef<Craftow
       textRenderer: TextPaint(
         style: TextStyle(
           fontFamily: 'PixelifySans',
-          color: Colors.black.withOpacity(opacity),
+          color: Colors.white.withOpacity(opacity),
           fontSize: 8,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.normal,
         ),
       ),
     );
@@ -33,9 +33,9 @@ class MiningCollectedIndicator extends PositionComponent with HasGameRef<Craftow
     textComponent.textRenderer = TextPaint(
         style: TextStyle(
       fontFamily: 'PixelifySans',
-      color: Colors.black.withOpacity(opacity),
+      color: Colors.white.withOpacity(opacity),
       fontSize: 8,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.normal,
     ));
     super.update(dt);
   }

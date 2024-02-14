@@ -14,15 +14,6 @@ class SpawnState {
     initialState[3] = InventorySlot(resource: Resources.carrotSeed, count: 4);
     initialState[4] = InventorySlot(resource: Resources.soup, count: 3);
 
-    //temp
-    initialState[5] = InventorySlot(resource: Resources.woodenBucket, count: 1);
-    initialState[6] = InventorySlot(resource: Resources.water, count: 30);
-    initialState[7] = InventorySlot(resource: Resources.shovel, count: 1);
-    initialState[8] = InventorySlot(resource: Resources.powerGeneratorWood, count: 10);
-    initialState[9] = InventorySlot(resource: Resources.wood, count: 30);
-    initialState[10] = InventorySlot(resource: Resources.smelterA, count: 3);
-    initialState[11] = InventorySlot(resource: Resources.iron, count: 100);
-
     return initialState;
   }
 

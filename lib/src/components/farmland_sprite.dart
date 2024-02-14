@@ -71,6 +71,7 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   @override
   void update(double dt) {
+    if (!game.level.supportsWinter) return;
     final season = ref.read(calendarProvider).season;
     if (currentSeason != season) {
       currentSeason = season;
@@ -91,7 +92,9 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
           seed = null;
           wateringCount = 0;
           if (grownOverlaySprite != null) {
-            remove(grownOverlaySprite!);
+            if (grownOverlaySprite!.isMounted) {
+              remove(grownOverlaySprite!);
+            }
           }
           return;
       }

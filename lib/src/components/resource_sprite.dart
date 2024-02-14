@@ -373,7 +373,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
     miningCollectedIndicatorOffset -= 0.75;
 
     const startY = -8.0;
-    const endY = -50.0;
+    const endY = -70.0;
     const range = endY + startY;
 
     if (miningCollectedIndicatorOffset < endY) {

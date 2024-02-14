@@ -43,10 +43,12 @@ import 'package:flutter/src/services/raw_keyboard.dart';
 class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, KeyboardHandler, TapCallbacks {
   final String levelName;
   final Player player;
+  final bool supportsWinter;
 
   Level({
     required this.levelName,
     required this.player,
+    required this.supportsWinter,
   });
 
   late TiledComponent mapSummer;
@@ -79,7 +81,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
     mapSummer = await TiledComponent.load("$levelName.tmx", Vector2.all(16))
       ..priority = 0;
 
-    mapWinter = await TiledComponent.load("${levelName}_winter.tmx", Vector2.all(16))
+    mapWinter = await TiledComponent.load(supportsWinter ? "${levelName}_winter.tmx" : "$levelName.tmx", Vector2.all(16))
       ..priority = 0;
 
     add(mapSummer);
@@ -260,6 +262,10 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
             break;
           case "Stone":
             resource = Resources.stone;
+            break;
+          case "StoneGround":
+            resource = Resources.stone;
+            isGround = true;
             break;
           case "Copper":
             resource = Resources.copper;
@@ -580,6 +586,10 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
   }
 
   void _handleSeasons(double dt) {
+    if (!supportsWinter) {
+      return;
+    }
+
     final season = ref.read(calendarProvider).season;
 
     if (currentSeason != season) {

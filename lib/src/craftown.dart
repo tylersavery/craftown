@@ -34,7 +34,7 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
       srcSize: Vector2(16, 16),
     );
 
-    _loadLevel("level_1", player);
+    _loadLevel("tutorial", player, false);
 
     if (JOYSTICK_ENABLED) {
       _addJoystick();
@@ -52,8 +52,8 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
     super.update(dt);
   }
 
-  void _loadLevel(String levelName, Player p) async {
-    level = Level(levelName: levelName, player: p);
+  void _loadLevel(String levelName, Player p, bool supportsWinter) async {
+    level = Level(levelName: levelName, player: p, supportsWinter: supportsWinter);
 
     final windowWidth = size.x;
     final windowHeight = size.y;
