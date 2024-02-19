@@ -12,6 +12,7 @@ class ResearchMenuState with _$ResearchMenuState {
     ResearchLevel? expandedResearchLevel,
     ResearchLevel? isResearching,
     DateTime? researchStarted,
+    @Default(0) double scrollOffset,
   }) = _ResearchMenuState;
 
   DateTime get researchCompletes {

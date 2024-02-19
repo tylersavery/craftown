@@ -34,6 +34,7 @@ class ResearchMenuWidget extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: ListView.builder(
+            controller: ref.read(researchMenuProvider.notifier).scrollController,
             itemCount: researchLevels.length,
             itemBuilder: (context, index) {
               final researchLevel = researchLevels[index];

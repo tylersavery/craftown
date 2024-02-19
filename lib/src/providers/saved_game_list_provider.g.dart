@@ -6,7 +6,7 @@ part of 'saved_game_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$savedGameListHash() => r'7dc31a86868fedaafe5a7ddf6b9deb12a167de08';
+String _$savedGameListHash() => r'625eb8bf4398ce030ba26863fea6795ddd2818a6';
 
 /// See also [SavedGameList].
 @ProviderFor(SavedGameList)

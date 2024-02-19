@@ -282,6 +282,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
             break;
           case "Water":
             resource = Resources.water;
+            isGround = true;
             break;
           case "Straw":
             resource = Resources.straw;

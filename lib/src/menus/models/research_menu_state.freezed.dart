@@ -21,6 +21,7 @@ mixin _$ResearchMenuState {
       throw _privateConstructorUsedError;
   ResearchLevel? get isResearching => throw _privateConstructorUsedError;
   DateTime? get researchStarted => throw _privateConstructorUsedError;
+  double get scrollOffset => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ResearchMenuStateCopyWith<ResearchMenuState> get copyWith =>
@@ -37,7 +38,8 @@ abstract class $ResearchMenuStateCopyWith<$Res> {
       {bool isOpen,
       ResearchLevel? expandedResearchLevel,
       ResearchLevel? isResearching,
-      DateTime? researchStarted});
+      DateTime? researchStarted,
+      double scrollOffset});
 
   $ResearchLevelCopyWith<$Res>? get expandedResearchLevel;
   $ResearchLevelCopyWith<$Res>? get isResearching;
@@ -60,6 +62,7 @@ class _$ResearchMenuStateCopyWithImpl<$Res, $Val extends ResearchMenuState>
     Object? expandedResearchLevel = freezed,
     Object? isResearching = freezed,
     Object? researchStarted = freezed,
+    Object? scrollOffset = null,
   }) {
     return _then(_value.copyWith(
       isOpen: null == isOpen
@@ -78,6 +81,10 @@ class _$ResearchMenuStateCopyWithImpl<$Res, $Val extends ResearchMenuState>
           ? _value.researchStarted
           : researchStarted // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      scrollOffset: null == scrollOffset
+          ? _value.scrollOffset
+          : scrollOffset // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 
@@ -118,7 +125,8 @@ abstract class _$$ResearchMenuStateImplCopyWith<$Res>
       {bool isOpen,
       ResearchLevel? expandedResearchLevel,
       ResearchLevel? isResearching,
-      DateTime? researchStarted});
+      DateTime? researchStarted,
+      double scrollOffset});
 
   @override
   $ResearchLevelCopyWith<$Res>? get expandedResearchLevel;
@@ -141,6 +149,7 @@ class __$$ResearchMenuStateImplCopyWithImpl<$Res>
     Object? expandedResearchLevel = freezed,
     Object? isResearching = freezed,
     Object? researchStarted = freezed,
+    Object? scrollOffset = null,
   }) {
     return _then(_$ResearchMenuStateImpl(
       isOpen: null == isOpen
@@ -159,6 +168,10 @@ class __$$ResearchMenuStateImplCopyWithImpl<$Res>
           ? _value.researchStarted
           : researchStarted // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      scrollOffset: null == scrollOffset
+          ? _value.scrollOffset
+          : scrollOffset // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -170,7 +183,8 @@ class _$ResearchMenuStateImpl extends _ResearchMenuState {
       {this.isOpen = false,
       this.expandedResearchLevel,
       this.isResearching,
-      this.researchStarted})
+      this.researchStarted,
+      this.scrollOffset = 0})
       : super._();
 
   @override
@@ -182,10 +196,13 @@ class _$ResearchMenuStateImpl extends _ResearchMenuState {
   final ResearchLevel? isResearching;
   @override
   final DateTime? researchStarted;
+  @override
+  @JsonKey()
+  final double scrollOffset;
 
   @override
   String toString() {
-    return 'ResearchMenuState(isOpen: $isOpen, expandedResearchLevel: $expandedResearchLevel, isResearching: $isResearching, researchStarted: $researchStarted)';
+    return 'ResearchMenuState(isOpen: $isOpen, expandedResearchLevel: $expandedResearchLevel, isResearching: $isResearching, researchStarted: $researchStarted, scrollOffset: $scrollOffset)';
   }
 
   @override
@@ -199,12 +216,14 @@ class _$ResearchMenuStateImpl extends _ResearchMenuState {
             (identical(other.isResearching, isResearching) ||
                 other.isResearching == isResearching) &&
             (identical(other.researchStarted, researchStarted) ||
-                other.researchStarted == researchStarted));
+                other.researchStarted == researchStarted) &&
+            (identical(other.scrollOffset, scrollOffset) ||
+                other.scrollOffset == scrollOffset));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isOpen, expandedResearchLevel,
-      isResearching, researchStarted);
+      isResearching, researchStarted, scrollOffset);
 
   @JsonKey(ignore: true)
   @override
@@ -219,7 +238,8 @@ abstract class _ResearchMenuState extends ResearchMenuState {
       {final bool isOpen,
       final ResearchLevel? expandedResearchLevel,
       final ResearchLevel? isResearching,
-      final DateTime? researchStarted}) = _$ResearchMenuStateImpl;
+      final DateTime? researchStarted,
+      final double scrollOffset}) = _$ResearchMenuStateImpl;
   const _ResearchMenuState._() : super._();
 
   @override
@@ -230,6 +250,8 @@ abstract class _ResearchMenuState extends ResearchMenuState {
   ResearchLevel? get isResearching;
   @override
   DateTime? get researchStarted;
+  @override
+  double get scrollOffset;
   @override
   @JsonKey(ignore: true)
   _$$ResearchMenuStateImplCopyWith<_$ResearchMenuStateImpl> get copyWith =>

@@ -6,6 +6,7 @@ import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/inventory_map_provider.dart';
 import 'package:craftown/src/providers/research_list_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:craftown/src/menus/models/research_menu_state.dart';
 
@@ -13,13 +14,27 @@ part 'research_menu_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class ResearchMenu extends _$ResearchMenu {
+  final ScrollController scrollController = ScrollController();
+
   @override
   ResearchMenuState build() {
+    scrollController.addListener(_onScroll);
+
     return ResearchMenuState();
+  }
+
+  void _onScroll() {
+    state = state.copyWith(scrollOffset: scrollController.offset);
   }
 
   void open() {
     state = state.copyWith(isOpen: true);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (scrollController.hasClients) {
+        scrollController.jumpTo(state.scrollOffset);
+      }
+    });
+    Future.delayed(Duration(milliseconds: 10), () {});
   }
 
   void close() {

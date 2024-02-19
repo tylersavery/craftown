@@ -58,6 +58,7 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
         width: INVENTORY_MENU_WIDTH / (hasTwoColumns ? 1 : 2),
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (hasTwoColumns)
               Container(
@@ -76,19 +77,18 @@ class ResourceContentsMenuWidget extends ConsumerWidget {
                   child: Builder(builder: (context) {
                     if (placedResource.sprite.resource.canConstruct && selectedRecipe == null) {
                       return Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             "Select Recipe:",
                           ),
-                          Expanded(
-                            child: RecipeSelectorList(
-                              listType: RecipeListType.constructable,
-                              onSelect: (index) {
-                                final recipe = ref.read(recipeListProvider(RecipeListType.constructable))[index];
+                          RecipeSelectorList(
+                            listType: RecipeListType.constructable,
+                            onSelect: (index) {
+                              final recipe = ref.read(recipeListProvider(RecipeListType.constructable))[index];
 
-                                ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).selectRecipe(recipe);
-                              },
-                            ),
+                              ref.read(placedResourceDetailProvider(placedResource.uniqueIdentifier).notifier).selectRecipe(recipe);
+                            },
                           )
                         ],
                       );

@@ -23,13 +23,13 @@
 [x] power generator shouldn't consume if nothing is reqesting it?
 [x] multiple messages fixes
 
-[ ] resource mining (ie. water) distance from closest point rather than center
-[ ] constructor shouldn't cost as many iron plates
-[ ] reseach mining1: more interesting? Maybe rope?
+[x] resource mining (ie. water) distance from closest point rather than center
+[x] constructor shouldn't cost as many iron plates
+[x] reseach mining1: more interesting? Maybe rope?
 [ ] reseach smelting1: more interesting? Too similar to smelter recipe. 
 [ ] make sure you can't craft if you don't have a free space available (different reseouce)
-[ ] possible to keep research scroll at same spot between close and open?
-[ ] constructor window is huge
+[x] possible to keep research scroll at same spot between close and open?
+[x] constructor window is huge
 
 
 [ ] certain items only craftable by constructors?

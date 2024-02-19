@@ -96,7 +96,6 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   @override
   FutureOr<void> onLoad() {
-    debugMode = false;
     priority = 25;
 
     if (resource.canRotate) {

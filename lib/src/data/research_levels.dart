@@ -36,17 +36,16 @@ class ResearchLevels {
       prerequisites: [],
       timeToUnlock: Duration(seconds: 30),
       cost: [
-        Ingredient(resource: Resources.stone, quantity: 10),
+        Ingredient(resource: Resources.rope, quantity: 10),
         Ingredient(resource: Resources.iron, quantity: 10),
-        Ingredient(resource: Resources.clay, quantity: 10),
       ],
     );
   }
 
   static ResearchLevel get mining2 {
     return ResearchLevel(
-      identifier: "mining1",
-      name: "Mining 1",
+      identifier: "mining2",
+      name: "Mining 2",
       prerequisites: [
         ResearchLevels.mining1,
       ],

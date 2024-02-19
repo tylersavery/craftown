@@ -538,8 +538,8 @@ class Resources {
         namePlural: "Constructors",
         secondsToCraft: 10,
         ingredients: [
-          Ingredient(resource: Resources.ironPlate, quantity: 20),
-          Ingredient(resource: Resources.cement, quantity: 10),
+          Ingredient(resource: Resources.ironPlate, quantity: 5),
+          Ingredient(resource: Resources.cement, quantity: 5),
         ],
         storageType: StorageType.all,
         canPlace: true,
