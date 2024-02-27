@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/models/character.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/components/level.dart';
@@ -39,6 +40,11 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
     if (JOYSTICK_ENABLED) {
       _addJoystick();
       cam.viewport.add(joystick);
+    }
+
+    if (PLAY_AUDIO && PLAY_MUSIC) {
+      FlameAudio.bgm.initialize();
+      FlameAudio.bgm.play('music/music1.mp3');
     }
 
     return super.onLoad();

@@ -9,6 +9,7 @@ import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/menus/providers/resource_contents_menu_provider.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/toast_message.dart';
+import 'package:craftown/src/providers/audio_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/inventory_map_provider.dart';
 import 'package:craftown/src/providers/placed_resource_detail_provider.dart';
@@ -93,6 +94,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
   double fixedDeltaTime = 1 / 60;
 
   double miningTimeCounter = 0.0;
+  double miningAudioTimeCounter = 0.0;
 
   @override
   FutureOr<void> onLoad() {
@@ -263,6 +265,7 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
     if (resource.minePerSecond != null && validateMining()) {
       miningTimeCounter = 0;
+      miningAudioTimeCounter = 0;
       isMining = true;
 
       game.player.isMining = true;
@@ -327,11 +330,23 @@ class ResourceSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
       if (ref.read(statsDetailProvider).energy < resource.energyToMine) {
         isMining = false;
         game.player.isMining = false;
-        ref.read(toastMessagesListProvider.notifier).add("Your too tired to mine ${resource.name}!");
+        ref.read(toastMessagesListProvider.notifier).add("You're too tired to mine ${resource.name}!");
         return;
       }
 
       miningTimeCounter += accumulatedTime;
+      miningAudioTimeCounter += accumulatedTime;
+
+      if (miningAudioTimeCounter >= 0.75) {
+        miningAudioTimeCounter = 0;
+
+        if (resource.miningToolRequiredIdentifier == "pick") {
+          ref.read(audioNotifierProvider.notifier).play(AudioAsset.pickaxe);
+        } else {
+          ref.read(audioNotifierProvider.notifier).play(AudioAsset.chop);
+        }
+      }
+
       if (miningTimeCounter >= resource.secondsToMine!) {
         miningTimeCounter = 0;
         ref.read(inventoryListProvider.notifier).addResource(resource);

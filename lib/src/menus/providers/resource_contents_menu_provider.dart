@@ -2,6 +2,7 @@
 
 import 'package:craftown/src/components/resource_sprite.dart';
 import 'package:craftown/src/menus/models/resource_contents_menu_state.dart';
+import 'package:craftown/src/providers/audio_provider.dart';
 import 'package:craftown/src/providers/placed_resources_list_provider.dart';
 import 'package:collection/collection.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,7 +16,12 @@ class ResourceContentsMenu extends _$ResourceContentsMenu {
     return ResourceContentsMenuState();
   }
 
+  void _playSound() {
+    ref.read(audioNotifierProvider.notifier).playRandomBlip();
+  }
+
   void openWith(ResourceSprite sprite) {
+    _playSound();
     final placedResource = ref.read(placedResourcesListProvider).firstWhereOrNull((p) => p.uniqueIdentifier == sprite.placementUniqueIdentifier);
 
     if (placedResource == null) {
@@ -27,6 +33,7 @@ class ResourceContentsMenu extends _$ResourceContentsMenu {
   }
 
   void close() {
+    _playSound();
     state = state.copyWith(isOpen: false, placedResource: null);
   }
 }

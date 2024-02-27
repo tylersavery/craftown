@@ -20,3 +20,5 @@ const SECONDS_BETWEEN_MONTHS = 100.0;
 
 const DEBUG_STORE = true;
 const DEBUG_CHANGE_DATE = true;
+const PLAY_AUDIO = true;
+const PLAY_MUSIC = true;

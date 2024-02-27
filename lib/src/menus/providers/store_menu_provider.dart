@@ -1,6 +1,7 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/models/store_menu_state.dart';
 import 'package:craftown/src/models/resource.dart';
+import 'package:craftown/src/providers/audio_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
 import 'package:craftown/src/providers/stats_detail_provider.dart';
@@ -16,11 +17,17 @@ class StoreMenu extends _$StoreMenu {
     return StoreMenuState();
   }
 
+  void _playSound() {
+    ref.read(audioNotifierProvider.notifier).playRandomBlip();
+  }
+
   void open() {
+    _playSound();
     state = state.copyWith(isOpen: true);
   }
 
   void close() {
+    _playSound();
     state = state.copyWith(isOpen: false);
   }
 

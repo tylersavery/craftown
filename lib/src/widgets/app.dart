@@ -1,3 +1,4 @@
+import 'package:craftown/src/providers/audio_provider.dart';
 import 'package:craftown/src/screens/game_screen.dart';
 import 'package:craftown/src/providers/app_provider.dart';
 import 'package:craftown/src/screens/character_selector_screen.dart';

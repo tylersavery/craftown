@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:craftown/src/models/research_level.dart';
 import 'package:craftown/src/models/resource.dart';
 import 'package:craftown/src/models/toast_message.dart';
+import 'package:craftown/src/providers/audio_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/inventory_map_provider.dart';
 import 'package:craftown/src/providers/research_list_provider.dart';
@@ -23,11 +24,16 @@ class ResearchMenu extends _$ResearchMenu {
     return ResearchMenuState();
   }
 
+  void _playSound() {
+    ref.read(audioNotifierProvider.notifier).playRandomBlip();
+  }
+
   void _onScroll() {
     state = state.copyWith(scrollOffset: scrollController.offset);
   }
 
   void open() {
+    _playSound();
     state = state.copyWith(isOpen: true);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (scrollController.hasClients) {
@@ -38,14 +44,19 @@ class ResearchMenu extends _$ResearchMenu {
   }
 
   void close() {
+    _playSound();
+
     state = state.copyWith(isOpen: false);
   }
 
   void expandResearchLevelInfo(ResearchLevel researchLevel) {
+    _playSound();
     state = state.copyWith(expandedResearchLevel: researchLevel);
   }
 
   void contractResearchLevelInfo() {
+    _playSound();
+
     state = state.copyWith(expandedResearchLevel: null);
   }
 
@@ -101,6 +112,7 @@ class ResearchMenu extends _$ResearchMenu {
     ref.read(inventoryListProvider.notifier).removeIngredients(researchLevel.cost);
 
     continueResearch(researchLevel);
+    _playSound();
 
     return true;
   }
