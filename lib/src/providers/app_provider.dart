@@ -4,6 +4,7 @@ part 'app_provider.g.dart';
 
 enum AppState {
   mainMenu,
+  mainMenuLoadingGame,
   characterSelection,
   inGame,
   ;
@@ -12,7 +13,7 @@ enum AppState {
 @Riverpod(keepAlive: true)
 class App extends _$App {
   @override
-  AppState build() => AppState.inGame;
+  AppState build() => AppState.mainMenu;
 
   set(AppState appState) {
     state = appState;

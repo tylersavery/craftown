@@ -71,32 +71,33 @@ class FarmlandSprite extends SpriteGroupComponent with HasGameRef<Craftown>, Tap
 
   @override
   void update(double dt) {
-    if (!game.level.supportsWinter) return;
-    final season = ref.read(calendarProvider).season;
-    if (currentSeason != season) {
-      currentSeason = season;
+    if (game.level.supportsWinter) {
+      final season = ref.read(calendarProvider).season;
+      if (currentSeason != season) {
+        currentSeason = season;
 
-      switch (season) {
-        case CalendarSeason.summer:
-          opacity = 1;
-          break;
-        case CalendarSeason.winter:
-          current = FarmlandState.untouched;
-          final provider = ref.read(farmlandDetailProvider(identifier).notifier);
-          provider.setState(FarmlandState.untouched);
-          provider.setCompleteAt(null);
-          provider.setSeed(null);
-          provider.setWateringCount(0);
-          opacity = 0;
-          completeAt = null;
-          seed = null;
-          wateringCount = 0;
-          if (grownOverlaySprite != null) {
-            if (grownOverlaySprite!.isMounted) {
-              remove(grownOverlaySprite!);
+        switch (season) {
+          case CalendarSeason.summer:
+            opacity = 1;
+            break;
+          case CalendarSeason.winter:
+            current = FarmlandState.untouched;
+            final provider = ref.read(farmlandDetailProvider(identifier).notifier);
+            provider.setState(FarmlandState.untouched);
+            provider.setCompleteAt(null);
+            provider.setSeed(null);
+            provider.setWateringCount(0);
+            opacity = 0;
+            completeAt = null;
+            seed = null;
+            wateringCount = 0;
+            if (grownOverlaySprite != null) {
+              if (grownOverlaySprite!.isMounted) {
+                remove(grownOverlaySprite!);
+              }
             }
-          }
-          return;
+            return;
+        }
       }
     }
 

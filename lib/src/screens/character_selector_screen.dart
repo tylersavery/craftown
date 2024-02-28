@@ -1,4 +1,5 @@
 import 'package:craftown/src/models/character.dart';
+import 'package:craftown/src/providers/app_provider.dart';
 import 'package:craftown/src/providers/character_selector_form_provider.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class CharacterSelectorScreen extends ConsumerWidget {
     final state = ref.watch(characterSelectorFormProvider);
 
     return Scaffold(
+      backgroundColor: Colors.lightGreen.shade300,
       body: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: 600),
@@ -74,6 +76,17 @@ class CharacterSelectorScreen extends ConsumerWidget {
                 ElevatedButton(
                   onPressed: provider.submit,
                   child: Text("Start Game"),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextButton(
+                  onPressed: () {
+                    ref.read(appProvider.notifier).set(AppState.mainMenu);
+                  },
+                  child: Text(
+                    "Back to Menu",
+                  ),
                 )
               ],
             ),

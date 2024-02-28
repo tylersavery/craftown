@@ -22,6 +22,7 @@ import 'package:craftown/src/providers/rotate_provider.dart';
 import 'package:craftown/src/providers/selected_character_provider.dart';
 import 'package:craftown/src/providers/toast_messages_list_provider.dart';
 import 'package:craftown/src/tutorial/tutorial_overlay.dart';
+import 'package:craftown/src/utils/device.dart';
 import 'package:craftown/src/widgets/craft_button.dart';
 import 'package:craftown/src/widgets/game_menu_button.dart';
 import 'package:craftown/src/widgets/inventory_bar.dart';
@@ -41,6 +42,8 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final useJoystick = isTouchDevice(context);
+
     return Scaffold(
       body: Consumer(builder: (context, ref, _) {
         final character = ref.watch(selectedCharacterProvider);
@@ -52,6 +55,7 @@ class GameScreen extends StatelessWidget {
               child: RiverpodAwareGameWidget(
                 game: Craftown(
                   character: character,
+                  useJoystick: useJoystick,
                 ),
                 key: gameWidgetKey,
               ),

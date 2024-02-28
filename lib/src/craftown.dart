@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 
 class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks, DragCallbacks, RiverpodGameMixin {
   final Character character;
+  final bool useJoystick;
+
   late CameraComponent cam;
   late SpriteSheet cropsSpriteSheet;
 
@@ -22,7 +24,7 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
   late Level level;
   late JoystickComponent joystick;
 
-  Craftown({required this.character}) {
+  Craftown({required this.character, required this.useJoystick}) {
     player = Player(character: character);
   }
 
@@ -37,7 +39,7 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
 
     _loadLevel("tutorial", player, false);
 
-    if (JOYSTICK_ENABLED) {
+    if (useJoystick) {
       _addJoystick();
       cam.viewport.add(joystick);
     }
@@ -52,7 +54,7 @@ class Craftown extends FlameGame with HasKeyboardHandlerComponents, TapCallbacks
 
   @override
   void update(double dt) {
-    if (JOYSTICK_ENABLED) {
+    if (useJoystick) {
       _updateJoystick();
     }
     super.update(dt);

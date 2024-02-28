@@ -1,3 +1,4 @@
+import 'package:craftown/src/components/farmland_sprite.dart';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/seed_menu_provider.dart';
 import 'package:craftown/src/models/resource.dart';
@@ -63,6 +64,7 @@ class SeedMenuWidget extends ConsumerWidget {
                           menuState.farmlandSprite!.seed = seed;
                           menuState.farmlandSprite!.completeAt = completeAt;
 
+                          ref.read(farmlandDetailProvider(menuState.farmlandSprite!.identifier).notifier).setState(FarmlandState.growing);
                           ref.read(farmlandDetailProvider(menuState.farmlandSprite!.identifier).notifier).setCompleteAt(completeAt);
                           ref.read(farmlandDetailProvider(menuState.farmlandSprite!.identifier).notifier).setSeed(seed);
                           ref.read(farmlandDetailProvider(menuState.farmlandSprite!.identifier).notifier).setWateringCount(0);

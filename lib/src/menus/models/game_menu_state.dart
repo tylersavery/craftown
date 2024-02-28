@@ -5,6 +5,7 @@ part 'game_menu_state.freezed.dart';
 enum SubMenu {
   loadGame("Load Game"),
   saveGame("Save Game"),
+  credits("Credits"),
   ;
 
   final String label;

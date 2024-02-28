@@ -3,6 +3,7 @@ import 'package:craftown/src/data/tools.dart';
 import 'package:craftown/src/menus/providers/tool_menu_provider.dart';
 import 'package:craftown/src/providers/inventory_map_provider.dart';
 import 'package:craftown/src/providers/selected_tool_provider.dart';
+import 'package:craftown/src/utils/device.dart';
 import 'package:craftown/src/widgets/pixel_art_image_asset.dart';
 import 'package:craftown/src/widgets/shared/menu_container.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class ToolMenuWidget extends ConsumerWidget {
                                 width: 32,
                                 height: 32,
                               ),
-                              if (!JOYSTICK_ENABLED && isAvailable)
+                              if (!isTouchDevice(context) && isAvailable)
                                 Text(
                                   "${index + 1}",
                                   style: TextStyle(

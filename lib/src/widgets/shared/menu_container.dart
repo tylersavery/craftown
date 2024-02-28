@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:craftown/src/constants.dart';
+import 'package:craftown/src/utils/device.dart';
 import 'package:flutter/material.dart';
 
 class MenuContainer extends StatelessWidget {
@@ -82,7 +83,7 @@ class MenuContainer extends StatelessWidget {
                                 fontSize: 18,
                               ),
                             ),
-                            if (shortcutKey != null && !JOYSTICK_ENABLED) ...[
+                            if (shortcutKey != null && !isTouchDevice(context)) ...[
                               SizedBox(width: 8),
                               Icon(Icons.keyboard, size: 18, color: Colors.black87),
                               SizedBox(width: 3),
