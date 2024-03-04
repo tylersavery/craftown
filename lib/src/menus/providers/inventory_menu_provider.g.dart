@@ -6,7 +6,7 @@ part of 'inventory_menu_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$inventoryMenuHash() => r'3dafb639d93655f1fdfe294f1afc0d4e45bb4f98';
+String _$inventoryMenuHash() => r'e65fc22adb2773516a2a80e4ea0f2fcb895bf4e4';
 
 /// See also [InventoryMenu].
 @ProviderFor(InventoryMenu)

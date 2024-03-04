@@ -7,7 +7,7 @@ part of 'resource_contents_menu_provider.dart';
 // **************************************************************************
 
 String _$resourceContentsMenuHash() =>
-    r'76bd4c246e2834ac3ca28024c6a30ac429acef59';
+    r'0904a667e78b42ccd6e4ec368dd575fed79dbbf8';
 
 /// See also [ResourceContentsMenu].
 @ProviderFor(ResourceContentsMenu)

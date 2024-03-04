@@ -6,7 +6,7 @@ part of 'tool_menu_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$toolMenuHash() => r'2e84628fa4132433172413e33f72a74bdeabfadf';
+String _$toolMenuHash() => r'8af2b06d25c3285dca2361809103ef7a31f41ed9';
 
 /// See also [ToolMenu].
 @ProviderFor(ToolMenu)

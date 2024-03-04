@@ -136,6 +136,20 @@ class TutorialSteps {
     );
   }
 
+  static TutorialStep get step10 {
+    return TutorialStep(
+      index: 10,
+      name: "Sustainability",
+      description: "Replace your power generation with solar.",
+      placedResourcesRequired: [
+        Ingredient(resource: Resources.powerGeneratorSolar, quantity: 1),
+      ],
+      researchLevelsRequired: [
+        ResearchLevels.power1,
+      ],
+    );
+  }
+
   /// constructing
 
   static List<TutorialStep> get allSteps => [
@@ -149,5 +163,6 @@ class TutorialSteps {
         TutorialSteps.step7,
         TutorialSteps.step8,
         TutorialSteps.step9,
+        TutorialSteps.step10,
       ];
 }

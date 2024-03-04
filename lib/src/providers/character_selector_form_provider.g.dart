@@ -7,7 +7,7 @@ part of 'character_selector_form_provider.dart';
 // **************************************************************************
 
 String _$characterSelectorFormHash() =>
-    r'9b1f3a1c6bc4f9ca4d20e9cfdf69ae7864242811';
+    r'252b12bfaf9348fccaae9768d5d3884bb9fbd99c';
 
 /// See also [CharacterSelectorForm].
 @ProviderFor(CharacterSelectorForm)

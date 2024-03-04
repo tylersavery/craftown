@@ -6,6 +6,7 @@ enum AppState {
   mainMenu,
   mainMenuLoadingGame,
   characterSelection,
+  overview,
   inGame,
   ;
 }

@@ -75,14 +75,14 @@ class CharacterSelectorScreen extends ConsumerWidget {
                 ),
                 ElevatedButton(
                   onPressed: provider.submit,
-                  child: Text("Start Game"),
+                  child: Text("Next"),
                 ),
                 SizedBox(
                   height: 16,
                 ),
                 TextButton(
                   onPressed: () {
-                    ref.read(appProvider.notifier).set(AppState.mainMenu);
+                    ref.read(appProvider.notifier).set(AppState.overview);
                   },
                   child: Text(
                     "Back to Menu",

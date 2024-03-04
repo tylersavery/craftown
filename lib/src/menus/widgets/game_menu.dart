@@ -5,6 +5,7 @@ import 'package:craftown/src/menus/providers/game_menu_provider.dart';
 import 'package:craftown/src/menus/models/game_menu_state.dart';
 import 'package:craftown/src/models/saved_game.dart';
 import 'package:craftown/src/providers/app_provider.dart';
+import 'package:craftown/src/providers/audio_provider.dart';
 import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/saved_game_list_provider.dart';
 import 'package:craftown/src/utils/dialogs.dart';
@@ -43,6 +44,8 @@ class GameMenuWidget extends ConsumerWidget {
               return LoadGameMenu();
             case SubMenu.credits:
               return _CreditsGameMenu();
+            case SubMenu.settings:
+              return _SettingsGameMenu();
           }
         }),
       ),
@@ -79,10 +82,12 @@ class _RootMenu extends ConsumerWidget {
               ref.read(gameMenuProvider.notifier).showCreditsSubmenu();
             },
           ),
-          // _MenuItem(
-          //   label: "Settings",
-          //   onPressed: () {},
-          // ),
+          _MenuItem(
+            label: "Settings",
+            onPressed: () {
+              ref.read(gameMenuProvider.notifier).showSettingsMenu();
+            },
+          ),
           // _MenuItem(
           //   label: "Help",
           //   onPressed: () {},
@@ -278,6 +283,52 @@ class _CreditsGameMenu extends ConsumerWidget {
                   ],
                 ),
               ),
+            ),
+            _MenuItem(
+              label: "Back",
+              onPressed: () {
+                ref.read(gameMenuProvider.notifier).backToRoot();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SettingsGameMenu extends ConsumerWidget {
+  const _SettingsGameMenu({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: 300,
+        maxWidth: GAME_MENU_WIDTH,
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CheckboxListTile(
+              value: ref.watch(audioNotifierProvider).soundEnabled,
+              onChanged: (value) {
+                if (value != null) {
+                  ref.read(audioNotifierProvider.notifier).setSoundEnabled(value);
+                }
+              },
+              title: Text("Sound Enabled"),
+            ),
+            CheckboxListTile(
+              value: ref.watch(audioNotifierProvider).musicEnabled,
+              onChanged: (value) {
+                if (value != null) {
+                  ref.read(audioNotifierProvider.notifier).setMusicEnabled(value);
+                }
+              },
+              title: Text("Music Enabled"),
             ),
             _MenuItem(
               label: "Back",

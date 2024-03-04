@@ -6,6 +6,7 @@ enum SubMenu {
   loadGame("Load Game"),
   saveGame("Save Game"),
   credits("Credits"),
+  settings("Settings"),
   ;
 
   final String label;

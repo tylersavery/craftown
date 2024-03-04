@@ -21,5 +21,6 @@ const SECONDS_BETWEEN_MONTHS = 100.0;
 const DEBUG_INVENTORY = kDebugMode ? false : false;
 const DEBUG_STORE = kDebugMode ? false : false;
 const DEBUG_CHANGE_DATE = kDebugMode ? false : false;
-const PLAY_AUDIO = kDebugMode ? false : false;
-const PLAY_MUSIC = kDebugMode ? false : false;
+
+const PLAY_AUDIO = kDebugMode ? true : true;
+const PLAY_MUSIC = kDebugMode ? true : true;

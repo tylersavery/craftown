@@ -33,7 +33,7 @@ class CharacterSelectorForm extends _$CharacterSelectorForm {
     }
     final character = state.copyWith(name: nameController.text);
     ref.read(selectedCharacterProvider.notifier).set(character);
-    ref.read(appProvider.notifier).set(AppState.inGame);
+    ref.read(appProvider.notifier).set(AppState.overview);
   }
 }
 

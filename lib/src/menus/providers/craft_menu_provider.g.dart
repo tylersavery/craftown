@@ -6,7 +6,7 @@ part of 'craft_menu_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$craftMenuHash() => r'a6122e969a2961d2c1c03d4b8542c765e2c5a69d';
+String _$craftMenuHash() => r'75efbcf135213a77f71b310dae8be1a583e6b59d';
 
 /// See also [CraftMenu].
 @ProviderFor(CraftMenu)

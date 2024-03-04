@@ -6,7 +6,7 @@ part of 'seed_menu_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$seedMenuHash() => r'fa75235f6da47db8234b1d6fd48b9655d2071d74';
+String _$seedMenuHash() => r'3d20a3270aa5d2c9000ec3ae189e76065aa659ec';
 
 /// See also [SeedMenu].
 @ProviderFor(SeedMenu)

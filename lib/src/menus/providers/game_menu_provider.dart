@@ -39,7 +39,13 @@ class GameMenu extends _$GameMenu {
     state = state.copyWith(subMenuVisible: SubMenu.saveGame);
   }
 
+  void showSettingsMenu() {
+    _playSound();
+    state = state.copyWith(subMenuVisible: SubMenu.settings);
+  }
+
   void showCreditsSubmenu() {
+    _playSound();
     state = state.copyWith(subMenuVisible: SubMenu.credits);
   }
 

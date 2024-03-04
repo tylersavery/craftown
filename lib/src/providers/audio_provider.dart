@@ -1,4 +1,5 @@
 import 'package:craftown/src/constants.dart';
+import 'package:craftown/src/models/audio_state.dart';
 import 'package:craftown/src/utils/randomization.dart';
 import 'package:flame_audio/audio_pool.dart';
 import "package:flame_audio/flame_audio.dart";
@@ -25,9 +26,9 @@ class AudioNotifier extends _$AudioNotifier {
   // late final AudioPool pickaxeAudioPool;
 
   @override
-  double build() {
+  AudioState build() {
     _init();
-    return 1.0;
+    return AudioState();
   }
 
   Future<void> _init() async {
@@ -49,12 +50,32 @@ class AudioNotifier extends _$AudioNotifier {
     _loadMusic();
   }
 
+  void setSoundEnabled(bool value) {
+    state = state.copyWith(soundEnabled: value);
+  }
+
+  void setMusicEnabled(bool value) {
+    state = state.copyWith(musicEnabled: value);
+
+    if (PLAY_AUDIO && PLAY_MUSIC) {
+      if (value) {
+        FlameAudio.bgm.resume();
+      } else {
+        FlameAudio.bgm.pause();
+      }
+    }
+  }
+
   void setVolume(double volume) {
-    state = volume;
+    state = state.copyWith(volume: volume);
   }
 
   void play(AudioAsset asset, [double? volume]) {
     if (!PLAY_AUDIO) return;
+
+    if (!state.soundEnabled) {
+      return;
+    }
 
     // switch (asset) {
     //   case AudioAsset.chop:
@@ -67,7 +88,7 @@ class AudioNotifier extends _$AudioNotifier {
     //     break;
     // }
 
-    FlameAudio.play(asset.assetName, volume: volume ?? state);
+    FlameAudio.play(asset.assetName, volume: volume ?? state.volume);
   }
 
   void _loadMusic() {

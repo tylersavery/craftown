@@ -6,7 +6,7 @@ part of 'game_menu_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gameMenuHash() => r'20adcc6c4b2a0346163ff52cb733f6c32a5609a3';
+String _$gameMenuHash() => r'd3c363620f650f3b4f01c53cd810a2866fdb9ed7';
 
 /// See also [GameMenu].
 @ProviderFor(GameMenu)
