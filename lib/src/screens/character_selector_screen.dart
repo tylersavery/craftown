@@ -82,7 +82,7 @@ class CharacterSelectorScreen extends ConsumerWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    ref.read(appProvider.notifier).set(AppState.overview);
+                    ref.read(appProvider.notifier).set(AppState.mainMenu);
                   },
                   child: Text(
                     "Back to Menu",
