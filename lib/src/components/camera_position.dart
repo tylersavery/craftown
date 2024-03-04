@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/craftown.dart';
 import 'package:flame/components.dart';

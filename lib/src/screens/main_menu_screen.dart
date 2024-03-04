@@ -3,14 +3,11 @@ import 'dart:io';
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/widgets/game_menu.dart';
 import 'package:craftown/src/providers/app_provider.dart';
-import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/saved_game_list_provider.dart';
 import 'package:craftown/src/utils/dialogs.dart';
 import 'package:craftown/src/widgets/shared/menu_container.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MainMenuScreen extends ConsumerWidget {
@@ -104,7 +101,6 @@ class _Button extends StatelessWidget {
   final String label;
   final Function() onPressed;
   const _Button({
-    super.key,
     required this.label,
     required this.onPressed,
   });

@@ -4,16 +4,13 @@ import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/menus/providers/game_menu_provider.dart';
 import 'package:craftown/src/menus/models/game_menu_state.dart';
 import 'package:craftown/src/models/saved_game.dart';
-import 'package:craftown/src/providers/app_provider.dart';
 import 'package:craftown/src/providers/audio_provider.dart';
-import 'package:craftown/src/providers/inventory_list_provider.dart';
 import 'package:craftown/src/providers/saved_game_list_provider.dart';
 import 'package:craftown/src/utils/dialogs.dart';
 import 'package:craftown/src/widgets/shared/menu_container.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -140,7 +137,7 @@ class _RootMenu extends ConsumerWidget {
 }
 
 class _CreditsGameMenu extends ConsumerWidget {
-  const _CreditsGameMenu({super.key});
+  const _CreditsGameMenu();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -298,7 +295,7 @@ class _CreditsGameMenu extends ConsumerWidget {
 }
 
 class _SettingsGameMenu extends ConsumerWidget {
-  const _SettingsGameMenu({super.key});
+  const _SettingsGameMenu();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -466,7 +463,7 @@ class _SaveGameMenu extends ConsumerWidget {
 class LoadGameMenu extends ConsumerWidget {
   final Function()? onCancelOverride;
   final Function(SavedGame save)? onSelectOverride;
-  const LoadGameMenu({this.onCancelOverride, this.onSelectOverride});
+  const LoadGameMenu({this.onCancelOverride, this.onSelectOverride, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

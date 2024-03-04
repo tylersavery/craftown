@@ -1,7 +1,6 @@
 import 'package:craftown/src/constants.dart';
 import 'package:craftown/src/models/audio_state.dart';
 import 'package:craftown/src/utils/randomization.dart';
-import 'package:flame_audio/audio_pool.dart';
 import "package:flame_audio/flame_audio.dart";
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:craftown/src/craftown.dart';
 import 'package:craftown/src/menus/providers/craft_menu_provider.dart';
 import 'package:craftown/src/menus/providers/game_menu_provider.dart';

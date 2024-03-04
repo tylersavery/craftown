@@ -1,4 +1,4 @@
-// ignore_for_file: implementation_imports
+// ignore_for_file: implementation_imports, deprecated_member_use
 
 import 'dart:async';
 
@@ -109,7 +109,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
     _handleSeasons(dt);
     while (accumulatedConveyorTime >= conveyorDeltaTime) {
-      _handleConveyors(dt);
+      // _handleConveyors(dt);
       accumulatedConveyorTime -= conveyorDeltaTime;
     }
 
@@ -610,10 +610,5 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
           break;
       }
     }
-  }
-
-  void _handleConveyors(double dt) {
-    // final conveyers = ref.read(conveyorListProvider);
-    //TODO: handle resource movement...
   }
 }
