@@ -17,6 +17,5 @@ class ConveyorList extends _$ConveyorList {
   add(PlacedConveyor item) {
     state = [...state, item];
 
-    print(state);
   }
 }

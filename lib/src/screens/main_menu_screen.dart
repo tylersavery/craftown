@@ -89,7 +89,21 @@ class MainMenuScreen extends ConsumerWidget {
                     ref.read(appProvider.notifier).set(AppState.mainMenu);
                   }),
                 ),
-              )
+              ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "v$VERSION",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

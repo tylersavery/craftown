@@ -130,6 +130,14 @@ class _RootMenu extends ConsumerWidget {
             },
           ),
           SizedBox(height: 8),
+          Text(
+            "Craftown v$VERSION",
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.black,
+            ),
+          ),
+          SizedBox(height: 8),
         ],
       ),
     );
@@ -287,6 +295,9 @@ class _CreditsGameMenu extends ConsumerWidget {
                 ref.read(gameMenuProvider.notifier).backToRoot();
               },
             ),
+            SizedBox(
+              height: 8,
+            ),
           ],
         ),
       ),
@@ -333,6 +344,9 @@ class _SettingsGameMenu extends ConsumerWidget {
                 ref.read(gameMenuProvider.notifier).backToRoot();
               },
             ),
+            SizedBox(
+              height: 8,
+            ),
           ],
         ),
       ),
@@ -353,107 +367,110 @@ class _SaveGameMenu extends ConsumerWidget {
         maxWidth: GAME_MENU_WIDTH,
       ),
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _MenuItem(
-              label: "New Save",
-              onPressed: () async {
-                final String? filename = await showDialog(
-                  context: context,
-                  builder: (context) {
-                    final controller = TextEditingController();
-                    return AlertDialog(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0),
-                      ),
-                      contentPadding: EdgeInsets.zero,
-                      insetPadding: EdgeInsets.zero,
-                      buttonPadding: EdgeInsets.zero,
-                      titlePadding: EdgeInsets.zero,
-                      actionsPadding: EdgeInsets.zero,
-                      iconPadding: EdgeInsets.zero,
-                      backgroundColor: Colors.white,
-                      title: Padding(
-                        padding: const EdgeInsets.only(left: 8, top: 4, right: 8),
-                        child: Text(
-                          "Save Game",
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _MenuItem(
+                label: "New Save",
+                onPressed: () async {
+                  final String? filename = await showDialog(
+                    context: context,
+                    builder: (context) {
+                      final controller = TextEditingController();
+                      return AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
                         ),
-                      ),
-                      content: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 3),
-                        child: Container(
-                          color: Colors.black12,
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: TextFormField(
-                              controller: controller,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                hintText: "Filename",
-                                contentPadding: EdgeInsets.zero,
-                                counterText: null,
-                                border: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                              ),
-                              autofocus: true,
-                              autocorrect: false,
+                        contentPadding: EdgeInsets.zero,
+                        insetPadding: EdgeInsets.zero,
+                        buttonPadding: EdgeInsets.zero,
+                        titlePadding: EdgeInsets.zero,
+                        actionsPadding: EdgeInsets.zero,
+                        iconPadding: EdgeInsets.zero,
+                        backgroundColor: Colors.white,
+                        title: Padding(
+                          padding: const EdgeInsets.only(left: 8, top: 4, right: 8),
+                          child: Text(
+                            "Save Game",
+                            style: TextStyle(
+                              fontSize: 14,
                             ),
                           ),
                         ),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(null);
-                          },
-                          child: Text("Cancel"),
+                        content: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 3),
+                          child: Container(
+                            color: Colors.black12,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: TextFormField(
+                                controller: controller,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  hintText: "Filename",
+                                  contentPadding: EdgeInsets.zero,
+                                  counterText: null,
+                                  border: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                ),
+                                autofocus: true,
+                                autocorrect: false,
+                              ),
+                            ),
+                          ),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(controller.text);
-                          },
-                          child: Text("Save"),
-                        )
-                      ],
-                    );
-                  },
-                );
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(null);
+                            },
+                            child: Text("Cancel"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(controller.text);
+                            },
+                            child: Text("Save"),
+                          )
+                        ],
+                      );
+                    },
+                  );
 
-                if (filename == null) {
-                  return;
-                }
-                ref.read(savedGameListProvider.notifier).saveGame(filename);
-                ref.read(gameMenuProvider.notifier).backToRoot();
-              },
-            ),
-            _MenuItem(
-              label: "Cancel",
-              onPressed: () {
-                ref.read(gameMenuProvider.notifier).backToRoot();
-              },
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: saves.length,
-              itemBuilder: (context, index) {
-                final save = saves[index];
+                  if (filename == null) {
+                    return;
+                  }
+                  ref.read(savedGameListProvider.notifier).saveGame(filename);
+                  ref.read(gameMenuProvider.notifier).backToRoot();
+                },
+              ),
+              _MenuItem(
+                label: "Cancel",
+                onPressed: () {
+                  ref.read(gameMenuProvider.notifier).backToRoot();
+                },
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: saves.length,
+                itemBuilder: (context, index) {
+                  final save = saves[index];
 
-                return _MenuItem(
-                  label: save.label,
-                  onPressed: () {
-                    ref.read(savedGameListProvider.notifier).saveGame(save.fileName, overwrite: save);
-                    ref.read(gameMenuProvider.notifier).backToRoot();
-                  },
-                );
-              },
-            ),
-          ],
+                  return _MenuItem(
+                    label: save.label,
+                    onPressed: () {
+                      ref.read(savedGameListProvider.notifier).saveGame(save.fileName, overwrite: save);
+                      ref.read(gameMenuProvider.notifier).backToRoot();
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -475,38 +492,41 @@ class LoadGameMenu extends ConsumerWidget {
         maxWidth: GAME_MENU_WIDTH,
       ),
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _MenuItem(
-              label: "Cancel",
-              onPressed: () {
-                if (onCancelOverride != null) {
-                  onCancelOverride!();
-                  return;
-                }
-                ref.read(gameMenuProvider.notifier).backToRoot();
-              },
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: saves.length,
-              itemBuilder: (context, index) {
-                final save = saves[index];
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _MenuItem(
+                label: "Cancel",
+                onPressed: () {
+                  if (onCancelOverride != null) {
+                    onCancelOverride!();
+                    return;
+                  }
+                  ref.read(gameMenuProvider.notifier).backToRoot();
+                },
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: saves.length,
+                itemBuilder: (context, index) {
+                  final save = saves[index];
 
-                return _MenuItem(
-                    label: save.label,
-                    onPressed: () {
-                      if (onSelectOverride != null) {
-                        onSelectOverride!(save);
-                        return;
-                      }
-                      ref.read(gameMenuProvider.notifier).loadGame(save);
-                    });
-              },
-            ),
-          ],
+                  return _MenuItem(
+                      label: save.label,
+                      onPressed: () {
+                        if (onSelectOverride != null) {
+                          onSelectOverride!(save);
+                          return;
+                        }
+                        ref.read(gameMenuProvider.notifier).loadGame(save);
+                      });
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -528,8 +548,14 @@ class _MenuItem extends StatelessWidget {
       child: InkWell(
         onTap: onPressed,
         child: Container(
-          color: Colors.black12,
           width: GAME_MENU_WIDTH - 32,
+          decoration: BoxDecoration(
+            color: Colors.black12,
+            border: Border.all(
+              width: 2,
+              color: Colors.black12,
+            ),
+          ),
           height: 28,
           child: Center(
             child: Text(

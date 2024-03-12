@@ -2,6 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 
+const VERSION = '0.0.1';
 const TILE_SIZE = 16.0;
 const CAMERA_ZOOM = 2.0;
 const CRAFT_MENU_WIDTH = 600.0;
@@ -23,4 +24,4 @@ const DEBUG_STORE = kDebugMode ? false : false;
 const DEBUG_CHANGE_DATE = kDebugMode ? false : false;
 
 const PLAY_AUDIO = kDebugMode ? true : true;
-const PLAY_MUSIC = kDebugMode ? true : true;
+const PLAY_MUSIC = kDebugMode ? false : true;
