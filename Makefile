@@ -1,4 +1,4 @@
-phone: build_web
+phony: build_web
 
 
 build_web:

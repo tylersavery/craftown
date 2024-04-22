@@ -55,7 +55,7 @@ class TutorialSteps {
     return TutorialStep(
       index: 4,
       name: "Storage",
-      description: "Research ${ResearchLevels.storage1.name} then craft and place a ${Resources.chest.name}.",
+      description: "Research ${ResearchLevels.storage1.name} then craft and place a ${Resources.chest.name}. Tip: You can craft lumber from wood.",
       placedResourcesRequired: [
         Ingredient(
           resource: Resources.chest,
@@ -96,7 +96,8 @@ class TutorialSteps {
     return TutorialStep(
         index: 7,
         name: "Mining",
-        description: "Research ${ResearchLevels.mining1.name} and then craft and place a Light Miner and Heavy Miner to begin automation!",
+        description:
+            "Research ${ResearchLevels.mining1.name} and then craft and place a Light Miner and Heavy Miner to begin automation! Tip: You can craft rope from straw.",
         placedResourcesRequired: [
           Ingredient(resource: Resources.lightMiner, quantity: 1),
           Ingredient(resource: Resources.heavyMiner, quantity: 1),

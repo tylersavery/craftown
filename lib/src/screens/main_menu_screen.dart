@@ -146,6 +146,7 @@ class _Button extends StatelessWidget {
               style: TextStyle(
                 fontSize: 28,
                 height: 1,
+                fontWeight: FontWeight.w600,
               ),
               textAlign: TextAlign.center,
             ),

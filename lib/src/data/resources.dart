@@ -329,7 +329,7 @@ class Resources {
         name: "Rope",
         namePlural: "Rope",
         description: "Used to craft more advanced items.",
-        secondsToCraft: 10,
+        secondsToCraft: 3,
         ingredients: [
           Ingredient(resource: Resources.straw, quantity: 5),
         ],
@@ -547,9 +547,9 @@ class Resources {
       namePlural: "Smelter",
       secondsToCraft: 10,
       ingredients: [
-        Ingredient(resource: Resources.iron, quantity: 20),
-        Ingredient(resource: Resources.clay, quantity: 10),
-        Ingredient(resource: Resources.stone, quantity: 10),
+        Ingredient(resource: Resources.iron, quantity: 10),
+        Ingredient(resource: Resources.clay, quantity: 5),
+        Ingredient(resource: Resources.stone, quantity: 5),
       ],
       storageType: StorageType.all,
       canPlace: true,
@@ -604,8 +604,8 @@ class Resources {
       powerConsumed: 0.25,
       showInventoryColumnInResourceContentsMenuOverride: false,
       ingredients: [
-        Ingredient(resource: Resources.iron, quantity: 10),
-        Ingredient(resource: Resources.stone, quantity: 10),
+        Ingredient(resource: Resources.iron, quantity: 5),
+        Ingredient(resource: Resources.stone, quantity: 5),
       ],
       miningOutputResource: Resources.iron,
       researchRequirements: [
@@ -633,8 +633,8 @@ class Resources {
       storageType: StorageType.solid,
       showInventoryColumnInResourceContentsMenuOverride: false,
       ingredients: [
-        Ingredient(resource: Resources.iron, quantity: 20),
-        Ingredient(resource: Resources.stone, quantity: 20),
+        Ingredient(resource: Resources.iron, quantity: 10),
+        Ingredient(resource: Resources.stone, quantity: 10),
       ],
       miningOutputResource: Resources.iron,
       powerConsumed: 0.5,
@@ -758,8 +758,8 @@ class Resources {
             Resources.lumber,
           ],
           ingredients: [
-            Ingredient(resource: Resources.stone, quantity: 25),
-            Ingredient(resource: Resources.clay, quantity: 40),
+            Ingredient(resource: Resources.stone, quantity: 10),
+            Ingredient(resource: Resources.clay, quantity: 15),
           ],
           researchRequirements: [
             ResearchLevels.storage1,

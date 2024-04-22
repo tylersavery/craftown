@@ -8,6 +8,7 @@ class HoldDownButton extends StatefulWidget {
   final String? disabledMessage;
   final bool completeOnClick;
   final bool small;
+  final bool showHint;
   const HoldDownButton({
     super.key,
     required this.label,
@@ -16,6 +17,7 @@ class HoldDownButton extends StatefulWidget {
     this.disabledMessage,
     this.completeOnClick = false,
     this.small = false,
+    this.showHint = false,
   });
 
   @override
@@ -93,6 +95,20 @@ class _HoldDownButtonState extends State<HoldDownButton> {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.black12,
+                border: Border(
+                  left: BorderSide(
+                    width: 2,
+                    color: Colors.black12,
+                  ),
+                  top: BorderSide(
+                    width: 2,
+                    color: Colors.black12,
+                  ),
+                  right: BorderSide(
+                    width: 2,
+                    color: Colors.black12,
+                  ),
+                ),
               ),
               width: double.infinity,
               height: widget.small ? 32 : 80,
@@ -114,6 +130,18 @@ class _HoldDownButtonState extends State<HoldDownButton> {
                             height: 1,
                             color: Colors.black54,
                           ),
+                        ),
+                      if (widget.showHint && !widget.completeOnClick)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: Text(
+                            "(Hold Button Down)",
+                            style: TextStyle(
+                              fontSize: 12,
+                              height: 1,
+                              color: Colors.black54,
+                            ),
+                          ),
                         )
                     ],
                   ),
@@ -122,9 +150,28 @@ class _HoldDownButtonState extends State<HoldDownButton> {
             ),
           ),
         ),
-        LinearProgressIndicator(
-          value: _progress,
-          minHeight: 8,
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.black12,
+            border: Border(
+              left: BorderSide(
+                width: 2,
+                color: Colors.black12,
+              ),
+              bottom: BorderSide(
+                width: 2,
+                color: Colors.black12,
+              ),
+              right: BorderSide(
+                width: 2,
+                color: Colors.black12,
+              ),
+            ),
+          ),
+          child: LinearProgressIndicator(
+            value: _progress,
+            minHeight: 8,
+          ),
         ),
       ],
     );

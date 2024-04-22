@@ -68,7 +68,7 @@ class Resource with _$Resource {
     @Default(0) int resourcesPerSlot,
     @Default(0) int outputSlotSize,
     @Default(false) bool isSeed,
-    @Default(120) int secondsToGrow,
+    @Default(30) int secondsToGrow,
     Resource? growsInto,
     @Default(1) int farmYieldMin,
     @Default(1) int farmYieldMax,

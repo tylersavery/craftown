@@ -9,18 +9,21 @@ class GameMenuButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
-      onTap: () {
-        ref.read(gameMenuProvider.notifier).open();
-      },
-      child: Container(
-        color: Colors.black38,
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Icon(
-            Icons.menu,
-            color: Colors.white,
-            size: 16,
+    return Tooltip(
+      message: "Menu",
+      child: InkWell(
+        onTap: () {
+          ref.read(gameMenuProvider.notifier).open();
+        },
+        child: Container(
+          color: Colors.black38,
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Icon(
+              Icons.menu,
+              color: Colors.white,
+              size: 16,
+            ),
           ),
         ),
       ),

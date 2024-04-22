@@ -6,7 +6,7 @@ part of 'conveyor_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$conveyorListHash() => r'd7577d61a0132bfba8fa25e9657450274a4bb3a2';
+String _$conveyorListHash() => r'5df7c79af64dc47e97fd4894e3f5876d5d2766a8';
 
 /// See also [ConveyorList].
 @ProviderFor(ConveyorList)

@@ -34,7 +34,7 @@ void main() async {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            fontFamily: 'PixelifySans',
+            fontFamily: 'NotoSans',
           ),
           home: App(),
         ),

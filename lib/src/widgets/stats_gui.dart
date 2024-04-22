@@ -59,32 +59,38 @@ class StatsGui extends ConsumerWidget {
                                   ref.read(calendarProvider.notifier).nextMonth();
                                 }
                               : null,
-                          child: Text(
-                            "${calendar.month.label}, ${calendar.year}",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.white,
-                            ),
-                          ),
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            PixelArtImageAsset(
-                              "assets/images/coins-16x16.png",
-                              width: 16,
-                              height: 16,
-                            ),
-                            Text(
-                              "${state.dollars}",
+                          child: Tooltip(
+                            message: "Date",
+                            child: Text(
+                              "${calendar.month.label}, ${calendar.year}",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
+                                decoration: TextDecoration.underline,
+                                decorationColor: Colors.white,
                               ),
-                            )
-                          ],
+                            ),
+                          ),
+                        ),
+                        Tooltip(
+                          message: "Coins",
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              PixelArtImageAsset(
+                                "assets/images/coins-16x16.png",
+                                width: 16,
+                                height: 16,
+                              ),
+                              Text(
+                                "${state.dollars}",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),

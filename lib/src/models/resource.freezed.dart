@@ -1031,7 +1031,7 @@ class _$ResourceImpl extends _Resource {
       this.resourcesPerSlot = 0,
       this.outputSlotSize = 0,
       this.isSeed = false,
-      this.secondsToGrow = 120,
+      this.secondsToGrow = 30,
       this.growsInto,
       this.farmYieldMin = 1,
       this.farmYieldMax = 1,

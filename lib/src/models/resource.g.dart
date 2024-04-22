@@ -62,7 +62,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       resourcesPerSlot: json['resourcesPerSlot'] as int? ?? 0,
       outputSlotSize: json['outputSlotSize'] as int? ?? 0,
       isSeed: json['isSeed'] as bool? ?? false,
-      secondsToGrow: json['secondsToGrow'] as int? ?? 120,
+      secondsToGrow: json['secondsToGrow'] as int? ?? 30,
       growsInto: json['growsInto'] == null
           ? null
           : Resource.fromJson(json['growsInto'] as Map<String, dynamic>),

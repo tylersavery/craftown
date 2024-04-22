@@ -174,6 +174,7 @@ class CraftMenuWidget extends ConsumerWidget {
                               ? "Missing Resources"
                               : "Research Required",
                       label: "Craft",
+                      showHint: true,
                       onComplete: () {
                         invProvider.removeIngredients(selectedResource.ingredients);
                         invProvider.addResource(selectedResource);

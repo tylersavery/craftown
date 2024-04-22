@@ -36,38 +36,41 @@ class InventoryBar extends ConsumerWidget {
               width: 32,
               height: 32,
               child: slot.resource == null
-                  ? null
-                  : InkWell(
-                      onTap: () {
-                        menuProvider.openWith(index);
-                      },
-                      child: Stack(
-                        children: [
-                          if (slot.count > 0)
-                            Center(
-                              child: Image.asset(
-                                "assets/images/resources/${slot.resource!.assetFileName16}",
-                                width: 16,
-                                height: 16,
-                                fit: BoxFit.contain,
+                  ? Tooltip(message: "Empty Inventory Slot", child: SizedBox())
+                  : Tooltip(
+                      message: slot.resource!.name,
+                      child: InkWell(
+                        onTap: () {
+                          menuProvider.openWith(index);
+                        },
+                        child: Stack(
+                          children: [
+                            if (slot.count > 0)
+                              Center(
+                                child: Image.asset(
+                                  "assets/images/resources/${slot.resource!.assetFileName16}",
+                                  width: 16,
+                                  height: 16,
+                                  fit: BoxFit.contain,
+                                ),
                               ),
-                            ),
-                          if (slot.count > 0)
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Text(
-                                  slot.count.toString(),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    height: 1,
+                            if (slot.count > 0)
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(
+                                    slot.count.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      height: 1,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
             );
@@ -77,22 +80,25 @@ class InventoryBar extends ConsumerWidget {
           onTap: () {
             menuProvider.resetAndOpen();
           },
-          child: Container(
-            key: Key("more"),
-            width: 32,
-            height: 32,
-            decoration: BoxDecoration(
-              color: Colors.black45,
-            ),
-            child: Center(
-              child: Transform.translate(
-                offset: Offset(0, -3),
-                child: Text(
-                  '...',
-                  style: TextStyle(
-                    fontSize: 12,
-                    height: 1,
-                    color: Colors.white,
+          child: Tooltip(
+            message: "Open Inventory",
+            child: Container(
+              key: Key("more"),
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: Colors.black45,
+              ),
+              child: Center(
+                child: Transform.translate(
+                  offset: Offset(0, -3),
+                  child: Text(
+                    '...',
+                    style: TextStyle(
+                      fontSize: 12,
+                      height: 1,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),

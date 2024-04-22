@@ -8,24 +8,27 @@ class StoreButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
-      onTap: () {
-        ref.read(storeMenuProvider.notifier).open();
-      },
-      child: Container(
-        width: 32,
-        height: 32,
-        decoration: BoxDecoration(
-          color: Colors.black45,
-          border: Border.all(
-            width: 1,
-            color: Colors.white38,
+    return Tooltip(
+      message: "Store",
+      child: InkWell(
+        onTap: () {
+          ref.read(storeMenuProvider.notifier).open();
+        },
+        child: Container(
+          width: 32,
+          height: 32,
+          decoration: BoxDecoration(
+            color: Colors.black45,
+            border: Border.all(
+              width: 1,
+              color: Colors.white38,
+            ),
           ),
-        ),
-        child: PixelArtImageAsset(
-          "assets/images/coins-16x16.png",
-          width: 16,
-          height: 16,
+          child: PixelArtImageAsset(
+            "assets/images/coins-16x16.png",
+            width: 16,
+            height: 16,
+          ),
         ),
       ),
     );

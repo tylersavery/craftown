@@ -36,7 +36,7 @@ class ResearchLevels {
       prerequisites: [],
       timeToUnlock: Duration(seconds: 30),
       cost: [
-        Ingredient(resource: Resources.rope, quantity: 10),
+        Ingredient(resource: Resources.rope, quantity: 3),
         Ingredient(resource: Resources.iron, quantity: 10),
       ],
     );
