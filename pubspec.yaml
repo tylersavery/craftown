@@ -121,16 +121,7 @@ flutter:
           weight: 600
         - asset: assets/fonts/NotoSans-Bold.ttf
           weight: 700
-    # - family: PixelifySans
-    #   fonts:
-    #     - asset: assets/fonts/PixelifySans-Regular.ttf
-    #       weight: 400
-    #     - asset: assets/fonts/PixelifySans-Medium.ttf
-    #       weight: 500
-    #     - asset: assets/fonts/PixelifySans-SemiBold.ttf
-    #       weight: 600
-    #     - asset: assets/fonts/PixelifySans-Bold.ttf
-    #       weight: 700
+
    
   #
   # For details regarding fonts from package dependencies,
