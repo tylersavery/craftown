@@ -235,9 +235,6 @@ class SavedGameList extends _$SavedGameList {
         placedFarmlands: updatedPlacedFarmlands,
         tutorialStep: ref.read(tutorialProvider));
 
-    print(game.placedFarmlands);
-    print("----");
-
     final data = game.toJson();
 
     if (overwrite != null) {

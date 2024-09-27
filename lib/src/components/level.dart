@@ -38,7 +38,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:flutter/src/services/raw_keyboard.dart';
+import 'package:flutter/services.dart';
 
 class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, KeyboardHandler, TapCallbacks {
   final String levelName;
@@ -117,7 +117,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
   }
 
   @override
-  bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+  bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     final shiftKeyPressed = keysPressed.contains(LogicalKeyboardKey.shiftLeft);
     ref.read(modifierKeyProvider.notifier).setShift(shiftKeyPressed);
 

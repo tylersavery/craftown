@@ -15,7 +15,7 @@ import 'package:craftown/src/utils/collisions.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
-import 'package:flutter/src/services/raw_keyboard.dart';
+import 'package:flutter/services.dart';
 
 enum PlayerState {
   idleUp("Walk_Up", 1),
@@ -226,7 +226,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<Craftown>, Ri
   }
 
   @override
-  bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+  bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     horizontalMovement = 0.0;
     verticalMovement = 0.0;
 
