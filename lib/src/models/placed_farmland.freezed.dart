@@ -12,7 +12,7 @@ part of 'placed_farmland.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 PlacedFarmland _$PlacedFarmlandFromJson(Map<String, dynamic> json) {
   return _PlacedFarmland.fromJson(json);
@@ -25,8 +25,12 @@ mixin _$PlacedFarmland {
   int get tileX => throw _privateConstructorUsedError;
   int get tileY => throw _privateConstructorUsedError;
 
+  /// Serializes this PlacedFarmland to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PlacedFarmland
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PlacedFarmlandCopyWith<PlacedFarmland> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +56,8 @@ class _$PlacedFarmlandCopyWithImpl<$Res, $Val extends PlacedFarmland>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PlacedFarmland
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -80,6 +86,8 @@ class _$PlacedFarmlandCopyWithImpl<$Res, $Val extends PlacedFarmland>
     ) as $Val);
   }
 
+  /// Create a copy of PlacedFarmland
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FarmlandCopyWith<$Res> get farmland {
@@ -111,6 +119,8 @@ class __$$PlacedFarmlandImplCopyWithImpl<$Res>
       _$PlacedFarmlandImpl _value, $Res Function(_$PlacedFarmlandImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PlacedFarmland
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -180,12 +190,14 @@ class _$PlacedFarmlandImpl extends _PlacedFarmland {
             (identical(other.tileY, tileY) || other.tileY == tileY));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, identifier, farmland, tileX, tileY);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PlacedFarmland
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PlacedFarmlandImplCopyWith<_$PlacedFarmlandImpl> get copyWith =>
@@ -219,8 +231,11 @@ abstract class _PlacedFarmland extends PlacedFarmland {
   int get tileX;
   @override
   int get tileY;
+
+  /// Create a copy of PlacedFarmland
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PlacedFarmlandImplCopyWith<_$PlacedFarmlandImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

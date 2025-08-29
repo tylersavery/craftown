@@ -12,13 +12,15 @@ part of 'tool_menu_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ToolMenuState {
   bool get isOpen => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ToolMenuState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ToolMenuStateCopyWith<ToolMenuState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -42,6 +44,8 @@ class _$ToolMenuStateCopyWithImpl<$Res, $Val extends ToolMenuState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ToolMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -75,6 +79,8 @@ class __$$ToolMenuStateImplCopyWithImpl<$Res>
       _$ToolMenuStateImpl _value, $Res Function(_$ToolMenuStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ToolMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -114,7 +120,9 @@ class _$ToolMenuStateImpl implements _ToolMenuState {
   @override
   int get hashCode => Object.hash(runtimeType, isOpen);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ToolMenuState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ToolMenuStateImplCopyWith<_$ToolMenuStateImpl> get copyWith =>
@@ -126,8 +134,11 @@ abstract class _ToolMenuState implements ToolMenuState {
 
   @override
   bool get isOpen;
+
+  /// Create a copy of ToolMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ToolMenuStateImplCopyWith<_$ToolMenuStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

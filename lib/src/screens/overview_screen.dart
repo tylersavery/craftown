@@ -38,18 +38,26 @@ class OverviewScreen extends ConsumerWidget {
                       fontFamily: 'PixelifySans',
                     ),
                     children: [
-                      TextSpan(text: "Welcome to Craftown, ${ref.watch(selectedCharacterProvider).name}!"),
+                      TextSpan(
+                          text:
+                              "Welcome to Craftown, ${ref.watch(selectedCharacterProvider).name}!"),
                       TextSpan(text: "\n\n"),
                       TextSpan(
                           text: isTouchDevice(context)
                               ? "Use the joystick to walk around. Tap your screen to interact. Double tap for bulk actions."
                               : "Walk with the arrow keys or WASD. Click with your mouse to interact. Hold shift for bulk actions."),
                       TextSpan(text: "\n\n"),
-                      TextSpan(text: "You've been provided with a few starting items to help get your adventure started."),
+                      TextSpan(
+                          text:
+                              "You've been provided with a few starting items to help get your adventure started."),
                       TextSpan(text: "\n\n"),
-                      TextSpan(text: "Mine resources, craft items, automate your workflow."),
+                      TextSpan(
+                          text:
+                              "Mine resources, craft items, automate your workflow."),
                       TextSpan(text: "\n\n"),
-                      TextSpan(text: "Don't forget to watch your stats. If you get too tired, thirsty, or hungry, you will pass out."),
+                      TextSpan(
+                          text:
+                              "Don't forget to watch your stats. If you get too tired, thirsty, or hungry, you will pass out."),
                       TextSpan(text: "\n\n"),
                       TextSpan(text: "Good luck, and have fun!"),
                     ],
@@ -70,7 +78,9 @@ class OverviewScreen extends ConsumerWidget {
                 if (forOnboarding)
                   TextButton(
                     onPressed: () {
-                      ref.read(appProvider.notifier).set(AppState.characterSelection);
+                      ref
+                          .read(appProvider.notifier)
+                          .set(AppState.characterSelection);
                     },
                     child: Text(
                       "Change Character",

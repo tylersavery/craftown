@@ -10,8 +10,8 @@ _$PlacedFarmlandImpl _$$PlacedFarmlandImplFromJson(Map<String, dynamic> json) =>
     _$PlacedFarmlandImpl(
       identifier: json['identifier'] as String,
       farmland: Farmland.fromJson(json['farmland'] as Map<String, dynamic>),
-      tileX: json['tileX'] as int,
-      tileY: json['tileY'] as int,
+      tileX: (json['tileX'] as num).toInt(),
+      tileY: (json['tileY'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$PlacedFarmlandImplToJson(

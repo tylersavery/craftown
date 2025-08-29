@@ -7,7 +7,7 @@ part of 'stats.dart';
 // **************************************************************************
 
 _$StatsImpl _$$StatsImplFromJson(Map<String, dynamic> json) => _$StatsImpl(
-      dollars: json['dollars'] as int,
+      dollars: (json['dollars'] as num).toInt(),
       sustainability: (json['sustainability'] as num).toDouble(),
       energy: (json['energy'] as num).toDouble(),
       hunger: (json['hunger'] as num).toDouble(),

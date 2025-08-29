@@ -28,11 +28,12 @@ _$PlacedResourceImpl _$$PlacedResourceImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      tileX: json['tileX'] as int,
-      tileY: json['tileY'] as int,
-      tileSizeX: json['tileSizeX'] as int,
-      tileSizeY: json['tileSizeY'] as int,
-      rotationQuarterTurns: json['rotationQuarterTurns'] as int? ?? 0,
+      tileX: (json['tileX'] as num).toInt(),
+      tileY: (json['tileY'] as num).toInt(),
+      tileSizeX: (json['tileSizeX'] as num).toInt(),
+      tileSizeY: (json['tileSizeY'] as num).toInt(),
+      rotationQuarterTurns:
+          (json['rotationQuarterTurns'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$PlacedResourceImplToJson(

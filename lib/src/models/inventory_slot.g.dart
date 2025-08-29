@@ -11,7 +11,7 @@ _$InventorySlotImpl _$$InventorySlotImplFromJson(Map<String, dynamic> json) =>
       resource: json['resource'] == null
           ? null
           : Resource.fromJson(json['resource'] as Map<String, dynamic>),
-      count: json['count'] as int? ?? 0,
+      count: (json['count'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$InventorySlotImplToJson(_$InventorySlotImpl instance) =>

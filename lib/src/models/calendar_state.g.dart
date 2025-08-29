@@ -8,8 +8,8 @@ part of 'calendar_state.dart';
 
 _$CalendarStateImpl _$$CalendarStateImplFromJson(Map<String, dynamic> json) =>
     _$CalendarStateImpl(
-      monthIndex: json['monthIndex'] as int? ?? 0,
-      yearIndex: json['yearIndex'] as int? ?? 0,
+      monthIndex: (json['monthIndex'] as num?)?.toInt() ?? 0,
+      yearIndex: (json['yearIndex'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$CalendarStateImplToJson(_$CalendarStateImpl instance) =>

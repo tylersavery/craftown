@@ -1,24 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_provider.dart';
+part of 'npc_list_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appHash() => r'04e8331742d9dd8c96395818f6b30e464cb294d5';
+String _$npcListHash() => r'ba9c034f0d684d15292f91445399d290378fdd59';
 
-/// See also [App].
-@ProviderFor(App)
-final appProvider = NotifierProvider<App, AppState>.internal(
-  App.new,
-  name: r'appProvider',
+/// See also [NpcList].
+@ProviderFor(NpcList)
+final npcListProvider =
+    AutoDisposeNotifierProvider<NpcList, List<Npc>>.internal(
+  NpcList.new,
+  name: r'npcListProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$appHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$npcListHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$App = Notifier<AppState>;
+typedef _$NpcList = AutoDisposeNotifier<List<Npc>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

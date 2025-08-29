@@ -12,7 +12,7 @@ part of 'tutorial_step.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 TutorialStep _$TutorialStepFromJson(Map<String, dynamic> json) {
   return _TutorialStep.fromJson(json);
@@ -30,8 +30,12 @@ mixin _$TutorialStep {
       throw _privateConstructorUsedError;
   bool get powerAvailableRequired => throw _privateConstructorUsedError;
 
+  /// Serializes this TutorialStep to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TutorialStep
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TutorialStepCopyWith<TutorialStep> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +66,8 @@ class _$TutorialStepCopyWithImpl<$Res, $Val extends TutorialStep>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TutorialStep
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -132,6 +138,8 @@ class __$$TutorialStepImplCopyWithImpl<$Res>
       _$TutorialStepImpl _value, $Res Function(_$TutorialStepImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TutorialStep
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -259,7 +267,7 @@ class _$TutorialStepImpl extends _TutorialStep {
                 other.powerAvailableRequired == powerAvailableRequired));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -271,7 +279,9 @@ class _$TutorialStepImpl extends _TutorialStep {
       const DeepCollectionEquality().hash(_researchLevelsRequired),
       powerAvailableRequired);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TutorialStep
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TutorialStepImplCopyWith<_$TutorialStepImpl> get copyWith =>
@@ -313,8 +323,11 @@ abstract class _TutorialStep extends TutorialStep {
   List<ResearchLevel> get researchLevelsRequired;
   @override
   bool get powerAvailableRequired;
+
+  /// Create a copy of TutorialStep
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TutorialStepImplCopyWith<_$TutorialStepImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

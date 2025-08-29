@@ -9,9 +9,9 @@ part of 'placed_conveyor.dart';
 _$PlacedConveyorImpl _$$PlacedConveyorImplFromJson(Map<String, dynamic> json) =>
     _$PlacedConveyorImpl(
       identifier: json['identifier'] as String,
-      tileX: json['tileX'] as int,
-      tileY: json['tileY'] as int,
-      quarterTurns: json['quarterTurns'] as int,
+      tileX: (json['tileX'] as num).toInt(),
+      tileY: (json['tileY'] as num).toInt(),
+      quarterTurns: (json['quarterTurns'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$PlacedConveyorImplToJson(

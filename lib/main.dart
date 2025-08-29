@@ -24,7 +24,8 @@ void main() async {
 
   await Flame.device.fullScreen();
   await Flame.device.setLandscape();
-  await FlameAudio.audioCache.loadAll(AudioAsset.values.map((a) => a.assetName).toList());
+  await FlameAudio.audioCache
+      .loadAll(AudioAsset.values.map((a) => a.assetName).toList());
 
   await Singletons.initialize();
 

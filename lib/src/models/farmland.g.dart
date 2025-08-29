@@ -15,7 +15,7 @@ _$FarmlandImpl _$$FarmlandImplFromJson(Map<String, dynamic> json) =>
       completeAt: json['completeAt'] == null
           ? null
           : DateTime.parse(json['completeAt'] as String),
-      wateringCount: json['wateringCount'] as int? ?? 0,
+      wateringCount: (json['wateringCount'] as num?)?.toInt() ?? 0,
       state: json['state'] == null
           ? FarmlandState.untouched
           : farmlandStateFromJson(json['state'] as String),

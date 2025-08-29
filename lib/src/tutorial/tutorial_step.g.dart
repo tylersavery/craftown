@@ -8,7 +8,7 @@ part of 'tutorial_step.dart';
 
 _$TutorialStepImpl _$$TutorialStepImplFromJson(Map<String, dynamic> json) =>
     _$TutorialStepImpl(
-      index: json['index'] as int,
+      index: (json['index'] as num).toInt(),
       name: json['name'] as String,
       description: json['description'] as String,
       resourcesRequired: (json['resourcesRequired'] as List<dynamic>?)

@@ -12,7 +12,7 @@ part of 'inventory_slot.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 InventorySlot _$InventorySlotFromJson(Map<String, dynamic> json) {
   return _InventorySlot.fromJson(json);
@@ -23,8 +23,12 @@ mixin _$InventorySlot {
   Resource? get resource => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
 
+  /// Serializes this InventorySlot to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of InventorySlot
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $InventorySlotCopyWith<InventorySlot> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$InventorySlotCopyWithImpl<$Res, $Val extends InventorySlot>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of InventorySlot
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -68,6 +74,8 @@ class _$InventorySlotCopyWithImpl<$Res, $Val extends InventorySlot>
     ) as $Val);
   }
 
+  /// Create a copy of InventorySlot
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ResourceCopyWith<$Res>? get resource {
@@ -103,6 +111,8 @@ class __$$InventorySlotImplCopyWithImpl<$Res>
       _$InventorySlotImpl _value, $Res Function(_$InventorySlotImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of InventorySlot
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -151,11 +161,13 @@ class _$InventorySlotImpl implements _InventorySlot {
             (identical(other.count, count) || other.count == count));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, resource, count);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of InventorySlot
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InventorySlotImplCopyWith<_$InventorySlotImpl> get copyWith =>
@@ -180,8 +192,11 @@ abstract class _InventorySlot implements InventorySlot {
   Resource? get resource;
   @override
   int get count;
+
+  /// Create a copy of InventorySlot
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InventorySlotImplCopyWith<_$InventorySlotImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

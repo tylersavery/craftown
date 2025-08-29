@@ -9,7 +9,7 @@ part of 'ingredient.dart';
 _$IngredientImpl _$$IngredientImplFromJson(Map<String, dynamic> json) =>
     _$IngredientImpl(
       resource: Resource.fromJson(json['resource'] as Map<String, dynamic>),
-      quantity: json['quantity'] as int? ?? 1,
+      quantity: (json['quantity'] as num?)?.toInt() ?? 1,
     );
 
 Map<String, dynamic> _$$IngredientImplToJson(_$IngredientImpl instance) =>

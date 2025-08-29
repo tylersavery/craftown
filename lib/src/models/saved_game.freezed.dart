@@ -12,7 +12,7 @@ part of 'saved_game.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 SavedGame _$SavedGameFromJson(Map<String, dynamic> json) {
   return _SavedGame.fromJson(json);
@@ -40,8 +40,12 @@ mixin _$SavedGame {
       throw _privateConstructorUsedError;
   TutorialStep? get tutorialStep => throw _privateConstructorUsedError;
 
+  /// Serializes this SavedGame to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SavedGame
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SavedGameCopyWith<SavedGame> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -88,6 +92,8 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SavedGame
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -181,6 +187,8 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
     ) as $Val);
   }
 
+  /// Create a copy of SavedGame
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $CharacterCopyWith<$Res> get character {
@@ -189,6 +197,8 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
     });
   }
 
+  /// Create a copy of SavedGame
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $StatsCopyWith<$Res> get stats {
@@ -197,6 +207,8 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
     });
   }
 
+  /// Create a copy of SavedGame
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ResourceCopyWith<$Res>? get inHand {
@@ -209,6 +221,8 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
     });
   }
 
+  /// Create a copy of SavedGame
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ResearchLevelCopyWith<$Res>? get isResearching {
@@ -221,6 +235,8 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
     });
   }
 
+  /// Create a copy of SavedGame
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $CalendarStateCopyWith<$Res> get calendarState {
@@ -229,6 +245,8 @@ class _$SavedGameCopyWithImpl<$Res, $Val extends SavedGame>
     });
   }
 
+  /// Create a copy of SavedGame
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TutorialStepCopyWith<$Res>? get tutorialStep {
@@ -291,6 +309,8 @@ class __$$SavedGameImplCopyWithImpl<$Res>
       _$SavedGameImpl _value, $Res Function(_$SavedGameImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SavedGame
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -529,7 +549,7 @@ class _$SavedGameImpl extends _SavedGame {
                 other.tutorialStep == tutorialStep));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -551,7 +571,9 @@ class _$SavedGameImpl extends _SavedGame {
       const DeepCollectionEquality().hash(_placedFarmlands),
       tutorialStep);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SavedGame
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SavedGameImplCopyWith<_$SavedGameImpl> get copyWith =>
@@ -623,8 +645,11 @@ abstract class _SavedGame extends SavedGame {
   List<PlacedFarmland> get placedFarmlands;
   @override
   TutorialStep? get tutorialStep;
+
+  /// Create a copy of SavedGame
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SavedGameImplCopyWith<_$SavedGameImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

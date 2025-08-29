@@ -12,7 +12,7 @@ part of 'placed_conveyor.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 PlacedConveyor _$PlacedConveyorFromJson(Map<String, dynamic> json) {
   return _PlacedConveyor.fromJson(json);
@@ -25,8 +25,12 @@ mixin _$PlacedConveyor {
   int get tileY => throw _privateConstructorUsedError;
   int get quarterTurns => throw _privateConstructorUsedError;
 
+  /// Serializes this PlacedConveyor to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PlacedConveyor
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PlacedConveyorCopyWith<PlacedConveyor> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$PlacedConveyorCopyWithImpl<$Res, $Val extends PlacedConveyor>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PlacedConveyor
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -98,6 +104,8 @@ class __$$PlacedConveyorImplCopyWithImpl<$Res>
       _$PlacedConveyorImpl _value, $Res Function(_$PlacedConveyorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PlacedConveyor
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -167,12 +175,14 @@ class _$PlacedConveyorImpl extends _PlacedConveyor {
                 other.quarterTurns == quarterTurns));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, identifier, tileX, tileY, quarterTurns);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PlacedConveyor
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PlacedConveyorImplCopyWith<_$PlacedConveyorImpl> get copyWith =>
@@ -206,8 +216,11 @@ abstract class _PlacedConveyor extends PlacedConveyor {
   int get tileY;
   @override
   int get quarterTurns;
+
+  /// Create a copy of PlacedConveyor
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PlacedConveyorImplCopyWith<_$PlacedConveyorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

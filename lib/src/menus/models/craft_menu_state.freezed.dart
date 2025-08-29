@@ -12,14 +12,16 @@ part of 'craft_menu_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$CraftMenuState {
   bool get isOpen => throw _privateConstructorUsedError;
   int get selectedIndex => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CraftMenuState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CraftMenuStateCopyWith<CraftMenuState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,6 +45,8 @@ class _$CraftMenuStateCopyWithImpl<$Res, $Val extends CraftMenuState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CraftMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -81,6 +85,8 @@ class __$$CraftMenuStateImplCopyWithImpl<$Res>
       _$CraftMenuStateImpl _value, $Res Function(_$CraftMenuStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CraftMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -130,7 +136,9 @@ class _$CraftMenuStateImpl implements _CraftMenuState {
   @override
   int get hashCode => Object.hash(runtimeType, isOpen, selectedIndex);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CraftMenuState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CraftMenuStateImplCopyWith<_$CraftMenuStateImpl> get copyWith =>
@@ -146,8 +154,11 @@ abstract class _CraftMenuState implements CraftMenuState {
   bool get isOpen;
   @override
   int get selectedIndex;
+
+  /// Create a copy of CraftMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CraftMenuStateImplCopyWith<_$CraftMenuStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

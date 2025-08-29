@@ -12,7 +12,7 @@ part of 'resource.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Resource _$ResourceFromJson(Map<String, dynamic> json) {
   return _Resource.fromJson(json);
@@ -94,8 +94,12 @@ mixin _$Resource {
   bool? get showInventoryColumnInResourceContentsMenuOverride =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this Resource to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Resource
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ResourceCopyWith<Resource> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -189,6 +193,8 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Resource
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -533,6 +539,8 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     ) as $Val);
   }
 
+  /// Create a copy of Resource
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ResourceCopyWith<$Res>? get growsInto {
@@ -545,6 +553,8 @@ class _$ResourceCopyWithImpl<$Res, $Val extends Resource>
     });
   }
 
+  /// Create a copy of Resource
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ResourceCopyWith<$Res>? get miningOutputResource {
@@ -650,6 +660,8 @@ class __$$ResourceImplCopyWithImpl<$Res>
       _$ResourceImpl _value, $Res Function(_$ResourceImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Resource
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1299,7 +1311,9 @@ class _$ResourceImpl extends _Resource {
     return 'Resource(identifier: $identifier, name: $name, namePlural: $namePlural, assetFileName16: $assetFileName16, description: $description, assetFileNameLarge: $assetFileNameLarge, assetFileNameWhenFull: $assetFileNameWhenFull, isLiquid: $isLiquid, amountPerSlot: $amountPerSlot, ingredients: $ingredients, interactionRadius: $interactionRadius, secondsToSmelt: $secondsToSmelt, secondsToCraft: $secondsToCraft, secondsToMine: $secondsToMine, energyToMine: $energyToMine, interactionAnimation: $interactionAnimation, miningToolRequiredIdentifier: $miningToolRequiredIdentifier, hungerDecreaseOnConsumption: $hungerDecreaseOnConsumption, thirstDecreaseOnConsumption: $thirstDecreaseOnConsumption, canPlace: $canPlace, placeWithHitbox: $placeWithHitbox, canPickUp: $canPickUp, canConstruct: $canConstruct, canSmelt: $canSmelt, canFarm: $canFarm, placementWidth: $placementWidth, placementHeight: $placementHeight, requiredToMine: $requiredToMine, slots: $slots, storageType: $storageType, specificStorageWhitelist: $specificStorageWhitelist, resourcesPerSlot: $resourcesPerSlot, outputSlotSize: $outputSlotSize, isSeed: $isSeed, secondsToGrow: $secondsToGrow, growsInto: $growsInto, farmYieldMin: $farmYieldMin, farmYieldMax: $farmYieldMax, contentsWillSell: $contentsWillSell, saleValue: $saleValue, miningOutputResource: $miningOutputResource, canOnlyBePlacedOn: $canOnlyBePlacedOn, canOnlyBePlacedOnGround: $canOnlyBePlacedOnGround, restValue: $restValue, storeCost: $storeCost, spawnedResourceHitboxWidth: $spawnedResourceHitboxWidth, spawnedResourceHitboxHeight: $spawnedResourceHitboxHeight, spawnedResourceHitboxOffsetX: $spawnedResourceHitboxOffsetX, spawnedResourceHitboxOffsetY: $spawnedResourceHitboxOffsetY, smeltsInto: $smeltsInto, isHouse: $isHouse, researchRequirements: $researchRequirements, equipsTool: $equipsTool, farmlandGrownAssetPath: $farmlandGrownAssetPath, farmlandGrownWidth: $farmlandGrownWidth, farmlandGrownHeight: $farmlandGrownHeight, canRotate: $canRotate, isConveyor: $isConveyor, assetFilename90Degrees: $assetFilename90Degrees, assetFilename180Degrees: $assetFilename180Degrees, assetFilename270Degrees: $assetFilename270Degrees, powerGenerated: $powerGenerated, powerConsumed: $powerConsumed, powerFuelConsumptionSeconds: $powerFuelConsumptionSeconds, fuelResourceOptions: $fuelResourceOptions, sustainabilityPenalty: $sustainabilityPenalty, showInventoryColumnInResourceContentsMenuOverride: $showInventoryColumnInResourceContentsMenuOverride)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Resource
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ResourceImplCopyWith<_$ResourceImpl> get copyWith =>
@@ -1524,8 +1538,11 @@ abstract class _Resource extends Resource {
   double get sustainabilityPenalty;
   @override
   bool? get showInventoryColumnInResourceContentsMenuOverride;
+
+  /// Create a copy of Resource
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ResourceImplCopyWith<_$ResourceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

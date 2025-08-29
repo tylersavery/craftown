@@ -12,7 +12,7 @@ part of 'research_menu_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ResearchMenuState {
@@ -23,7 +23,9 @@ mixin _$ResearchMenuState {
   DateTime? get researchStarted => throw _privateConstructorUsedError;
   double get scrollOffset => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ResearchMenuState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ResearchMenuStateCopyWith<ResearchMenuState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,6 +57,8 @@ class _$ResearchMenuStateCopyWithImpl<$Res, $Val extends ResearchMenuState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ResearchMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -88,6 +92,8 @@ class _$ResearchMenuStateCopyWithImpl<$Res, $Val extends ResearchMenuState>
     ) as $Val);
   }
 
+  /// Create a copy of ResearchMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ResearchLevelCopyWith<$Res>? get expandedResearchLevel {
@@ -100,6 +106,8 @@ class _$ResearchMenuStateCopyWithImpl<$Res, $Val extends ResearchMenuState>
     });
   }
 
+  /// Create a copy of ResearchMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ResearchLevelCopyWith<$Res>? get isResearching {
@@ -142,6 +150,8 @@ class __$$ResearchMenuStateImplCopyWithImpl<$Res>
       $Res Function(_$ResearchMenuStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ResearchMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -225,7 +235,9 @@ class _$ResearchMenuStateImpl extends _ResearchMenuState {
   int get hashCode => Object.hash(runtimeType, isOpen, expandedResearchLevel,
       isResearching, researchStarted, scrollOffset);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ResearchMenuState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ResearchMenuStateImplCopyWith<_$ResearchMenuStateImpl> get copyWith =>
@@ -252,8 +264,11 @@ abstract class _ResearchMenuState extends ResearchMenuState {
   DateTime? get researchStarted;
   @override
   double get scrollOffset;
+
+  /// Create a copy of ResearchMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ResearchMenuStateImplCopyWith<_$ResearchMenuStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

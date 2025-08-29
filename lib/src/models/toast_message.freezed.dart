@@ -12,7 +12,7 @@ part of 'toast_message.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ToastMessage {
@@ -22,7 +22,9 @@ mixin _$ToastMessage {
   Duration get duration => throw _privateConstructorUsedError;
   bool get isVisible => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ToastMessage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ToastMessageCopyWith<ToastMessage> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +53,8 @@ class _$ToastMessageCopyWithImpl<$Res, $Val extends ToastMessage>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ToastMessage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,6 +113,8 @@ class __$$ToastMessageImplCopyWithImpl<$Res>
       _$ToastMessageImpl _value, $Res Function(_$ToastMessageImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ToastMessage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -191,7 +197,9 @@ class _$ToastMessageImpl implements _ToastMessage {
   int get hashCode =>
       Object.hash(runtimeType, identifier, message, type, duration, isVisible);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ToastMessage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ToastMessageImplCopyWith<_$ToastMessageImpl> get copyWith =>
@@ -216,8 +224,11 @@ abstract class _ToastMessage implements ToastMessage {
   Duration get duration;
   @override
   bool get isVisible;
+
+  /// Create a copy of ToastMessage
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ToastMessageImplCopyWith<_$ToastMessageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

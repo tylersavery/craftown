@@ -14,7 +14,8 @@ _$ResearchLevelImpl _$$ResearchLevelImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => ResearchLevel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      timeToUnlock: Duration(microseconds: json['timeToUnlock'] as int),
+      timeToUnlock:
+          Duration(microseconds: (json['timeToUnlock'] as num).toInt()),
       cost: (json['cost'] as List<dynamic>)
           .map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
           .toList(),

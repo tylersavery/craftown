@@ -7,6 +7,7 @@ import 'package:craftown/src/components/collision_box.dart';
 import 'package:craftown/src/components/farmland_sprite.dart';
 import 'package:craftown/src/components/ghost_resource_sprite.dart';
 import 'package:craftown/src/components/grid_overlay.dart';
+import 'package:craftown/src/components/npc.dart';
 import 'package:craftown/src/components/player.dart';
 import 'package:craftown/src/components/resource_sprite.dart';
 import 'package:craftown/src/constants.dart';
@@ -25,6 +26,7 @@ import 'package:craftown/src/providers/farmland_list_provider.dart';
 import 'package:craftown/src/providers/keyboard_shortcut_provider.dart';
 import 'package:craftown/src/providers/map_resource_list_provider.dart';
 import 'package:craftown/src/providers/modifier_key_provider.dart';
+import 'package:craftown/src/providers/npc_list_provider.dart';
 import 'package:craftown/src/providers/occupied_coords_provider.dart';
 import 'package:craftown/src/providers/occupied_ground_coords_provider.dart';
 import 'package:craftown/src/providers/placed_farmland_list_provider.dart';
@@ -40,7 +42,12 @@ import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/services.dart';
 
-class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, KeyboardHandler, TapCallbacks {
+class Level extends World
+    with
+        HasGameRef<Craftown>,
+        RiverpodComponentMixin,
+        KeyboardHandler,
+        TapCallbacks {
   final String levelName;
   final Player player;
   final bool supportsWinter;
@@ -81,7 +88,9 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
     mapSummer = await TiledComponent.load("$levelName.tmx", Vector2.all(16))
       ..priority = 0;
 
-    mapWinter = await TiledComponent.load(supportsWinter ? "${levelName}_winter.tmx" : "$levelName.tmx", Vector2.all(16))
+    mapWinter = await TiledComponent.load(
+        supportsWinter ? "${levelName}_winter.tmx" : "$levelName.tmx",
+        Vector2.all(16))
       ..priority = 0;
 
     add(mapSummer);
@@ -91,6 +100,7 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
     _spawnResources();
     _spawnPlayer();
     _spawnFarmland();
+    _spawnNpcs();
     _addCollisions();
     return super.onLoad();
   }
@@ -231,7 +241,8 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
   }
 
   void _spawnPlayer() {
-    final spawnPointsLayer = mapSummer.tileMap.getLayer<ObjectGroup>("Spawnpoints");
+    final spawnPointsLayer =
+        mapSummer.tileMap.getLayer<ObjectGroup>("Spawnpoints");
     if (spawnPointsLayer != null) {
       for (final spawnPoint in spawnPointsLayer.objects) {
         switch (spawnPoint.class_) {
@@ -300,21 +311,24 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
                 final sprite = ResourceSprite(
                   placementUniqueIdentifier: uniqueIdentifier,
                   resource: resource,
-                  position: Vector2(object.x + (x * TILE_SIZE), object.y + (y * TILE_SIZE)),
+                  position: Vector2(
+                      object.x + (x * TILE_SIZE), object.y + (y * TILE_SIZE)),
                   size: Vector2(TILE_SIZE, TILE_SIZE),
                   isGround: isGround,
                 );
                 add(sprite);
 
                 Future.delayed(Duration(milliseconds: 10), () {
-                  ref.read(mapResourceListProvider.notifier).add(
-                        MapResource(
-                          uniqueIdentifier: uniqueIdentifier,
-                          sprite: sprite,
-                          tileX: (object.x / TILE_SIZE).round() + x,
-                          tileY: (object.y / TILE_SIZE).round() + y,
-                        ),
-                      );
+                  if (isMounted) {
+                    ref.read(mapResourceListProvider.notifier).add(
+                          MapResource(
+                            uniqueIdentifier: uniqueIdentifier,
+                            sprite: sprite,
+                            tileX: (object.x / TILE_SIZE).round() + x,
+                            tileY: (object.y / TILE_SIZE).round() + y,
+                          ),
+                        );
+                  }
                 });
               }
             }
@@ -330,8 +344,12 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
             if (resource.spawnedResourceHasHitbox) {
               final block = CollisionBlock(
-                position: Vector2(object.x + resource.spawnedResourceHitboxOffsetX, object.y + resource.spawnedResourceHitboxOffsetY),
-                size: Vector2(resource.spawnedResourceHitboxWidth ?? object.width, resource.spawnedResourceHitboxHeight ?? object.height),
+                position: Vector2(
+                    object.x + resource.spawnedResourceHitboxOffsetX,
+                    object.y + resource.spawnedResourceHitboxOffsetY),
+                size: Vector2(
+                    resource.spawnedResourceHitboxWidth ?? object.width,
+                    resource.spawnedResourceHitboxHeight ?? object.height),
               );
 
               collisionBlocks.add(block);
@@ -339,13 +357,15 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
             }
 
             Future.delayed(Duration(milliseconds: 10), () {
-              ref.read(mapResourceListProvider.notifier).add(
-                    MapResource(
-                        uniqueIdentifier: uniqueIdentifier,
-                        sprite: sprite,
-                        tileX: (object.x / TILE_SIZE).floor(),
-                        tileY: (object.y / TILE_SIZE).floor()),
-                  );
+              if (isMounted) {
+                ref.read(mapResourceListProvider.notifier).add(
+                      MapResource(
+                          uniqueIdentifier: uniqueIdentifier,
+                          sprite: sprite,
+                          tileX: (object.x / TILE_SIZE).floor(),
+                          tileY: (object.y / TILE_SIZE).floor()),
+                    );
+              }
 
               ref.read(placedResourcesListProvider.notifier).add(
                     uniqueIdentifier,
@@ -365,7 +385,8 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
   }
 
   void _addCollisions() {
-    final collisionsLayer = mapSummer.tileMap.getLayer<ObjectGroup>("CollisionBoxes");
+    final collisionsLayer =
+        mapSummer.tileMap.getLayer<ObjectGroup>("CollisionBoxes");
     if (collisionsLayer != null) {
       for (final collision in collisionsLayer.objects) {
         final block = CollisionBlock(
@@ -419,9 +440,15 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       PlacedResource? placedResourceAtCoords;
 
       outerLoop:
-      for (int x = tileX; x < (tileX + resource.placementWidth / TILE_SIZE).floor(); x++) {
-        for (int y = tileY - (resource.placementHeight / TILE_SIZE).floor() + 1; y <= tileY; y++) {
-          final coordWithResource = ref.read(occupiedCoordsProvider).firstWhereOrNull((c) => c.x == x && c.y == y);
+      for (int x = tileX;
+          x < (tileX + resource.placementWidth / TILE_SIZE).floor();
+          x++) {
+        for (int y = tileY - (resource.placementHeight / TILE_SIZE).floor() + 1;
+            y <= tileY;
+            y++) {
+          final coordWithResource = ref
+              .read(occupiedCoordsProvider)
+              .firstWhereOrNull((c) => c.x == x && c.y == y);
 
           if (coordWithResource != null) {
             placedResourceAtCoords = coordWithResource.placedResource;
@@ -430,16 +457,22 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
         }
       }
 
-      final resourceAtCoords =
-          ref.read(mapResourceListProvider).firstWhereOrNull((mapResource) => mapResource.tileX == tileX && mapResource.tileY == tileY);
+      final resourceAtCoords = ref
+          .read(mapResourceListProvider)
+          .firstWhereOrNull((mapResource) =>
+              mapResource.tileX == tileX && mapResource.tileY == tileY);
 
       if (placedResourceAtCoords != null) {
-        ref.read(toastMessagesListProvider.notifier).add("${placedResourceAtCoords.sprite.resource.name} is in the way.");
+        ref.read(toastMessagesListProvider.notifier).add(
+            "${placedResourceAtCoords.sprite.resource.name} is in the way.");
         return;
       }
 
       if (resource.canFarm) {
-        if (ref.read(occupiedGroundCoordsProvider).firstWhereOrNull((c) => c.x == tileX && c.y == tileY) != null) {
+        if (ref
+                .read(occupiedGroundCoordsProvider)
+                .firstWhereOrNull((c) => c.x == tileX && c.y == tileY) !=
+            null) {
           ref.read(toastMessagesListProvider.notifier).add("Can't farm here.");
           return;
         }
@@ -449,12 +482,17 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
 
       if (resource.canOnlyBePlacedOn != null) {
         if (resourceAtCoords == null) {
-          ref.read(toastMessagesListProvider.notifier).add("${resource.name} can't be placed here.");
+          ref
+              .read(toastMessagesListProvider.notifier)
+              .add("${resource.name} can't be placed here.");
           return;
         }
 
-        bool canBePlaced =
-            resource.canOnlyBePlacedOn!.firstWhereOrNull((element) => element.identifier == resourceAtCoords.sprite.resource.identifier) != null;
+        bool canBePlaced = resource.canOnlyBePlacedOn!.firstWhereOrNull(
+                (element) =>
+                    element.identifier ==
+                    resourceAtCoords.sprite.resource.identifier) !=
+            null;
         if (resource.canOnlyBePlacedOnGround) {
           if (!resourceAtCoords.sprite.isGround) {
             canBePlaced = false;
@@ -462,14 +500,17 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
         }
 
         if (!canBePlaced) {
-          ref.read(toastMessagesListProvider.notifier).add("${resource.name} can't be placed here.");
+          ref
+              .read(toastMessagesListProvider.notifier)
+              .add("${resource.name} can't be placed here.");
 
           return false;
         }
       }
 
       if (resource.isMiner && resourceAtCoords != null) {
-        updatedResource = resource.copyWith(miningOutputResource: resourceAtCoords.sprite.resource);
+        updatedResource = resource.copyWith(
+            miningOutputResource: resourceAtCoords.sprite.resource);
       }
 
       ref.read(resourceInHandProvider.notifier).clear();
@@ -489,12 +530,17 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
         ref.read(farmlandListProvider.notifier).add(farmland);
 
         ref.read(placedFarmlandListProvider.notifier).add(
-              PlacedFarmland(identifier: uniqueIdentifier, farmland: farmland, tileX: tileX, tileY: tileY),
+              PlacedFarmland(
+                  identifier: uniqueIdentifier,
+                  farmland: farmland,
+                  tileX: tileX,
+                  tileY: tileY),
             );
         return;
       }
 
-      final rotationQuarterTurns = resource.canRotate ? ref.read(rotateProvider).quarterTurns : 0;
+      final rotationQuarterTurns =
+          resource.canRotate ? ref.read(rotateProvider).quarterTurns : 0;
 
       final newResource = ResourceSprite(
         resource: updatedResource ?? resource,
@@ -539,11 +585,15 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
       }
 
       if (resource.isMiner) {
-        ref.read(placedResourceDetailProvider(uniqueIdentifier).notifier).startMining();
+        ref
+            .read(placedResourceDetailProvider(uniqueIdentifier).notifier)
+            .startMining();
       }
 
       if (resource.canGeneratePower && resource.fuelResourceOptions.isEmpty) {
-        ref.read(placedResourceDetailProvider(uniqueIdentifier).notifier).startPowerGenerating();
+        ref
+            .read(placedResourceDetailProvider(uniqueIdentifier).notifier)
+            .startPowerGenerating();
       }
     }
   }
@@ -578,12 +628,28 @@ class Level extends World with HasGameRef<Craftown>, RiverpodComponentMixin, Key
         }
 
         Future.delayed(Duration(milliseconds: 10), () {
-          for (final identifier in identifiers) {
-            ref.read(farmlandListProvider.notifier).add(Farmland(identifier: identifier));
+          if (isMounted) {
+            for (final identifier in identifiers) {
+              ref
+                  .read(farmlandListProvider.notifier)
+                  .add(Farmland(identifier: identifier));
+            }
           }
         });
       }
     }
+  }
+
+  void _spawnNpcs() {
+    Future.delayed(Duration(milliseconds: 50), () {
+      if (isMounted) {
+        final npcs = ref.read(npcListProvider);
+        for (final npcData in npcs) {
+          final npcComponent = NpcComponent(npcData: npcData);
+          add(npcComponent);
+        }
+      }
+    });
   }
 
   void _handleSeasons(double dt) {

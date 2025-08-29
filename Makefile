@@ -7,3 +7,6 @@ build_web:
 
 deploy_web:
 	make build_web && firebase deploy --only hosting
+
+gen:
+	flutter packages pub run build_runner build --delete-conflicting-outputs 

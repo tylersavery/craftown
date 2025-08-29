@@ -12,7 +12,7 @@ part of 'map_resource.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 MapResource _$MapResourceFromJson(Map<String, dynamic> json) {
   return _MapResource.fromJson(json);
@@ -25,8 +25,12 @@ mixin _$MapResource {
   int get tileX => throw _privateConstructorUsedError;
   int get tileY => throw _privateConstructorUsedError;
 
+  /// Serializes this MapResource to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MapResource
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MapResourceCopyWith<MapResource> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +55,8 @@ class _$MapResourceCopyWithImpl<$Res, $Val extends MapResource>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MapResource
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -100,6 +106,8 @@ class __$$MapResourceImplCopyWithImpl<$Res>
       _$MapResourceImpl _value, $Res Function(_$MapResourceImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MapResource
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -168,12 +176,14 @@ class _$MapResourceImpl extends _MapResource {
             (identical(other.tileY, tileY) || other.tileY == tileY));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, uniqueIdentifier, sprite, tileX, tileY);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MapResource
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MapResourceImplCopyWith<_$MapResourceImpl> get copyWith =>
@@ -206,8 +216,11 @@ abstract class _MapResource extends MapResource {
   int get tileX;
   @override
   int get tileY;
+
+  /// Create a copy of MapResource
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MapResourceImplCopyWith<_$MapResourceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

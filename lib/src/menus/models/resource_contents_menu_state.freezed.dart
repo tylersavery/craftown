@@ -12,14 +12,16 @@ part of 'resource_contents_menu_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ResourceContentsMenuState {
   bool get isOpen => throw _privateConstructorUsedError;
   PlacedResource? get placedResource => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ResourceContentsMenuState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ResourceContentsMenuStateCopyWith<ResourceContentsMenuState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -46,6 +48,8 @@ class _$ResourceContentsMenuStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ResourceContentsMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -64,6 +68,8 @@ class _$ResourceContentsMenuStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of ResourceContentsMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PlacedResourceCopyWith<$Res>? get placedResource {
@@ -102,6 +108,8 @@ class __$$ResourceContentsMenuStateImplCopyWithImpl<$Res>
       $Res Function(_$ResourceContentsMenuStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ResourceContentsMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -151,7 +159,9 @@ class _$ResourceContentsMenuStateImpl implements _ResourceContentsMenuState {
   @override
   int get hashCode => Object.hash(runtimeType, isOpen, placedResource);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ResourceContentsMenuState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ResourceContentsMenuStateImplCopyWith<_$ResourceContentsMenuStateImpl>
@@ -168,8 +178,11 @@ abstract class _ResourceContentsMenuState implements ResourceContentsMenuState {
   bool get isOpen;
   @override
   PlacedResource? get placedResource;
+
+  /// Create a copy of ResourceContentsMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ResourceContentsMenuStateImplCopyWith<_$ResourceContentsMenuStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

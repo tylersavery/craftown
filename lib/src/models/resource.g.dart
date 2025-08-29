@@ -16,7 +16,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       assetFileNameLarge: json['assetFileNameLarge'] as String?,
       assetFileNameWhenFull: json['assetFileNameWhenFull'] as String?,
       isLiquid: json['isLiquid'] as bool? ?? false,
-      amountPerSlot: json['amountPerSlot'] as int? ?? 25,
+      amountPerSlot: (json['amountPerSlot'] as num?)?.toInt() ?? 25,
       ingredients: (json['ingredients'] as List<dynamic>?)
               ?.map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -50,7 +50,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      slots: json['slots'] as int? ?? 0,
+      slots: (json['slots'] as num?)?.toInt() ?? 0,
       storageType: json['storageType'] == null
           ? StorageType.none
           : storageTypeFromJson(json['storageType'] as String),
@@ -59,17 +59,17 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
                   ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
                   .toList() ??
               const [],
-      resourcesPerSlot: json['resourcesPerSlot'] as int? ?? 0,
-      outputSlotSize: json['outputSlotSize'] as int? ?? 0,
+      resourcesPerSlot: (json['resourcesPerSlot'] as num?)?.toInt() ?? 0,
+      outputSlotSize: (json['outputSlotSize'] as num?)?.toInt() ?? 0,
       isSeed: json['isSeed'] as bool? ?? false,
-      secondsToGrow: json['secondsToGrow'] as int? ?? 30,
+      secondsToGrow: (json['secondsToGrow'] as num?)?.toInt() ?? 30,
       growsInto: json['growsInto'] == null
           ? null
           : Resource.fromJson(json['growsInto'] as Map<String, dynamic>),
-      farmYieldMin: json['farmYieldMin'] as int? ?? 1,
-      farmYieldMax: json['farmYieldMax'] as int? ?? 1,
+      farmYieldMin: (json['farmYieldMin'] as num?)?.toInt() ?? 1,
+      farmYieldMax: (json['farmYieldMax'] as num?)?.toInt() ?? 1,
       contentsWillSell: json['contentsWillSell'] as bool? ?? false,
-      saleValue: json['saleValue'] as int? ?? 0,
+      saleValue: (json['saleValue'] as num?)?.toInt() ?? 0,
       miningOutputResource: json['miningOutputResource'] == null
           ? null
           : Resource.fromJson(
@@ -80,7 +80,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
           null,
       canOnlyBePlacedOnGround: json['canOnlyBePlacedOnGround'] as bool? ?? true,
       restValue: (json['restValue'] as num?)?.toDouble(),
-      storeCost: json['storeCost'] as int?,
+      storeCost: (json['storeCost'] as num?)?.toInt(),
       spawnedResourceHitboxWidth:
           (json['spawnedResourceHitboxWidth'] as num?)?.toDouble(),
       spawnedResourceHitboxHeight:
@@ -109,7 +109,7 @@ _$ResourceImpl _$$ResourceImplFromJson(Map<String, dynamic> json) =>
       powerGenerated: (json['powerGenerated'] as num?)?.toDouble(),
       powerConsumed: (json['powerConsumed'] as num?)?.toDouble(),
       powerFuelConsumptionSeconds:
-          json['powerFuelConsumptionSeconds'] as int? ?? 30,
+          (json['powerFuelConsumptionSeconds'] as num?)?.toInt() ?? 30,
       fuelResourceOptions: (json['fuelResourceOptions'] as List<dynamic>?)
               ?.map((e) => Resource.fromJson(e as Map<String, dynamic>))
               .toList() ??

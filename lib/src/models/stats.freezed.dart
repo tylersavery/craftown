@@ -12,7 +12,7 @@ part of 'stats.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Stats _$StatsFromJson(Map<String, dynamic> json) {
   return _Stats.fromJson(json);
@@ -26,8 +26,12 @@ mixin _$Stats {
   double get hunger => throw _privateConstructorUsedError;
   double get thirst => throw _privateConstructorUsedError;
 
+  /// Serializes this Stats to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Stats
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $StatsCopyWith<Stats> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -54,6 +58,8 @@ class _$StatsCopyWithImpl<$Res, $Val extends Stats>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Stats
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -111,6 +117,8 @@ class __$$StatsImplCopyWithImpl<$Res>
       _$StatsImpl _value, $Res Function(_$StatsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Stats
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -187,12 +195,14 @@ class _$StatsImpl implements _Stats {
             (identical(other.thirst, thirst) || other.thirst == thirst));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, dollars, sustainability, energy, hunger, thirst);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Stats
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StatsImplCopyWith<_$StatsImpl> get copyWith =>
@@ -226,8 +236,11 @@ abstract class _Stats implements Stats {
   double get hunger;
   @override
   double get thirst;
+
+  /// Create a copy of Stats
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StatsImplCopyWith<_$StatsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -6,7 +6,7 @@ part of 'saved_game_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$savedGameListHash() => r'625eb8bf4398ce030ba26863fea6795ddd2818a6';
+String _$savedGameListHash() => r'cb0258855c60024950426ace1c9e4aed38260ab9';
 
 /// See also [SavedGameList].
 @ProviderFor(SavedGameList)
@@ -23,4 +23,4 @@ final savedGameListProvider =
 
 typedef _$SavedGameList = Notifier<List<SavedGame>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
